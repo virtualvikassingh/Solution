@@ -1,0 +1,3171 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/24/2015 10:19:11 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="HM-VDI-MGARG"
+  DTS:CreatorName="HARFORD\MGarg"
+  DTS:DTSID="{F94F5EA7-20BF-4339-BF36-49BA2EF92F5C}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="ProductModel_Extract"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="215"
+  DTS:VersionGUID="{0C176D72-3844-4465-AB9B-13C6A8F74508}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E4870A8C-06D0-4A11-9F35-C1AF635B7708}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="CovFileDirectory">
+      <DTS:VariableValue
+        DTS:DataType="8">E:\Solution\coveragepatterns\CA7Line\coveragepatterns</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{86BDF294-B3C8-44B7-A58E-97631AFE862A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="xmlData">
+      <DTS:VariableValue
+        DTS:DataSubType="ManagedSerializable"
+        DTS:DataType="13">
+        <SOAP-ENV:Envelope xmlns:clr="http://schemas.microsoft.com/soap/encoding/clr/1.0" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/">
+          <SOAP-ENV:Body>
+            <xsd:anyType
+              id="ref-1"></xsd:anyType>
+          </SOAP-ENV:Body>
+        </SOAP-ENV:Envelope>
+      </DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Create Tables (if not exists)"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{3E9189B9-331E-4A26-83AD-89FC6B77B5FE}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Create Tables (if not exists)">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Create Tables (if not exists)\Create Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{A0EAFBB7-39B8-4561-8C5B-48F62CDDAE6F}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{3F899445-32CE-4C0F-8236-F6EC7A7BB628}"
+              SQLTask:SqlStatementSource="/****** Object:  Table [dbo].[audit_productmodelCoverage]    Script Date: 3/29/2015 2:26:17 PM ******/&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;SET ANSI_PADDING OFF&#xA;GO&#xA;IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[stage].[audit_productmodelCoverage]') AND type in (N'U'))&#xA;BEGIN&#xA;CREATE TABLE [stage].[audit_productmodelCoverage](&#xA;&#x9;[ID] [int] IDENTITY(1,1) NOT NULL,&#xA;&#x9;[FileName] [varchar](200) NULL,&#xA;&#x9;[FileType] [varchar](50) NULL,&#xA;&#x9;[IsLoaded] [bit] NULL&#xA;) ON [PRIMARY]&#xA;END&#xA;GO&#xA;SET ANSI_PADDING OFF&#xA;GO&#xA;/****** Object:  Table [lkp].[lkp_CoverageDetails]    Script Date: 3/29/2015 2:26:17 PM ******/&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;SET ANSI_PADDING ON&#xA;GO&#xA;IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[lkp].[lkp_CoverageDetails]') AND type in (N'U'))&#xA;BEGIN&#xA;CREATE TABLE [lkp].[lkp_CoverageDetails](&#xA;&#x9;[ID] [int] IDENTITY(1,1) NOT NULL,&#xA;&#x9;[CoverageName] [varchar](50) NULL,&#xA;&#x9;[CoverageSubType] [varchar](50) NULL,&#xA;&#x9;[TermPatternCode] [varchar](50) NULL,&#xA;&#x9;[GWCovColumnName] [varchar](50) NULL,&#xA;&#x9;[ModelType] [varchar](50) NULL,&#xA;&#x9;[LookupTableName] [varchar](50) NULL,&#xA;&#x9;[TermType] [varchar](50) NULL,&#xA;&#x9;[TypeList] [varchar](50) NULL,&#xA;&#x9;[Required] [varchar](50) NULL,&#xA;PRIMARY KEY CLUSTERED &#xA;(&#xA;&#x9;[ID] ASC&#xA;)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]&#xA;) ON [PRIMARY]&#xA;END&#xA;GO&#xA;SET ANSI_PADDING OFF&#xA;GO&#xA;/****** Object:  Table [lkp].[lkp_TermDetails]    Script Date: 3/29/2015 2:26:17 PM ******/&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;SET ANSI_PADDING ON&#xA;GO&#xA;IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[lkp].[lkp_TermDetails]') AND type in (N'U'))&#xA;BEGIN&#xA;CREATE TABLE [lkp].[lkp_TermDetails](&#xA;&#x9;[ID] [int] IDENTITY(1,1) NOT NULL,&#xA;&#x9;[CovDetailsID] [int] NOT NULL,&#xA;&#x9;[PublicID] [varchar](100) NULL,&#xA;&#x9;[TermCode] [varchar](100) NULL,&#xA;&#x9;[TermName] [varchar](100) NULL,&#xA;&#x9;[TermValue] [varchar](100) NULL,&#xA;&#x9;[IsDefault] [bit] NULL,&#xA;&#x9;[AggregationModel] [varchar](50) NULL,&#xA;&#x9;[RestrictionModel] [varchar](50) NULL,&#xA;PRIMARY KEY CLUSTERED &#xA;(&#xA;&#x9;[ID] ASC&#xA;)WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]&#xA;) ON [PRIMARY]&#xA;END&#xA;GO&#xA;SET ANSI_PADDING OFF&#xA;GO&#xA;/****** Object:  Table [Stage].[StageProductModel]    Script Date: 3/29/2015 2:26:17 PM ******/&#xA;SET ANSI_NULLS ON&#xA;GO&#xA;SET QUOTED_IDENTIFIER ON&#xA;GO&#xA;SET ANSI_PADDING ON&#xA;GO&#xA;IF NOT EXISTS (SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[Stage].[StageProductModel]') AND type in (N'U'))&#xA;BEGIN&#xA;CREATE TABLE [Stage].[StageProductModel](&#xA;&#x9;[CovPattern] [varchar](50) NULL,&#xA;&#x9;[CoverageSubType] [varchar](50) NULL,&#xA;&#x9;[CovTermPattern] [varchar](50) NULL,&#xA;&#x9;[LookupTableName] [varchar](50) NULL,&#xA;&#x9;[GWCovColumnName] [varchar](50) NULL,&#xA;&#x9;[TermType] [varchar](50) NULL,&#xA;&#x9;[ModelType] [varchar](50) NULL,&#xA;&#x9;[TypeList] [varchar](50) NULL,&#xA;&#x9;[Requied] [varchar](50) NULL,&#xA;&#x9;[PublicID] [varchar](100) NULL,&#xA;&#x9;[TermName] [varchar](50) NULL,&#xA;&#x9;[TermCode] [varchar](200) NULL,&#xA;&#x9;[TermValue] [varchar](200) NULL,&#xA;&#x9;[IsDefault] [bit] NULL,&#xA;&#x9;[RestrictionModel] [varchar](50) NULL,&#xA;&#x9;[AggregationModel] [varchar](50) NULL&#xA;) ON [PRIMARY]&#xA;END&#xA;GO&#xA;SET ANSI_PADDING OFF&#xA;GO&#xA;IF NOT EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[lkp].[FK_TermDetails_CoverageDetails]') AND parent_object_id = OBJECT_ID(N'[lkp].[lkp_TermDetails]'))&#xA;ALTER TABLE [lkp].[lkp_TermDetails]  WITH CHECK ADD  CONSTRAINT [FK_TermDetails_CoverageDetails] FOREIGN KEY([CovDetailsID])&#xA;REFERENCES [lkp].[lkp_CoverageDetails] ([ID])&#xA;GO&#xA;IF  EXISTS (SELECT * FROM sys.foreign_keys WHERE object_id = OBJECT_ID(N'[lkp].[FK_TermDetails_CoverageDetails]') AND parent_object_id = OBJECT_ID(N'[lkp].[lkp_TermDetails]'))&#xA;ALTER TABLE [lkp].[lkp_TermDetails] CHECK CONSTRAINT [FK_TermDetails_CoverageDetails]&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Loop all the Coverage XML Files"
+      DTS:CreationName="STOCK:FOREACHLOOP"
+      DTS:Description="Foreach Loop Container"
+      DTS:DTSID="{E41CEB89-FDE5-4597-ABC4-86A49CA83787}"
+      DTS:ExecutableType="STOCK:FOREACHLOOP"
+      DTS:ForceExecutionResult="0"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Loop all the Coverage XML Files">
+      <DTS:ForEachEnumerator
+        DTS:CreationName="Microsoft.ForEachFileEnumerator"
+        DTS:DTSID="{DBFD7D54-4DAB-4F34-937E-22EB8F57DC5A}"
+        DTS:ObjectName="{DBFD7D54-4DAB-4F34-937E-22EB8F57DC5A}">
+        <DTS:PropertyExpression
+          DTS:Name="Directory">@[User::CovFileDirectory]</DTS:PropertyExpression>
+        <DTS:ObjectData>
+          <ForEachFileEnumeratorProperties>
+            <FEFEProperty
+              Folder="E:\Solution\coveragepatterns\CA7Line\coveragepatterns" />
+            <FEFEProperty
+              FileSpec="*.xml" />
+            <FEFEProperty
+              FileNameRetrievalType="0" />
+            <FEFEProperty
+              Recurse="0" />
+          </ForEachFileEnumeratorProperties>
+        </DTS:ObjectData>
+      </DTS:ForEachEnumerator>
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{C23F808B-FAA9-44C0-A795-85171F5B021F}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Parse the XML to Load Stage Table"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Audit the file load"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[Stage].[audit_productmodelCoverage]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Connections[OleDbConnection]"
+                      connectionManagerID="{3F899445-32CE-4C0F-8236-F6EC7A7BB628}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input].Columns[FileName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="200"
+                          cachedName="FileName"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input].ExternalColumns[FileName]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus].Columns[FileName]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input].Columns[IsLoaded]"
+                          cachedDataType="bool"
+                          cachedName="IsLoaded"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input].ExternalColumns[IsLoaded]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus].Columns[IsLoaded]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input].Columns[FileType]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="FileType"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input].ExternalColumns[FileType]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus].Columns[FileType]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                          dataType="i4"
+                          name="ID" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input].ExternalColumns[FileName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          name="FileName" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input].ExternalColumns[FileType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="FileType" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input].ExternalColumns[IsLoaded]"
+                          dataType="bool"
+                          name="IsLoaded" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File"
+                  componentClassID="Microsoft.ManagedComponentHost"
+                  contactInfo="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum.;Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;8"
+                  description="Includes and runs custom script code. For example, apply a business rule that limits the range of valid values in an &quot;income&quot; column or add values in two columns and calculate the average of the sum."
+                  name="Get Data From XML File"
+                  version="9">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Stores the source code of the component"
+                      isArray="true"
+                      name="SourceCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="30">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[ComponentWrapper.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services component wrapper
+*  This module defines the base class for your component
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+
+public class UserComponent: ScriptComponent
+{
+    public Connections Connections;
+    public Variables Variables;
+    public UserComponent()
+    {
+        Connections = new Connections(this);
+        Variables = new Variables(this);
+    }
+
+    public CoverageDetailsBuffer CoverageDetailsBuffer;
+
+    public FileLoadStatusBuffer FileLoadStatusBuffer;
+
+    public virtual void FinishOutputs()
+    {
+    }
+
+    private void MarkOutputsFinished()
+    {
+
+        if (null != CoverageDetailsBuffer)
+        {
+            CoverageDetailsBuffer.SetEndOfRowset();
+            CoverageDetailsBuffer = null;
+        }
+
+        if (null != FileLoadStatusBuffer)
+        {
+            FileLoadStatusBuffer.SetEndOfRowset();
+            FileLoadStatusBuffer = null;
+        }
+
+    }
+
+    public override void PrimeOutput(int Outputs, int[] OutputIDs, PipelineBuffer[] Buffers, OutputNameMap OutputMap)
+    {
+       for(int Idx = 0; Idx < Outputs; Idx++)
+       {
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"CoverageDetails"))
+            {
+                CoverageDetailsBuffer = new CoverageDetailsBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+            if(OutputIDs[Idx] == GetOutputID(OutputMap, @"FileLoadStatus"))
+            {
+                FileLoadStatusBuffer = new FileLoadStatusBuffer(Buffers[Idx], GetColumnIndexes(OutputIDs[Idx]), OutputMap);
+            }
+        }
+
+        CreateNewOutputRows();
+
+        FinishOutputs();
+        MarkOutputsFinished();
+
+    }
+
+    public virtual void CreateNewOutputRows()
+    {
+    }
+
+}
+
+public class Connections
+{
+    ScriptComponent ParentComponent;
+
+    public Connections(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+}
+
+public class Variables
+{
+    ScriptComponent ParentComponent;
+
+    public Variables(ScriptComponent Component)
+    {
+        ParentComponent = Component;
+    }
+
+    public String CovFileDirectory
+    {
+        get
+        {
+            return (String)(ParentComponent.ReadOnlyVariables["CovFileDirectory"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+    public Object xmlData
+    {
+        get
+        {
+            return (Object)(ParentComponent.ReadOnlyVariables["xmlData"].GetValueWithContext(ScriptComponent.EvaluatorContext));
+        }
+    }
+
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Resources.resx]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+</root>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[main.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[
+
+
+#region Help:  Introduction to the Script Component
+/* The Script Component allows you to perform virtually any operation that can be accomplished in
+ * a .Net application within the context of an Integration Services data flow.
+ *
+ * Expand the other regions which have "Help" prefixes for examples of specific ways to use
+ * Integration Services features within this script component. */
+#endregion
+
+#region Namespaces
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+using Microsoft.SqlServer.Dts.Runtime.Wrapper;
+using System.Xml;
+using System.Collections.Generic;
+#endregion
+
+/// <summary>
+/// This is the class to which to add your code.  Do not change the name, attributes, or parent
+/// of this class.
+/// </summary>
+[Microsoft.SqlServer.Dts.Pipeline.SSISScriptComponentEntryPointAttribute]
+public class ScriptMain : UserComponent
+{
+    #region Help:  Using Integration Services variables and parameters
+    /* To use a variable in this script, first ensure that the variable has been added to
+     * either the list contained in the ReadOnlyVariables property or the list contained in
+     * the ReadWriteVariables property of this script component, according to whether or not your
+     * code needs to write into the variable.  To do so, save this script, close this instance of
+     * Visual Studio, and update the ReadOnlyVariables and ReadWriteVariables properties in the
+     * Script Transformation Editor window.
+     * To use a parameter in this script, follow the same steps. Parameters are always read-only.
+     *
+     * Example of reading from a variable or parameter:
+     *  DateTime startTime = Variables.MyStartTime;
+     *
+     * Example of writing to a variable:
+     *  Variables.myStringVariable = "new value";
+     */
+    #endregion
+
+    #region Help:  Using Integration Services Connnection Managers
+    /* Some types of connection managers can be used in this script component.  See the help topic
+     * "Working with Connection Managers Programatically" for details.
+     *
+     * To use a connection manager in this script, first ensure that the connection manager has
+     * been added to either the list of connection managers on the Connection Managers page of the
+     * script component editor.  To add the connection manager, save this script, close this instance of
+     * Visual Studio, and add the Connection Manager to the list.
+     *
+     * If the component needs to hold a connection open while processing rows, override the
+     * AcquireConnections and ReleaseConnections methods.
+     * 
+     * Example of using an ADO.Net connection manager to acquire a SqlConnection:
+     *  object rawConnection = Connections.SalesDB.AcquireConnection(transaction);
+     *  SqlConnection salesDBConn = (SqlConnection)rawConnection;
+     *
+     * Example of using a File connection manager to acquire a file path:
+     *  object rawConnection = Connections.Prices_zip.AcquireConnection(transaction);
+     *  string filePath = (string)rawConnection;
+     *
+     * Example of releasing a connection manager:
+     *  Connections.SalesDB.ReleaseConnection(rawConnection);
+     */
+    #endregion
+
+    #region Help:  Firing Integration Services Events
+    /* This script component can fire events.
+     *
+     * Example of firing an error event:
+     *  ComponentMetaData.FireError(10, "Process Values", "Bad value", "", 0, out cancel);
+     *
+     * Example of firing an information event:
+     *  ComponentMetaData.FireInformation(10, "Process Values", "Processing has started", "", 0, fireAgain);
+     *
+     * Example of firing a warning event:
+     *  ComponentMetaData.FireWarning(10, "Process Values", "No rows were received", "", 0);
+     */
+    #endregion
+
+    private XmlDocument xDoc = new XmlDocument();
+    string file;
+
+    public class CoverageDetail
+    {
+        public string CoverageName { get; set; }
+        public string CoverageSubType { get; set; }
+        public string CovTermName { get; set; }
+        public string GWCovColumnName { get; set; }
+        public string ModelType { get; set; }
+        public string LookupTableName { get; set; }
+        public string TermType { get; set; }
+        public string TypeList { get; set; }
+        public string Requied { get; set; }
+        public string DefaultValue { get; set; }
+
+        public List<TermDetail> Terms { get; set; }
+    }
+
+
+    public class TermDetail
+    {
+        public string PublicID { get; set; }
+        public string TermCode { get; set; }
+        public string TermValue { get; set; }
+        public string TermName { get; set; }
+        public bool IsDefault { get; set; }
+        public string AggregationModel { get; set; }
+        public string RestrictionModel { get; set; }
+    }
+
+
+    public override void PreExecute()
+    {
+        base.PreExecute();
+        file = Variables.xmlData.ToString();
+        try
+        {
+            xDoc.Load(file);
+        }
+        catch(Exception Ex)
+        {
+            this.FileLoadStatusBuffer.IsLoaded = false;
+            this.FileLoadStatusBuffer.FileType = "Corrupt File";
+        }
+    }
+
+    
+
+    public override void CreateNewOutputRows()
+    {
+        string Directory = Variables.CovFileDirectory.ToString();
+
+        this.FileLoadStatusBuffer.AddRow();
+        this.FileLoadStatusBuffer.FileName = file.Substring(Directory.Length + 1, file.Length - Directory.Length - 1);
+        this.FileLoadStatusBuffer.NodeName = xDoc.DocumentElement.Name.ToString();
+
+        if (!file.Substring(file.Length - 12, 12).Contains("lookup"))
+        {
+
+            if (xDoc.DocumentElement.Name.ToString() == "CoveragePattern")
+            {
+                XmlNodeList List = xDoc.GetElementsByTagName("CoveragePattern");
+
+
+                try
+                {
+                    // Get Data into the class object
+                    List<CoverageDetail> rowData = GetData(List);
+
+                    // Set Data from class object to buffer
+                    SetData(rowData);
+
+                    this.FileLoadStatusBuffer.IsLoaded = true;
+                    this.FileLoadStatusBuffer.FileType = "Coverage";
+                }
+                catch (Exception ex)
+                {
+                    this.FileLoadStatusBuffer.IsLoaded = false;
+                    this.FileLoadStatusBuffer.FileType = "Coverage";
+                }
+            }
+            else if (xDoc.DocumentElement.Name.ToString() == "ConditionPattern")
+            {
+                XmlNodeList List = xDoc.GetElementsByTagName("ConditionPattern");
+                try
+                {
+                    // Get Data into the class object
+                    List<CoverageDetail> rowData = GetData(List);
+
+                    // Set Data from class object to buffer
+                    SetData(rowData);
+
+                    this.FileLoadStatusBuffer.IsLoaded = true;
+                    this.FileLoadStatusBuffer.FileType = "Condition";
+                }
+                catch (Exception ex)
+                {
+                    this.FileLoadStatusBuffer.IsLoaded = false;
+                    this.FileLoadStatusBuffer.FileType = "Condition";
+                }
+
+
+            }
+            else if (xDoc.DocumentElement.Name.ToString() == "ExclusionPattern")
+            {
+                XmlNodeList List = xDoc.GetElementsByTagName("ExclusionPattern");
+                try
+                {
+                    // Get Data into the class object
+                    List<CoverageDetail> rowData = GetData(List);
+
+                    // Set Data from class object to buffer
+                    SetData(rowData);
+
+                    this.FileLoadStatusBuffer.IsLoaded = true;
+                    this.FileLoadStatusBuffer.FileType = "Exclusion";
+                }
+                catch (Exception ex)
+                {
+                    this.FileLoadStatusBuffer.IsLoaded = false;
+                    this.FileLoadStatusBuffer.FileType = "Exclusion";
+                }
+
+
+            }
+
+            else
+            {
+                this.FileLoadStatusBuffer.IsLoaded = false;
+
+                switch (xDoc.DocumentElement.Name.ToUpper())
+                {
+                    /*case "CONDITIONPATTERN":
+                        this.FileLoadStatusBuffer.FileType = "Condition";
+                        break;
+                    case "EXCLUSIONPATTERN":
+                        this.FileLoadStatusBuffer.FileType = "Exclusion";
+                        break;*/
+                    default:
+                        this.FileLoadStatusBuffer.FileType = "Other";
+                        break;
+                }
+            }
+        }
+        else
+        {
+            this.FileLoadStatusBuffer.IsLoaded = false;
+            this.FileLoadStatusBuffer.FileType = "Lookup";
+        }
+    }
+
+
+    private List<CoverageDetail> GetData(XmlNodeList List)
+    {
+        List<CoverageDetail> rowCollection = new List<CoverageDetail>();
+        // <CoveragePattern> - Root Node
+        foreach (XmlNode coveragePattern in List)
+        {
+            // Get Coverage Name from RootNode
+            string CoverageName = coveragePattern.Attributes["public-id"].Value.ToString();
+            string CoverageSubType;
+
+            if (xDoc.DocumentElement.Name.ToString() == "CoveragePattern")
+            {
+                CoverageSubType = coveragePattern.Attributes["coverageSubtype"].Value.ToString();
+            }
+            else if (xDoc.DocumentElement.Name.ToString() == "ConditionPattern")
+            {
+                CoverageSubType = coveragePattern.Attributes["conditionSubtype"].Value.ToString();
+            }
+            else if (xDoc.DocumentElement.Name.ToString() == "ExclusionPattern")
+            {
+                CoverageSubType = coveragePattern.Attributes["exclusionSubtype"].Value.ToString();
+            }
+            else
+            {
+                CoverageSubType = "Other";
+            }
+
+            foreach (XmlNode covTerms in coveragePattern)
+            {
+                // <CovTerms> - All CovTerms withing cov 
+                if (covTerms.Name == "CovTerms")
+                {
+                    foreach (XmlNode covTerm in covTerms)
+                    {
+                        CoverageDetail rowData = new CoverageDetail();
+
+                        //<DirectCovTermPattern>, <GenericCovTermPattern>,<OptionCovTermPattern>,<TypekeyCovTermPattern>,<PackageCovTermPattern>
+                        if (covTerm.Name == "DirectCovTermPattern" || covTerm.Name == "GenericCovTermPattern" ||
+                                covTerm.Name == "OptionCovTermPattern" || covTerm.Name == "TypekeyCovTermPattern" || covTerm.Name == "PackageCovTermPattern")
+                        {
+                            // Details of CovTerm
+                            rowData.CoverageName = CoverageName;
+                            rowData.CoverageSubType = CoverageSubType;
+                            rowData.CovTermName = covTerm.Attributes["public-id"].Value.ToString();
+                            rowData.GWCovColumnName = covTerm.Attributes["coverageColumn"].Value.ToString();
+                            rowData.ModelType = covTerm.Attributes["modelType"] == null ? null : covTerm.Attributes["modelType"].Value.ToString();
+                            rowData.LookupTableName = covTerm.Attributes["lookupTableName"].Value.ToString();
+                            rowData.Requied = covTerm.Attributes["required"].Value.ToString();
+                            if (covTerm.Attributes["defaultValue"] != null)
+                            {
+                                rowData.DefaultValue = covTerm.Attributes["defaultValue"].Value.ToString();
+                            }
+                            /*else
+                            {
+                                rowData.DefaultValue = "";
+                            }*/
+                            switch (covTerm.Name.ToUpper())
+                            {
+                                case "OPTIONCOVTERMPATTERN":
+                                    rowData.TermType = "Option";
+                                    GetOptions(rowData, covTerm);
+                                    break;
+                                case "PACKAGECOVTERMPATTERN":
+                                    rowData.TermType = "Package";
+                                    GetPackageData(rowData, covTerm);
+                                    break;
+                                case "DIRECTCOVTERMPATTERN":
+                                    rowData.TermType = "Direct";
+                                    GetDirectCovData(rowData, covTerm);
+                                    break;
+                                case "TYPEKEYCOVTERMPATTERN":
+                                    rowData.TypeList = covTerm.Attributes["typelist"].Value.ToString();
+                                    //GetTypeKeyData(rowData, covTerm);
+                                    rowData.TermType = "TypeKey";
+                                    break;
+                                case "GENERICCOVTERMPATTERN":
+                                    {
+                                        rowData.TermType = "Generic";
+                                        //GetGenericData(rowData, covTerm);
+                                        break;
+                                    }
+                            }
+                        }
+
+                        rowCollection.Add(rowData);
+                    }
+                }
+            }
+        }
+
+        return rowCollection;
+    }
+
+
+    private void GetDirectCovData(CoverageDetail covDetail, XmlNode DirectCovTermPattern)
+    {
+        covDetail.Terms = new List<TermDetail>();
+        TermDetail choice;
+
+        foreach (XmlNode LimitSet in DirectCovTermPattern)
+        {
+            if (LimitSet.Name.ToUpper() == "LIMITSSET")
+            {
+                foreach (XmlNode CovTermMimits in LimitSet)
+                {
+                    if (CovTermMimits.Name.ToUpper() == "COVTERMLIMITS")
+                    {
+                        choice = new TermDetail();
+
+                        choice.IsDefault = false;
+                        choice.PublicID = CovTermMimits.Attributes["public-id"].Value.ToString();
+
+                        covDetail.Terms.Add(choice);
+                    }
+                }
+            }
+        }
+    }
+
+    private void GetOptions(CoverageDetail covDetail, XmlNode OptionCovTermPattern)
+    {
+        covDetail.Terms = new List<TermDetail>();
+        TermDetail choice;
+        // Grand Child - Option/DefaultsSet
+        foreach (XmlNode options in OptionCovTermPattern)
+        {
+            if (options.Name.ToUpper() == "OPTIONS")
+            {
+                foreach (XmlNode CovTermOpt in options)
+                {
+                    choice = new TermDetail();
+
+                    choice.IsDefault = false;
+                    choice.PublicID = CovTermOpt.Attributes["public-id"].Value.ToString();
+                    choice.TermName = CovTermOpt.Attributes["public-id"].Value.ToString();
+                    choice.TermCode = CovTermOpt.Attributes["optionCode"].Value.ToString();
+                    choice.TermValue = CovTermOpt.Attributes["value"].Value.ToString();
+                    choice.AggregationModel = CovTermOpt.Attributes["aggregationModel"] == null ? null : CovTermOpt.Attributes["aggregationModel"].Value.ToString();
+                    choice.RestrictionModel = CovTermOpt.Attributes["restrictionModel"] == null ? null : CovTermOpt.Attributes["restrictionModel"].Value.ToString();
+
+                    covDetail.Terms.Add(choice);
+                }
+            }
+            else if (options.Name.ToUpper() == "DEFAULTSSET")
+            {
+                foreach (XmlNode CovTermDefault in options)
+                {
+                    choice = new TermDetail();
+
+                    choice.IsDefault = true;
+                    choice.PublicID = CovTermDefault.Attributes["public-id"].Value.ToString();
+                    choice.TermName = CovTermDefault.Attributes["public-id"].Value.ToString();
+                    choice.TermValue = CovTermDefault.Attributes["defaultValue"].Value.ToString();
+                    choice.AggregationModel = CovTermDefault.Attributes["aggregationModel"] == null ? null : CovTermDefault.Attributes["aggregationModel"].Value.ToString();
+                    choice.RestrictionModel = CovTermDefault.Attributes["restrictionModel"] == null ? null : CovTermDefault.Attributes["restrictionModel"].Value.ToString();
+
+                    covDetail.Terms.Add(choice);
+                }
+            }
+        }
+    }
+
+    private void GetPackageData(CoverageDetail covDetail, XmlNode PackageCovTermPttern)
+    {
+        covDetail.Terms = new List<TermDetail>();
+        TermDetail package;
+
+        foreach (XmlNode Terms in PackageCovTermPttern)
+        {
+            if (Terms.Name.ToUpper() == "PACKAGES")
+            {
+                foreach (XmlNode CovTermPack in Terms)
+                {
+                    if (CovTermPack.Name.ToUpper() == "COVTERMPACK")
+                    {
+                        foreach (XmlNode PackageTerms in CovTermPack)
+                        {
+
+                            if (PackageTerms.Name.ToUpper() == "PACKAGETERMS")
+                            {
+                                foreach (XmlNode PackageTerm in PackageTerms)
+                                {
+                                    package = new TermDetail();
+
+                                    package.IsDefault = false;
+                                    package.TermName = CovTermPack.Attributes["public-id"].Value.ToString();
+                                    package.TermCode = CovTermPack.Attributes["packageCode"].Value.ToString();
+                                    package.PublicID = PackageTerm.Attributes["public-id"].Value.ToString();
+                                    package.TermValue = PackageTerm.Attributes["value"].Value.ToString();
+                                    package.AggregationModel = PackageTerm.Attributes["aggregationModel"] == null ? null : PackageTerm.Attributes["aggregationModel"].Value.ToString();
+                                    package.RestrictionModel = PackageTerm.Attributes["restrictionModel"] == null ? null : PackageTerm.Attributes["restrictionModel"].Value.ToString();
+
+                                    covDetail.Terms.Add(package);
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+            else if (Terms.Name.ToUpper() == "DEFAULTSSET")
+            {
+                foreach (XmlNode CovTermDefault in Terms)
+                {
+                    package = new TermDetail();
+
+                    package.IsDefault = true;
+                    package.PublicID = CovTermDefault.Attributes["public-id"].Value.ToString();
+                    package.TermName = CovTermDefault.Attributes["public-id"].Value.ToString();
+                    package.TermValue = CovTermDefault.Attributes["defaultValue"].Value.ToString();
+
+                    covDetail.Terms.Add(package);
+                }
+            }
+        }
+    }
+
+    private void SetData(List<CoverageDetail> rowCollection)
+    {
+        foreach (CoverageDetail rowData in rowCollection)
+        {
+            if (rowData.TermType != null)
+            {
+                if (rowData.Terms != null && rowData.Terms.Count!=0)
+                {
+                    foreach (TermDetail item in rowData.Terms)
+                    {
+                        this.CoverageDetailsBuffer.AddRow();
+
+
+                        if (rowData.CoverageName.Length > 50)
+                        {
+                            this.CoverageDetailsBuffer.CovPattern = rowData.CoverageName.Substring(0, 50);
+                        }
+                        else
+                        {
+                            this.CoverageDetailsBuffer.CovPattern = rowData.CoverageName;
+                        }
+                        this.CoverageDetailsBuffer.CoverageSubType = rowData.CoverageSubType;
+                        this.CoverageDetailsBuffer.CovTermPattern = rowData.CovTermName;
+                        this.CoverageDetailsBuffer.GWCovColumnName = rowData.GWCovColumnName;
+                        this.CoverageDetailsBuffer.ModelType = rowData.ModelType;
+                        this.CoverageDetailsBuffer.LookupTableName = rowData.LookupTableName;
+                        this.CoverageDetailsBuffer.Requied = rowData.Requied;
+                        this.CoverageDetailsBuffer.TermType = rowData.TermType;
+                        this.CoverageDetailsBuffer.TypeList = rowData.TypeList;
+
+                        this.CoverageDetailsBuffer.TermCode = item.TermCode;
+                        this.CoverageDetailsBuffer.TermValue = item.TermValue;
+                        this.CoverageDetailsBuffer.TermName = item.TermName;
+                        this.CoverageDetailsBuffer.PublicID = item.PublicID;
+                        this.CoverageDetailsBuffer.IsDefault = item.IsDefault;
+                        this.CoverageDetailsBuffer.AggregationModel = item.AggregationModel;
+                        this.CoverageDetailsBuffer.RestrictionModel = item.RestrictionModel;
+                    }
+                }
+                else
+                {
+                    this.CoverageDetailsBuffer.AddRow();
+                    if (rowData.CoverageName.Length > 50)
+                    {
+                        this.CoverageDetailsBuffer.CovPattern = rowData.CoverageName.Substring(0, 50);
+                    }
+                    else
+                    {
+                        this.CoverageDetailsBuffer.CovPattern = rowData.CoverageName;
+                    }
+                    this.CoverageDetailsBuffer.CoverageSubType = rowData.CoverageSubType;
+                    this.CoverageDetailsBuffer.CovTermPattern = rowData.CovTermName;
+                    this.CoverageDetailsBuffer.GWCovColumnName = rowData.GWCovColumnName;
+                    this.CoverageDetailsBuffer.ModelType = rowData.ModelType;
+                    this.CoverageDetailsBuffer.LookupTableName = rowData.LookupTableName;
+                    this.CoverageDetailsBuffer.Requied = rowData.Requied;
+                    this.CoverageDetailsBuffer.TermType = rowData.TermType;
+                    this.CoverageDetailsBuffer.TypeList = rowData.TypeList;
+                    this.CoverageDetailsBuffer.TermCode = rowData.DefaultValue;
+                }
+            }
+        }
+    }
+
+
+    public override void PostExecute()
+    {
+        base.PostExecute();
+    }
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[BufferWrapper.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[/* THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT!
+*  Microsoft SQL Server Integration Services buffer wrappers
+*  This module defines classes for accessing data flow buffers
+*  THIS IS AUTO-GENERATED CODE THAT WILL BE OVERWRITTEN! DO NOT EDIT! */
+
+
+
+using System;
+using System.Data;
+using Microsoft.SqlServer.Dts.Pipeline;
+using Microsoft.SqlServer.Dts.Pipeline.Wrapper;
+
+public class CoverageDetailsBuffer: ScriptBuffer
+
+{
+    public CoverageDetailsBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String TermType
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool TermType_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String ModelType
+    {
+        set
+        {
+            this[1] = value;
+        }
+    }
+    public bool ModelType_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(1);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String TermCode
+    {
+        set
+        {
+            this[2] = value;
+        }
+    }
+    public bool TermCode_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(2);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String Requied
+    {
+        set
+        {
+            this[3] = value;
+        }
+    }
+    public bool Requied_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(3);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String LookupTableName
+    {
+        set
+        {
+            this[4] = value;
+        }
+    }
+    public bool LookupTableName_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(4);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String CoverageSubType
+    {
+        set
+        {
+            this[5] = value;
+        }
+    }
+    public bool CoverageSubType_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(5);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String CovPattern
+    {
+        set
+        {
+            this[6] = value;
+        }
+    }
+    public bool CovPattern_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(6);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String CovTermPattern
+    {
+        set
+        {
+            this[7] = value;
+        }
+    }
+    public bool CovTermPattern_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(7);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String PublicID
+    {
+        set
+        {
+            this[8] = value;
+        }
+    }
+    public bool PublicID_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(8);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String TermValue
+    {
+        set
+        {
+            this[9] = value;
+        }
+    }
+    public bool TermValue_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(9);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String GWCovColumnName
+    {
+        set
+        {
+            this[10] = value;
+        }
+    }
+    public bool GWCovColumnName_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(10);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String TermName
+    {
+        set
+        {
+            this[11] = value;
+        }
+    }
+    public bool TermName_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(11);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String TypeList
+    {
+        set
+        {
+            this[12] = value;
+        }
+    }
+    public bool TypeList_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(12);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public Boolean IsDefault
+    {
+        set
+        {
+            this[13] = value;
+        }
+    }
+    public bool IsDefault_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(13);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String RestrictionModel
+    {
+        set
+        {
+            this[14] = value;
+        }
+    }
+    public bool RestrictionModel_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(14);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String AggregationModel
+    {
+        set
+        {
+            this[15] = value;
+        }
+    }
+    public bool AggregationModel_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(15);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+
+public class FileLoadStatusBuffer: ScriptBuffer
+
+{
+    public FileLoadStatusBuffer(PipelineBuffer Buffer, int[] BufferColumnIndexes, OutputNameMap OutputMap)
+        : base(Buffer, BufferColumnIndexes, OutputMap)
+    {
+    }
+
+    public String FileName
+    {
+        set
+        {
+            this[0] = value;
+        }
+    }
+    public bool FileName_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(0);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public Boolean IsLoaded
+    {
+        set
+        {
+            this[1] = value;
+        }
+    }
+    public bool IsLoaded_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(1);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String FileType
+    {
+        set
+        {
+            this[2] = value;
+        }
+    }
+    public bool FileType_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(2);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    public String NodeName
+    {
+        set
+        {
+            this[3] = value;
+        }
+    }
+    public bool NodeName_IsNull
+    {
+        set
+        {
+            if (value)
+            {
+                SetNull(3);
+            }
+            else
+            {
+                throw new InvalidOperationException("IsNull property cannot be set to False. Assign a value to the column instead.");
+            }
+        }
+    }
+
+    new public void AddRow()
+    {
+        base.AddRow();
+    }
+
+    new public void SetEndOfRowset()
+    {
+        base.SetEndOfRowset();
+    }
+
+    new public bool EndOfRowset()
+    {
+        return base.EndOfRowset();
+    }
+
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Settings.Designer.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_69a8a0c0ae734481be49dd588d1c9375.Properties.Settings.get_Default():SC_69a8a0c0ae734481be49dd588d1c9375.Properties.Sett" +
+    "ings")]
+
+namespace SC_69a8a0c0ae734481be49dd588d1c9375.Properties {
+    
+    
+    internal sealed partial class Settings : global::System.Configuration.ApplicationSettingsBase {
+        
+        [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
+        private static Settings defaultInstance = new Settings();
+        
+        public static Settings Default {
+            get {
+                return defaultInstance;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Project]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF16LE]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="UTF-16" standalone="yes"?>
+<c:Project xmlns:c="http://schemas.microsoft.com/codeprojectml/2010/08/main" xmlns:msb="http://schemas.microsoft.com/developer/msbuild/2003" runtimeVersion="3.0" schemaVersion="1.0">
+	<msb:PropertyGroup>
+		<msb:Language>msBuild</msb:Language>
+		<msb:CodeName>SC_69a8a0c0ae734481be49dd588d1c9375</msb:CodeName>
+		<msb:DisplayName>SC_69a8a0c0ae734481be49dd588d1c9375</msb:DisplayName>
+		<msb:ProjectId>{6B34D87C-13C1-4C61-B962-8F550F6447AC}</msb:ProjectId>
+	</msb:PropertyGroup>
+	<msb:ItemGroup>
+		<msb:Project Include="SC_69a8a0c0ae734481be49dd588d1c9375.csproj"/>
+		<msb:File Include="Properties\Settings.settings"/>
+		<msb:File Include="Properties\AssemblyInfo.cs"/>
+		<msb:File Include="BufferWrapper.cs"/>
+		<msb:File Include="Properties\Settings.Designer.cs"/>
+		<msb:File Include="main.cs"/>
+		<msb:File Include="Properties\Resources.resx"/>
+		<msb:File Include="ComponentWrapper.cs"/>
+		<msb:File Include="Properties\Resources.Designer.cs"/>
+	</msb:ItemGroup>
+</c:Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\AssemblyInfo.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[using System.Reflection;
+using System.Runtime.CompilerServices;
+
+//
+// General Information about an assembly is controlled through the following 
+// set of attributes. Change these attribute values to modify the information
+// associated with an assembly.
+//
+[assembly: AssemblyTitle("SC_69a8a0c0ae734481be49dd588d1c9375")]
+[assembly: AssemblyDescription("")]
+[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyCompany("")]
+[assembly: AssemblyProduct("SC_69a8a0c0ae734481be49dd588d1c9375")]
+[assembly: AssemblyCopyright("Copyright @  2015")]
+[assembly: AssemblyTrademark("")]
+[assembly: AssemblyCulture("")]
+//
+// Version information for an assembly consists of the following four values:
+//
+//      Major Version
+//      Minor Version 
+//      Build Number
+//      Revision
+//
+// You can specify all the values or you can default the Revision and Build Numbers 
+// by using the '*' as shown below:
+
+[assembly: AssemblyVersion("1.0.*")]
+]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_69a8a0c0ae734481be49dd588d1c9375.csproj]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectTypeGuids>{30D016F9-3734-4E33-A861-5E7D899E18F3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{c45998e5-cd87-4fb6-92d1-44f23472dbac}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>SC_69a8a0c0ae734481be49dd588d1c9375</RootNamespace>
+    <AssemblyName>SC_69a8a0c0ae734481be49dd588d1c9375</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>.\bin\Debug\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <OutputPath>.\bin\Release\</OutputPath>
+    <EnableUnmanagedDebugging>false</EnableUnmanagedDebugging>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.SqlServer.TxScript, Version=12.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSRuntimeWrap, Version=12.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.DTSPipelineWrap, Version=12.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Reference Include="Microsoft.SqlServer.PipelineHost, Version=12.0.0.0, Culture=Neutral, PublicKeyToken=89845dcd8080cc91" />
+    <Compile Include="main.cs" />
+    <Compile Include="BufferWrapper.cs" />
+    <Compile Include="ComponentWrapper.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <AppDesigner Include="Properties\" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <!-- Include the build rules for a C# project.-->
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- This section defines VSTA properties that describe the host-changable project properties. -->
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{30D016F9-3734-4E33-A861-5E7D899E18F3}">
+        <ProjectProperties HostName="ScriptComponent" HostPackage="{B3A685AA-7EAF-4BC6-9940-57959FA5AC07}" ApplicationType="usd" Language="cs" TemplatesPath="" DebugInfoExeName="" DebugInfoCommandLine="" DebugInfoWorkingDir="" IconImageList="" />
+        <Host Name="ScriptComponent" GeneratedNamespace="SC_69a8a0c0ae734481be49dd588d1c9375" IconIndex="0"></Host>
+        <ProjectClient>
+          <HostIdentifier>SSIS_SC120</HostIdentifier>
+        </ProjectClient>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+</Project>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Settings.settings]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[<?xml version='1.0' encoding='iso-8859-1'?>
+<SettingsFile xmlns="uri:settings" CurrentProfile="(Default)">
+  <Profiles>
+    <Profile Name="(Default)" />
+  </Profiles>
+  <Settings />
+</SettingsFile>]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[Properties\Resources.Designer.cs]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[UTF8]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[//------------------------------------------------------------------------------
+// <auto-generated>
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// </auto-generated>
+//------------------------------------------------------------------------------
+
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_69a8a0c0ae734481be49dd588d1c9375.Properties.Resources.get_ResourceManager():System.Resources.Resou" +
+    "rceManager")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_69a8a0c0ae734481be49dd588d1c9375.Properties.Resources.get_Culture():System.Globalization.CultureIn" +
+    "fo")]
+[assembly: global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode", Scope="member", Target="SC_69a8a0c0ae734481be49dd588d1c9375.Properties.Resources.set_Culture(System.Globalization.CultureInfo" +
+    "):Void")]
+
+namespace SC_69a8a0c0ae734481be49dd588d1c9375.Properties {
+    
+    
+    /// <summary>
+    ///   A strongly-typed resource class, for looking up localized strings, etc.
+    /// </summary>
+    // This class was auto-generated by the StronglyTypedResourceBuilder
+    // class via a tool like ResGen or Visual Studio.
+    // To add or remove a member, edit your .ResX file then rerun ResGen
+    // with the /str option, or rebuild your VS project.
+    [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+    internal class Resources {
+        
+        private static global::System.Resources.ResourceManager resourceMan;
+        
+        private static global::System.Globalization.CultureInfo resourceCulture;
+        
+        [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
+        internal Resources() {
+        }
+        
+        /// <summary>
+        ///   Returns the cached ResourceManager instance used by this class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Resources.ResourceManager ResourceManager {
+            get {
+                if ((resourceMan == null)) {
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("SC_69a8a0c0ae734481be49dd588d1c9375.Properties.Resources", typeof(Resources).Assembly);
+                    resourceMan = temp;
+                }
+                return resourceMan;
+            }
+        }
+        
+        /// <summary>
+        ///   Overrides the current thread's CurrentUICulture property for all
+        ///   resource lookups using this strongly typed resource class.
+        /// </summary>
+        [global::System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        internal static global::System.Globalization.CultureInfo Culture {
+            get {
+                return resourceCulture;
+            }
+            set {
+                resourceCulture = value;
+            }
+        }
+    }
+}
+]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Stores the binary representation of the component"
+                      isArray="true"
+                      name="BinaryCode"
+                      state="cdata">
+                      <arrayElements
+                        arrayElementCount="2">
+                        <arrayElement
+                          dataType="System.String"><![CDATA[SC_69a8a0c0ae734481be49dd588d1c9375.dll]]></arrayElement>
+                        <arrayElement
+                          dataType="System.String"><![CDATA[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
+AAAKbysAAAYDbyMAAAYGbycAAAoRDW8kAAAKOmr////eFRENdSAAAAETDhEOLAcRDm8lAAAK3BEG
+byQAAAo6Af3//94VEQZ1IAAAARMPEQ8sBxEPbyUAAArcKgBBfAAAAgAAAK8AAAAqAQAA2QEAABUA
+AAAAAAAAAgAAAHsAAACBAQAA/AEAABUAAAAAAAAAAgAAAEcAAADbAQAAIgIAABUAAAAAAAAAAgAA
+AFkCAACdAAAA9gIAABUAAAAAAAAAAgAAABMAAAAGAwAAGQMAABUAAAAAAAAAGzAEALMCAAAHAAAR
+A28oAAAKDDiKAgAAEgIoKQAACgoGbxsAAAY5dwIAAAZvIwAABjmNAQAABm8jAAAGbyoAAAo5fQEA
+AAZvIwAABm8rAAAKDThNAQAAEgMoLAAACgsCewMAAARvVgAABgZvDwAABm8UAAAKHzIxGwJ7AwAA
+BAZvDwAABhYfMm8VAAAKb0IAAAYrEQJ7AwAABAZvDwAABm9CAAAGAnsDAAAEBm8RAAAGb0AAAAYC
+ewMAAAQGbxMAAAZvRAAABgJ7AwAABAZvFQAABm9KAAAGAnsDAAAEBm8XAAAGbzgAAAYCewMAAAQG
+bxkAAAZvPgAABgJ7AwAABAZvHwAABm88AAAGAnsDAAAEBm8bAAAGbzYAAAYCewMAAAQGbx0AAAZv
+TgAABgJ7AwAABAdvKAAABm86AAAGAnsDAAAEB28qAAAGb0gAAAYCewMAAAQHbywAAAZvTAAABgJ7
+AwAABAdvJgAABm9GAAAGAnsDAAAEB28uAAAGb1AAAAYCewMAAAQHbzAAAAZvVAAABgJ7AwAABAdv
+MgAABm9SAAAGEgMoLQAACjqn/v//3e0AAAASA/4WBAAAG28lAAAK3AJ7AwAABG9WAAAGBm8PAAAG
+bxQAAAofMjEbAnsDAAAEBm8PAAAGFh8ybxUAAApvQgAABisRAnsDAAAEBm8PAAAGb0IAAAYCewMA
+AAQGbxEAAAZvQAAABgJ7AwAABAZvEwAABm9EAAAGAnsDAAAEBm8VAAAGb0oAAAYCewMAAAQGbxcA
+AAZvOAAABgJ7AwAABAZvGQAABm8+AAAGAnsDAAAEBm8fAAAGbzwAAAYCewMAAAQGbxsAAAZvNgAA
+BgJ7AwAABAZvHQAABm9OAAAGAnsDAAAEBm8hAAAGbzoAAAYSAiguAAAKOmr9///eDhIC/hYDAAAb
+byUAAArcKgBBNAAAAgAAAEYAAABjAQAAqQEAAA4AAAAAAAAAAgAAAAcAAACdAgAApAIAAA4AAAAA
+AAAAHgIoLwAACipKAnMwAAAKfQUAAAQCKAEAAAYqHgJ7BwAABCoiAgN9BwAABCoeAnsIAAAEKiIC
+A30IAAAEKh4CewkAAAQqIgIDfQkAAAQqHgJ7CgAABCoiAgN9CgAABCoeAnsLAAAEKiICA30LAAAE
+Kh4CewwAAAQqIgIDfQwAAAQqHgJ7DQAABCoiAgN9DQAABCoeAnsOAAAEKiICA30OAAAEKh4Cew8A
+AAQqIgIDfQ8AAAQqHgJ7EAAABCoiAgN9EAAABCoeAnsRAAAEKiICA30RAAAEKh4CKDIAAAoqHgJ7
+EgAABCoiAgN9EgAABCoeAnsTAAAEKiICA30TAAAEKh4CexQAAAQqIgIDfRQAAAQqHgJ7FQAABCoi
+AgN9FQAABCoeAnsWAAAEKiICA30WAAAEKh4CexcAAAQqIgIDfRcAAAQqHgJ7GAAABCoiAgN9GAAA
+BCoeAigyAAAKKioCAwQFKDMAAAoqJgIWAyg0AAAKKloDLAgCFig1AAAKKnJPBQBwczYAAAp6JgIX
+Ayg0AAAKKloDLAgCFyg1AAAKKnJPBQBwczYAAAp6JgIYAyg0AAAKKloDLAgCGCg1AAAKKnJPBQBw
+czYAAAp6JgIZAyg0AAAKKloDLAgCGSg1AAAKKnJPBQBwczYAAAp6JgIaAyg0AAAKKloDLAgCGig1
+AAAKKnJPBQBwczYAAAp6JgIbAyg0AAAKKloDLAgCGyg1AAAKKnJPBQBwczYAAAp6JgIcAyg0AAAK
+KloDLAgCHCg1AAAKKnJPBQBwczYAAAp6JgIdAyg0AAAKKloDLAgCHSg1AAAKKnJPBQBwczYAAAp6
+JgIeAyg0AAAKKloDLAgCHig1AAAKKnJPBQBwczYAAAp6KgIfCQMoNAAACipeAywJAh8JKDUAAAoq
+ck8FAHBzNgAACnoqAh8KAyg0AAAKKl4DLAkCHwooNQAACipyTwUAcHM2AAAKeioCHwsDKDQAAAoq
+XgMsCQIfCyg1AAAKKnJPBQBwczYAAAp6KgIfDAMoNAAACipeAywJAh8MKDUAAAoqck8FAHBzNgAA
+Cno+Ah8NA4wkAAABKDQAAAoqXgMsCQIfDSg1AAAKKnJPBQBwczYAAAp6KgIfDgMoNAAACipeAywJ
+Ah8OKDUAAAoqck8FAHBzNgAACnoqAh8PAyg0AAAKKl4DLAkCHw8oNQAACipyTwUAcHM2AAAKeh4C
+KDcAAAoqHgIoOAAACioeAig5AAAKKioCAwQFKDMAAAoqJgIWAyg0AAAKKloDLAgCFig1AAAKKnJP
+BQBwczYAAAp6OgIXA4wkAAABKDQAAAoqWgMsCAIXKDUAAAoqck8FAHBzNgAACnomAhgDKDQAAAoq
+WgMsCAIYKDUAAAoqck8FAHBzNgAACnomAhkDKDQAAAoqWgMsCAIZKDUAAAoqck8FAHBzNgAACnoe
+Aig3AAAKKh4CKDgAAAoqHgIoOQAACio6AigyAAAKAgN9GQAABCo6AigyAAAKAgN9GgAABCqWAnsa
+AAAEbzoAAApy7AUAcG87AAAKKDwAAApvPQAACnQbAAABKoICexoAAARvOgAACnIOBgBwbzsAAAoo
+PAAACm89AAAKKh4CKDIAAAoqEzACAC0AAAAIAAARfhsAAAQtIHIeBgBw0AoAAAIoPwAACm9AAAAK
+c0EAAAoKBoAbAAAEfhsAAAQqGn4cAAAEKh4CgBwAAAQqGn4dAAAEKi5zbgAABoAdAAAEKh4CKEMA
+AAoqAAAAAAC0AAAAzsrvvgEAAACRAAAAbFN5c3RlbS5SZXNvdXJjZXMuUmVzb3VyY2VSZWFkZXIs
+IG1zY29ybGliLCBWZXJzaW9uPTQuMC4wLjAsIEN1bHR1cmU9bmV1dHJhbCwgUHVibGljS2V5VG9r
+ZW49Yjc3YTVjNTYxOTM0ZTA4OSNTeXN0ZW0uUmVzb3VyY2VzLlJ1bnRpbWVSZXNvdXJjZVNldAIA
+AAAAAAAAAAAAAFBBRFBBRFC0AAAAQlNKQgEAAQAAAAAADAAAAHY0LjAuMzAzMTkAAAAABQBsAAAA
+HBIAACN+AACIEgAAvBIAACNTdHJpbmdzAAAAAEQlAACQBgAAI1VTANQrAAAQAAAAI0dVSUQAAADk
+KwAAFAMAACNCbG9iAAAAAAAAAAIAAAFXFaIJCQMAAAD6JTMAFgAAAQAAAC4AAAALAAAAHQAAAG8A
+AABPAAAAQwAAAEUAAAAIAAAABwAAAD8AAABSAAAABAAAAAEAAAAGAAAAAQAAAAIAAAAAAAoAAQAA
+AAAABgAmAQUBCgBGAT8BBgBNAQUBDgBvAVoBEgDQAQUBBgDfAQUBFgAYAg0CCgBUAjkCFgBbAg0C
+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
+azcAAAAAhgjZCowARwB6NwAAAACGCOYKjABIAJE3AAAAAIYI+gpbAEkAmzcAAAAAhggHC4wASgCy
+NwAAAACGCBsLWwBLALw3AAAAAIYIKAuMAEwA0zcAAAAAhgBNCRsATQDbNwAAAACGAFQJGwBNAOM3
+AAAAAIYAYwmIAE0A6zcAAAAAhhiHAaYATQD6NwAAAACGGIcBpgBOAAk4AAAAAIYIsAtXAE8ALzgA
+AAAAhgjFC6wATwBQOAAAAACDGIcBGwBPAFg4AAAAAJMISAy8AE8AkTgAAAAAkwhcDMEATwCYOAAA
+AACTCGgMxgBPAKA4AAAAAJYIjAzaAFAAszgAAAAAhhiHARsAUACnOAAAAACRGHASVwJQAAAAAQCg
+DAAAAgCoDAAAAwCyDAAABAC6DAAAAQDEDAAAAQDJDAAAAgDTDAAAAQDJDAAAAgDoDAAAAQDJDAAA
+AgD9DAAAAQASDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAg
+DQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAA
+AQAgDQAAAQAmDQAAAgAtDQAAAwC6DAAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAg
+DQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAA
+AQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAg
+DQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAmDQAAAgAtDQAA
+AwC6DAAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQAgDQAAAQBB
+DQAAAQBBDQAAAQAgDWkAhwFbAHEAhwFbAHkAhwFbAIEAhwFbAIkAhwFbAJEAhwFbAJkAhwFbAKEA
+hwFbAKkAhwFbALEAhwFbALkAhwHkAMEAhwEbAAkAhwEbAAkA/w7pAAkACw/wAMkAhwEbAAkALgIb
+ABEAQw9XADkATA9bANkAYg//ANkAbQ8DATkAgg8JAVEAlg9XANkAnw8OAdkAqA8TATkAtA8ZAdkA
+yQ9XAAwAhwEbAEkA8A9CAekA/g+sAFEAIRBHAfEAPRBMAVEASBBXAFEA8A9CAQwAUhBSAekAVhCI
+AAEBaxAbABQAhwEbABQAUhBSAQwA8A/XARwA/g/pARQAfhD/ABQA8A/XASQA/g/pASQAVhCIABwA
+VhCIAAkAqgIbADkAhwEbABEBhwEbABEAhwEbABkAhwGYABkAoxALAhkArBDkABkBhwFbABkATQkb
+ABkAVAkbABkAYwmIAAkAMhERAikBWBEXAgkAfBEeAjEBqREkAkkBhwEbAFEBBBIrAlEBHxI0AlkA
+hwE6AmkBhwFHAiEAhwEbAC4AWwDpAi4AEwCjAi4AQwDMAi4AYwDyAi4AIwDMAi4AOwDSAi4AGwDM
+Ai4ACwBbAi4AKwDMAi4AMwCjAmMAgwD6AOEAiwH6AAEBiwH6ACEBiwH6AEEBiwH6AEMB8wH6AGEB
+iwH6AIEBiwH6AKEBiwH6AMEBiwH6AOABiwH6AOEBiwH6AAACiwH6AAECiwH6ACACiwH6ACECiwH6
+AEACiwH6AEECiwH6AGACiwH6AGECiwH6AIACiwH6AIECiwH6AKACiwH6AKECiwH6AMACiwH6AMEC
+iwH6AOACiwH6AOECiwH6AAADiwH6AAEDiwH6ACADiwH6AEADiwH6AGADiwH6AIADiwH6AKADiwH6
+AKEDiwH6AMADiwH6AOADiwH6AAAEiwH6ACAEiwH6AEAEiwH6AGAEiwH6AIAEiwH6AMAEiwH6AOAE
+iwH6AAAFiwH6ACAFiwH6AEAFiwH6AGAFiwH6AIAFiwH6AKAFiwH6AMAFiwH6AOAFiwH6AAAGiwH6
+ACAGiwH6AEAGiwH6AGAGiwH6AKkHEwJOAskHEwJOAvYAHwFYAYIBlQGvAfYBQgIEAAEABQAMAAYA
+EwAHADMACQA7AAoAPQALAD8AAABJBXsAAABWBXsAAABmBXsAAAByBXsAAACCBXsAAACMBXsAAACc
+BXsAAAClBXsAAACuBXsAAAC2BXsAAADDBX8AAABrB3sAAAB0B3sAAAB9B3sAAACHB3sAAACQB5QA
+AACaB3sAAACrB3sAAACcBXsAAABvCZQAAACCBXsAAAB/CZQAAAB0B3sAAACQCZQAAACuBXsAAACg
+CZQAAACMBXsAAACvCZQAAABWBXsAAADGCZQAAADdCXsAAADoCZQAAAD6CXsAAAAJCpQAAABrB3sA
+AAAfCpQAAAB9B3sAAAAvCpQAAAByBXsAAABACpQAAACHB3sAAABXCpQAAAClBXsAAABnCpQAAACQ
+B5QAAAB3CpQAAACrB3sAAACICpQAAACaB3sAAACgCpQAAAA8C3sAAABFC5QAAABVC5QAAABeC5QA
+AABuC3sAAAB3C5QAAACHC3sAAACQC5QAAADRC3sAAADiC7AAAAD7C8wAAAB0DNEAAACYDN8AAgAP
+AAMAAQAQAAMAAQASAAUAAgARAAUAAQAUAAcAAgATAAcAAgAVAAkAAQAWAAkAAgAXAAsAAQAYAAsA
+AgAZAA0AAQAaAA0AAQAcAA8AAgAbAA8AAQAeABEAAgAdABEAAgAfABMAAQAgABMAAQAiABUAAgAh
+ABUAAgAjABcAAQAkABcAAQAnABkAAgAmABkAAQApABsAAgAoABsAAgAqAB0AAQArAB0AAQAtAB8A
+AgAsAB8AAQAvACEAAgAuACEAAgAwACMAAQAxACMAAgAyACUAAQAzACUAAQA2ACcAAQA3ACkAAQA4
+ACsAAQA5AC0AAQA6AC8AAQA7ADEAAQA8ADMAAQA9ADUAAQA+ADcAAQA/ADkAAQBAADsAAQBBAD0A
+AQBCAD8AAQBDAEEAAQBEAEMAAQBFAEUAAQBGAEcAAQBHAEkAAQBIAEsAAQBJAE0AAQBKAE8AAQBL
+AFEAAQBMAFMAAQBNAFUAAQBOAFcAAQBPAFkAAQBQAFsAAQBRAF0AAQBSAF8AAQBTAGEAAQBUAGMA
+AQBVAGUAAQBaAGcAAQBbAGkAAQBcAGsAAQBdAG0AAQBeAG8AAQBfAHEAAQBgAHMAAQBhAHUAAgBn
+AHcAAgBoAHkAAgBqAHsAAgBrAH0AAQBsAH0AAgBtAH8AOwF7AeEB7gEEgAAAAQAAAP0XeToAAAAA
+AADbDgAADAAAAAAAAAAAAAAAAQDoAAAAAAAEAAAAAAAAAAAAAAAKADYBAAAAAAQAAAAAAAAAAAAA
+AAoAPwEAAAAADAAAAAAAAAAAAAAAAQCvAQAAAAAEAAAAAAAAAAAAAAAKAA0CAAAAAAwAAAAAAAAA
+AAAAAAEA1hAAAAAAAAAAAAEAAAB3EgAABAADAAUAAwAAAAA8TW9kdWxlPgBTQ182OWE4YTBjMGFl
+NzM0NDgxYmU0OWRkNTg4ZDFjOTM3NS5kbGwAVXNlckNvbXBvbmVudABTY3JpcHRNYWluAENvdmVy
+YWdlRGV0YWlsAFRlcm1EZXRhaWwAQ292ZXJhZ2VEZXRhaWxzQnVmZmVyAEZpbGVMb2FkU3RhdHVz
+QnVmZmVyAENvbm5lY3Rpb25zAFZhcmlhYmxlcwBSZXNvdXJjZXMAU0NfNjlhOGEwYzBhZTczNDQ4
+MWJlNDlkZDU4OGQxYzkzNzUuUHJvcGVydGllcwBTZXR0aW5ncwBNaWNyb3NvZnQuU3FsU2VydmVy
+LlR4U2NyaXB0AE1pY3Jvc29mdC5TcWxTZXJ2ZXIuRHRzLlBpcGVsaW5lAFNjcmlwdENvbXBvbmVu
+dABtc2NvcmxpYgBTeXN0ZW0AT2JqZWN0AFNjcmlwdEJ1ZmZlcgBTeXN0ZW0uQ29uZmlndXJhdGlv
+bgBBcHBsaWNhdGlvblNldHRpbmdzQmFzZQAuY3RvcgBGaW5pc2hPdXRwdXRzAE1hcmtPdXRwdXRz
+RmluaXNoZWQATWljcm9zb2Z0LlNxbFNlcnZlci5QaXBlbGluZUhvc3QAUGlwZWxpbmVCdWZmZXIA
+T3V0cHV0TmFtZU1hcABQcmltZU91dHB1dABDcmVhdGVOZXdPdXRwdXRSb3dzAFN5c3RlbS5YbWwA
+WG1sRG9jdW1lbnQAeERvYwBmaWxlAFByZUV4ZWN1dGUAU3lzdGVtLkNvbGxlY3Rpb25zLkdlbmVy
+aWMATGlzdGAxAFhtbE5vZGVMaXN0AEdldERhdGEAWG1sTm9kZQBHZXREaXJlY3RDb3ZEYXRhAEdl
+dE9wdGlvbnMAR2V0UGFja2FnZURhdGEAU2V0RGF0YQBQb3N0RXhlY3V0ZQBnZXRfQ292ZXJhZ2VO
+YW1lAHNldF9Db3ZlcmFnZU5hbWUAZ2V0X0NvdmVyYWdlU3ViVHlwZQBzZXRfQ292ZXJhZ2VTdWJU
+eXBlAGdldF9Db3ZUZXJtTmFtZQBzZXRfQ292VGVybU5hbWUAZ2V0X0dXQ292Q29sdW1uTmFtZQBz
+ZXRfR1dDb3ZDb2x1bW5OYW1lAGdldF9Nb2RlbFR5cGUAc2V0X01vZGVsVHlwZQBnZXRfTG9va3Vw
+VGFibGVOYW1lAHNldF9Mb29rdXBUYWJsZU5hbWUAZ2V0X1Rlcm1UeXBlAHNldF9UZXJtVHlwZQBn
+ZXRfVHlwZUxpc3QAc2V0X1R5cGVMaXN0AGdldF9SZXF1aWVkAHNldF9SZXF1aWVkAGdldF9EZWZh
+dWx0VmFsdWUAc2V0X0RlZmF1bHRWYWx1ZQBnZXRfVGVybXMAc2V0X1Rlcm1zADxDb3ZlcmFnZU5h
+bWU+a19fQmFja2luZ0ZpZWxkADxDb3ZlcmFnZVN1YlR5cGU+a19fQmFja2luZ0ZpZWxkADxDb3ZU
+ZXJtTmFtZT5rX19CYWNraW5nRmllbGQAPEdXQ292Q29sdW1uTmFtZT5rX19CYWNraW5nRmllbGQA
+PE1vZGVsVHlwZT5rX19CYWNraW5nRmllbGQAPExvb2t1cFRhYmxlTmFtZT5rX19CYWNraW5nRmll
+bGQAPFRlcm1UeXBlPmtfX0JhY2tpbmdGaWVsZAA8VHlwZUxpc3Q+a19fQmFja2luZ0ZpZWxkADxS
+ZXF1aWVkPmtfX0JhY2tpbmdGaWVsZAA8RGVmYXVsdFZhbHVlPmtfX0JhY2tpbmdGaWVsZAA8VGVy
+bXM+a19fQmFja2luZ0ZpZWxkAENvdmVyYWdlTmFtZQBDb3ZlcmFnZVN1YlR5cGUAQ292VGVybU5h
+bWUAR1dDb3ZDb2x1bW5OYW1lAE1vZGVsVHlwZQBMb29rdXBUYWJsZU5hbWUAVGVybVR5cGUAVHlw
+ZUxpc3QAUmVxdWllZABEZWZhdWx0VmFsdWUAVGVybXMAZ2V0X1B1YmxpY0lEAHNldF9QdWJsaWNJ
+RABnZXRfVGVybUNvZGUAc2V0X1Rlcm1Db2RlAGdldF9UZXJtVmFsdWUAc2V0X1Rlcm1WYWx1ZQBn
+ZXRfVGVybU5hbWUAc2V0X1Rlcm1OYW1lAGdldF9Jc0RlZmF1bHQAc2V0X0lzRGVmYXVsdABnZXRf
+QWdncmVnYXRpb25Nb2RlbABzZXRfQWdncmVnYXRpb25Nb2RlbABnZXRfUmVzdHJpY3Rpb25Nb2Rl
+bABzZXRfUmVzdHJpY3Rpb25Nb2RlbAA8UHVibGljSUQ+a19fQmFja2luZ0ZpZWxkADxUZXJtQ29k
+ZT5rX19CYWNraW5nRmllbGQAPFRlcm1WYWx1ZT5rX19CYWNraW5nRmllbGQAPFRlcm1OYW1lPmtf
+X0JhY2tpbmdGaWVsZAA8SXNEZWZhdWx0PmtfX0JhY2tpbmdGaWVsZAA8QWdncmVnYXRpb25Nb2Rl
+bD5rX19CYWNraW5nRmllbGQAPFJlc3RyaWN0aW9uTW9kZWw+a19fQmFja2luZ0ZpZWxkAFB1Ymxp
+Y0lEAFRlcm1Db2RlAFRlcm1WYWx1ZQBUZXJtTmFtZQBJc0RlZmF1bHQAQWdncmVnYXRpb25Nb2Rl
+bABSZXN0cmljdGlvbk1vZGVsAHNldF9UZXJtVHlwZV9Jc051bGwAc2V0X01vZGVsVHlwZV9Jc051
+bGwAc2V0X1Rlcm1Db2RlX0lzTnVsbABzZXRfUmVxdWllZF9Jc051bGwAc2V0X0xvb2t1cFRhYmxl
+TmFtZV9Jc051bGwAc2V0X0NvdmVyYWdlU3ViVHlwZV9Jc051bGwAc2V0X0NvdlBhdHRlcm4Ac2V0
+X0NvdlBhdHRlcm5fSXNOdWxsAHNldF9Db3ZUZXJtUGF0dGVybgBzZXRfQ292VGVybVBhdHRlcm5f
+SXNOdWxsAHNldF9QdWJsaWNJRF9Jc051bGwAc2V0X1Rlcm1WYWx1ZV9Jc051bGwAc2V0X0dXQ292
+Q29sdW1uTmFtZV9Jc051bGwAc2V0X1Rlcm1OYW1lX0lzTnVsbABzZXRfVHlwZUxpc3RfSXNOdWxs
+AHNldF9Jc0RlZmF1bHRfSXNOdWxsAHNldF9SZXN0cmljdGlvbk1vZGVsX0lzTnVsbABzZXRfQWdn
+cmVnYXRpb25Nb2RlbF9Jc051bGwAQWRkUm93AFNldEVuZE9mUm93c2V0AEVuZE9mUm93c2V0AFRl
+cm1UeXBlX0lzTnVsbABNb2RlbFR5cGVfSXNOdWxsAFRlcm1Db2RlX0lzTnVsbABSZXF1aWVkX0lz
+TnVsbABMb29rdXBUYWJsZU5hbWVfSXNOdWxsAENvdmVyYWdlU3ViVHlwZV9Jc051bGwAQ292UGF0
+dGVybgBDb3ZQYXR0ZXJuX0lzTnVsbABDb3ZUZXJtUGF0dGVybgBDb3ZUZXJtUGF0dGVybl9Jc051
+bGwAUHVibGljSURfSXNOdWxsAFRlcm1WYWx1ZV9Jc051bGwAR1dDb3ZDb2x1bW5OYW1lX0lzTnVs
+bABUZXJtTmFtZV9Jc051bGwAVHlwZUxpc3RfSXNOdWxsAElzRGVmYXVsdF9Jc051bGwAUmVzdHJp
+Y3Rpb25Nb2RlbF9Jc051bGwAQWdncmVnYXRpb25Nb2RlbF9Jc051bGwAc2V0X0ZpbGVOYW1lAHNl
+dF9GaWxlTmFtZV9Jc051bGwAc2V0X0lzTG9hZGVkAHNldF9Jc0xvYWRlZF9Jc051bGwAc2V0X0Zp
+bGVUeXBlAHNldF9GaWxlVHlwZV9Jc051bGwAc2V0X05vZGVOYW1lAHNldF9Ob2RlTmFtZV9Jc051
+bGwARmlsZU5hbWUARmlsZU5hbWVfSXNOdWxsAElzTG9hZGVkAElzTG9hZGVkX0lzTnVsbABGaWxl
+VHlwZQBGaWxlVHlwZV9Jc051bGwATm9kZU5hbWUATm9kZU5hbWVfSXNOdWxsAFBhcmVudENvbXBv
+bmVudABnZXRfQ292RmlsZURpcmVjdG9yeQBnZXRfeG1sRGF0YQBDb3ZGaWxlRGlyZWN0b3J5AHht
+bERhdGEAU3lzdGVtLlJlc291cmNlcwBSZXNvdXJjZU1hbmFnZXIAcmVzb3VyY2VNYW4AU3lzdGVt
+Lkdsb2JhbGl6YXRpb24AQ3VsdHVyZUluZm8AcmVzb3VyY2VDdWx0dXJlAGdldF9SZXNvdXJjZU1h
+bmFnZXIAZ2V0X0N1bHR1cmUAc2V0X0N1bHR1cmUAQ3VsdHVyZQBkZWZhdWx0SW5zdGFuY2UAZ2V0
+X0RlZmF1bHQARGVmYXVsdABPdXRwdXRzAE91dHB1dElEcwBCdWZmZXJzAE91dHB1dE1hcABMaXN0
+AGNvdkRldGFpbABEaXJlY3RDb3ZUZXJtUGF0dGVybgBPcHRpb25Db3ZUZXJtUGF0dGVybgBQYWNr
+YWdlQ292VGVybVB0dGVybgByb3dDb2xsZWN0aW9uAHZhbHVlAEJ1ZmZlcgBCdWZmZXJDb2x1bW5J
+bmRleGVzAENvbXBvbmVudABTeXN0ZW0uUnVudGltZS5WZXJzaW9uaW5nAFRhcmdldEZyYW1ld29y
+a0F0dHJpYnV0ZQBTeXN0ZW0uUmVmbGVjdGlvbgBBc3NlbWJseVRpdGxlQXR0cmlidXRlAEFzc2Vt
+Ymx5RGVzY3JpcHRpb25BdHRyaWJ1dGUAQXNzZW1ibHlDb25maWd1cmF0aW9uQXR0cmlidXRlAEFz
+c2VtYmx5Q29tcGFueUF0dHJpYnV0ZQBBc3NlbWJseVByb2R1Y3RBdHRyaWJ1dGUAQXNzZW1ibHlD
+b3B5cmlnaHRBdHRyaWJ1dGUAQXNzZW1ibHlUcmFkZW1hcmtBdHRyaWJ1dGUAQXNzZW1ibHlDdWx0
+dXJlQXR0cmlidXRlAEFzc2VtYmx5VmVyc2lvbkF0dHJpYnV0ZQBTeXN0ZW0uUnVudGltZS5Db21w
+aWxlclNlcnZpY2VzAENvbXBpbGF0aW9uUmVsYXhhdGlvbnNBdHRyaWJ1dGUAUnVudGltZUNvbXBh
+dGliaWxpdHlBdHRyaWJ1dGUAU0NfNjlhOGEwYzBhZTczNDQ4MWJlNDlkZDU4OGQxYzkzNzUAR2V0
+T3V0cHV0SUQAR2V0Q29sdW1uSW5kZXhlcwBTU0lTU2NyaXB0Q29tcG9uZW50RW50cnlQb2ludEF0
+dHJpYnV0ZQBUb1N0cmluZwBMb2FkAEV4Y2VwdGlvbgBTdHJpbmcAZ2V0X0xlbmd0aABTdWJzdHJp
+bmcAWG1sRWxlbWVudABnZXRfRG9jdW1lbnRFbGVtZW50AGdldF9OYW1lAENvbnRhaW5zAG9wX0Vx
+dWFsaXR5AEdldEVsZW1lbnRzQnlUYWdOYW1lAFRvVXBwZXIAU3lzdGVtLkNvbGxlY3Rpb25zAElF
+bnVtZXJhdG9yAEdldEVudW1lcmF0b3IAZ2V0X0N1cnJlbnQAWG1sQXR0cmlidXRlQ29sbGVjdGlv
+bgBnZXRfQXR0cmlidXRlcwBYbWxBdHRyaWJ1dGUAZ2V0X0l0ZW1PZgBnZXRfVmFsdWUAQWRkAE1v
+dmVOZXh0AElEaXNwb3NhYmxlAERpc3Bvc2UARW51bWVyYXRvcgBnZXRfQ291bnQAQ29tcGlsZXJH
+ZW5lcmF0ZWRBdHRyaWJ1dGUAc2V0X0l0ZW0AU2V0TnVsbABJbnZhbGlkT3BlcmF0aW9uRXhjZXB0
+aW9uAEJvb2xlYW4ATWljcm9zb2Z0LlNxbFNlcnZlci5EVFNSdW50aW1lV3JhcABNaWNyb3NvZnQu
+U3FsU2VydmVyLkR0cy5SdW50aW1lLldyYXBwZXIASURUU1ZhcmlhYmxlczEwMABnZXRfUmVhZE9u
+bHlWYXJpYWJsZXMASURUU1ZhcmlhYmxlMTAwAGdldF9JdGVtAFNjcmlwdENvbXBvbmVudEV2YWxD
+b250ZXh0AGdldF9FdmFsdWF0b3JDb250ZXh0AElEVFNFdmFsdWF0b3JDb250ZXh0MTAwAEdldFZh
+bHVlV2l0aENvbnRleHQAU3lzdGVtLkRpYWdub3N0aWNzAERlYnVnZ2VyTm9uVXNlckNvZGVBdHRy
+aWJ1dGUAVHlwZQBSdW50aW1lVHlwZUhhbmRsZQBHZXRUeXBlRnJvbUhhbmRsZQBBc3NlbWJseQBn
+ZXRfQXNzZW1ibHkAU3lzdGVtLkNvbXBvbmVudE1vZGVsAEVkaXRvckJyb3dzYWJsZUF0dHJpYnV0
+ZQBFZGl0b3JCcm93c2FibGVTdGF0ZQAuY2N0b3IAU0NfNjlhOGEwYzBhZTczNDQ4MWJlNDlkZDU4
+OGQxYzkzNzUuUHJvcGVydGllcy5SZXNvdXJjZXMucmVzb3VyY2VzAAAAAB9DAG8AdgBlAHIAYQBn
+AGUARABlAHQAYQBpAGwAcwAAHUYAaQBsAGUATABvAGEAZABTAHQAYQB0AHUAcwAAGUMAbwByAHIA
+dQBwAHQAIABGAGkAbABlAAANbABvAG8AawB1AHAAAB9DAG8AdgBlAHIAYQBnAGUAUABhAHQAdABl
+AHIAbgAAEUMAbwB2AGUAcgBhAGcAZQAAIUMAbwBuAGQAaQB0AGkAbwBuAFAAYQB0AHQAZQByAG4A
+ABNDAG8AbgBkAGkAdABpAG8AbgAAIUUAeABjAGwAdQBzAGkAbwBuAFAAYQB0AHQAZQByAG4AABNF
+AHgAYwBsAHUAcwBpAG8AbgAAC08AdABoAGUAcgAADUwAbwBvAGsAdQBwAAATcAB1AGIAbABpAGMA
+LQBpAGQAAR9jAG8AdgBlAHIAYQBnAGUAUwB1AGIAdAB5AHAAZQAAIWMAbwBuAGQAaQB0AGkAbwBu
+AFMAdQBiAHQAeQBwAGUAACFlAHgAYwBsAHUAcwBpAG8AbgBTAHUAYgB0AHkAcABlAAARQwBvAHYA
+VABlAHIAbQBzAAApRABpAHIAZQBjAHQAQwBvAHYAVABlAHIAbQBQAGEAdAB0AGUAcgBuAAArRwBl
+AG4AZQByAGkAYwBDAG8AdgBUAGUAcgBtAFAAYQB0AHQAZQByAG4AAClPAHAAdABpAG8AbgBDAG8A
+dgBUAGUAcgBtAFAAYQB0AHQAZQByAG4AACtUAHkAcABlAGsAZQB5AEMAbwB2AFQAZQByAG0AUABh
+AHQAdABlAHIAbgAAK1AAYQBjAGsAYQBnAGUAQwBvAHYAVABlAHIAbQBQAGEAdAB0AGUAcgBuAAAd
+YwBvAHYAZQByAGEAZwBlAEMAbwBsAHUAbQBuAAATbQBvAGQAZQBsAFQAeQBwAGUAAB9sAG8AbwBr
+AHUAcABUAGEAYgBsAGUATgBhAG0AZQAAEXIAZQBxAHUAaQByAGUAZAAAGWQAZQBmAGEAdQBsAHQA
+VgBhAGwAdQBlAAApTwBQAFQASQBPAE4AQwBPAFYAVABFAFIATQBQAEEAVABUAEUAUgBOAAArUABB
+AEMASwBBAEcARQBDAE8AVgBUAEUAUgBNAFAAQQBUAFQARQBSAE4AAClEAEkAUgBFAEMAVABDAE8A
+VgBUAEUAUgBNAFAAQQBUAFQARQBSAE4AACtUAFkAUABFAEsARQBZAEMATwBWAFQARQBSAE0AUABB
+AFQAVABFAFIATgAAK0cARQBOAEUAUgBJAEMAQwBPAFYAVABFAFIATQBQAEEAVABUAEUAUgBOAAAN
+TwBwAHQAaQBvAG4AAA9QAGEAYwBrAGEAZwBlAAANRABpAHIAZQBjAHQAABF0AHkAcABlAGwAaQBz
+AHQAAA9UAHkAcABlAEsAZQB5AAAPRwBlAG4AZQByAGkAYwAAE0wASQBNAEkAVABTAFMARQBUAAAb
+QwBPAFYAVABFAFIATQBMAEkATQBJAFQAUwAAD08AUABUAEkATwBOAFMAABVvAHAAdABpAG8AbgBD
+AG8AZABlAAALdgBhAGwAdQBlAAAhYQBnAGcAcgBlAGcAYQB0AGkAbwBuAE0AbwBkAGUAbAAAIXIA
+ZQBzAHQAcgBpAGMAdABpAG8AbgBNAG8AZABlAGwAABdEAEUARgBBAFUATABUAFMAUwBFAFQAABFQ
+AEEAQwBLAEEARwBFAFMAABdDAE8AVgBUAEUAUgBNAFAAQQBDAEsAABlQAEEAQwBLAEEARwBFAFQA
+RQBSAE0AUwAAF3AAYQBjAGsAYQBnAGUAQwBvAGQAZQAAgJtJAHMATgB1AGwAbAAgAHAAcgBvAHAA
+ZQByAHQAeQAgAGMAYQBuAG4AbwB0ACAAYgBlACAAcwBlAHQAIAB0AG8AIABGAGEAbABzAGUALgAg
+AEEAcwBzAGkAZwBuACAAYQAgAHYAYQBsAHUAZQAgAHQAbwAgAHQAaABlACAAYwBvAGwAdQBtAG4A
+IABpAG4AcwB0AGUAYQBkAC4AACFDAG8AdgBGAGkAbABlAEQAaQByAGUAYwB0AG8AcgB5AAAPeABt
+AGwARABhAHQAYQAAcVMAQwBfADYAOQBhADgAYQAwAGMAMABhAGUANwAzADQANAA4ADEAYgBlADQA
+OQBkAGQANQA4ADgAZAAxAGMAOQAzADcANQAuAFAAcgBvAHAAZQByAHQAaQBlAHMALgBSAGUAcwBv
+AHUAcgBjAGUAcwAAlYp8QtNFCkOuMKuBJWUK2QAIiYRdzYCAzJEIt3pcVhk04IkDBhIgAwYSJAMg
+AAEDBhIYAwYSHAsgBAEIHQgdEhUSGQMGEh0CBg4KIAEVEiEBEhASJQcgAgESEBIpCSABARUSIQES
+EAMgAA4EIAEBDgggABUSIQESFAkgAQEVEiEBEhQHBhUSIQESFAMoAA4IKAAVEiEBEhQDIAACBCAB
+AQICBgIDKAACCSADARIVHQgSGQMGEgUFIAEBEgUDIAAcAygAHAMGEi0DBhIxBAAAEi0EAAASMQUA
+AQESMQQIABItBAgAEjEDBhIsBAAAEiwECAASLAQgAQEIBgACCBIZDgUgAR0ICAMHAQgEAQAAAAMg
+AAgFIAIOCAgEIAAScQQgAQIOBQACAg4OBSABEiUOGwcHDhIlFRIhARIQEiUVEiEBEhASJRUSIQES
+EAYVEiEBEhAEIAASdQQgABJ5BSABEn0OBSABARMAIgcOFRIhARIQEikODhIpEikSEBJ1EnUSdQ4S
+gIESgIESgIEGFRIhARIUEgcHEhQSKRIpEnUSdRKAgRKAgRkHChIUEikSKRIpEnUSdRKAgRJ1EoCB
+EoCBJwcQEhQSKRIpEikSKRIpEnUSdRJ1EnUSgIESgIESgIESdRKAgRKAgQkgABURgIUBEwAHFRGA
+hQESEAQgABMABxURgIUBEhQUBwQSEBIUFRGAhQESEBURgIUBEhQFIAIBCBwFIAASgJUGIAESgJkc
+BQAAEoCdBiABHBKAoQgAARKAqRGArQUgABKAsQcgAgEOEoCxBAcBEi0GIAEBEYC5CAEAAgAAAAAA
+AwAAAUcBABouTkVURnJhbWV3b3JrLFZlcnNpb249djQuMAEAVA4URnJhbWV3b3JrRGlzcGxheU5h
+bWUQLk5FVCBGcmFtZXdvcmsgNCgBACNTQ182OWE4YTBjMGFlNzM0NDgxYmU0OWRkNTg4ZDFjOTM3
+NQAABQEAAAAAFgEAEUNvcHlyaWdodCBAICAyMDE1AAAIAQAIAAAAAAAeAQABAFQCFldyYXBOb25F
+eGNlcHRpb25UaHJvd3MBAAAAmGgAAAAAAAAAAAAArmgAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AKBoAAAAAAAAAABfQ29yRGxsTWFpbgBtc2NvcmVlLmRsbAAAAAAA/yUAIAAQAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAQAQAAAAGAAAgAAAAAAAAAAAAAAAAAAA
+AQABAAAAMAAAgAAAAAAAAAAAAAAAAAAAAQAAAAAASAAAAFiAAACwAwAAAAAAAAAAAACwAzQAAABW
+AFMAXwBWAEUAUgBTAEkATwBOAF8ASQBOAEYATwAAAAAAvQTv/gAAAQAAAAEAeTr9FwAAAQB5Ov0X
+PwAAAAAAAAAEAAAAAgAAAAAAAAAAAAAAAAAAAEQAAAABAFYAYQByAEYAaQBsAGUASQBuAGYAbwAA
+AAAAJAAEAAAAVAByAGEAbgBzAGwAYQB0AGkAbwBuAAAAAAAAALAEEAMAAAEAUwB0AHIAaQBuAGcA
+RgBpAGwAZQBJAG4AZgBvAAAA7AIAAAEAMAAwADAAMAAwADQAYgAwAAAAcAAkAAEARgBpAGwAZQBE
+AGUAcwBjAHIAaQBwAHQAaQBvAG4AAAAAAFMAQwBfADYAOQBhADgAYQAwAGMAMABhAGUANwAzADQA
+NAA4ADEAYgBlADQAOQBkAGQANQA4ADgAZAAxAGMAOQAzADcANQAAAEAADwABAEYAaQBsAGUAVgBl
+AHIAcwBpAG8AbgAAAAAAMQAuADAALgA2ADEANAAxAC4AMQA0ADkANgA5AAAAAABwACgAAQBJAG4A
+dABlAHIAbgBhAGwATgBhAG0AZQAAAFMAQwBfADYAOQBhADgAYQAwAGMAMABhAGUANwAzADQANAA4
+ADEAYgBlADQAOQBkAGQANQA4ADgAZAAxAGMAOQAzADcANQAuAGQAbABsAAAASAASAAEATABlAGcA
+YQBsAEMAbwBwAHkAcgBpAGcAaAB0AAAAQwBvAHAAeQByAGkAZwBoAHQAIABAACAAIAAyADAAMQA1
+AAAAeAAoAAEATwByAGkAZwBpAG4AYQBsAEYAaQBsAGUAbgBhAG0AZQAAAFMAQwBfADYAOQBhADgA
+YQAwAGMAMABhAGUANwAzADQANAA4ADEAYgBlADQAOQBkAGQANQA4ADgAZAAxAGMAOQAzADcANQAu
+AGQAbABsAAAAaAAkAAEAUAByAG8AZAB1AGMAdABOAGEAbQBlAAAAAABTAEMAXwA2ADkAYQA4AGEA
+MABjADAAYQBlADcAMwA0ADQAOAAxAGIAZQA0ADkAZABkADUAOAA4AGQAMQBjADkAMwA3ADUAAABE
+AA8AAQBQAHIAbwBkAHUAYwB0AFYAZQByAHMAaQBvAG4AAAAxAC4AMAAuADYAMQA0ADEALgAxADQA
+OQA2ADkAAAAAAEgADwABAEEAcwBzAGUAbQBiAGwAeQAgAFYAZQByAHMAaQBvAG4AAAAxAC4AMAAu
+ADYAMQA0ADEALgAxADQAOQA2ADkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAABgAAAMAAAAwDgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+AAAAAAAAAAAAAAAAAAAA]]></arrayElement>
+                      </arrayElements>
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the Microsoft Visual Studio Tools for Applications project. Project names must be unique within a package."
+                      name="VSTAProjectName"
+                      typeConverter="NOTBROWSABLE">SC_69a8a0c0ae734481be49dd588d1c9375</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the programming language used by the script."
+                      name="ScriptLanguage"
+                      typeConverter="Microsoft.SqlServer.VSTAHosting.ScriptingLanguages">CSharp</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read-only variables."
+                      name="ReadOnlyVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIVariablePickerDlg">User::CovFileDirectory,User::xmlData</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a comma-separated list of read/write variables."
+                      name="ReadWriteVariables"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ScriptUIWriteableVariablePickerDlg"></property>
+                    <property
+                      dataType="System.String"
+                      description="List of breakpoints present on the script."
+                      isArray="true"
+                      name="BreakpointCollection"
+                      typeConverter="NOTBROWSABLE">
+                      <arrayElements
+                        arrayElementCount="0" />
+                    </property>
+                    <property
+                      dataType="System.String"
+                      description="Checksum to match component metedata against compiled codes."
+                      name="MetadataChecksum"
+                      typeConverter="NOTBROWSABLE">4951e7d91027b91df346415cfca0426c</property>
+                    <property
+                      dataType="System.String"
+                      name="UserComponentTypeName">Microsoft.ScriptComponentHost</property>
+                  </properties>
+                  <outputs>
+                    <output
+                      refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails]"
+                      hasSideEffects="true"
+                      name="CoverageDetails">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermType]"
+                          name="TermType" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[ModelType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[ModelType]"
+                          name="ModelType" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermCode]"
+                          name="TermCode" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[Requied]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[Requied]"
+                          name="Requied" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[LookupTableName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[LookupTableName]"
+                          name="LookupTableName" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[CoverageSubType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[CoverageSubType]"
+                          name="CoverageSubType" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[CovPattern]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[CovPattern]"
+                          name="CovPattern" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[CovTermPattern]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[CovTermPattern]"
+                          name="CovTermPattern" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[PublicID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[PublicID]"
+                          name="PublicID" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermValue]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermValue]"
+                          name="TermValue" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[GWCovColumnName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[GWCovColumnName]"
+                          name="GWCovColumnName" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermName]"
+                          name="TermName" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TypeList]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TypeList]"
+                          name="TypeList" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[IsDefault]"
+                          dataType="bool"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[IsDefault]"
+                          name="IsDefault" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[RestrictionModel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[RestrictionModel]"
+                          name="RestrictionModel" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[AggregationModel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[AggregationModel]"
+                          name="AggregationModel" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus]"
+                      hasSideEffects="true"
+                      name="FileLoadStatus">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus].Columns[FileName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus].Columns[FileName]"
+                          name="FileName" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus].Columns[IsLoaded]"
+                          dataType="bool"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus].Columns[IsLoaded]"
+                          name="IsLoaded" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus].Columns[FileType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus].Columns[FileType]"
+                          name="FileType" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus].Columns[NodeName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus].Columns[NodeName]"
+                          name="NodeName" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="StageProductModel"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[Stage].[StageProductModel]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Connections[OleDbConnection]"
+                      connectionManagerID="{3F899445-32CE-4C0F-8236-F6EC7A7BB628}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[TermType]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="TermType"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[TermType]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermType]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[ModelType]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="ModelType"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[ModelType]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[ModelType]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[TermCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="200"
+                          cachedName="TermCode"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[TermCode]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermCode]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[Requied]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="Requied"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[Requied]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[Requied]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[LookupTableName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="LookupTableName"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[LookupTableName]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[LookupTableName]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[CoverageSubType]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="CoverageSubType"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[CoverageSubType]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[CoverageSubType]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[CovPattern]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="CovPattern"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[CovPattern]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[CovPattern]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[CovTermPattern]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="CovTermPattern"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[CovTermPattern]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[CovTermPattern]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[PublicID]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="PublicID"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[PublicID]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[TermValue]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="200"
+                          cachedName="TermValue"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[TermValue]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermValue]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[GWCovColumnName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="GWCovColumnName"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[GWCovColumnName]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[GWCovColumnName]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[TermName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="TermName"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[TermName]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TermName]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[TypeList]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="TypeList"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[TypeList]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[TypeList]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[IsDefault]"
+                          cachedDataType="bool"
+                          cachedName="IsDefault"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[IsDefault]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[IsDefault]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[RestrictionModel]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="RestrictionModel"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[RestrictionModel]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[RestrictionModel]" />
+                        <inputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].Columns[AggregationModel]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="AggregationModel"
+                          externalMetadataColumnId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[AggregationModel]"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails].Columns[AggregationModel]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[CovPattern]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="CovPattern" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[CoverageSubType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="CoverageSubType" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[CovTermPattern]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="CovTermPattern" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[LookupTableName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="LookupTableName" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[GWCovColumnName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="GWCovColumnName" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[TermType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="TermType" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[ModelType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="ModelType" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[TypeList]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="TypeList" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[Requied]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Requied" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="PublicID" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[TermName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="TermName" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[TermCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          name="TermCode" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[TermValue]"
+                          codePage="1252"
+                          dataType="str"
+                          length="200"
+                          name="TermValue" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[IsDefault]"
+                          dataType="bool"
+                          name="IsDefault" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[RestrictionModel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="RestrictionModel" />
+                        <externalMetadataColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input].ExternalColumns[AggregationModel]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="AggregationModel" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table.Paths[CoverageDetails]"
+                  endId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel.Inputs[OLE DB Destination Input]"
+                  name="CoverageDetails"
+                  startId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[CoverageDetails]" />
+                <path
+                  refId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table.Paths[FileLoadStatus]"
+                  endId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load.Inputs[OLE DB Destination Input]"
+                  name="FileLoadStatus"
+                  startId="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File.Outputs[FileLoadStatus]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:ForEachVariableMappings>
+        <DTS:ForEachVariableMapping
+          DTS:CreationName=""
+          DTS:DTSID="{9C498CE6-239A-4749-971C-3627CFB3CAA8}"
+          DTS:ObjectName="{9C498CE6-239A-4749-971C-3627CFB3CAA8}"
+          DTS:ValueIndex="0"
+          DTS:VariableName="User::xmlData" />
+      </DTS:ForEachVariableMappings>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Normalize the Stage Table"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{E150D162-5807-4347-9288-34BC0A7213F6}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Normalize the Stage Table">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Normalize the Stage Table\Populate Coverage"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{780AA4EA-2F3B-4FC7-8066-539574558565}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Populate Coverage"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{3F899445-32CE-4C0F-8236-F6EC7A7BB628}"
+              SQLTask:SqlStatementSource="INSERT INTO [lkp].[lkp_CoverageDetails] (CoverageName, CoverageSubType, TermPatternCode, LookupTableName, GWCovColumnName,&#xA;TermType, ModelType, TypeList, Required)&#xA;&#xA;SELECT DISTINCT [CovPattern], [CoverageSubType], [CovTermPattern], [LookupTableName], [GWCovColumnName],&#xA;    [TermType], [ModelType], [TypeList], [Requied]&#xA;FROM [Stage].[StageProductModel]&#xA;&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Normalize the Stage Table\Populate TermValues"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{3CBF57AD-A2A6-4FA2-B670-531C0F0DFCFF}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Populate TermValues"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{3F899445-32CE-4C0F-8236-F6EC7A7BB628}"
+              SQLTask:SqlStatementSource="INSERT INTO [lkp].[lkp_TermDetails] (CovDetailsID, TermCode, TermName, PublicID, TermValue,IsDefault, AggregationModel, RestrictionModel)&#xA;&#xA;SELECT DISTINCT B.ID, A.[TermCode], A.TermName, A.PublicID, A.TermValue,A.IsDefault,A.AggregationModel,A.RestrictionModel&#xA;FROM [Stage].[StageProductModel] A&#xA;INNER JOIN [lkp].[lkp_CoverageDetails] B ON A.CovPattern = B.CoverageName AND A.CovTermPattern = B.TermPatternCode&#xA;WHERE PublicID IS NOT NULL&#xA;GO" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Normalize the Stage Table\Truncate Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{EF0413FA-F4E7-4AC8-BC57-9696701CDEA0}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{3F899445-32CE-4C0F-8236-F6EC7A7BB628}"
+              SQLTask:SqlStatementSource="ALTER TABLE [lkp].[lkp_TermDetails]  DROP  CONSTRAINT [FK_TermDetails_CoverageDetails] &#xA;GO&#xA;&#xA;TRUNCATE TABLE [lkp].[lkp_CoverageDetails]&#xA;GO&#xA;&#xA;TRUNCATE TABLE [lkp].[lkp_TermDetails]&#xA;GO&#xA;&#xA;ALTER TABLE [lkp].[lkp_TermDetails]  ADD  CONSTRAINT [FK_TermDetails_CoverageDetails] FOREIGN KEY([CovDetailsID])&#xA;REFERENCES [lkp].[lkp_CoverageDetails] ([ID])&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Normalize the Stage Table.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{5188A0F0-5940-427A-A929-F8C1F85C4D13}"
+          DTS:From="Package\Normalize the Stage Table\Truncate Tables"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Normalize the Stage Table\Populate Coverage" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Normalize the Stage Table.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{A7BD0991-1C51-4BE9-9718-72A312FF320B}"
+          DTS:From="Package\Normalize the Stage Table\Populate Coverage"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Normalize the Stage Table\Populate TermValues" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Truncate Stage Table"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B318D24B-1CA9-436F-954B-8F2730B3216F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Truncate Stage Table"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{3F899445-32CE-4C0F-8236-F6EC7A7BB628}"
+          SQLTask:SqlStatementSource="TRUNCATE TABLE Stage.StageProductModel&#xA;GO&#xA;&#xA;TRUNCATE TABLE Stage.audit_productmodelCoverage&#xA;GO&#xA;&#xA;INSERT INTO [Stage].[StageProductModel]&#xA;           ([CovPattern]&#xA;           ,[CoverageSubType]&#xA;           ,[CovTermPattern]&#xA;           ,[LookupTableName]&#xA;           ,[GWCovColumnName]&#xA;           ,[TermType]&#xA;           ,[ModelType]&#xA;           ,[TypeList]&#xA;           ,[Requied]&#xA;           ,[PublicID]&#xA;           ,[TermName]&#xA;           ,[TermCode]&#xA;           ,[TermValue])&#xA;     VALUES&#xA;           ('NA','NA','NA','NA','NA'&#xA;           ,'NA','NA',NULL,'true'&#xA;           ,'-2','-2','NA','NA'&#xA;           )&#xA;GO&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{0C1B87FE-A141-48D5-BE57-1FDB16ADCE95}"
+      DTS:From="Package\Truncate Stage Table"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Loop all the Coverage XML Files" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{313812D2-BFAE-41A9-B4FF-1CDFDAC4F2FC}"
+      DTS:From="Package\Loop all the Coverage XML Files"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Normalize the Stage Table" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{5E76D360-1FB1-4B5B-91B5-6678D30F754A}"
+      DTS:From="Package\Create Tables (if not exists)"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Truncate Stage Table" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="144,42"
+          Id="Package\Create Tables (if not exists)\Create Tables"
+          TopLeft="32.5,7.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="252,93"
+          Size="252,136"
+          Id="Package\Create Tables (if not exists)"
+          TopLeft="46.0178571428572,5.5" />
+        <NodeLayout
+          Size="244,42"
+          Id="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table"
+          TopLeft="5.5,5.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="255,103"
+          Size="255,146"
+          Id="Package\Loop all the Coverage XML Files"
+          TopLeft="46.0178571428572,250.5" />
+        <NodeLayout
+          Size="178,42"
+          Id="Package\Normalize the Stage Table\Populate Coverage"
+          TopLeft="25.1190476190476,80.7857142857142" />
+        <NodeLayout
+          Size="178,42"
+          Id="Package\Normalize the Stage Table\Populate TermValues"
+          TopLeft="25.1190476190476,154.785714285714" />
+        <NodeLayout
+          Size="178,42"
+          Id="Package\Normalize the Stage Table\Truncate Tables"
+          TopLeft="25.1190476190476,9.78571428571428" />
+        <EdgeLayout
+          Id="Package\Normalize the Stage Table.PrecedenceConstraints[Constraint]"
+          TopLeft="114.119047619048,51.7857142857143">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.9999999999999"
+              Start="0,0"
+              End="0,21.4999999999999">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.4999999999999" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Normalize the Stage Table.PrecedenceConstraints[Constraint 1]"
+          TopLeft="114.119047619048,122.785714285714">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,32"
+              Start="0,0"
+              End="0,24.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="235,248"
+          Size="235,291"
+          Id="Package\Normalize the Stage Table"
+          TopLeft="48.875,433.357142857143" />
+        <NodeLayout
+          Size="255,42"
+          Id="Package\Truncate Stage Table"
+          TopLeft="51.0178571428572,171.357142857143" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="176.017857142857,213.357142857143">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.142857142857"
+              Start="0,0"
+              End="0,29.642857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.642857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="169.946428571429,396.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.8571428571429"
+              Start="0,0"
+              End="0,29.3571428571429">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.3571428571429" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="175.267857142857,141.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.857142857143"
+              Start="0,0"
+              End="0,22.357142857143">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.357142857143" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="191,42"
+          Id="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Get Data From XML File"
+          TopLeft="217,5.5" />
+        <NodeLayout
+          Size="162,42"
+          Id="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load"
+          TopLeft="5.5,107.5" />
+        <NodeLayout
+          Size="169,42"
+          Id="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel"
+          TopLeft="228,107.5" />
+        <EdgeLayout
+          Id="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table.Paths[FileLoadStatus]"
+          TopLeft="282,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-195.5,60"
+              Start="0,0"
+              End="-195.5,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2990654205607" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.2990654205607"
+                    Point2="0,24.2990654205607"
+                    Point3="-4,24.2990654205607" />
+                  <mssgle:LineSegment
+                    End="-191.5,24.2990654205607" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-191.5,24.2990654205607"
+                    Point2="-195.5,24.2990654205607"
+                    Point3="-195.5,28.2990654205607" />
+                  <mssgle:LineSegment
+                    End="-195.5,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-130.177578125,29.2990654205607,64.85515625,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table.Paths[CoverageDetails]"
+          TopLeft="343,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-30.5,60"
+              Start="0,0"
+              End="-30.5,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.2990654205607" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,20.2990654205607"
+                    Point2="0,24.2990654205607"
+                    Point3="-4,24.2990654205607" />
+                  <mssgle:LineSegment
+                    End="-26.5,24.2990654205607" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-26.5,24.2990654205607"
+                    Point2="-30.5,24.2990654205607"
+                    Point3="-30.5,28.2990654205607" />
+                  <mssgle:LineSegment
+                    End="-30.5,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-51.49009765625,29.2990654205607,72.4801953125,11.6630859375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\Audit the file load">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Loop all the Coverage XML Files\Parse the XML to Load Stage Table\StageProductModel">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

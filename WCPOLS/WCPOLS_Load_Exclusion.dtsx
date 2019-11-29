@@ -1,0 +1,1203 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/26/2016 5:51:15 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\vikas.singh"
+  DTS:DTSID="{D182C310-EB94-4E0E-99F5-A82DFA1EA045}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCPOLS_Load_Exclusion"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="201"
+  DTS:VersionGUID="{23E692B0-9B17-4D27-8C25-7D499E7625C1}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{431814AC-6366-4E86-9028-7AE266FD03DF}"
+      DTS:ObjectName="BatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="StartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::StartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{0508C6EC-7A94-49BD-BB78-C41A67CE0E7F}"
+      DTS:ObjectName="StartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="EndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::EndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{3528FA52-E990-4BDF-9925-5D196E85AF87}"
+      DTS:ObjectName="EndDate" />
+  </DTS:Configurations>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="EnterpriseDataWarehouse"
+      DTS:CreationName="Microsoft.LogProviderSQLServer"
+      DTS:Description="Writes log entries for events to a SQL Server database"
+      DTS:DTSID="{D2C63FBB-E5C3-4207-B98C-F384C34E4025}"
+      DTS:ObjectName="SSIS log provider for SQL Server">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8919CDE7-DE97-43F5-BA0F-917B9A0B3669}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{85B989C8-2ADD-4BEE-B251-410ACAE28E0C}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="EndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">12/6/2016 7:10:09 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{EEF8A639-DC18-42F5-BBD4-5C47500DC8B7}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">10/11/2016 12:18:30 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">2,7,OnError,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{D2C63FBB-E5C3-4207-B98C-F384C34E4025}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{f508c00c-7c24-4b2d-8efa-f794030799e2}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{13944409-6144-41d2-94dc-5a74878833dc}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\Process Failed.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{295a7a75-60be-4602-a326-44996725f484}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{2ea1c311-6f21-4417-8141-45bbaf677b16}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="&#xA;Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{437228AF-35B6-4C01-9049-698DE9066693}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{BC23C177-D584-426D-985F-C88A045848F9}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load Stage_WCPOLS_Exclusion"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DEST - Stage_WCPOLS_Exclusion"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Stage_WCPOLS_Exclusion]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">10000</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].Columns[PolicyState]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="60"
+                          cachedName="PolicyState"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[PolicyState]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyState]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="PolicyNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].Columns[NameOfInsured]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="NameOfInsured"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[NameOfInsured]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].Columns[NameOfPersonTobeExcluded]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="256"
+                          cachedName="NameOfPersonTobeExcluded"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[NameOfPersonTobeExcluded]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfPersonTobeExcluded]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].Columns[DescriptorCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="DescriptorCode"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[DescriptorCode]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[DescriptorCode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].Columns[EndorsementEffectiveDate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="EndorsementEffectiveDate"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[EndorsementEffectiveDate]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].Columns[PolicyId]"
+                          cachedDataType="i4"
+                          cachedName="PolicyId"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyId]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="60"
+                          name="PolicyState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="NameOfInsured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[NameOfPersonTobeExcluded]"
+                          codePage="1252"
+                          dataType="str"
+                          length="256"
+                          name="NameOfPersonTobeExcluded" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[DescriptorCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="DescriptorCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="EndorsementEffectiveDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE SRC - WCPolicyEndorsement"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With CTE_MI_SoleProprietorship as 
+(
+	Select Distinct d.PolicyID --For Exclusion, we wont report the entire policy if this record exists
+	From FactPolicyForm w
+		Inner Join DimPolicy d on w.PolicyID = d.PolicyID
+		Inner Join DimForm f on w.formid = f.FormID 
+	Where   d.BaseState = 'MI'
+		And upper(d.OrganizationType) = upper('Sole proprietorship')
+		And upper(Left(Replace(FormNumber,' ',''),8)) = upper('WC000308') 
+)
+
+Select Distinct  p.PolicyId,
+ISNULL(p.PolicyNumber,Replicate(' ',18)) PolicyNumber,
+ISNULL(p.BaseState,Replicate(' ',2)) PolicyState,
+ISNULL(p.PrimaryInsuredName,Replicate(' ',34)) NameOfInsured,
+ISNULL(w.EndorsementName,Replicate(' ',60)) NameOfPersonTobeExcluded,
+Case w.CoverageDescription 
+	When 'Officer'			Then 'O'
+	When 'Partner'			Then 'P'
+	When 'Sole proprietor'	Then 'S'
+Else 'X' End as DescriptorCode, OrganizationType,
+ISNULL(Right(Convert(varchar(10),F.EndorsementEffectiveDate ,112),6),'000000') EndorsementEffectiveDate 
+
+From WCPolicyEndorsement w
+ Inner Join DimPolicy p on w.PolicyID = p.PolicyID and p.policyid not in (select PolicyID from CTE_MI_SoleProprietorship)
+ Inner Join FactPolicyForm f on f.PolicyID = p.PolicyID
+ Inner Join DimForm d on f.FormID = d.FormID
+ --05 OCT - VS - Added join on DimState to use IsNCCI column. This column is replacing all the NCCI States e.g. IN, VA, CT, IL etc.
+ Left join DimState ds on p.BaseState = ds.StateAbbr
+
+Where w.PatternCode = 'WC7PartnersOfficersAndOthersExclEndorsementExcl'
+and FormNumber Like 'WC 00 03 08%'
+AND (
+		(p.TransactionType in ('Submission', 'Policy Change','Rewrite') And (cast(p.JobUpdateTime as date) &gt; ? and cast(p.JobUpdateTime as date) &lt;= ?) ) OR
+		(p.TransactionType ='Renewal' and p.eventname='SendNonRenewalDocuments' and p.BaseState='MI' And (cast(p.JobUpdateTime as date) &gt;DATEADD(day, -1, convert(date,?)) and cast(p.JobUpdateTime as date) &lt;=DATEADD(day, -1, convert(date,?)))) OR
+		(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname is null) OR
+		(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname='SendNonRenewalDocuments'	 and ds.IsNCCI = 1 /*p.BaseState = 'IN'*/)
+	)
+and PolicyStatus = 'Bound'
+
+
+ Order by PolicyNumber, Policyid</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{EEF8A639-DC18-42F5-BBD4-5C47500DC8B7};"Parameter1:Input",{85B989C8-2ADD-4BEE-B251-410ACAE28E0C};"Parameter2:Input",{EEF8A639-DC18-42F5-BBD4-5C47500DC8B7};"Parameter3:Input",{85B989C8-2ADD-4BEE-B251-410ACAE28E0C};"Parameter4:Input",{EEF8A639-DC18-42F5-BBD4-5C47500DC8B7};"Parameter5:Input",{85B989C8-2ADD-4BEE-B251-410ACAE28E0C};"Parameter6:Input",{EEF8A639-DC18-42F5-BBD4-5C47500DC8B7};"Parameter7:Input",{85B989C8-2ADD-4BEE-B251-410ACAE28E0C};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          length="60"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          name="PolicyState"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[NameOfInsured]"
+                          length="255"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]"
+                          name="NameOfInsured"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfPersonTobeExcluded]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[NameOfPersonTobeExcluded]"
+                          length="256"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfPersonTobeExcluded]"
+                          name="NameOfPersonTobeExcluded"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[DescriptorCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[DescriptorCode]"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[DescriptorCode]"
+                          name="DescriptorCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementEffectiveDate]"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]"
+                          name="EndorsementEffectiveDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyId]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyId]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyId]"
+                          name="PolicyId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[OrganizationType]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[OrganizationType]"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[OrganizationType]"
+                          name="OrganizationType"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="PolicyState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          name="NameOfInsured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[NameOfPersonTobeExcluded]"
+                          codePage="1252"
+                          dataType="str"
+                          length="256"
+                          name="NameOfPersonTobeExcluded" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[DescriptorCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="DescriptorCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="EndorsementEffectiveDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyId]"
+                          dataType="i4"
+                          name="PolicyId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[OrganizationType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="OrganizationType" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyId]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyId]"
+                          name="PolicyId" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          name="PolicyState" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          name="PolicyNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="255"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[NameOfInsured]"
+                          name="NameOfInsured" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[NameOfPersonTobeExcluded]"
+                          codePage="1252"
+                          dataType="str"
+                          length="256"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[NameOfPersonTobeExcluded]"
+                          name="NameOfPersonTobeExcluded" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[DescriptorCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[DescriptorCode]"
+                          name="DescriptorCode" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[OrganizationType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[OrganizationType]"
+                          name="OrganizationType" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementEffectiveDate]"
+                          name="EndorsementEffectiveDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Load WCPOLS_Exclusion"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{8E66C7FC-90D5-4072-9C2D-6EEAA6DEED47}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load WCPOLS_Exclusion"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}"
+              SQLTask:SqlStatementSource="  SET NOCOUNT ON;&#xA;&#xA;Declare @PolicyState varchar(2);&#xA;Declare @PolicyId varchar(20);&#xA;Declare @PolicyNumber varchar(18);&#xA;Declare @StateCode varchar(2);&#xA;Declare @CurrentPolicy varchar(18);&#xA;Declare @NameOfInsured varchar(36);&#xA;Declare @NameOfPersonTobeExcluded varchar(62);&#xA;Declare @EndorsementEffectiveDate varchar(6);&#xA;Declare @DescriptorCode varchar(1);&#xA;Declare @DateInserted Datetime = GetDate();&#xA;&#xA;Declare @CurrentRecord int;&#xA;Declare @TotalRecords int;&#xA;Declare @InsertedRecords int;&#xA;&#xA;Declare @SqlInsert nvarchar (max);&#xA;&#xA;Declare @SqlColumns nvarchar(max);&#xA;Declare @SqlValues nvarchar(max); &#xA;Declare @InitialSql nvarchar(max);&#xA;&#xA;Declare @i varchar(2);&#xA;&#xA;Declare PublicIDCursor Cursor For Select Distinct PolicyId From Stage_WCPOLS_Exclusion Order by PolicyId&#xA;&#xA;Open PublicIDCursor; &#xA;Fetch Next From  PublicIDCursor Into @CurrentPolicy&#xA;&#xA;While @@FETCH_STATUS = 0 &#xA;&#xA;Begin &#xA;&#xA;Declare PolicyCursor Cursor For &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Select PolicyId, PolicyNumber, PolicyState, Replace( Left(NameOfInsured,34),'''','''''') , Replace(Left(NameOfPersonTobeExcluded,62),'''','''''') , DescriptorCode, EndorsementEffectiveDate, &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;(Select Count(1) TotalRecords From Stage_WCPOLS_Exclusion T1 Where T1.PolicyId = T.PolicyId Group By T1.PolicyId) TotalCount&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;From Stage_WCPOLS_Exclusion T&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Where PolicyId = @CurrentPolicy &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Order by PolicyId&#xA;&#xA;Set @CurrentRecord&#x9; = 1&#xA;Set @InsertedRecords = 1&#xA;Set @SqlInsert = ''&#xA;Set @InitialSql = 'Insert Into WCPOLS_Exclusion(PolicyId, Policy_Number, Policy_State, Name_Of_Insured, Endorsement_Effective_Date, Insert_Date, Record_Type_Code, '&#xA;&#xA;&#xA;Open PolicyCursor; &#xA;&#x9;Fetch Next From  PolicyCursor Into @PolicyId, @PolicyNumber, @PolicyState, @NameOfInsured, @NameOfPersonTobeExcluded, @DescriptorCode, @EndorsementEffectiveDate, @TotalRecords&#xA;&#x9;While @@FETCH_STATUS = 0 &#xA;&#xA;Begin &#x9;&#xA;&#x9;&#xA;&#x9;&#x9;IF (@InsertedRecords &lt;= @TotalRecords OR @CurrentRecord &lt;= 3)&#xA;&#x9;&#x9;&#x9;Begin &#xA;&#x9;&#x9;&#x9;&#x9;IF (@CurrentRecord = 1)&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;Begin &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Set @SqlColumns = @InitialSql&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;Set @SqlValues = 'Values (' + '''' + @PolicyId + '''' + ' ,' + '''' + @PolicyNumber + '''' + ' ,' +  '''' + @PolicyState + '''' + ' ,' +  ''''  + @NameOfInsured + '''' + ' ,' +  '''' + @EndorsementEffectiveDate + '''' + ' ,' +  '''' + Convert (varchar, @DateInserted) + '''' + ' , ' + '''38''' + ' , '&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#x9;END &#xA; &#xA;&#x9;&#x9;&#x9;Set @i = Cast(@CurrentRecord as varchar(2))&#xA;&#xA;&#x9;&#x9;&#x9;Set @SqlColumns = @SqlColumns + 'Descriptor_Code_' + @i +' ,' + 'Name_Of_Person_To_Be_Excluded_' + @i +' ,'  &#xA;&#x9;&#x9;&#x9;Set @SqlValues =  @SqlValues + '''' + @DescriptorCode + '''' + ' ,' +  '''' + @NameOfPersonTobeExcluded + '''' + ' ,'  &#xA;&#xA;&#xA;&#x9;&#x9;&#x9;Set @CurrentRecord   = @CurrentRecord   + 1&#xA;&#x9;&#x9;&#x9;Set @InsertedRecords = @InsertedRecords + 1&#xA; &#xA;&#xA;&#x9;&#x9;IF(@CurrentRecord = 4)&#xA;&#x9;&#x9;&#x9;Begin&#xA;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Set @SqlInsert =  Left(@SqlColumns, Len(@SqlColumns)-1) + ')' + Left(@SqlValues,  Len(@SqlValues) -1)&#x9; + ')'&#x9;;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Exec Sp_ExecuteSQL @SqlInsert&#xA;&#x9;&#x9;&#x9;&#x9; &#x9;&#x9;&#x9;&#x9; &#xA;&#x9;&#x9;&#x9;&#x9;Set @SqlColumns  = 'End'&#x9;&#xA;&#x9;&#x9;&#x9;&#x9;Set @SqlValues = 'End'&#xA;&#x9;&#x9;&#x9;&#x9;Set @CurrentRecord = 1&#xA;&#xA;&#x9;&#x9;&#x9;END&#xA;&#x9;&#x9;&#xA;&#x9;End &#xA;&#xA;&#x9;Fetch Next From  PolicyCursor Into @PolicyId, @PolicyNumber, @PolicyState, @NameOfInsured, @NameOfPersonTobeExcluded, @DescriptorCode, @EndorsementEffectiveDate, @TotalRecords&#xA;&#xA;&#x9;END &#xA;&#x9; &#xA;&#x9;IF NOT ( @SqlColumns = 'End' And @SqlValues = 'End')&#xA;&#x9;Begin&#xA;&#x9;&#x9;Set @SqlInsert =  Left(@SqlColumns, Len(@SqlColumns)-1) + ')' + Left(@SqlValues,  Len(@SqlValues) -1)&#x9; + ')'&#x9;;&#xA;&#x9;&#x9;Exec Sp_ExecuteSQL @SqlInsert&#x9; &#xA;&#x9;End &#xA;&#xA;&#x9;Close PolicyCursor; &#xA;&#x9;Deallocate PolicyCursor; &#xA;&#xA; Fetch Next From  PublicIDCursor Into @CurrentPolicy&#xA;&#xA;&#xA;END&#xA;&#xA;Close PublicIDCursor; &#xA;Deallocate PublicIDCursor;&#xA;&#xA;&#xA;&#xA;&#xA;&#xA; " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Truncate Stage_WCPOLS_Exclusion"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{5038A809-4C23-48DA-A943-8DCFF852B27F}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Stage_WCPOLS_Exclusion"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}"
+              SQLTask:SqlStatementSource="Truncate Table Stage_WCPOLS_Exclusion " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{CAE28C64-DBB1-4216-BB68-6E83597275E9}"
+          DTS:From="Package\Sequence Container\Load Stage_WCPOLS_Exclusion"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Sequence Container\Load WCPOLS_Exclusion" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Sequence Container.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{3651F447-E27C-4BD4-967B-D2E911DF953D}"
+          DTS:From="Package\Sequence Container\Truncate Stage_WCPOLS_Exclusion"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Sequence Container\Load Stage_WCPOLS_Exclusion" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6b2ff67b-6d00-414d-a865-a3f6c94bf303}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{3DC5A390-FEA2-40E8-8DE5-7A41CFF8CF78}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{72261E5E-354E-4B81-BC75-F7C7E119A33E}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{003DAF52-968A-4300-9FE7-C0E4087A25F0}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{D68F3A1F-0FB7-44A0-AA22-6FBE021E6745}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{5BC3FA7C-D71C-4881-9AF1-7A57263DD5A3}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{37984d02-f26f-4e1f-b3cd-973826b47fdb}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Process Completed"
+          TopLeft="245,450" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Process Failed"
+          TopLeft="583,448" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\Sequence Container\Load Stage_WCPOLS_Exclusion"
+          TopLeft="72,73" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\Sequence Container\Load WCPOLS_Exclusion"
+          TopLeft="89,151" />
+        <NodeLayout
+          Size="246,42"
+          Id="Package\Sequence Container\Truncate Stage_WCPOLS_Exclusion"
+          TopLeft="66,3.5" />
+        <EdgeLayout
+          Id="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          TopLeft="186,115">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36"
+              Start="0,0"
+              End="0,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container.PrecedenceConstraints[Constraint 1]"
+          TopLeft="187.25,45.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27.5"
+              Start="0,0"
+              End="0,20">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="375,248"
+          Size="375,291"
+          Id="Package\Sequence Container"
+          TopLeft="273,119" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="373,32" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="461,74">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,45"
+              Start="0,0"
+              End="0,37.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="399.333333333333,410">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-70.3333333333333,40"
+              Start="0,0"
+              End="-70.3333333333333,32.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,12.1019649495486" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,12.1019649495486"
+                    Point2="0,16.1019649495486"
+                    Point3="-4,16.1019649495486" />
+                  <mssgle:LineSegment
+                    End="-66.3333333333333,16.1019649495486" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-66.3333333333333,16.1019649495486"
+                    Point2="-70.3333333333333,16.1019649495486"
+                    Point3="-70.3333333333333,20.1019649495486" />
+                  <mssgle:LineSegment
+                    End="-70.3333333333333,32.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="521.666666666667,410">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="133.833333333333,38"
+              Start="0,0"
+              End="133.833333333333,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.2968667020712" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.2968667020712"
+                    Point2="0,15.2968667020712"
+                    Point3="4,15.2968667020712" />
+                  <mssgle:LineSegment
+                    End="129.833333333333,15.2968667020712" />
+                  <mssgle:CubicBezierSegment
+                    Point1="129.833333333333,15.2968667020712"
+                    Point2="133.833333333333,15.2968667020712"
+                    Point3="133.833333333333,19.2968667020712" />
+                  <mssgle:LineSegment
+                    End="133.833333333333,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="51.6753190104165,20.2968667020712,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="532,174" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Sequence Container\Load Stage_WCPOLS_Exclusion">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="235,42"
+          Id="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement"
+          TopLeft="165.5,62.5" />
+        <NodeLayout
+          Size="260,42"
+          Id="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion"
+          TopLeft="154.5,187.5" />
+        <EdgeLayout
+          Id="Package\Sequence Container\Load Stage_WCPOLS_Exclusion.Paths[OLE DB Source Output]"
+          TopLeft="283.75,104.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,83"
+              Start="0,0"
+              End="0,75.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,75.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE DEST - Stage_WCPOLS_Exclusion">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load Stage_WCPOLS_Exclusion\OLE SRC - WCPolicyEndorsement">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

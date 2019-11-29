@@ -1,0 +1,1655 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/26/2016 5:51:15 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\vikas.singh"
+  DTS:DTSID="{AA796EE8-C467-4420-A949-5C536F2030EF}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCPOLS_Load_Maritime"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="206"
+  DTS:VersionGUID="{29A6E339-8638-474B-887B-41FB7BB1B479}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{89D56DAC-A9AC-4724-B659-EF0C6AA425CC}"
+      DTS:ObjectName="BatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="StartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::StartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{5953C502-D3D7-4962-9EB4-4F0F8B07F39B}"
+      DTS:ObjectName="StartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="EndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::EndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{B31669AF-93BE-491C-A6A6-DEED655E6A8B}"
+      DTS:ObjectName="EndDate" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2278E53D-5307-4737-93E4-3965A21205D7}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8F1A1E62-9381-4220-9DB7-77EC6E5E777F}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="EndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">2/25/2017 7:17:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AEBE8AB1-5BA0-479D-B6C8-0B82362B3A6E}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2017 12:18:00 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B1ECC888-3953-4769-A528-46439D531364}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6BDBFE0D-EFC0-4EBF-A222-327A666A1E1E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\Process Failed.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{AD5F9ED9-7DAF-4EFC-9C30-BE0F91B62BC6}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{BF3D4C63-04EC-423E-B8E3-A0D079E11652}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="&#xA;Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{E152E20B-3C42-45D0-9A05-EFEDC2DFF8A8}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Load WCPOLS_Maritime"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{CD26B266-3246-404E-A612-52686D5562F8}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load WCPOLS_Maritime"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Insert date"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Inputs[Derived Column Input].Columns[Endorse_SeqNum]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="Endorse_SeqNum"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[Endorse_SeqNum]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Inputs[Derived Column Input].Columns[PolicyState]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="60"
+                          cachedName="PolicyState"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyState]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Output].Columns[DateAdded]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Output].Columns[DateAdded]"
+                          name="DateAdded"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[GETDATE]()</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">GETDATE()</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Output].Columns[Endrsement sequence number]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Output].Columns[Endrsement sequence number]"
+                          name="Endrsement sequence number"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,2,1252)#{Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[Endorse_SeqNum]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,2,1252)Endorse_SeqNum</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Output].Columns[Policy State]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Output].Columns[Policy State]"
+                          name="Policy State"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,2,1252)#{Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyState]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,2,1252)PolicyState</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup State"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select Left(StateCode,2) StateCode, StateAbbr
+from  lkp.lkp_state  where stateCode!='01'</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (Select Left(StateCode,2) StateCode, StateAbbr
+from  lkp.lkp_state  where stateCode!='01') [refTable]
+where [refTable].[StateAbbr] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="StateCode" dataType="DT_STR" length="2" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="StateAbbr" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyState]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Inputs[Lookup Input].Columns[PolicyState]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="60"
+                          cachedName="PolicyState"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyState]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">StateAbbr</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="FailComponent"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Outputs[Lookup Match Output].Columns[StateCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Outputs[Lookup Match Output].Columns[StateCode]"
+                          name="StateCode"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">StateCode</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DEST - WCPOLS_Maritime"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[WCPOLS_Maritime]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">10000</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[DateAdded]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="DateAdded"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Output].Columns[DateAdded]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[PolicyID]"
+                          cachedDataType="i4"
+                          cachedName="PolicyID"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[PolicyId]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyID]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="PolicyNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[StateCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="StateCode"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[PolicyStateCode]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Outputs[Lookup Match Output].Columns[StateCode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[RecordType]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="RecordType"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[RecordType]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[RecordType]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[Endorsment_Num]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="Endorsment_Num"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[EndorsmentNum]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[Endorsment_Num]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[BureauVI]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="BureauVI"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[BureauVI]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[BureauVI]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[NameInsured]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="34"
+                          cachedName="NameInsured"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Inusred]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[NameInsured]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[effect_date]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="effect_date"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[effect_date]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[Endrsement sequence number]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="Endrsement sequence number"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Sequence_Number]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Output].Columns[Endrsement sequence number]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[Policy State]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="Policy State"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[PolicyState]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Output].Columns[Policy State]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[MeritimeAccidentLimit]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="MeritimeAccidentLimit"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Maritime_Accident]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MeritimeAccidentLimit]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[MeritimeDiseaseLimit]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="MeritimeDiseaseLimit"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Maritime_Disease]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MeritimeDiseaseLimit]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[MeritimePremiumAmount]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="MeritimePremiumAmount"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Premium_Amount]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MeritimePremiumAmount]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].Columns[MaritimeWorkDescription]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="120"
+                          cachedName="MaritimeWorkDescription"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Work_Description]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MaritimeWorkDescription]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          dataType="dbTimeStamp"
+                          name="Insert_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="dbTimeStamp"
+                          name="Update_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[PolicyId]"
+                          dataType="i4"
+                          name="PolicyId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="PolicyState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[PolicyStateCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="PolicyStateCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RecordType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[EndorsmentNum]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="EndorsmentNum" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="BureauVI" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Sequence_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Endorsement_Sequence_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Inusred]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="Name_Of_Inusred" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Endorsement_Effective_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Maritime_ID]"
+                          dataType="i8"
+                          name="Maritime_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Maritime_Accident]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Maritime_Accident" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Maritime_Disease]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Maritime_Disease" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Premium_Amount]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Premium_Amount" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input].ExternalColumns[Work_Description]"
+                          codePage="1252"
+                          dataType="str"
+                          length="120"
+                          name="Work_Description" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE SRC - DimWCCoverage"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">with QualiPol
+as
+(
+select distinct w.PolicyID, p.PolicyNumber, p.BaseState, p.PrimaryInsuredName, f.FormNumber, W.EndorsementEffectiveDate EffectiveDate
+                ,case p.TransactionType when 'Submission' then 1 when 'Policy Change' then 2 else 0 end as Ind
+From FactPolicyForm w
+		Inner Join DimPolicy p on w.PolicyID = p.PolicyID
+		Inner Join DimForm f on w.formid = f.FormID 
+		left join  (select *   ,  row_number() over (partition by policyid order by effectivedate)  as i   from 
+                      (select distinct f.PolicyID, wc.EffectiveDate from DimWCCoverage  wc
+                       inner join FactWCPremiumTransaction f on wc.CoverageID=f.CoverageID ) c 
+					) as e on e.PolicyID=w.PolicyID and e.i=1
+	--05 OCT - VS - Added join on DimState to use IsNCCI column. This column is replacing all the NCCI States e.g. IN, VA, CT, IL etc.
+	Left join DimState ds on p.BaseState = ds.StateAbbr
+
+	Where f.FormNumber like 'WC 00 02 01 _'
+		And f.IsEndorsement = 1
+		and (
+				(p.TransactionType in ('Submission','Policy Change','Rewrite')  And (cast(P.JobUpdateTime as date) &gt; ? and cast(p.JobUpdateTime as date) &lt;= ?)) OR
+				(p.TransactionType ='Renewal' and p.eventname='SendNonRenewalDocuments' and p.BaseState='MI' And (cast(P.JobUpdateTime as date) &gt;DATEADD(day, -1, convert(date,?)) and cast(p.JobUpdateTime as date) &lt;=DATEADD(day, -1, convert(date,?)))) OR
+				(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname is null) OR
+				(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname='SendNonRenewalDocuments' and ds.IsNCCI = 1 /*p.BaseState = 'IN'*/)
+		)
+		and p.PolicyStatus = 'Bound' 
+)
+
+
+SELECT 
+ qp.PolicyID
+, left(isnull(qp.PolicyNumber,'')+replicate(' ',18),18) as PolicyNumber
+, qp.BaseState as PolicyState
+, left(isnull(qp.PrimaryInsuredName,'')+replicate(' ',34), 34) as NameInsured
+, '21' as RecordType
+, 'WC000201' as Endorsment_Num
+, isnull(substring(qp.formnumber,13,1),' ')  as BureauVI
+, right(replicate('0',10)+isnull(c.[MaritimeAccidentLimit],''),10) as MeritimeAccidentLimit
+, right(replicate('0',10)+isnull(c.[MaritimeDiseaseLimit],''),10) as MeritimeDiseaseLimit
+, right(replicate('0',10)+replace(isnull(substring(c.[MaritimePremiumAmount],1,CHARINDEX('.',c.[MaritimePremiumAmount])),''),'.',''),10) AS MeritimePremiumAmount
+, left(isnull(c.[MaritimeWorkDescription],'')+replicate(' ',120),120) as MaritimeWorkDescription
+,format(row_number() over (partition by qp.policyid order by c.effectivedate),'00') as Endorse_SeqNum
+,right(replace(convert(date,c.EffectiveDate,2),'-',''),6)    as effect_date
+
+from  QualiPol  qp 
+inner join ( SELECT PolicyID, MaritimeAccidentLimit,MaritimeDiseaseLimit,MaritimePremiumAmount,MaritimeWorkDescription,EffectiveDate, DataEffectiveDate
+FROM (select distinct f.PolicyID, c.MaritimeAccidentLimit,c.MaritimeDiseaseLimit,c.MaritimePremiumAmount,c.MaritimeWorkDescription,c.EffectiveDate,DENSE_RANK() OVER 
+(PARTITION BY POLICYID ORDER BY DATAEFFECTIVEDATE DESC) RANK,
+c.DataEffectiveDate from DimWCCoverage c join FactWCPremiumTransaction f on f.CoverageID=c.CoverageID and c.IsClassCode=1 and c.CoverageName='WC7MaritimeCov' ) M WHERE M.rank =1
+) c on qp.PolicyID=c.PolicyID</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{AEBE8AB1-5BA0-479D-B6C8-0B82362B3A6E};"Parameter1:Input",{8F1A1E62-9381-4220-9DB7-77EC6E5E777F};"Parameter2:Input",{AEBE8AB1-5BA0-479D-B6C8-0B82362B3A6E};"Parameter3:Input",{8F1A1E62-9381-4220-9DB7-77EC6E5E777F};"Parameter4:Input",{AEBE8AB1-5BA0-479D-B6C8-0B82362B3A6E};"Parameter5:Input",{8F1A1E62-9381-4220-9DB7-77EC6E5E777F};"Parameter6:Input",{AEBE8AB1-5BA0-479D-B6C8-0B82362B3A6E};"Parameter7:Input",{8F1A1E62-9381-4220-9DB7-77EC6E5E777F};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          name="PolicyID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          length="60"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          name="PolicyState"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[RecordType]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[RecordType]"
+                          name="RecordType"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[Endorsment_Num]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[Endorsment_Num]"
+                          length="8"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[Endorsment_Num]"
+                          name="Endorsment_Num"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[BureauVI]"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[BureauVI]"
+                          name="BureauVI"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[Endorse_SeqNum]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[Endorse_SeqNum]"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[Endorse_SeqNum]"
+                          name="Endorse_SeqNum"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[NameInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[NameInsured]"
+                          length="34"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[NameInsured]"
+                          name="NameInsured"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[effect_date]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[effect_date]"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[effect_date]"
+                          name="effect_date"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MeritimeAccidentLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[MeritimeAccidentLimit]"
+                          length="10"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MeritimeAccidentLimit]"
+                          name="MeritimeAccidentLimit"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MeritimeDiseaseLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[MeritimeDiseaseLimit]"
+                          length="10"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MeritimeDiseaseLimit]"
+                          name="MeritimeDiseaseLimit"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MeritimePremiumAmount]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[MeritimePremiumAmount]"
+                          length="10"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MeritimePremiumAmount]"
+                          name="MeritimePremiumAmount"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MaritimeWorkDescription]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[MaritimeWorkDescription]"
+                          length="120"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[MaritimeWorkDescription]"
+                          name="MaritimeWorkDescription"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="PolicyState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RecordType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[Endorsment_Num]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="Endorsment_Num" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="BureauVI" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[Endorse_SeqNum]"
+                          dataType="wstr"
+                          length="4000"
+                          name="Endorse_SeqNum" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[NameInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="NameInsured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[effect_date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="effect_date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[MeritimeAccidentLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="MeritimeAccidentLimit" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[MeritimeDiseaseLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="MeritimeDiseaseLimit" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[MeritimePremiumAmount]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="MeritimePremiumAmount" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[MaritimeWorkDescription]"
+                          codePage="1252"
+                          dataType="str"
+                          length="120"
+                          name="MaritimeWorkDescription" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          name="PolicyNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          name="PolicyID" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          name="PolicyState" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[RecordType]"
+                          name="RecordType" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[Endorsment_Num]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[Endorsment_Num]"
+                          name="Endorsment_Num" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[BureauVI]"
+                          name="BureauVI" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[Endorse_SeqNum]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[Endorse_SeqNum]"
+                          name="Endorse_SeqNum" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[NameInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[NameInsured]"
+                          name="NameInsured" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[effect_date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[effect_date]"
+                          name="effect_date" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[MeritimeAccidentLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[MeritimeAccidentLimit]"
+                          name="MeritimeAccidentLimit" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[MeritimeDiseaseLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[MeritimeDiseaseLimit]"
+                          name="MeritimeDiseaseLimit" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[MeritimePremiumAmount]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[MeritimePremiumAmount]"
+                          name="MeritimePremiumAmount" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[MaritimeWorkDescription]"
+                          codePage="1252"
+                          dataType="str"
+                          length="120"
+                          lineageId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[MaritimeWorkDescription]"
+                          name="MaritimeWorkDescription" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\Load WCPOLS_Maritime.Paths[Derived Column Output]"
+                  endId="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Sequence Container\Load WCPOLS_Maritime.Paths[Lookup Match Output]"
+                  endId="Package\Sequence Container\Load WCPOLS_Maritime\Insert date.Inputs[Derived Column Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Sequence Container\Load WCPOLS_Maritime.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{160865A8-AE9F-447E-8EE4-01AF991BA2A2}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{8E428A97-0340-4A45-95D9-3773AD08B309}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{C61D7FEE-DC44-49EB-88E6-E2DC6ED4DB9F}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{0BAA50AC-47AC-4955-879A-E5FAA764C013}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{298938FD-C294-4C11-A543-07E5E3754983}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{26B9EE71-A2BD-4095-84B6-0591DBA5A453}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{32940DD9-8AF0-4F90-83B7-580C692F5DE8}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Process Completed"
+          TopLeft="53,380" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Process Failed"
+          TopLeft="335,387" />
+        <NodeLayout
+          Size="192,42"
+          Id="Package\Sequence Container\Load WCPOLS_Maritime"
+          TopLeft="17,21" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="226,127"
+          Size="226,170"
+          Id="Package\Sequence Container"
+          TopLeft="141,115" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="164,35" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="253.25,77">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="217.666666666667,285">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-80.6666666666667,95"
+              Start="0,0"
+              End="-80.6666666666667,87.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.4007029876977" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.4007029876977"
+                    Point2="0,38.4007029876977"
+                    Point3="-4,38.4007029876977" />
+                  <mssgle:LineSegment
+                    End="-76.6666666666667,38.4007029876977" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-76.6666666666667,38.4007029876977"
+                    Point2="-80.6666666666667,38.4007029876977"
+                    Point3="-80.6666666666667,42.4007029876977" />
+                  <mssgle:LineSegment
+                    End="-80.6666666666667,87.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="290.333333333333,285">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="117.166666666667,102"
+              Start="0,0"
+              End="117.166666666667,94.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37.2302284710018" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,37.2302284710018"
+                    Point2="0,41.2302284710018"
+                    Point3="4,41.2302284710018" />
+                  <mssgle:LineSegment
+                    End="113.166666666667,41.2302284710018" />
+                  <mssgle:CubicBezierSegment
+                    Point1="113.166666666667,41.2302284710018"
+                    Point2="117.166666666667,41.2302284710018"
+                    Point3="117.166666666667,45.2302284710018" />
+                  <mssgle:LineSegment
+                    End="117.166666666667,94.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="43.3419856770833,46.2302284710018,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="352,62" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Sequence Container\Load WCPOLS_Maritime">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="250,42"
+          Id="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage"
+          TopLeft="154,8" />
+        <NodeLayout
+          Size="250,42"
+          Id="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State"
+          TopLeft="148,81" />
+        <NodeLayout
+          Size="250,42"
+          Id="Package\Sequence Container\Load WCPOLS_Maritime\Insert date"
+          TopLeft="149,161" />
+        <NodeLayout
+          Size="250,42"
+          Id="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime"
+          TopLeft="145,241" />
+        <EdgeLayout
+          Id="Package\Sequence Container\Load WCPOLS_Maritime.Paths[OLE DB Source Output]"
+          TopLeft="276,50">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31"
+              Start="0,0"
+              End="0,23.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\Load WCPOLS_Maritime.Paths[Lookup Match Output]"
+          TopLeft="273.5,123">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,9.4453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\Load WCPOLS_Maritime.Paths[Derived Column Output]"
+          TopLeft="272,203">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load WCPOLS_Maritime\OLE SRC - DimWCCoverage">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load WCPOLS_Maritime\Lookup State">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load WCPOLS_Maritime\OLE DEST - WCPOLS_Maritime">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

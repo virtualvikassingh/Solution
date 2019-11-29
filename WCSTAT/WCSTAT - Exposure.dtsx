@@ -1,0 +1,1651 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/11/2018 11:54:38 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ACF-EWAQW01"
+  DTS:CreatorName="ACFS24\vikas.singh"
+  DTS:DTSID="{0FAFC2E3-B7E7-415C-B8EA-A03E49BE64AD}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCSTAT - Exposure"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="61"
+  DTS:VersionGUID="{A33C11F2-EE00-4853-8947-E3D0073B3786}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportMonth"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportMonth].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{B211C387-7351-4DFF-8ED2-F93D8C1B97A1}"
+      DTS:ObjectName="ReportMonth" />
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportYear"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportYear].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{1D8CD522-505D-48DD-B499-17F81112BECF}"
+      DTS:ObjectName="ReportYear" />
+    <DTS:Configuration
+      DTS:ConfigurationString="Counter"
+      DTS:ConfigurationVariable="\Package.Variables[User::CurrentOrCorrection].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{F439E99C-1886-4A18-A490-6D79B257995E}"
+      DTS:ObjectName="CurrentOrCorrection" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E3F898D3-E802-4B0C-BD79-F1D93C01FF51}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportMonth">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{CC6EFEF9-C469-41A8-8127-4CB56DC60148}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportYear">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Exposure Record"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{405F669C-0E2A-40D8-A182-662AAA474266}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Exposure Record"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Exposure Record\DEST - WCStatReportData"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DEST - WCStatReportData"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STAGE_WCStatReportData]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Exposure Record\DEST - WCStatReportData.Connections[OleDbConnection]"
+                  connectionManagerID="{92E7D99B-74F9-414C-93B4-3FBDA62D5F91}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WCSTAT]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[Policyid]"
+                      cachedDataType="i4"
+                      cachedName="Policyid"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[Policyid]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ExposureState]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ExposureState"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ExposureState]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureState]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[RecoordTypeCodeC1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="RecoordTypeCodeC1"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RecoordTypeCodeC1]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ReservedForFutureUseC2"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC2]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ClassCodeC3]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="ClassCodeC3"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ClassCodeC3]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC4]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="ReservedForFutureUseC4"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column4]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC4]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ExperienceModFactorC5]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="ExperienceModFactorC5"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column5]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExperienceModFactorC5]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ExperienceModificationEffectiveDateC6]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="ExperienceModificationEffectiveDateC6"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column6]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExperienceModificationEffectiveDateC6]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[RateEffectiveDateC7]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="RateEffectiveDateC7"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column7]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RateEffectiveDateC7]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ExposureAmountC8]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="ExposureAmountC8"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column8]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureAmountC8]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PremiumAmountC9]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="9"
+                      cachedName="PremiumAmountC9"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column9]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PremiumAmountC9]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ManualChargedRateC10]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="7"
+                      cachedName="ManualChargedRateC10"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column10]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ManualChargedRateC10]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[SplitPeriodCodeC11]"
+                      cachedDataType="i8"
+                      cachedName="SplitPeriodCodeC11"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column11]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[SplitPeriodCodeC11]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC12]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="17"
+                      cachedName="ReservedForFutureUseC12"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column12]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC12]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[RatingTierIdCodeC13]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="RatingTierIdCodeC13"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column13]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RatingTierIdCodeC13]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC14]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8"
+                      cachedName="ReservedForFutureUseC14"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column14]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC14]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[UpdateTypeCodeC15]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="UpdateTypeCodeC15"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column15]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[UpdateTypeCodeC15]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC16]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ReservedForFutureUseC16"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column16]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC16]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ExposureActCodeC17]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="ExposureActCodeC17"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column17]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureActCodeC17]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC18]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="126"
+                      cachedName="ReservedForFutureUseC18"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column18]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC18]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="PolicyNumber"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[TermNumber]"
+                      cachedDataType="i4"
+                      cachedName="TermNumber"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[TermNumber]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReportMonth]"
+                      cachedDataType="i4"
+                      cachedName="ReportMonth"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportMonth]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]" />
+                    <inputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReportYear]"
+                      cachedDataType="i4"
+                      cachedName="ReportYear"
+                      externalMetadataColumnId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportYear]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[StatID]"
+                      dataType="i8"
+                      name="StatID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column4" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column5" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column6" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column7" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column8" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column9" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column11" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column12" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column13" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column14" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column15" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column16" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column17" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column18" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column19]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column19" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column20]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column20" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column21]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column21" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column22]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column22" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column23]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column23" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column24]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column24" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column25]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column25" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column26]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column26" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column27]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column27" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column28]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column28" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column29]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column29" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column30]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column30" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column31]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column31" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column32]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column32" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column33]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column33" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column34]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column34" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column35]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column35" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column36]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column36" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column37]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column37" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column38]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column38" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column39]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column39" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column40]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column40" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column41]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column41" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column42]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column42" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column43]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column43" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column44]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column44" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column45]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column45" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column46]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column46" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column47]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column47" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ExposureState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                      dataType="i8"
+                      name="PolicyID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="PolicyNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[TermNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TermNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportMonth]"
+                      dataType="i4"
+                      name="ReportMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportYear]"
+                      dataType="i4"
+                      name="ReportYear" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingMonth]"
+                      dataType="i4"
+                      name="ReportingMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingYear]"
+                      dataType="i4"
+                      name="ReportingYear" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Exposure Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Exposure Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Exposure Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Exposure Record\SRC - DimPolicy"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - DimPolicy"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With CTE_MostRecentVersion as 
+(
+	Select Policyid 
+	from
+	(
+		Select 	 
+		 p.PolicyID,	 
+		 Row_number() over(partition by p.PolicyNumber, p.TermNumber order by p.JobCloseDate Desc) RowNumber 
+	 
+		From FactWCPremiumTransaction f 
+		inner join DimPolicy p  on f.PolicyID = p.PolicyID
+		
+		Where p.EffectiveDate &lt; DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)
+		and p.JobCloseDate &lt;  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)
+  		and p.TransactionType = 'Audit'
+		and p.PolicyStatus = 'Completed'
+		) t
+	Where t.RowNumber = 1  
+  
+ ),
+
+ CTE_Audit as 
+ (
+	
+	Select  PolicyId, PolicyNumber, TermNumber, ClassCode, EffectiveDateID,  
+	Sum(PremiumAmount) PremiumAmount,
+	Sum(exposureAmount) ExposureAmount,
+	ManualChargedRate,
+	Row_number() over(partition by PolicyNumber, TermNumber, ClassCode, EffectiveDateID order by JobCloseDate Desc) RowNumber
+	From 
+		(
+		Select  
+			p.PolicyId, 
+			p.PolicyNumber, 
+			p.TermNumber, 
+			c.ClassCode, 
+			p.JobCloseDate,
+			f.EffectiveDateID,
+			ABS(c.ActualAmount) PremiumAmount,  
+			ABS(IIF(IsClassCode = 1, IIF(c.ClassCode = '0930', 0, IIF(c.BasisType='Per Capita', c.Basis*100, c.Basis)) ,0)) ExposureAmount,
+			ABS(IIF(IsClassCode = 1, ISNULL(IIF(c.ClassCode = '0930', 0, c.ActualAdjRate),0) ,0))*1000 ManualChargedRate 
+
+		from dimpolicy p  
+			inner join FactWCPremiumTransaction f on f.PolicyID = p.PolicyID
+			inner join DimWCCoverage c on c.CoverageID = f.CoverageID 	 
+			 
+		where  Charges = 1 	 
+			and p.TransactionType = 'Audit'
+			and p.PolicyStatus = 'Completed'
+			and p.EffectiveDate &lt; DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)
+			and p.JobCloseDate &lt;  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)
+		 
+	 )T
+	 Group by PolicyId, PolicyNUmber, TermNumber, ClassCode, ManualChargedRate, JobCloseDate, EffectiveDateID
+
+ ),
+
+ CTE_AnniversaryDate as 
+ (
+	 Select   p.PolicyNumber, p.TermNumber, Convert(varchar(8), c.AnniversaryDate, 112) AnniversaryDate,  
+	 Count(Distinct ExperienceRating)  DistinctExpMod
+	 from FactWCPremiumTransaction f 
+		inner join DimWCCoverage c on f.CoverageID = c.CoverageID
+		inner Join DimPolicy p on f.PolicyId = p.PolicyId
+		
+		Where c.AnniversaryDate IS NOT NULL
+		 
+	Group By p.PolicyNUmber, p.TermNumber, c.AnniversaryDate, p.effectivedate
+),
+
+ 
+ CTE_ExpMod as 
+(
+	Select Distinct p.PolicyId,f.EffectiveDateID, ExperienceRating
+	From DimWCCoverage c 
+		Inner Join FactWCPremiumTransaction f on f.CoverageID = c.CoverageID
+		Inner Join DimPolicy p on f.PolicyID = p.PolicyID
+		
+	Where ClassCode in ('9887', '9898', '9889','0000') 
+		And c.EffectiveDate &lt;&gt; c.ExpirationDate  
+)
+
+
+,CTE_SplitPeriod as 
+(
+	Select  PolicyNumber, TermNumber, classcode, EffectiveDateId,
+	Dense_Rank() Over(Partition by PolicyNumber, TermNumber  Order by EffectiveDateId) -1 RNK
+	from (
+		Select Distinct   p.PolicyNumber, p.TermNumber, EffectiveDateId, c.ClassCode
+		From DimWCCoverage c 
+			Inner Join FactWCPremiumTransaction f on c.CoverageId = f.CoverageID
+			Inner Join DimPolicy p on f.PolicyId = p.PolicyID
+			Inner join CTE_MostRecentVersion l on p.PolicyID = l.Policyid
+		Where 1 =1 		 
+		--and (ActualAmount != 0 or Basis !=0)  	
+ 
+	)p
+ 
+),
+
+
+ CTE_SplitCount as 
+ (
+		Select Distinct p.PolicyNumber, p.TermNumber,  Count(Distinct SplitDate) SplitCount
+		From DimWCCoverage c 
+		Inner Join FactWCPremiumTransaction f on c.CoverageId = f.CoverageID
+		Inner Join DimPolicy p on f.PolicyId = p.PolicyID
+		--Inner Join VW_WCStatEffectivePolicies ep on p.PolicyNumber = ep.PolicyNumber and p.TermNumber = ep.TermNumber
+		Group By p.PolicyNumber, p.TermNumber
+	),
+
+ 
+CTE_ExpModEffDate
+as 
+(
+	Select 
+	 ClassCode, ExperienceRating, T.PolicyNUmber, T.TermNumber, CoverageEffectiveDate, /*  Policyeffectivedate, a.AnniversaryDate,*/
+
+	Case When SplitCount = 0 Then Right(PolicyEffectiveDate,6)
+		 When T.PolicyEffectiveDate != a.AnniversaryDate and DistinctExpMod &lt;  2 Then Right(PolicyEffectiveDate,6)
+		 When T.PolicyEffectiveDate != a.AnniversaryDate and DistinctExpMod &gt;= 2 Then Right(CoverageEffectiveDate,6)
+		 When T.PolicyEffectiveDate = a.AnniversaryDate Then Right(CoverageEffectiveDate,6)
+		 Else Right(PolicyEffectiveDate,6)
+	END as ExperienceModificationEffectiveDate,
+
+	Case  When SplitCount = 0 Then Right(PolicyEffectiveDate,6)
+		 When T.PolicyEffectiveDate != a.AnniversaryDate  Then Right(CoverageEffectiveDate,6)
+	  	 Else Right(PolicyEffectiveDate,6)
+	END as RateEffectiveDate  
+ 
+	From 
+	(
+		Select   
+				p.PolicyId, p.PolicyNUmber, p.TermNumber,
+				c.CoverageId, 
+				c.IsClassCode,
+				c.GoverningLaw,
+				c.CoalMine,
+				c.coverageName,
+				ep.State,
+				c.ActualAdjRate,
+				c.BasisType,
+				c.Basis,
+				ClassCode,
+				ExperienceRating,
+				f.EffectiveDateID CoverageEffectiveDate,
+				Convert(varchar(8), c.AnniversaryDate, 112) AnniversaryDate,
+				Convert(varchar(8), c.SplitDate, 112) SplitDate,
+				Convert(varchar(8), p.EffectiveDate, 112) PolicyEffectiveDate
+		From DimWCCoverage c 
+			Inner Join FactWCPremiumTransaction f on c.CoverageId = f.CoverageID
+			Inner Join DimPolicy p on f.PolicyId = p.PolicyID
+			Inner Join VW_WCStatEffectivePolicies ep on p.PolicyNumber = ep.PolicyNumber and p.TermNumber = ep.TermNumber
+	)T Left join CTE_AnniversaryDate a on T.PolicyNumber = a.PolicyNumber and T.TermNumber = a.TermNumber
+	  Left Join CTE_SplitCount s on t.PolicyNumber = s.PolicyNumber and t.TermNumber = s.TermNumber
+),
+
+CTE_Summary as (
+  
+  Select 
+  '4' as RecoordTypeCodeC1,
+  ' ' ReservedForFutureUseC2,
+  Left(ISNULL(wc.ClassCode,' 0000'),4) ClassCodeC3, 
+  Replicate(' ',4) ReservedForFutureUseC4, 
+  IIF(wc.IsClassCode = 1 or wc.ClassCode in ('9848', '9812', '0930','0121', '0122','9807','9664'),Cast(Format(IIF(isnull(em.ExperienceRating,0) = 0, 0, em.ExperienceRating)*1000,'0000')as varchar(4)),'0000')  ExperienceModFactorC5,  
+  dbo.udf_MakeFixedWidthStringIN(ExperienceModificationEffectiveDate,'0',6) ExperienceModificationEffectiveDateC6, /* CoverageEffectiveDate, Policyeffectivedate, emd.anniversarydate,*/
+   
+  dbo.udf_MakeFixedWidthStringIN(RateEffectiveDate,'0',6) RateEffectiveDateC7,
+  Cast(Format(Cast(Round(ISNULL(ExposureAmount,0),0) as INT),'0000000000')as varchar(10)) ExposureAmountC8,
+  Cast(Format(Cast(Round(ISNULL(PremiumAmount,0),0) as INT),'000000000')as varchar(9))    PremiumAmountC9,
+  Cast(Format(ISNULL(ManualChargedRate,0),'0000000')as varchar(7))   ManualChargedRateC10, 
+
+  IIF(SplitCount = 0, '0', ISNULL(s.RNK,0)) SplitPeriodCodeC11,  
+ 
+
+  Replicate(' ',17) ReservedForFutureUseC12, 
+  '00' RatingTierIdCodeC13,
+  Replicate(' ',8) ReservedForFutureUseC14, 
+  'R' UpdateTypeCodeC15,
+  ' ' ReservedForFutureUseC16, 
+  ISNULL(Case wc.IsClassCode when 1  then 
+     case when wc.GoverningLaw ='Longshore And Harbor Workers C' then '02'
+          when ep.State = 'IN' and isnull(cast(wc.CoalMine as varchar(1)),'0')!= '0' then '03'
+	      when ep.State = 'IN' and isnull(wc.CoverageName,'')  = 'WC7MaritimeCov' then '09'
+	      when ep.State = 'MI' then '01'
+	 else '01' end
+  else '00' end, '00')  as ExposureActCodeC17, 
+  Replicate(' ',126) ReservedForFutureUseC18, 
+  p.Policyid,  
+  p.PolicyNumber, 
+  p.TermNumber, 
+  ep.State ExposureState,
+  ep.ReportMonth,
+  ep.ReportYear,  
+  Row_number() over(partition by p.PolicyNumber, p.TermNumber, wc.ClassCode, f.EffectiveDateID  order by p.JobCloseDate Desc) RowNumber 
+
+from dimpolicy p  
+	inner join VW_WCStatEffectivePolicies ep on p.PolicyNumber = ep.PolicyNumber and p.TermNumber = ep.TermNumber	
+	left join FactWCPremiumTransaction f on f.PolicyID = p.PolicyID
+	left join DimWCCoverage wc on wc.CoverageID = f.CoverageID 	
+	left Join CTE_Audit a on a.PolicyNumber = p.PolicyNumber and a.TermNumber = p.TermNumber and wc.ClassCode = a.ClassCode and f.EffectiveDateID = a.EffectiveDateID  and a.RowNumber = 1  
+	Left Join CTE_ExpMod em on p.PolicyID = em.PolicyID and f.EffectiveDateID = em.EffectiveDateID
+	Left Join CTE_ExpModEffDate emd on p.PolicyNumber  = emd.PolicyNumber and p.TermNumber = emd.TermNumber and  f.EffectiveDateID = emd.CoverageEffectiveDate and wc.ClassCode = emd.ClassCode 
+	Left join CTE_SplitPeriod s on p.PolicyNumber = s.PolicyNumber and p.TermNumber = s.TermNumber and  wc.ClassCode = s.ClassCode and f.EffectiveDateID = s.EffectiveDateID
+	Left Join CTE_SplitCount c on p.PolicyNumber = c.PolicyNumber and p.TermNumber = c.TermNumber
+	inner join CTE_MostRecentVersion m on p.PolicyID = m.PolicyID
+ 
+ 
+where 1= 1 
+	And NOT (wc.EffectiveDate = wc.ExpirationDate and f.WrittenPremium = 0 )
+	and wc.ClassCode not in ('0000', '9898')
+	and (ExposureAmount != 0 or PremiumAmount !=0) 
+ 
+
+
+)
+
+select *
+ from CTE_Summary
+ where 1= 1 
+ and rownumber =1</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Exposure Record\SRC - DimPolicy.Connections[OleDbConnection]"
+                  connectionManagerID="{5D61FD35-9751-47D2-B783-21BBF451814D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ClassCodeC3]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ClassCodeC3]"
+                      length="10"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ClassCodeC3]"
+                      name="ClassCodeC3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PremiumAmountC9]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PremiumAmountC9]"
+                      length="9"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PremiumAmountC9]"
+                      name="PremiumAmountC9"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RecoordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RecoordTypeCodeC1]"
+                      length="1"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RecoordTypeCodeC1]"
+                      name="RecoordTypeCodeC1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC2]"
+                      length="1"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC2]"
+                      name="ReservedForFutureUseC2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC4]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC4]"
+                      length="4"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC4]"
+                      name="ReservedForFutureUseC4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExperienceModFactorC5]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExperienceModFactorC5]"
+                      length="4"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExperienceModFactorC5]"
+                      name="ExperienceModFactorC5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExperienceModificationEffectiveDateC6]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExperienceModificationEffectiveDateC6]"
+                      length="250"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExperienceModificationEffectiveDateC6]"
+                      name="ExperienceModificationEffectiveDateC6"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RateEffectiveDateC7]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RateEffectiveDateC7]"
+                      length="250"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RateEffectiveDateC7]"
+                      name="RateEffectiveDateC7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureAmountC8]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureAmountC8]"
+                      length="10"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureAmountC8]"
+                      name="ExposureAmountC8"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ManualChargedRateC10]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ManualChargedRateC10]"
+                      length="7"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ManualChargedRateC10]"
+                      name="ManualChargedRateC10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[SplitPeriodCodeC11]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[SplitPeriodCodeC11]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[SplitPeriodCodeC11]"
+                      name="SplitPeriodCodeC11"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC12]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC12]"
+                      length="17"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC12]"
+                      name="ReservedForFutureUseC12"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RatingTierIdCodeC13]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RatingTierIdCodeC13]"
+                      length="2"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RatingTierIdCodeC13]"
+                      name="RatingTierIdCodeC13"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC14]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC14]"
+                      length="8"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC14]"
+                      name="ReservedForFutureUseC14"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[UpdateTypeCodeC15]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[UpdateTypeCodeC15]"
+                      length="1"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[UpdateTypeCodeC15]"
+                      name="UpdateTypeCodeC15"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC16]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC16]"
+                      length="1"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC16]"
+                      name="ReservedForFutureUseC16"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureActCodeC17]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureActCodeC17]"
+                      length="2"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureActCodeC17]"
+                      name="ExposureActCodeC17"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC18]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC18]"
+                      length="126"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC18]"
+                      name="ReservedForFutureUseC18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[Policyid]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[Policyid]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[Policyid]"
+                      name="Policyid"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      length="50"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      name="PolicyNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      name="TermNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureState]"
+                      length="50"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureState]"
+                      name="ExposureState"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RowNumber]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RowNumber]"
+                      name="RowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportMonth]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]"
+                      name="ReportMonth"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportYear]"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]"
+                      name="ReportYear"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ClassCodeC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ClassCodeC3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PremiumAmountC9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="9"
+                      name="PremiumAmountC9" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RecoordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="RecoordTypeCodeC1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ReservedForFutureUseC2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ReservedForFutureUseC4" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExperienceModFactorC5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ExperienceModFactorC5" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExperienceModificationEffectiveDateC6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="ExperienceModificationEffectiveDateC6" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RateEffectiveDateC7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="RateEffectiveDateC7" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureAmountC8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="ExposureAmountC8" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ManualChargedRateC10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      name="ManualChargedRateC10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[SplitPeriodCodeC11]"
+                      dataType="i8"
+                      name="SplitPeriodCodeC11" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="17"
+                      name="ReservedForFutureUseC12" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RatingTierIdCodeC13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="RatingTierIdCodeC13" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      name="ReservedForFutureUseC14" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[UpdateTypeCodeC15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="UpdateTypeCodeC15" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ReservedForFutureUseC16" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureActCodeC17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ExposureActCodeC17" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="126"
+                      name="ReservedForFutureUseC18" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[Policyid]"
+                      dataType="i4"
+                      name="Policyid" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="PolicyNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      dataType="i4"
+                      name="TermNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ExposureState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RowNumber]"
+                      dataType="i8"
+                      name="RowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportMonth]"
+                      dataType="i4"
+                      name="ReportMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportYear]"
+                      dataType="i4"
+                      name="ReportYear" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RecoordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RecoordTypeCodeC1]"
+                      name="RecoordTypeCodeC1" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC2]"
+                      name="ReservedForFutureUseC2" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ClassCodeC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ClassCodeC3]"
+                      name="ClassCodeC3" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC4]"
+                      name="ReservedForFutureUseC4" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExperienceModFactorC5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExperienceModFactorC5]"
+                      name="ExperienceModFactorC5" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExperienceModificationEffectiveDateC6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExperienceModificationEffectiveDateC6]"
+                      name="ExperienceModificationEffectiveDateC6" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RateEffectiveDateC7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RateEffectiveDateC7]"
+                      name="RateEffectiveDateC7" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureAmountC8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureAmountC8]"
+                      name="ExposureAmountC8" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ManualChargedRateC10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="7"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ManualChargedRateC10]"
+                      name="ManualChargedRateC10" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[SplitPeriodCodeC11]"
+                      dataType="i8"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[SplitPeriodCodeC11]"
+                      name="SplitPeriodCodeC11" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="17"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC12]"
+                      name="ReservedForFutureUseC12" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RatingTierIdCodeC13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RatingTierIdCodeC13]"
+                      name="RatingTierIdCodeC13" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC14]"
+                      name="ReservedForFutureUseC14" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[UpdateTypeCodeC15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[UpdateTypeCodeC15]"
+                      name="UpdateTypeCodeC15" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC16]"
+                      name="ReservedForFutureUseC16" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureActCodeC17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureActCodeC17]"
+                      name="ExposureActCodeC17" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="126"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC18]"
+                      name="ReservedForFutureUseC18" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[Policyid]"
+                      dataType="i4"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[Policyid]"
+                      name="Policyid" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      name="PolicyNumber" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      dataType="i4"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      name="TermNumber" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureState]"
+                      name="ExposureState" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportMonth]"
+                      dataType="i4"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportMonth]"
+                      name="ReportMonth" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportYear]"
+                      dataType="i4"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportYear]"
+                      name="ReportYear" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RowNumber]"
+                      dataType="i8"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RowNumber]"
+                      name="RowNumber" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PremiumAmountC9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="9"
+                      lineageId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PremiumAmountC9]"
+                      name="PremiumAmountC9" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Exposure Record.Paths[OLE DB Source Output]"
+              endId="Package\Load Exposure Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Exposure Record\SRC - DimPolicy.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="184,42"
+          Id="Package\Load Exposure Record"
+          TopLeft="264.5,193.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Exposure Record">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Load Exposure Record\SRC - DimPolicy"
+          TopLeft="196.5,33.5" />
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Load Exposure Record\DEST - WCStatReportData"
+          TopLeft="179.5,218.5" />
+        <EdgeLayout
+          Id="Package\Load Exposure Record.Paths[OLE DB Source Output]"
+          TopLeft="277.25,75.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,143"
+              Start="0,0"
+              End="0,135.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,135.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Exposure Record\DEST - WCStatReportData">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Exposure Record\SRC - DimPolicy">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

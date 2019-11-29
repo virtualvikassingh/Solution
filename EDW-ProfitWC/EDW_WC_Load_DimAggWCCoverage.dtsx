@@ -1,0 +1,1566 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/7/2013 3:07:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DMZWKSTN1"
+  DTS:CreatorName="WRGDMZ\mohit.garg"
+  DTS:DTSID="{12C6CF4D-1FD0-48F4-B0B0-08352149C234}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="EDW_WC_Load_DimAggWCCoverage"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="733"
+  DTS:VersionGUID="{DDE3AE60-632D-49C6-A3CB-34E3523C94E2}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[EnterpriseDataWarehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{062FD3B3-1CF9-49E9-ACC5-4CA559B17810}"
+      DTS:ObjectName="EnterpriseDataWarehouse">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::EDWDatabase]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::TargetServer]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=SQLDEDW\DBD;Initial Catalog=EDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{79EE5937-C7E9-4237-A215-22FAC8927C72}"
+      DTS:ObjectName="cnfg_BatchID" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{86D8D4A3-4E08-4375-AB6D-DABBEEBEA221}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2472D359-7E71-4407-8446-FD0CA6461D9E}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7E99FF55-B466-4E58-B31E-CF6414B109FE}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8E1CB150-A082-4659-8546-537131CD1D45}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UnChangeCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1E53CCD9-3154-4053-B3DB-99EAF9B27E5C}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdateCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SEQC - DimAggWCCoverage"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{627473F1-BDCC-4841-8F36-B12F3DE579E4}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQC - DimAggWCCoverage">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{932746EF-CB1B-4158-AF0E-FA7FB67381FA}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DFT - Load WCCoverage Aggregate"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Insert Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="CNT - Insert Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::InsertCount</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Insert Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Insert Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Insert Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Source Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="CNT - Source Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::SourceCount</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Source Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Source Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Source Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="DRV_BatchID"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Outputs[Derived Column Output].Columns[BatchID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Outputs[Derived Column Output].Columns[BatchID]"
+                          name="BatchID"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">@[User::BatchID]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">@[User::BatchID]</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE_DEST - Load DimAggWCCoverage"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[DimAggWCCoverage]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">10000</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[EnterpriseDataWarehouse]"
+                      connectionManagerRefId="Package.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].Columns[CoverageName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="64"
+                          cachedName="CoverageName"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[CoverageName]"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[CoverageName]" />
+                        <inputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].Columns[EmpLiabPolicyLimit]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="20"
+                          cachedName="EmpLiabPolicyLimit"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[EmpLiabPolicyLimit]"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[EmpLiabPolicyLimit]" />
+                        <inputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].Columns[StopGapLimit]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="20"
+                          cachedName="StopGapLimit"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[StopGapLimit]"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[StopGapLimit]" />
+                        <inputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].Columns[TerrorismRiskEndorsementInd]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="TerrorismRiskEndorsementInd"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[TerrorismRiskEndorsementInd]"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[TerrorismRiskEndorsementInd]" />
+                        <inputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].Columns[StatutoryWCInd]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="StatutoryWCInd"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[StatutoryWCInd]"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[StatutoryWCInd]" />
+                        <inputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].Columns[OtherStateInsurance]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="OtherStateInsurance"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[OtherStateInsurance]"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[OtherStateInsurance]" />
+                        <inputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].Columns[ClassCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="ClassCode"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[ClassCode]"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[ClassCode]" />
+                        <inputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].Columns[ChargePattern]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="ChargePattern"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[ChargePattern]"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[ChargePattern]" />
+                        <inputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].Columns[StateName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="StateName"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[StateName]"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[StateName]" />
+                        <inputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].Columns[EmpLiabPerAccidentLimit]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="20"
+                          cachedName="EmpLiabPerAccidentLimit"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[EmpLiabPerAccidentLimit]"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[EmpLiabPerAccidentLimit]" />
+                        <inputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].Columns[BatchID]"
+                          cachedDataType="i4"
+                          cachedName="BatchID"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Outputs[Derived Column Output].Columns[BatchID]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[AggID]"
+                          dataType="i4"
+                          name="AggID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                          dataType="dbTimeStamp"
+                          name="DateAdded" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[CoverageName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="64"
+                          name="CoverageName" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[ClassCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="ClassCode" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[EmpLiabPolicyLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="EmpLiabPolicyLimit" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[StopGapLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="StopGapLimit" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[Deductible]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="Deductible" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[Coinsurance]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="Coinsurance" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[DeductiblePerClaim]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="DeductiblePerClaim" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[TotalDeductible]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="TotalDeductible" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[MedicalOnlyDeductible]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="MedicalOnlyDeductible" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[MedicalOnlyDeductible_1]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="MedicalOnlyDeductible_1" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[MedicalCRDeductible]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="MedicalCRDeductible" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[CoinsuranceDeductibleType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="CoinsuranceDeductibleType" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[FlexibleDeductibleType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="FlexibleDeductibleType" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[CoverageTypeCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="CoverageTypeCode" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[TerrorismRiskEndorsementInd]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="TerrorismRiskEndorsementInd" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[StatutoryWCInd]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="StatutoryWCInd" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[OtherStateInsurance]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="OtherStateInsurance" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[ChargePattern]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="ChargePattern" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[StateName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="StateName" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[EmpLiabPerAccidentLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="EmpLiabPerAccidentLimit" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                          dataType="i4"
+                          name="BatchID" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE_SRC - DimWCCoverage"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">SELECT DISTINCT 
+	cast([CoverageName] as varchar(64)) as CoverageName,
+	[ClassCode],
+	[EmpLiabPerAccidentLimit],
+	[EmpLiabPolicyLimit],
+	[StopGapLimit],
+	OtherStateInsurance,
+	StatutoryWCInd,
+	TerrorismRiskEndorsementInd,
+	ChargePattern,
+	StateName
+FROM 
+	DimWCCoverage r WITH (NOLOCK)
+WHERE 
+	PublicID NOT IN ('-1', '-2', '-3', '-4', '-5')	
+AND NOT EXISTS 
+	(
+	SELECT 1
+	FROM DimAggWCCoverage 
+	WHERE ISNULL(CoverageName, '0') = ISNULL(r.CoverageName, '0')
+	AND ISNULL(ClassCode, '0') = ISNULL(r.ClassCode, '0')
+	AND ISNULL(EmpLiabPerAccidentLimit, '0') = ISNULL(r.EmpLiabPerAccidentLimit, '0')
+	AND ISNULL(EmpLiabPolicyLimit, '0') = ISNULL(r.EmpLiabPolicyLimit, '0')
+	AND ISNULL(StopGapLimit, '0') = ISNULL(r.StopGapLimit, '0')	
+	AND ISNULL(OtherStateInsurance, '0') = ISNULL(r.OtherStateInsurance, '0')
+	AND ISNULL(StatutoryWCInd, '0') = ISNULL(r.StatutoryWCInd, '0')
+	AND ISNULL(TerrorismRiskEndorsementInd, '0') = ISNULL(r.TerrorismRiskEndorsementInd, '0')
+	AND ISNULL(ChargePattern, '0') = ISNULL(r.ChargePattern, '0')
+	AND ISNULL(StateName, '0') = ISNULL(r.StateName, '0')
+	)
+
+/*
+SELECT DISTINCT 
+	[CoverageName],
+	[ClassCode],
+	[EmpLiabLimit],
+	[EmpLiabPolicyLimit],
+	[StopGapLimit],
+	Deductible,
+	Coinsurance,
+	DeductiblePerClaim,
+	TotalDeductible,
+	MedicalOnlyDeductible,
+	MedicalOnlyDeductible_1,
+	MedicalCRDeductible,
+	CoinsuranceDeductibleType,
+	FlexibleDeductibleType,
+	CoverageTypeCode
+FROM 
+	DimWCCoverage r WITH (NOLOCK)
+WHERE 
+	PublicID NOT IN ('-1', '-2', '-3', '-4', '-5')	
+AND NOT EXISTS 
+	(
+	SELECT 1
+	FROM DimAggWCCoverage 
+	WHERE ISNULL(CoverageName, '0') = ISNULL(r.CoverageName, '0')
+	AND ISNULL(ClassCode, '0') = ISNULL(r.ClassCode, '0')
+	AND ISNULL(EmpLiabLimit, '0') = ISNULL(r.EmpLiabLimit, '0')
+	AND ISNULL(EmpLiabPolicyLimit, '0') = ISNULL(r.EmpLiabPolicyLimit, '0')
+	AND ISNULL(StopGapLimit, '0') = ISNULL(r.StopGapLimit, '0')	
+	AND ISNULL(Deductible, '0') = ISNULL(r.Deductible, '0')
+	AND ISNULL(Coinsurance, '0') = ISNULL(r.Coinsurance, '0')
+	AND ISNULL(DeductiblePerClaim, '0') = ISNULL(r.DeductiblePerClaim, '0')
+	AND ISNULL(TotalDeductible, '0') = ISNULL(r.TotalDeductible, '0')
+	AND ISNULL(MedicalOnlyDeductible, '0') = ISNULL(r.MedicalOnlyDeductible, '0')
+	AND ISNULL(MedicalOnlyDeductible_1, '0') = ISNULL(r.MedicalOnlyDeductible_1, '0')
+	AND ISNULL(MedicalCRDeductible, '0') = ISNULL(r.MedicalCRDeductible, '0')
+	AND ISNULL(CoinsuranceDeductibleType, '0') = ISNULL(r.CoinsuranceDeductibleType, '0')
+	AND ISNULL(FlexibleDeductibleType, '0') = ISNULL(r.FlexibleDeductibleType, '0')
+	AND ISNULL(CoverageTypeCode, '0') = ISNULL(r.CoverageTypeCode, '0')
+	)
+*/</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[EnterpriseDataWarehouse]"
+                      connectionManagerRefId="Package.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[CoverageName]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[CoverageName]"
+                          length="64"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[CoverageName]"
+                          name="CoverageName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[EmpLiabPolicyLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[EmpLiabPolicyLimit]"
+                          length="20"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[EmpLiabPolicyLimit]"
+                          name="EmpLiabPolicyLimit"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[StopGapLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[StopGapLimit]"
+                          length="20"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[StopGapLimit]"
+                          name="StopGapLimit"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[OtherStateInsurance]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[OtherStateInsurance]"
+                          length="50"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[OtherStateInsurance]"
+                          name="OtherStateInsurance"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[StatutoryWCInd]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[StatutoryWCInd]"
+                          length="1"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[StatutoryWCInd]"
+                          name="StatutoryWCInd"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[TerrorismRiskEndorsementInd]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[TerrorismRiskEndorsementInd]"
+                          length="1"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[TerrorismRiskEndorsementInd]"
+                          name="TerrorismRiskEndorsementInd"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[ClassCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[ClassCode]"
+                          length="10"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[ClassCode]"
+                          name="ClassCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[ChargePattern]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[ChargePattern]"
+                          length="100"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[ChargePattern]"
+                          name="ChargePattern"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[StateName]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[StateName]"
+                          length="30"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[StateName]"
+                          name="StateName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[EmpLiabPerAccidentLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[EmpLiabPerAccidentLimit]"
+                          length="20"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].Columns[EmpLiabPerAccidentLimit]"
+                          name="EmpLiabPerAccidentLimit"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[CoverageName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="64"
+                          name="CoverageName" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[EmpLiabPolicyLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="EmpLiabPolicyLimit" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[StopGapLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="StopGapLimit" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[OtherStateInsurance]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="OtherStateInsurance" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[StatutoryWCInd]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="StatutoryWCInd" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[TerrorismRiskEndorsementInd]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="TerrorismRiskEndorsementInd" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[ClassCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="ClassCode" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[ChargePattern]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="ChargePattern" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[StateName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="StateName" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output].ExternalColumns[EmpLiabPerAccidentLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="EmpLiabPerAccidentLimit" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ClassCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ClassCode]"
+                          name="ClassCode" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[EmpLiabPerAccidentLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[EmpLiabPerAccidentLimit]"
+                          name="EmpLiabPerAccidentLimit" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[EmpLiabPolicyLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[EmpLiabPolicyLimit]"
+                          name="EmpLiabPolicyLimit" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[StopGapLimit]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[StopGapLimit]"
+                          name="StopGapLimit" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[OtherStateInsurance]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[OtherStateInsurance]"
+                          name="OtherStateInsurance" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[StatutoryWCInd]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[StatutoryWCInd]"
+                          name="StatutoryWCInd" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[TerrorismRiskEndorsementInd]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[TerrorismRiskEndorsementInd]"
+                          name="TerrorismRiskEndorsementInd" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ChargePattern]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ChargePattern]"
+                          name="ChargePattern" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[StateName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[StateName]"
+                          name="StateName" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[CoverageName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="64"
+                          lineageId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Error Output].Columns[CoverageName]"
+                          name="CoverageName" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate.Paths[Derived Column Output]"
+                  endId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Insert Count.Inputs[Row Count Input 1]"
+                  name="Derived Column Output"
+                  startId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate.Paths[OLE DB Source Output]"
+                  endId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Source Count.Inputs[Row Count Input 1]"
+                  name="OLE DB Source Output"
+                  startId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate.Paths[Row Count Output 1]"
+                  endId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage.Inputs[OLE DB Destination Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Insert Count.Outputs[Row Count Output 1]" />
+                <path
+                  refId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate.Paths[Row Count Output 11]"
+                  endId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID.Inputs[Derived Column Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Source Count.Outputs[Row Count Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQC - DimAggWCCoverage\SQL - Update DimWCCoverage"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{B71982CE-818D-4320-A0CA-32268B80D47D}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Update DimWCCoverage"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{062FD3B3-1CF9-49E9-ACC5-4CA559B17810}"
+              SQLTask:SqlStatementSource="UPDATE r&#xA;SET &#xA;&#x9;AggID = a.AggID&#xA;from &#xA;&#x9;DimWCCoverage r&#xA;&#x9;inner join DimAggWCCoverage a &#xA;&#x9;&#x9;on&#x9;ISNULL(r.CoverageName, '0') = ISNULL(a.CoverageName, '0')&#xA;&#x9;&#x9;and&#x9;ISNULL(r.ClassCode, '0') = ISNULL(a.ClassCode, '0')&#xA;&#x9;&#x9;AND ISNULL(r.EmpLiabPerAccidentLimit, '0') = ISNULL(a.EmpLiabPerAccidentLimit, '0')&#xA;&#x9;&#x9;AND ISNULL(r.EmpLiabPolicyLimit, '0') = ISNULL(a.EmpLiabPolicyLimit, '0')&#xA;&#x9;&#x9;AND ISNULL(r.StopGapLimit, '0') = ISNULL(a.StopGapLimit, '0')&#xA;&#x9;&#x9;AND ISNULL(r.OtherStateInsurance, '0') = ISNULL(a.OtherStateInsurance, '0')&#xA;&#x9;&#x9;AND ISNULL(r.StatutoryWCInd, 'N') = ISNULL(a.StatutoryWCInd, 'N')&#xA;&#x9;&#x9;AND ISNULL(r.TerrorismRiskEndorsementInd, 'N') = ISNULL(a.TerrorismRiskEndorsementInd, 'N')&#xA;&#x9;&#x9;AND ISNULL(r.ChargePattern, 'N') = ISNULL(a.ChargePattern, 'N')&#xA;&#x9;&#x9;AND ISNULL(r.StateName, 'N') = ISNULL(a.StateName, 'N')&#xA;&#xA;WHERE &#xA;&#x9;PublicID NOT IN ('-1', '-2', '-3', '-4', '-5')&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQC - DimAggWCCoverage.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{F19AD0C3-189A-4D57-9E9C-04B22397E04D}"
+          DTS:From="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\SEQC - DimAggWCCoverage\SQL - Update DimWCCoverage" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{445b6dd2-7cc7-48ad-b977-e6278659a759}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{062FD3B3-1CF9-49E9-ACC5-4CA559B17810}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="200" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{8877dacf-d620-4bb3-bc3f-ac22e0a35f87}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{062FD3B3-1CF9-49E9-ACC5-4CA559B17810}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{3a9001f7-6448-4f20-9e2d-1b7dd7da819b}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{062FD3B3-1CF9-49E9-ACC5-4CA559B17810}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{00299040-5931-475E-82DF-116CBCE0D044}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SEQC - DimAggWCCoverage" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{CE78DD68-2688-464A-B821-84B8F0625130}"
+      DTS:From="Package\SEQC - DimAggWCCoverage"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL - Conclude Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{9C8D482C-8BF7-4AA8-AC0F-2B3E24EF3099}"
+      DTS:From="Package\SEQC - DimAggWCCoverage"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SQL - Conclude Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{1036E62A-2498-4948-BF96-7D8A74F0460A}"
+      DTS:EventID="750589132"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{01364A3B-451B-46B8-856F-D8559A913A7C}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{1f688fe8-dc0a-42df-a33f-1f257c96ab37}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{062FD3B3-1CF9-49E9-ACC5-4CA559B17810}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select -1&#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="246,42"
+          Id="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate"
+          TopLeft="68,15.5" />
+        <NodeLayout
+          Size="246,42"
+          Id="Package\SEQC - DimAggWCCoverage\SQL - Update DimWCCoverage"
+          TopLeft="68,117.5" />
+        <EdgeLayout
+          Id="Package\SEQC - DimAggWCCoverage.PrecedenceConstraints[Constraint]"
+          TopLeft="191,57.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="377,213"
+          Size="377,256"
+          Id="Package\SEQC - DimAggWCCoverage"
+          TopLeft="182.5,81.5" />
+        <NodeLayout
+          Size="244,42"
+          Id="Package\SQL - Conclude Process Completed"
+          TopLeft="55,384" />
+        <NodeLayout
+          Size="244,42"
+          Id="Package\SQL - Conclude Process Failed"
+          TopLeft="438,384" />
+        <NodeLayout
+          Size="244,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="250,5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="371.5,47">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.5"
+              Start="0,0"
+              End="0,27">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="309.5,337.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-132.5,46.5"
+              Start="0,0"
+              End="-132.5,39">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.7179080824089" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.7179080824089"
+                    Point2="0,18.7179080824089"
+                    Point3="-4,18.7179080824089" />
+                  <mssgle:LineSegment
+                    End="-128.5,18.7179080824089" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-128.5,18.7179080824089"
+                    Point2="-132.5,18.7179080824089"
+                    Point3="-132.5,22.7179080824089" />
+                  <mssgle:LineSegment
+                    End="-132.5,39" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="432.5,337.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="127.5,46.5"
+              Start="0,0"
+              End="127.5,39">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,14.7179080824089" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,14.7179080824089"
+                    Point2="0,18.7179080824089"
+                    Point3="4,18.7179080824089" />
+                  <mssgle:LineSegment
+                    End="123.5,18.7179080824089" />
+                  <mssgle:CubicBezierSegment
+                    Point1="123.5,18.7179080824089"
+                    Point2="127.5,18.7179080824089"
+                    Point3="127.5,22.7179080824089" />
+                  <mssgle:LineSegment
+                    End="127.5,39" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="48.50865234375,23.7179080824089,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="251,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="262,42"
+          Id="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Insert Count"
+          TopLeft="5.50000000000003,311.5" />
+        <NodeLayout
+          Size="262,42"
+          Id="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\DRV_BatchID"
+          TopLeft="5.50000000000003,209.5" />
+        <NodeLayout
+          Size="262,42"
+          Id="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\CNT - Source Count"
+          TopLeft="5.5,107.5" />
+        <NodeLayout
+          Size="262,42"
+          Id="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="262,42"
+          Id="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage"
+          TopLeft="5.50000000000006,413.5" />
+        <EdgeLayout
+          Id="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate.Paths[Row Count Output 11]"
+          TopLeft="136.5,149.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate.Paths[Row Count Output 1]"
+          TopLeft="136.5,353.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate.Paths[OLE DB Source Output]"
+          TopLeft="136.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate.Paths[Derived Column Output]"
+          TopLeft="136.5,251.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,60"
+              Start="0,0"
+              End="0,52.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,52.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_DEST - Load DimAggWCCoverage">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQC - DimAggWCCoverage\DFT - Load WCCoverage Aggregate\OLE_SRC - DimWCCoverage">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,797 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/11/2018 11:54:38 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ACF-EWAQW01"
+  DTS:CreatorName="ACFS24\vikas.singh"
+  DTS:DTSID="{79E48AE2-DD03-4077-83B8-E54335E98706}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCSTAT - LinkData"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="31"
+  DTS:VersionGUID="{E6456B98-AD9B-4200-9419-BCFB613A3E24}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportMonth"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportMonth].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{B211C387-7351-4DFF-8ED2-F93D8C1B97A1}"
+      DTS:ObjectName="ReportMonth" />
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportYear"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportYear].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{1D8CD522-505D-48DD-B499-17F81112BECF}"
+      DTS:ObjectName="ReportYear" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AA831471-6A02-4959-B41E-F99265B8BB41}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportMonth">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{95EED2FD-A751-416E-A3A4-C776D6C89850}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportYear">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load LinkData"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{1BBA1E9F-E4B1-4099-ADD7-3C14B217BF5F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load LinkData"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load LinkData\DEST - WCSTATLinkData"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DEST - WCSTATLinkData"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STAGE_WCStatLinkData]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load LinkData\DEST - WCSTATLinkData.Connections[OleDbConnection]"
+                  connectionManagerID="{92E7D99B-74F9-414C-93B4-3FBDA62D5F91}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WCSTAT]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].Columns[CarrierCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="CarrierCode"
+                      externalMetadataColumnId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[CarrierCode]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CarrierCode]" />
+                    <inputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].Columns[PolicyNumberIdentifier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="PolicyNumberIdentifier"
+                      externalMetadataColumnId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumberIdentifier]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumberIdentifier]" />
+                    <inputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].Columns[SeperatedSegmentNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="SeperatedSegmentNumber"
+                      externalMetadataColumnId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[SeperatedSegmentNumber]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[SeperatedSegmentNumber]" />
+                    <inputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUse]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="ReservedForFutureUse"
+                      externalMetadataColumnId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[ReservedForFutureUse]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUse]" />
+                    <inputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].Columns[ExposureStateCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ExposureStateCode"
+                      externalMetadataColumnId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[ExposureStateCode]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureStateCode]" />
+                    <inputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].Columns[PolicyEffectiveDate]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="6"
+                      cachedName="PolicyEffectiveDate"
+                      externalMetadataColumnId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyEffectiveDate]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyEffectiveDate]" />
+                    <inputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].Columns[CorrectionSeqNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="CorrectionSeqNumber"
+                      externalMetadataColumnId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[CorrectionSeqNumber]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CorrectionSeqNumber]" />
+                    <inputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].Columns[PolicyID]"
+                      cachedDataType="i4"
+                      cachedName="PolicyID"
+                      externalMetadataColumnId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyID]" />
+                    <inputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].Columns[ReportMonth]"
+                      cachedDataType="i4"
+                      cachedName="ReportMonth"
+                      externalMetadataColumnId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[ReportMonth]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]" />
+                    <inputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].Columns[ReportYear]"
+                      cachedDataType="i4"
+                      cachedName="ReportYear"
+                      externalMetadataColumnId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[ReportYear]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]" />
+                    <inputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].Columns[TermNumber]"
+                      cachedDataType="i4"
+                      cachedName="TermNumber"
+                      externalMetadataColumnId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[TermNumber]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[LinkDataId]"
+                      dataType="i8"
+                      name="LinkDataId" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[CarrierCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="CarrierCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumberIdentifier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="PolicyNumberIdentifier" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[SeperatedSegmentNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="SeperatedSegmentNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[ReservedForFutureUse]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ReservedForFutureUse" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ExposureStateCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyEffectiveDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="PolicyEffectiveDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[CorrectionSeqNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="CorrectionSeqNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                      dataType="i8"
+                      name="PolicyID" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[TermNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TermNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[ReportMonth]"
+                      dataType="i4"
+                      name="ReportMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[ReportYear]"
+                      dataType="i4"
+                      name="ReportYear" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingMonth]"
+                      dataType="i4"
+                      name="ReportingMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingYear]"
+                      dataType="i4"
+                      name="ReportingYear" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load LinkData\DEST - WCSTATLinkData.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load LinkData\DEST - WCSTATLinkData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load LinkData\DEST - WCSTATLinkData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load LinkData\DEST - WCSTATLinkData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load LinkData\SRC - DimPolicy"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - DimPolicy"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With CTE_LinkData as 
+(
+	Select 	 
+	 '19968' CarrierCode,
+	  dbo.udf_MakeFixedWidthStringIN(p.PolicyNumber,'',18) PolicyNumberIdentifier,
+	 Replicate(' ',3) SeperatedSegmentNumber,
+	 Replicate(' ',4) ReservedForFutureUse,
+	 Case e.State 
+		When 'MI' Then '21'
+		When 'IN' Then '13' 
+	 END ExposureStateCode,
+	 Convert(varchar(6),p.effectiveDate,12) PolicyEffectiveDate,
+	 
+	 '0' CorrectionSeqNumber,
+	 p.PolicyID,
+	 p.TermNumber,
+	 e.ReportMonth,
+	 e.ReportYear,
+	 Row_number() over(partition by p.PolicyNumber, p.TermNumber order by p.JobCloseDate Desc) RowNumber 
+	 
+ From FactWCPremiumTransaction f 
+	inner join DimPolicy p  on f.PolicyID = p.PolicyID
+	inner join VW_WCStatEffectivePolicies e on e.PolicyNumber = p.PolicyNumber and e.TermNumber = p.TermNumber
+ 
+Where p.EffectiveDate &lt; DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)
+	and p.JobCloseDate &lt;  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)
+  	and p.TransactionType = 'Audit'
+	and p.PolicyStatus  = 'Completed'
+ )
+
+
+ Select * from CTE_LinkData
+ Where RowNumber = 1</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load LinkData\SRC - DimPolicy.Connections[OleDbConnection]"
+                  connectionManagerID="{5D61FD35-9751-47D2-B783-21BBF451814D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CarrierCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[CarrierCode]"
+                      length="5"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CarrierCode]"
+                      name="CarrierCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumberIdentifier]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumberIdentifier]"
+                      length="250"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumberIdentifier]"
+                      name="PolicyNumberIdentifier"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[SeperatedSegmentNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[SeperatedSegmentNumber]"
+                      length="3"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[SeperatedSegmentNumber]"
+                      name="SeperatedSegmentNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUse]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUse]"
+                      length="4"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUse]"
+                      name="ReservedForFutureUse"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureStateCode]"
+                      length="50"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureStateCode]"
+                      name="ExposureStateCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyEffectiveDate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyEffectiveDate]"
+                      length="6"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyEffectiveDate]"
+                      name="PolicyEffectiveDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CorrectionSeqNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[CorrectionSeqNumber]"
+                      length="1"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CorrectionSeqNumber]"
+                      name="CorrectionSeqNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                      name="PolicyID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RowNumber]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RowNumber]"
+                      name="RowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      name="TermNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportMonth]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]"
+                      name="ReportMonth"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportYear]"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]"
+                      name="ReportYear"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[CarrierCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="CarrierCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumberIdentifier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="PolicyNumberIdentifier" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[SeperatedSegmentNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="SeperatedSegmentNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUse]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ReservedForFutureUse" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ExposureStateCode" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyEffectiveDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="PolicyEffectiveDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[CorrectionSeqNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="CorrectionSeqNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                      dataType="i4"
+                      name="PolicyID" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RowNumber]"
+                      dataType="i8"
+                      name="RowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      dataType="i4"
+                      name="TermNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportMonth]"
+                      dataType="i4"
+                      name="ReportMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportYear]"
+                      dataType="i4"
+                      name="ReportYear" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[CarrierCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[CarrierCode]"
+                      name="CarrierCode" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyNumberIdentifier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyNumberIdentifier]"
+                      name="PolicyNumberIdentifier" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[SeperatedSegmentNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[SeperatedSegmentNumber]"
+                      name="SeperatedSegmentNumber" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUse]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUse]"
+                      name="ReservedForFutureUse" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureStateCode]"
+                      name="ExposureStateCode" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyEffectiveDate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyEffectiveDate]"
+                      name="PolicyEffectiveDate" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[CorrectionSeqNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[CorrectionSeqNumber]"
+                      name="CorrectionSeqNumber" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                      dataType="i4"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                      name="PolicyID" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      dataType="i4"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      name="TermNumber" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportMonth]"
+                      dataType="i4"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportMonth]"
+                      name="ReportMonth" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportYear]"
+                      dataType="i4"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportYear]"
+                      name="ReportYear" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RowNumber]"
+                      dataType="i8"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RowNumber]"
+                      name="RowNumber" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load LinkData.Paths[OLE DB Source Output]"
+              endId="Package\Load LinkData\DEST - WCSTATLinkData.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load LinkData\SRC - DimPolicy.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="146,42"
+          Id="Package\Load LinkData"
+          TopLeft="217.5,158.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load LinkData">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Load LinkData\SRC - DimPolicy"
+          TopLeft="114.5,41.5" />
+        <NodeLayout
+          Size="197,42"
+          Id="Package\Load LinkData\DEST - WCSTATLinkData"
+          TopLeft="97.5,157.5" />
+        <EdgeLayout
+          Id="Package\Load LinkData.Paths[OLE DB Source Output]"
+          TopLeft="193.75,83.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,74"
+              Start="0,0"
+              End="0,66.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,66.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load LinkData\DEST - WCSTATLinkData">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load LinkData\SRC - DimPolicy">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

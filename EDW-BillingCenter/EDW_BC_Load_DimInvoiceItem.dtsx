@@ -1,0 +1,2593 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/22/2015 3:09:14 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="MM643VAMUDW7"
+  DTS:CreatorName="MMI\t159079"
+  DTS:DTSID="{D20B9C4C-8934-4C4D-80FA-1C4931C736D7}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="EDW_BC_Load_DimInvoiceItem"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="56"
+  DTS:VersionGUID="{564342A4-8610-44E2-B089-732AE89376C9}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{AF50F6BD-46D4-40AA-938E-82CE0C20EF2C}"
+      DTS:ObjectName="ConfigBatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="IncrementDays"
+      DTS:ConfigurationVariable="\Package.Variables[User::IncrementDays].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{C99EB279-254B-4363-8A39-2D79B886FDD7}"
+      DTS:ObjectName="configIncrementDays" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6A03D93F-E93D-409B-A3B5-4B5FEE51D0C4}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FAB12F57-4C4A-4BF0-A915-3FE20654A691}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="IncrementDays">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E199C16D-C630-401D-92F3-45DDE85CA18E}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D10FE2C4-5493-4312-9F4A-8197DA3DDBF1}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DE358A38-FF36-484E-B3AC-4A3FC006D8F3}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UnChangeCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5AB232F4-06B6-4A0B-ADF4-739CFE64598B}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdateCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Load DimInvoiceItem"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{5017d8d1-ffe4-46fb-8f06-cbb1799e0c44}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Load DimInvoiceItem"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Load DimInvoiceItem\CNT - Insert  Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Insert  Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::InsertCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load DimInvoiceItem\CNT - Insert  Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\CNT - Insert  Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\CNT - Insert  Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load DimInvoiceItem\CNT - Source Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Source Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::SourceCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load DimInvoiceItem\CNT - Source Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\CNT - Source Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\CNT - Source Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load DimInvoiceItem\CNT - Unchange Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Unchange Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UnChangeCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load DimInvoiceItem\CNT - Unchange Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\CNT - Unchange Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\CNT - Unchange Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load DimInvoiceItem\CNT - Update Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Update Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UpdateCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load DimInvoiceItem\CNT - Update Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\CNT - Update Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\CNT - Update Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="CSPL - Check BeanVersion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Inputs[Conditional Split Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Inputs[Conditional Split Input].Columns[EDWBeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="EDWBeanVersion"
+                      lineageId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup Match Output].Columns[EDWBeanVersion]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Outputs[SameBeanVersion]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SameBeanVersion"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[BeanVersion]} == #{Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup Match Output].Columns[EDWBeanVersion]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">BeanVersion == EDWBeanVersion</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DRV - BatchID &amp; Legacy"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      name="BatchID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[User::BatchID]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[User::BatchID]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - DimInvoiceItem"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select Publicid ,BeanVersion from DimInvoiceItem</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (Select Publicid ,BeanVersion from DimInvoiceItem) [refTable]
+where [refTable].[Publicid] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Publicid" dataType="DT_STR" length="64" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="BeanVersion" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[PublicID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Connections[OleDbConnection]"
+                  connectionManagerID="{DE34D863-C211-4981-929A-131709C0B169}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Inputs[Lookup Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[PublicID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">Publicid</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup Match Output].Columns[EDWBeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="20"
+                      lineageId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup Match Output].Columns[EDWBeanVersion]"
+                      name="EDWBeanVersion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">BeanVersion</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE_DEST - DimInvoiceItem"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimInvoiceItem]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">10000</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Connections[OleDbConnection]"
+                  connectionManagerID="{DE34D863-C211-4981-929A-131709C0B169}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[GWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="GWRowNumber"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[InvoiceItemCreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="InvoiceItemCreateDate"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[InvoiceItemCreateDate]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceItemCreateDate]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[InvoiceCategory]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="InvoiceCategory"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[InvoiceCategory]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceCategory]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[PolicyContext]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="PolicyContext"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[PolicyContext]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[PolicyContext]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[InvoiceItemType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="InvoiceItemType"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[InvoiceItemType]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceItemType]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[ChargeHoldStatus]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ChargeHoldStatus"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[ChargeHoldStatus]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeHoldStatus]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[ChargeDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="ChargeDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[ChargeDate]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeDate]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[ChargePatternType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ChargePatternType"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[ChargePatternType]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargePatternType]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[ChargeCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ChargeCode"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[ChargeCode]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeCode]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[InvoiceTreatmentName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="InvoiceTreatmentName"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[InvoiceTreatmentName]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceTreatmentName]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[IsInternalCharge]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="IsInternalCharge"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[IsInternalCharge]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[IsInternalCharge]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[ChargeCategory]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ChargeCategory"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[ChargeCategory]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeCategory]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[IsActive]"
+                      cachedDataType="i4"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[IsActive]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[LegacySourceSystem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LegacySourceSystem"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].Columns[EventDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="EventDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[EventDate]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[EventDate]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[InvoiceItemID]"
+                      dataType="i4"
+                      name="InvoiceItemID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[InvoiceItemCreateDate]"
+                      dataType="dbTimeStamp"
+                      name="InvoiceItemCreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[InvoiceCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="InvoiceCategory" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[PolicyContext]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="PolicyContext" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[InvoiceItemType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="InvoiceItemType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[ChargeHoldStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ChargeHoldStatus" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[ChargeDate]"
+                      dataType="dbTimeStamp"
+                      name="ChargeDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[ChargePatternType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ChargePatternType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[ChargeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="ChargeCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[InvoiceTreatmentName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="InvoiceTreatmentName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[IsInternalCharge]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="IsInternalCharge" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[ChargeCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ChargeCategory" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      dataType="bool"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      dataType="i8"
+                      name="BatchID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[DateUpdated]"
+                      dataType="dbTimeStamp"
+                      name="DateUpdated" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="LegacySourceSystem" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[EventDate]"
+                      dataType="dbTimeStamp"
+                      name="EventDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[DataEffectiveDate]"
+                      dataType="dbTimeStamp"
+                      name="DataEffectiveDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input].ExternalColumns[DataExpirationDate]"
+                      dataType="dbTimeStamp"
+                      name="DataExpirationDate" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE_SRC - Load BCinvoiceitem"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select 
+cast(dt.CreateTime as datetime) as  InvoiceItemCreateDate
+,chgp.ChargeName as InvoiceCategory
+,Cast(tlbi.NAME  as Varchar(100)) as PolicyContext
+,Cast(tliit.NAME as Varchar(100)) as InvoiceItemType
+,Cast(tlcs.NAME as Varchar(100)) as ChargeHoldStatus
+,chg.ChargeDate
+,Cast(tlchgp.NAME as Varchar(100)) as ChargePatternType
+,chgp.ChargeCode
+,Cast(tlit.NAME as Varchar(255)) as InvoiceTreatmentName
+,case chgp.InternalCharge when 1 then 'Y' when 0 then 'N' end as IsInternalCharge
+,Cast(tlcc.NAME as Varchar(100)) as ChargeCategory
+
+,dt.PublicID
+,dt.ID as GWRowNumber
+,cast(concat(dt.BeanVersion ,chg.BeanVersion ,chgp.Beanversion ,bi.BeanVersion) as varchar(20)) as BeanVersion
+,case dt.Retired when 0 then 1 else 0 end as IsActive
+,dt.eventDate as EventDate
+,'WC' as LegacySourceSystem
+
+from bc_invoiceitem dt
+left join bc_charge chg on chg.ID = dt.ChargeID
+left join bc_chargepattern chgp on chgp.ID = chg.ChargePatternID
+left join bc_billinginstruction bi on bi.ID = chg.BillingInstructionID
+left join bctl_billinginstruction tlbi on tlbi.ID = bi.Subtype
+left join bctl_invoiceitemtype tliit on tliit.ID = dt.Type
+left join bctl_chargeholdstatus tlcs on tlcs.ID = chg.HoldStatus
+left join bctl_chargepattern tlchgp on tlchgp.ID = chgp.Subtype
+left join bctl_invoicetreatment tlit on tlit.ID = chgp.InvoiceTreatment
+left join bctl_chargecategory tlcc on tlcc.ID = chgp.Category
+WHERE
+(dt.UpdateTime &gt;= dateadd(d,?,cast(getdate() as date))
+OR
+chg.UpdateTime &gt;= dateadd(d,?,cast(getdate() as date))
+OR
+chgp.UpdateTime &gt;= dateadd(d,?,cast(getdate() as date))
+OR
+bi.UpdateTime &gt;= dateadd(d,?,cast(getdate() as date))
+)</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{FAB12F57-4C4A-4BF0-A915-3FE20654A691};"Parameter1:Input",{FAB12F57-4C4A-4BF0-A915-3FE20654A691};"Parameter2:Input",{FAB12F57-4C4A-4BF0-A915-3FE20654A691};"Parameter3:Input",{FAB12F57-4C4A-4BF0-A915-3FE20654A691};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Connections[OleDbConnection]"
+                  connectionManagerID="{D926FBFB-0D55-4114-B0F3-B6C6845B7436}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[GWStaging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      length="64"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      name="PublicID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      name="GWRowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      length="20"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      name="BeanVersion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[InvoiceCategory]"
+                      length="255"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceCategory]"
+                      name="InvoiceCategory"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[PolicyContext]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[PolicyContext]"
+                      length="100"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[PolicyContext]"
+                      name="PolicyContext"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceItemType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[InvoiceItemType]"
+                      length="100"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceItemType]"
+                      name="InvoiceItemType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeHoldStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[ChargeHoldStatus]"
+                      length="100"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeHoldStatus]"
+                      name="ChargeHoldStatus"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeDate]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[ChargeDate]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeDate]"
+                      name="ChargeDate"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargePatternType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[ChargePatternType]"
+                      length="100"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargePatternType]"
+                      name="ChargePatternType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[ChargeCode]"
+                      length="255"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeCode]"
+                      name="ChargeCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceTreatmentName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[InvoiceTreatmentName]"
+                      length="255"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceTreatmentName]"
+                      name="InvoiceTreatmentName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[IsInternalCharge]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[IsInternalCharge]"
+                      length="1"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[IsInternalCharge]"
+                      name="IsInternalCharge"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[ChargeCategory]"
+                      length="100"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeCategory]"
+                      name="ChargeCategory"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      name="IsActive"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[EventDate]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[EventDate]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[EventDate]"
+                      name="EventDate"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceItemCreateDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[InvoiceItemCreateDate]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceItemCreateDate]"
+                      name="InvoiceItemCreateDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                      length="2"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                      name="LegacySourceSystem"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[InvoiceItemCreateDate]"
+                      dataType="dbTimeStamp"
+                      name="InvoiceItemCreateDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[InvoiceCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="InvoiceCategory" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[PolicyContext]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="PolicyContext" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[InvoiceItemType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="InvoiceItemType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[ChargeHoldStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ChargeHoldStatus" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[ChargeDate]"
+                      dataType="dbTimeStamp2"
+                      name="ChargeDate"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[ChargePatternType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ChargePatternType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[ChargeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="ChargeCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[InvoiceTreatmentName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="InvoiceTreatmentName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[IsInternalCharge]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="IsInternalCharge" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[ChargeCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="ChargeCategory" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      dataType="i4"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[EventDate]"
+                      dataType="dbTimeStamp2"
+                      name="EventDate"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="LegacySourceSystem" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[InvoiceCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[InvoiceCategory]"
+                      name="InvoiceCategory" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[PolicyContext]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[PolicyContext]"
+                      name="PolicyContext" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[InvoiceItemType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[InvoiceItemType]"
+                      name="InvoiceItemType" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ChargeHoldStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ChargeHoldStatus]"
+                      name="ChargeHoldStatus" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ChargeDate]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ChargeDate]"
+                      name="ChargeDate"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ChargePatternType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ChargePatternType]"
+                      name="ChargePatternType" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ChargeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ChargeCode]"
+                      name="ChargeCode" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[InvoiceTreatmentName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[InvoiceTreatmentName]"
+                      name="InvoiceTreatmentName" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[IsInternalCharge]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[IsInternalCharge]"
+                      name="IsInternalCharge" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ChargeCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ChargeCategory]"
+                      name="ChargeCategory" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      name="GWRowNumber" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      name="BeanVersion" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      name="IsActive" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[EventDate]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[EventDate]"
+                      name="EventDate"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                      name="LegacySourceSystem" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      name="PublicID" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[InvoiceItemCreateDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Error Output].Columns[InvoiceItemCreateDate]"
+                      name="InvoiceItemCreateDate" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Update DimInvoiceItem"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">UPDATE DimInvoiceItem
+SET DateUpdated   = GetDate()         
+,InvoiceItemCreateDate  = ?
+,InvoiceCategory        = ?
+,PolicyContext          = ?
+,InvoiceItemType        = ?
+,ChargeHoldStatus       = ?
+,ChargeDate             = ?
+,ChargePatternType      = ?
+,ChargeCode             = ?
+,InvoiceTreatmentName   = ?
+,IsInternalCharge       = ?
+,ChargeCategory         = ? 
+,BeanVersion			= ? 
+,IsActive				= ?
+,BatchID				= ?
+,GWRowNumber			= ?
+,EventDate				= ?
+Where PublicID = ?
+And LegacySourceSystem = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Connections[OleDbConnection]"
+                  connectionManagerID="{DE34D863-C211-4981-929A-131709C0B169}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[InvoiceItemCreateDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="InvoiceItemCreateDate"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceItemCreateDate]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[InvoiceCategory]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="InvoiceCategory"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceCategory]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[PolicyContext]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="PolicyContext"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[PolicyContext]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[InvoiceItemType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="InvoiceItemType"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceItemType]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[ChargeHoldStatus]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ChargeHoldStatus"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeHoldStatus]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[ChargeDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="ChargeDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeDate]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[ChargePatternType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ChargePatternType"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargePatternType]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[ChargeCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ChargeCode"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeCode]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[InvoiceTreatmentName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="InvoiceTreatmentName"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[InvoiceTreatmentName]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[IsInternalCharge]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="IsInternalCharge"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[IsInternalCharge]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[ChargeCategory]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="ChargeCategory"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[ChargeCategory]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[IsActive]"
+                      cachedDataType="i4"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[IsActive]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[GWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="GWRowNumber"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[EventDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="EventDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[EventDate]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_16]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                    <inputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].Columns[LegacySourceSystem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LegacySourceSystem"
+                      externalMetadataColumnId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_17]"
+                      lineageId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="dbTimeStamp"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">1073741889</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      dataType="dbTimeStamp"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">1073741889</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_8">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="Param_9">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_10">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="Param_11">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      dataType="bool"
+                      name="Param_12">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      dataType="i8"
+                      name="Param_13">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      dataType="i8"
+                      name="Param_14">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      dataType="dbTimeStamp"
+                      name="Param_15">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="Param_16">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input].ExternalColumns[Param_17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Param_17">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Load DimInvoiceItem.Paths[Conditional Split Default Output]"
+              endId="Package\DFT - Load DimInvoiceItem\CNT - Update Count.Inputs[Row Count Input 1]"
+              name="Conditional Split Default Output"
+              startId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Outputs[Conditional Split Default Output]" />
+            <path
+              refId="Package\DFT - Load DimInvoiceItem.Paths[Derived Column Output]"
+              endId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - Load DimInvoiceItem.Paths[Lookup Match Output]"
+              endId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - Load DimInvoiceItem.Paths[Lookup No Match Output]"
+              endId="Package\DFT - Load DimInvoiceItem\CNT - Insert  Count.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\DFT - Load DimInvoiceItem.Paths[OLE DB Source Output]"
+              endId="Package\DFT - Load DimInvoiceItem\CNT - Source Count.Inputs[Row Count Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT - Load DimInvoiceItem.Paths[Row Count Output 1]"
+              endId="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - Load DimInvoiceItem\CNT - Source Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - Load DimInvoiceItem.Paths[Row Count Output 11]"
+              endId="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - Load DimInvoiceItem\CNT - Insert  Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - Load DimInvoiceItem.Paths[Row Count Output 12]"
+              endId="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem.Inputs[OLE DB Command Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - Load DimInvoiceItem\CNT - Update Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - Load DimInvoiceItem.Paths[SameBeanVersion]"
+              endId="Package\DFT - Load DimInvoiceItem\CNT - Unchange Count.Inputs[Row Count Input 1]"
+              name="SameBeanVersion"
+              startId="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion.Outputs[SameBeanVersion]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{876a733a-3768-4404-824e-6e5e5e0d0127}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DE34D863-C211-4981-929A-131709C0B169}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="200" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{dc29a589-b2d1-4c71-b545-2f19ad34f998}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\SQL - Conclude Process Failed.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{5e66a5d1-61a9-497e-aadc-387bd9029913}"
+          DTS:EventID="571707532"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{2b006532-a0de-425e-b455-820206ffb836}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DE34D863-C211-4981-929A-131709C0B169}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{a7c78faf-71ad-4574-bb31-118a9623b88c}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DE34D863-C211-4981-929A-131709C0B169}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{308B1702-8583-48E1-A7B6-324585C08373}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - Load DimInvoiceItem" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{6C35A194-06E2-42DC-952C-33B5F1AB6486}"
+      DTS:From="Package\DFT - Load DimInvoiceItem"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL - Conclude Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{11B07D3D-1ABB-4CBE-A9D4-36646099268E}"
+      DTS:From="Package\DFT - Load DimInvoiceItem"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SQL - Conclude Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{005FA435-518F-4464-80C5-05796FDB5206}"
+      DTS:EventID="756144756"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{D0FCBD00-DCEF-440B-B163-9E41A50E04F5}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{6a16f8b1-d372-490e-90b3-11807f593aaf}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{DE34D863-C211-4981-929A-131709C0B169}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="209,42"
+          Id="Package\DFT - Load DimInvoiceItem"
+          TopLeft="221.428573224009,118.823529283068" />
+        <NodeLayout
+          Size="243,42"
+          Id="Package\SQL - Conclude Process Completed"
+          TopLeft="58.8571438594741,228.764708190311" />
+        <NodeLayout
+          Size="243,42"
+          Id="Package\SQL - Conclude Process Failed"
+          TopLeft="363.000005245209,228.764708190311" />
+        <NodeLayout
+          Size="243,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="197.428573224009,39.7647064400379" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="322.428573224009,81.7647064400379">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.0588228430301"
+              Start="0,0"
+              End="0,29.5588228430301">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5588228430301" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="292.428573224009,160.823529283068">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-112.071429364535,67.941178907243"
+              Start="0,0"
+              End="-112.071429364535,60.441178907243">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.4861749425314" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.4861749425314"
+                    Point2="0,27.4861749425314"
+                    Point3="-4,27.4861749425314" />
+                  <mssgle:LineSegment
+                    End="-108.071429364535,27.4861749425314" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-108.071429364535,27.4861749425314"
+                    Point2="-112.071429364535,27.4861749425314"
+                    Point3="-112.071429364535,31.4861749425314" />
+                  <mssgle:LineSegment
+                    End="-112.071429364535,60.441178907243" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="359.428573224009,160.823529283068">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="125.0714320212,67.941178907243"
+              Start="0,0"
+              End="125.0714320212,60.441178907243">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.4861749425314" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.4861749425314"
+                    Point2="0,27.4861749425314"
+                    Point3="4,27.4861749425314" />
+                  <mssgle:LineSegment
+                    End="121.0714320212,27.4861749425314" />
+                  <mssgle:CubicBezierSegment
+                    Point1="121.0714320212,27.4861749425314"
+                    Point2="125.0714320212,27.4861749425314"
+                    Point3="125.0714320212,31.4861749425314" />
+                  <mssgle:LineSegment
+                    End="125.0714320212,60.441178907243" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="47.29436835435,32.4861749425314,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="231,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="252,111.2" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\DFT - Load DimInvoiceItem">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="224,42"
+          Id="Package\DFT - Load DimInvoiceItem\LKP - DimInvoiceItem"
+          TopLeft="282.821428376801,224.45882546844" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\DFT - Load DimInvoiceItem\CNT - Update Count"
+          TopLeft="817.414286307899,224.45882546844" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\DFT - Load DimInvoiceItem\CNT - Unchange Count"
+          TopLeft="544.457143723235,299.535294580955" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\DFT - Load DimInvoiceItem\DRV - BatchID &amp; Legacy"
+          TopLeft="282.821428376801,152.511764860318" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\DFT - Load DimInvoiceItem\Update DimInvoiceItem"
+          TopLeft="817.414286307899,299.535294580955" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\DFT - Load DimInvoiceItem\CNT - Source Count"
+          TopLeft="282.821428376801,79.0058824301592" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem"
+          TopLeft="282.821428376801,5.5" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem"
+          TopLeft="282.821428376801,371.45882546844" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\DFT - Load DimInvoiceItem\CNT - Insert  Count"
+          TopLeft="282.821428376801,299.535294580955" />
+        <NodeLayout
+          Size="224,42"
+          Id="Package\DFT - Load DimInvoiceItem\CSPL - Check BeanVersion"
+          TopLeft="547.414286307899,224.45882546844" />
+        <EdgeLayout
+          Id="Package\DFT - Load DimInvoiceItem.Paths[Derived Column Output]"
+          TopLeft="394.821428376801,194.511764860318">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.947060608122"
+              Start="0,0"
+              End="0,22.447060608122">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.447060608122" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load DimInvoiceItem.Paths[Conditional Split Default Output]"
+          TopLeft="771.414286307899,245.45882546844">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="46,0"
+              Start="0,0"
+              End="38.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="38.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-51.36390625,5,141.2278125,11.658203125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load DimInvoiceItem.Paths[SameBeanVersion]"
+          TopLeft="657.935715015567,266.45882546844">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.076469112515"
+              Start="0,0"
+              End="0,25.576469112515">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.576469112515" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-40.02259765625,8.0113790875075,80.0451953125,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load DimInvoiceItem.Paths[Row Count Output 12]"
+          TopLeft="929.414286307899,266.45882546844">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.076469112515"
+              Start="0,0"
+              End="0,25.576469112515">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.576469112515" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load DimInvoiceItem.Paths[Row Count Output 11]"
+          TopLeft="394.821428376801,341.535294580955">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.923530887485"
+              Start="0,0"
+              End="0,22.423530887485">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.423530887485" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load DimInvoiceItem.Paths[Row Count Output 1]"
+          TopLeft="394.821428376801,121.005882430159">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.5058824301588"
+              Start="0,0"
+              End="0,24.0058824301588">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.0058824301588" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load DimInvoiceItem.Paths[OLE DB Source Output]"
+          TopLeft="394.821428376801,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.5058824301592"
+              Start="0,0"
+              End="0,24.0058824301592">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.0058824301592" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load DimInvoiceItem.Paths[Lookup No Match Output]"
+          TopLeft="394.821428376801,266.45882546844">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.076469112515"
+              Start="0,0"
+              End="0,25.576469112515">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.576469112515" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,6.9835470562575,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Load DimInvoiceItem.Paths[Lookup Match Output]"
+          TopLeft="506.821428376801,245.45882546844">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="40.5928579310978,0"
+              Start="0,0"
+              End="33.0928579310978,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="33.0928579310978,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-31.6449577532011,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load DimInvoiceItem\OLE_SRC - Load BCinvoiceitem">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Load DimInvoiceItem\OLE_DEST - DimInvoiceItem">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

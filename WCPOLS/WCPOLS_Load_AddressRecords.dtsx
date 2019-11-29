@@ -1,0 +1,2137 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/26/2016 5:51:15 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\peng.wang"
+  DTS:DTSID="{18F4B53C-2D37-48A2-8A68-F4A3675276B2}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCPOLS_Load_AddressRecords"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="229"
+  DTS:VersionGUID="{8D1F09B8-987D-4EBC-8685-31BDD9F57742}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{3EA40F32-DC9E-4607-AE4C-C4E4111323D4}"
+      DTS:ObjectName="BatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="StartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::StartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{94C200E0-8F60-4C8B-822E-DF76BB4EC31F}"
+      DTS:ObjectName="StartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="EndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::EndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{D7EE0253-7683-447F-992D-4BFE325C80FD}"
+      DTS:ObjectName="EndDate" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{92149552-D42A-4927-89E4-76504DB712E8}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0BA51046-C607-4B39-B859-8CBE709F1CA9}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="EndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">2/16/2017 7:06:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9539BE7A-FC6F-40A3-99E7-FAADBF9AC3A9}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">1/31/2017 12:18:00 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{FE4145D1-36B5-4E47-AC47-14B05C0A8DDF}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{1A8AAF20-4A97-495A-BAB4-B573817D2432}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\Process Failed.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{32148AF0-D7A9-4A7A-AFFC-CC1E915BE61E}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{EC7A515B-240F-41F7-9BFC-6B59B6156A0F}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="&#xA;Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{F0CDC039-A8A3-447D-9D8E-6E03C6B28C43}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Address Record Load"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{9B95C66F-69BA-4894-8C03-1DF9F9A48B69}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Address Record Load"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\Address Record Load\Insert date"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Insert date"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Address Record Load\Insert date.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Address Record Load\Insert date.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Sequence Container\Address Record Load\Insert date.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\Insert date.Outputs[Derived Column Output].Columns[Insert date]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Sequence Container\Address Record Load\Insert date.Outputs[Derived Column Output].Columns[Insert date]"
+                          name="Insert date"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[GETDATE]()</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">GETDATE()</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Address Record Load\Insert date.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Sequence Container\Address Record Load\Insert date.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\Insert date.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Address Record Load\Insert date.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\Insert date.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Address Record Load\Insert date.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Address Record Load\Lookup State"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup State"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from lkp.lkp_state  
+where statecode!='01'</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from lkp.lkp_state  
+where statecode!='01') [refTable]
+where [refTable].[StateAbbr] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Statecode" dataType="DT_STR" length="5" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="StateAbbr" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="State" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[SC]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Address Record Load\Lookup State.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Address Record Load\Lookup State.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\Lookup State.Inputs[Lookup Input].Columns[State_Code_Link]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="SC"
+                          errorOrTruncationOperation="Copy Column"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[SC]"
+                          name="State_Code_Link"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">StateAbbr</property>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">Statecode</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Address Record Load\Lookup State.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Sequence Container\Address Record Load\Lookup State.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Address Record Load\Lookup State.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Sequence Container\Address Record Load\Lookup State.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Address Record Load\Lookup State.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Sequence Container\Address Record Load\Lookup State.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\Lookup State.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Address Record Load\Lookup State.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\Lookup State.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Address Record Load\Lookup State.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DEST - WCPOLS_Address"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[WCPOLS_Address]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">ROWS_PER_BATCH = 10000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">10000</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[Address_Type_Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="Address_Type_Code"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Address_Type_code]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Address_Type_Code]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[address_Street]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="60"
+                          cachedName="address_Street"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Address_Street]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_Street]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[address_City]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="30"
+                          cachedName="address_City"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Address_City]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_City]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[address_state]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="address_state"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Address_State]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_state]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[address_ZipCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="9"
+                          cachedName="address_ZipCode"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Address_ZipCode]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_ZipCode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="PolicyNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[Address_Structure_Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="Address_Structure_Code"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Addresws_Structure_Code]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Address_Structure_Code]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[record_type_code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="record_type_code"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[record_type_code]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[phone]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="10"
+                          cachedName="phone"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Phone_Number_Of_Insured]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[phone]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[Number_of_Employee]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="Number_of_Employee"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Number_Of_Employees]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Number_of_Employee]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[IndustryCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="IndustryCode"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Industry_Code]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[IndustryCode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[NameLinkCounterIdentifier]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="NameLinkCounterIdentifier"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[name_Link_Counter_Identifier]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[NameLinkCounterIdentifier]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[Insert date]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="Insert date"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          lineageId="Package\Sequence Container\Address Record Load\Insert date.Outputs[Derived Column Output].Columns[Insert date]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[NLI]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="NLI"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Name_Link_Identifier]"
+                          lineageId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[NLI]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[SCL]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="SCL"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[State_Code_Link]"
+                          lineageId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[SCL]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[ERLFLC]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="5"
+                          cachedName="ERLFLC"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Exposure_Record_link_For_Location_Code]"
+                          lineageId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[ERLFLC]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[ForAdd]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="ForAdd"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Foreign_Address_Indicator]"
+                          lineageId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[ForAdd]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[Policy_State]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="Policy_State"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Policy_State]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[PolicyID]"
+                          cachedDataType="i4"
+                          cachedName="PolicyID"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyID]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[PolicyChangeEffectiveDate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="PolicyChangeEffectiveDate"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Change_Effective_Date]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyChangeEffectiveDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].Columns[PolicyChangeExpirationDate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="PolicyChangeExpirationDate"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Change_Expiration_Date]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyChangeExpirationDate]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Address_ID]"
+                          dataType="i8"
+                          name="Address_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="Policy_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Record_Type_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Address_Type_code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Address_Type_code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Foreign_Address_Indicator]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Foreign_Address_Indicator" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Addresws_Structure_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Addresws_Structure_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Address_Street]"
+                          codePage="1252"
+                          dataType="str"
+                          length="60"
+                          name="Address_Street" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Address_City]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="Address_City" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Address_State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Address_State" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Address_ZipCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="9"
+                          name="Address_ZipCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Name_Link_Identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="Name_Link_Identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[State_Code_Link]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="State_Code_Link" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Exposure_Record_link_For_Location_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          name="Exposure_Record_link_For_Location_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Phone_Number_Of_Insured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="Phone_Number_Of_Insured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Number_Of_Employees]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Number_Of_Employees" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Industry_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Industry_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[name_Link_Counter_Identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="name_Link_Counter_Identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          dataType="dbTimeStamp"
+                          name="Insert_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="dbTimeStamp"
+                          name="Update_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Change_Effective_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Policy_Change_Effective_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Change_Expiration_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Policy_Change_Expiration_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Policy_State" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Address Record Load\OLE SRC - Address"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE SRC - Address"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">;With NLI as 
+(
+	Select distinct i.PolicyID, rl.RiskLocationID , rl.EntityName , ContactRoleName, Format(NLI,'000') as NLI
+	from FactWCPremiumTransaction i
+		join DimRiskLocation rl on rl.RiskLocationID = i.RiskLocationID 
+		left join DimPolicy p on p.PolicyID=i.PolicyID 
+		left join ( 
+					Select * , rank() over(partition by policyid order by PolicyContactID ) as NLI  
+					from (Select distinct policyid,ContactName, InsuredName,PolicyContactID , ContactRoleName 
+							from  PolicyContacts
+							where ContactTypeName='Company' and ContactRoleName in ('PolicyAddlNamedInsured','PolicyPriNamedInsured' )
+						  ) c1
+				   ) c on c.PolicyID = p.PolicyID and (c.ContactName = rl.EntityName or  rl.EntityName = c.InsuredName)
+	where i.RiskLocationID not in (-1,-2) and NLI is not null
+)
+
+,ERL as 
+(
+	 Select *, Format(row_number() OVER (partition by PolicyID ORDER BY LocationNumber),'00000') AS ERL
+	 from (
+			SELECT distinct i.PolicyID, rl.EntityName, rl.RiskLocationID,rl.AddressLine1,rl.LocationNumber
+			From FactWCPremiumTransaction i
+				join DimRiskLocation rl on rl.RiskLocationID = i.RiskLocationID
+				join DimPolicy p on p.PolicyID=i.PolicyID 
+			where i.RiskLocationID not in (-1,-2)  
+				and (rl.EntityName &lt;&gt; p.PrimaryInsuredName or rl.AddressLine1 &lt;&gt; p.AddressLine1)
+			
+			UNION 
+
+			SELECT distinct p.PolicyID, p.PrimaryInsuredName,rl.RiskLocationID,p.AddressLine1, isnull(rl.LocationNumber,0) as LocationNumber
+			From DimPolicy p 
+				join FactWCPremiumTransaction i on p.PolicyID=i.PolicyID and i.RiskLocationID not in (-1,-2) 
+				left join DimRiskLocation rl on rl.RiskLocationID = i.RiskLocationID and rl.EntityName &lt;&gt; p.PrimaryInsuredName and rl.AddressLine1 &lt;&gt; p.AddressLine1
+			where  rl.RiskLocationID is null and rl.LocationNumber is null
+		) z  
+)
+
+,AD as
+(
+
+ SELECT distinct po.PolicyID, po.AddressLine1, po.AddressLine2, po.AddressLine3, po.City, po.State, po.County, po.country, po.PostalCode,  1 as ATC,
+	'001' as NLI,
+	'00001' as ERL ,
+	po.State as sc, 
+	ISNULL(f.NumofEmployees,0) as EmployeeCount, po.phone as p , Po.DateAdded, po. DateUpdated ,  ISNULL(pc.NAICSCode,'') AS NAICSCode 
+ from DimPolicy po
+	inner join PolicyContacts pc on pc.PolicyID = po.PolicyID and pc.ContactRoleName = 'PolicyPriNamedInsured'
+	Left join 
+			(
+				Select  i.policyid, i.RiskLocationID ,rl.EntityName, rl.AddressLine1 ,sum(c.NumofEmployees) as NumofEmployees
+				from FactWCPremiumTransaction i
+					inner join dimlob lob on i.LOBID = lob.LOBID
+					inner join DimWCCoverage c on c.CoverageID = i.CoverageID  and c.ExpirationDate &gt; c.EffectiveDate 
+					inner join DimRiskLocation rl on rl.RiskLocationID = i.RiskLocationID
+					left join PolicyContacts pc on pc.PolicyID=i.PolicyID and pc.ContactTypeName = 'Company' and pc.ContactName = rl.EntityName and pc.ContactRoleName = 'PolicyPriNamedInsured' 
+				where lob.LOBCode in( 'WorkersCompLine', 'WC7Line') 
+					and i.RiskLocationID not in (-1,-2) 
+					and isnull(c.CovEmpCostType,'') not in ('USLH','Coal Mine Disease Charge')
+					and pc.ContactRoleName = 'PolicyPriNamedInsured'
+				group by i.policyid, i.RiskLocationID ,rl.EntityName, rl.AddressLine1
+				)  f on f.PolicyID = po.PolicyID and f.EntityName = po.PrimaryInsuredName and f.AddressLine1 = po.AddressLine1
+  
+ UNION ALL
+
+ SELECT distinct f.PolicyID, rl.AddressLine1,rl.AddressLine2,rl.AddressLine3,rl.City,rl.State,rl.County,rl.country ,rl.PostalCode, 2 as ATC,
+	 NLI.NLI as NLI,
+	 ERL as ERL,
+	 rl.State as sc, 
+	 isnull(NumofEmployees,0) as EmployeeCount , null as p,  rl.DateAdded, rl. DateUpdated , isnull(pc.NAICSCode,'') as NAICSCode
+ from  DimRiskLocation  rl
+	 join 
+		(
+			Select  i.policyid, i.RiskLocationID , sum(c.NumofEmployees) as NumofEmployees
+			from FactWCPremiumTransaction i
+			  inner join dimlob lob on i.LOBID = lob.LOBID
+			  inner join DimWCCoverage c on c.CoverageID=i.CoverageID  and c.ExpirationDate &gt; c.EffectiveDate 
+			where lob.LOBCode in( 'WorkersCompLine', 'WC7Line') and RiskLocationID not in (-1,-2) and isnull(c.CovEmpCostType,'') not in ('USLH','Coal Mine Disease Charge')
+			group by i.policyid, i.RiskLocationID  
+		)  f   on f.RiskLocationID = rl.RiskLocationID 
+	left join dimpolicy p on p.PolicyID=f.PolicyID
+	LEFT join PolicyContacts pc on pc.PolicyID=f.PolicyID and  rl.EntityName=pc.ContactName and pc.ContactRoleName in ('PolicyPriNamedInsured','PolicyAddlNamedInsured')  
+	left join NLI on NLI.PolicyID=f.PolicyID and NLI.EntityName = rl.EntityName
+	left join ERL on ERL.PolicyID=f.PolicyID and ERL.RiskLocationID = f.RiskLocationID 
+
+
+ UNION ALL
+
+ SELECT distinct  f.PolicyID, ag.AddressLine1,ag.AddressLine2,ag.AddressLine3,ag.City,ag.State,ag.County,ag.country ,ag.PostalCode, 5 as ATC, 
+ '999' AS NLI, '99999' as ERL, 'AL' as sc, 0 as EmployeeCount , null as p,Pr.DateAdded, pr. DateUpdated, 
+ '' as NAICSCode
+ from [dbo].[DimProducer] pr
+		inner join 
+			(
+				SELECT distinct i.policyid, i.ProducerID ,i.AgencyID  
+				from FactWCPremiumTransaction i
+				  inner join dimlob lob on i.LOBID=lob.LOBID
+				where lob.LOBCode in( 'WorkersCompLine', 'WC7Line')
+			)  f on f.ProducerID=pr.ProducerID
+		join DimAgency ag on ag.AgencyID = f.AgencyID and AgencyName not in ('NA','Unknown','Unassigned')
+
+) 
+
+,AD3 as 
+(
+ SELECT DISTINCT i.PolicyID, 'PO Box 40767' as AddressLine1, 'Lansing' as City, 'MI' as State, null as County, 
+		'United States' as country ,'489017967' as PostalCode, 3 as ATC, '999' AS NLI, '99999' as ERL, 'AL' as sc,
+		 0 as EmployeeCount , null as p , isnull(pc.NAICSCode,'') as  NAICSCode
+ from FactWCPremiumTransaction i
+  inner join dimlob lob on i.LOBID = lob.LOBID and lob.LOBCode in( 'WorkersCompLine', 'WC7Line') 
+  left join PolicyContacts pc on pc.PolicyID = i.PolicyID and pc.ContactRoleName = 'PolicyPriNamedInsured' and NAICSCode IS NOT NULL
+  
+)
+
+---------------------------------------------------------------------------------------------------
+
+SELECT DISTINCT 
+	ad.PolicyID, 
+	cast(dp.PolicyNumber as varchar(18)) as PolicyNumber,
+	'03'as record_type_code, 
+     cast(ad.ATC as varchar(1)) as Address_Type_Code, 
+	 '1'AS Address_Structure_Code, 
+	case when upper(isnull(ad.AddressLine1,'')) like 'C/O%' 
+			then cast(left(dbo.FN_REMOVE_SPECIAL_CHARACTER(isnull(ad.AddressLine2,'')+isnull(' '+ad.AddressLine3,'')) + replicate(' ',60),60) as varchar(60))
+          when upper(isnull(ad.AddressLine2,'')) like 'C/O%' 
+            then cast(left(dbo.FN_REMOVE_SPECIAL_CHARACTER(isnull(ad.AddressLine1,'')+isnull(' '+ad.AddressLine3,'')) + replicate(' ',60),60) as varchar(60))
+	      else cast(left(dbo.FN_REMOVE_SPECIAL_CHARACTER(isnull(ad.AddressLine1,'')+isnull(' '+ad.AddressLine2,'')+isnull(' '+ad.AddressLine3,''))+ replicate(' ',60),60)as varchar(60))
+	end AS address_Street,
+	cast(left(isnull(ad.City,'')+replicate(' ',30),30)as varchar(30) ) as address_City,
+    cast(isnull(ad.State,'NA')as varchar(2)) as address_state,  
+	cast(left(replace(isnull(ad.PostalCode,''),'-','')+replicate(' ',9),9)as varchar(9)) as address_ZipCode, 
+	cast(ad.NLI as varchar(3)) as name_linked_identifier , 
+	cast(ISNULL(ad.sc,'NA') as varchar(2))as SC , 
+	cast(ad.ERL as varchar(5)) as Exposure_Record_Link, 
+	cast(format(ad.EmployeeCount,'000000')as varchar(6)) as Number_of_Employee, 
+	'00' as NameLinkCounterIdentifier, 
+	cast(left(ad.NAICSCode+replicate(' ',6),6) as varchar(6)) as IndustryCode,
+	cast(format(isnull(p,0), '0000000000')as varchar(10))as phone, Cast(dp.BaseState as varchar(2))Policy_State,
+	IIF( TransactionType ='Policy Change', Right(Convert(varchar(10),dp.EffectiveDate ,112),6), Replicate('0',6)) as PolicyChangeEffectiveDate,
+	IIF( TransactionType ='Policy Change', Right(Convert(varchar(10),dp.ExpirationDate,112),6), Replicate('0',6)) as PolicyChangeExpirationDate
+from  ad 
+	inner join DimPolicy dp on ad.PolicyID = dp.PolicyID
+	--05 OCT - VS - Added join on DimState to use IsNCCI column. This column is replacing all the NCCI States e.g. IN, VA, CT, IL etc.
+	Left Join DimState ds on ad.State = ds.StateAbbr  
+where PolicyNumber is not null 
+	and ad.policyid not in (-1,-2) 
+	and ad.ERL is not null 
+	and ad.NLI is not null 
+	and ((cast(dp.JobUpdateTime as date) &gt; ? and cast(dp.JobUpdateTime as date) &lt;= ? and transactiontype in ('Submission','Cancellation','Policy Change','Issuance','Rewrite','Audit','Reinstatement'))  or 
+	(cast(dp.JobUpdateTime as date) &gt; DATEADD(day, -1, convert(date,?)) and cast(dp.JobUpdateTime as date) &lt;= DATEADD(day, -1, convert(date,?)) and transactiontype='Renewal' and dp.eventname='SendNonRenewalDocuments' and dp.BaseState = 'MI') or 
+	(cast(dp.JobUpdateTime as date) &gt;? and cast(dp.JobUpdateTime as date) &lt;=? and transactiontype='Renewal' and dp.eventname is null) Or
+	(cast(dp.JobUpdateTime as date) &gt;? and cast(dp.JobUpdateTime as date) &lt;=? and transactiontype='Renewal' and dp.eventname='SendNonRenewalDocuments'  and ds.IsNCCI = 1 /*and dp.BaseState='IN'*/ ))  
+
+union all     
+
+select distinct ad3.PolicyID, 
+       cast(dp.PolicyNumber as varchar(18)) as PolicyNumber,   
+      '03'as record_type_code, 
+       cast(ad3.ATC as varchar(1)) as Address_Type_Code, 
+	   '1'AS Address_Structure_Code, 
+	   cast(left(isnull(ad3.AddressLine1,'') + replicate(' ',60),60)as varchar(60)) AS address_Street,
+	   cast(left(isnull(ad3.City,'') + replicate(' ',30),30)as varchar(30) ) as address_City,
+       cast(isnull(ad3.State,'NA')as varchar(2)) as address_state,  
+	   cast(left(isnull(ad3.PostalCode,'') + replicate(' ',9),9)as varchar(9)) as address_ZipCode, 
+	   cast(ad3.NLI as varchar(3)) as name_linked_identifier , 
+	   cast(ISNULL(ad3.sc,'NA') as varchar(2))as SC , 
+	   cast(ad3.ERL as varchar(5)) as Exposure_Record_Link, 
+	   cast(format(ad3.EmployeeCount,'000000')as varchar(6)) as Number_of_Employee, 
+	   '00' as NameLinkCounterIdentifier, 
+	   cast(left(ad3.NAICSCode+replicate(' ',6),6) as varchar(6)) as IndustryCode,
+	   cast(format(isnull(p,0), '0000000000')as varchar(10))as phone, Cast(dp.BaseState as varchar(2))Policy_State,
+	   IIF( TransactionType ='Policy Change', Right(Convert(varchar(10),dp.EffectiveDate ,112),6), Replicate('0',6)) as PolicyChangeEffectiveDate,
+	   IIF( TransactionType ='Policy Change', Right(Convert(varchar(10),dp.ExpirationDate,112),6), Replicate('0',6)) as PolicyChangeExpirationDate
+from  ad3
+inner join DimPolicy dp on ad3.PolicyID = dp.PolicyID</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{9539BE7A-FC6F-40A3-99E7-FAADBF9AC3A9};"Parameter1:Input",{0BA51046-C607-4B39-B859-8CBE709F1CA9};"Parameter2:Input",{9539BE7A-FC6F-40A3-99E7-FAADBF9AC3A9};"Parameter3:Input",{0BA51046-C607-4B39-B859-8CBE709F1CA9};"Parameter4:Input",{9539BE7A-FC6F-40A3-99E7-FAADBF9AC3A9};"Parameter5:Input",{0BA51046-C607-4B39-B859-8CBE709F1CA9};"Parameter6:Input",{9539BE7A-FC6F-40A3-99E7-FAADBF9AC3A9};"Parameter7:Input",{0BA51046-C607-4B39-B859-8CBE709F1CA9};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[record_type_code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[record_type_code]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[record_type_code]"
+                          name="record_type_code"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Address_Type_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[Address_Type_Code]"
+                          length="1"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Address_Type_Code]"
+                          name="Address_Type_Code"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Address_Structure_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[Address_Structure_Code]"
+                          length="1"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Address_Structure_Code]"
+                          name="Address_Structure_Code"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_Street]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[address_Street]"
+                          length="60"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_Street]"
+                          name="address_Street"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_City]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[address_City]"
+                          length="30"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_City]"
+                          name="address_City"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_state]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[address_state]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_state]"
+                          name="address_state"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_ZipCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[address_ZipCode]"
+                          length="9"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[address_ZipCode]"
+                          name="address_ZipCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[name_linked_identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[name_linked_identifier]"
+                          length="3"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[name_linked_identifier]"
+                          name="name_linked_identifier"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Exposure_Record_Link]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[Exposure_Record_Link]"
+                          length="5"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Exposure_Record_Link]"
+                          name="Exposure_Record_Link"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Number_of_Employee]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[Number_of_Employee]"
+                          length="6"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Number_of_Employee]"
+                          name="Number_of_Employee"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[NameLinkCounterIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[NameLinkCounterIdentifier]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[NameLinkCounterIdentifier]"
+                          name="NameLinkCounterIdentifier"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[IndustryCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[IndustryCode]"
+                          length="6"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[IndustryCode]"
+                          name="IndustryCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[phone]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[phone]"
+                          length="10"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[phone]"
+                          name="phone"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[SC]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[SC]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[SC]"
+                          name="SC"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[Policy_State]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Policy_State]"
+                          name="Policy_State"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          name="PolicyID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyChangeEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[PolicyChangeEffectiveDate]"
+                          length="6"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyChangeEffectiveDate]"
+                          name="PolicyChangeEffectiveDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyChangeExpirationDate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[PolicyChangeExpirationDate]"
+                          length="6"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[PolicyChangeExpirationDate]"
+                          name="PolicyChangeExpirationDate"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[record_type_code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="record_type_code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[Address_Type_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Address_Type_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[Address_Structure_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Address_Structure_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[address_Street]"
+                          codePage="1252"
+                          dataType="str"
+                          length="60"
+                          name="address_Street" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[address_City]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          name="address_City" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[address_state]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="address_state" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[address_ZipCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="9"
+                          name="address_ZipCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[name_linked_identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          name="name_linked_identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[Exposure_Record_Link]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          name="Exposure_Record_Link" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[Number_of_Employee]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Number_of_Employee" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[NameLinkCounterIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="NameLinkCounterIdentifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[IndustryCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="IndustryCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[phone]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          name="phone" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[SC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="SC" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Policy_State" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[PolicyChangeEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="PolicyChangeEffectiveDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].ExternalColumns[PolicyChangeExpirationDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="PolicyChangeExpirationDate" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[record_type_code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[record_type_code]"
+                          name="record_type_code" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[Address_Type_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[Address_Type_Code]"
+                          name="Address_Type_Code" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[Address_Structure_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[Address_Structure_Code]"
+                          name="Address_Structure_Code" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[address_Street]"
+                          codePage="1252"
+                          dataType="str"
+                          length="60"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[address_Street]"
+                          name="address_Street" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[address_City]"
+                          codePage="1252"
+                          dataType="str"
+                          length="30"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[address_City]"
+                          name="address_City" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[address_state]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[address_state]"
+                          name="address_state" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[address_ZipCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="9"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[address_ZipCode]"
+                          name="address_ZipCode" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[name_linked_identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="3"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[name_linked_identifier]"
+                          name="name_linked_identifier" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[Exposure_Record_Link]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[Exposure_Record_Link]"
+                          name="Exposure_Record_Link" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[Number_of_Employee]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[Number_of_Employee]"
+                          name="Number_of_Employee" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[NameLinkCounterIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[NameLinkCounterIdentifier]"
+                          name="NameLinkCounterIdentifier" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[IndustryCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[IndustryCode]"
+                          name="IndustryCode" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[phone]"
+                          codePage="1252"
+                          dataType="str"
+                          length="10"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[phone]"
+                          name="phone" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          name="PolicyNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[SC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[SC]"
+                          name="SC" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[Policy_State]"
+                          name="Policy_State" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          name="PolicyID" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[PolicyChangeEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[PolicyChangeEffectiveDate]"
+                          name="PolicyChangeEffectiveDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[PolicyChangeExpirationDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Error Output].Columns[PolicyChangeExpirationDate]"
+                          name="PolicyChangeExpirationDate" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Address Record Load\Transformations"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Transformations"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Address Record Load\Transformations.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\Transformations.Inputs[Derived Column Input].Columns[SC]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="SC"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[SC]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\Transformations.Inputs[Derived Column Input].Columns[Name_linked_identifier_new]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="3"
+                          cachedName="name_linked_identifier"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[name_linked_identifier]"
+                          name="Name_linked_identifier_new" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Address Record Load\Transformations.Inputs[Derived Column Input].Columns[Exposure_Record_Link]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="5"
+                          cachedName="Exposure_Record_Link"
+                          lineageId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Exposure_Record_Link]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Sequence Container\Address Record Load\Transformations.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[NLI]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="3"
+                          lineageId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[NLI]"
+                          name="NLI"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,3,1252)#{Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[name_linked_identifier]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,3,1252)Name_linked_identifier_new</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[SCL]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="2"
+                          lineageId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[SCL]"
+                          name="SCL"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,2,1252)#{Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[SC]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,2,1252)State_Code_Link</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[ERLFLC]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="5"
+                          lineageId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[ERLFLC]"
+                          name="ERLFLC"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,5,1252)#{Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output].Columns[Exposure_Record_Link]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,5,1252)Exposure_Record_Link</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[ForAdd]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="1"
+                          lineageId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output].Columns[ForAdd]"
+                          name="ForAdd"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,1,1252)" "</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,1,1252)" "</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Sequence Container\Address Record Load\Transformations.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\Address Record Load.Paths[Derived Column Output]"
+                  endId="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Sequence Container\Address Record Load\Transformations.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Sequence Container\Address Record Load.Paths[Derived Column Output1]"
+                  endId="Package\Sequence Container\Address Record Load\Transformations.Inputs[Derived Column Input]"
+                  name="Derived Column Output"
+                  startId="Package\Sequence Container\Address Record Load\Insert date.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Sequence Container\Address Record Load.Paths[Lookup Match Output]"
+                  endId="Package\Sequence Container\Address Record Load\Insert date.Inputs[Derived Column Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Sequence Container\Address Record Load\Lookup State.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Sequence Container\Address Record Load.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\Address Record Load\Lookup State.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\Address Record Load\OLE SRC - Address.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{bbaa0467-e2de-4420-bd2f-f1227c727b46}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{819C4178-53A7-4B95-911E-912E7E3F53B9}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{64A584F5-9E2F-470E-992F-449488EACF8F}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{C8CA9FBB-11A5-4928-AB50-041A33E49947}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{FE9C61B1-C5C2-41F3-8061-492E33627419}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{42CF28B8-9E78-4144-86C2-04553E349677}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{ad1c1db6-0dd2-4307-a58f-33edf4a69381}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Process Completed"
+          TopLeft="122,306" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Process Failed"
+          TopLeft="542,304" />
+        <NodeLayout
+          Size="178,42"
+          Id="Package\Sequence Container\Address Record Load"
+          TopLeft="32,10" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="233,107"
+          Size="233,150"
+          Id="Package\Sequence Container"
+          TopLeft="266,119" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="294,36" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="382.5,78">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41"
+              Start="0,0"
+              End="0,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="345,269">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-139,37"
+              Start="0,0"
+              End="-139,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.9514066496164" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.9514066496164"
+                    Point2="0,14.9514066496164"
+                    Point3="-4,14.9514066496164" />
+                  <mssgle:LineSegment
+                    End="-135,14.9514066496164" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-135,14.9514066496164"
+                    Point2="-139,14.9514066496164"
+                    Point3="-139,18.9514066496164" />
+                  <mssgle:LineSegment
+                    End="-139,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="420,269">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="194.5,35"
+              Start="0,0"
+              End="194.5,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.1432225063939" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.1432225063939"
+                    Point2="0,14.1432225063939"
+                    Point3="4,14.1432225063939" />
+                  <mssgle:LineSegment
+                    End="190.5,14.1432225063939" />
+                  <mssgle:CubicBezierSegment
+                    Point1="190.5,14.1432225063939"
+                    Point2="194.5,14.1432225063939"
+                    Point3="194.5,18.1432225063939" />
+                  <mssgle:LineSegment
+                    End="194.5,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="82.00865234375,19.1432225063939,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="354,146" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Sequence Container\Address Record Load">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="221,42"
+          Id="Package\Sequence Container\Address Record Load\Transformations"
+          TopLeft="229.4,245" />
+        <NodeLayout
+          Size="221,42"
+          Id="Package\Sequence Container\Address Record Load\Lookup State"
+          TopLeft="229.4,83" />
+        <NodeLayout
+          Size="218,42"
+          Id="Package\Sequence Container\Address Record Load\OLE SRC - Address"
+          TopLeft="229.4,13" />
+        <NodeLayout
+          Size="221,42"
+          Id="Package\Sequence Container\Address Record Load\Insert date"
+          TopLeft="229.4,162" />
+        <NodeLayout
+          Size="221,42"
+          Id="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address"
+          TopLeft="229.4,333" />
+        <EdgeLayout
+          Id="Package\Sequence Container\Address Record Load.Paths[Derived Column Output]"
+          TopLeft="339.9,287">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46"
+              Start="0,0"
+              End="0,38.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\Address Record Load.Paths[OLE DB Source Output]"
+          TopLeft="339.15,55">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28"
+              Start="0,0"
+              End="0,20.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\Address Record Load.Paths[Lookup Match Output]"
+          TopLeft="339.9,125">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37"
+              Start="0,0"
+              End="0,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,8.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\Address Record Load.Paths[Derived Column Output1]"
+          TopLeft="339.9,204">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41"
+              Start="0,0"
+              End="0,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Address Record Load\OLE DEST - WCPOLS_Address">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Address Record Load\Lookup State">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Address Record Load\OLE SRC - Address">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

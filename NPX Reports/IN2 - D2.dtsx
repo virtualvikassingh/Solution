@@ -1,0 +1,1082 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/28/2017 3:20:47 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ACF-EWADW01"
+  DTS:CreatorName="ACFS24\vikas.singh"
+  DTS:DTSID="{06DCDBE5-0AB7-4CF1-AB92-3AA6758369EF}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="NP4 - 1M"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="82"
+  DTS:VersionGUID="{6678F0B8-BD38-4C65-9D00-4D8740227DF8}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="QuarterStartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::QuarterStartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{9576A13E-A2D4-4663-98A8-D466C0BA47B1}"
+      DTS:ObjectName="QuarterStartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="QuarterEndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::QuarterEndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{4792592C-E981-4989-8647-1F37D39869EA}"
+      DTS:ObjectName="QuarterEndDate" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1AA85D62-0517-481C-B19C-DD0EFC87A66C}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="QuarterEndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">3/16/2017 11:28:09 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7DFF5DEC-EB75-4619-8479-54A6BE69D96F}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="QuarterStartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">3/16/2017 11:28:10 AM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\IN2D2"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{821638A2-04D0-4E96-8D59-C41B9B8A914F}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="IN2D2"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\IN2D2\EDW"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="EDW"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">--IN2D2 New SQL
+Declare @QuarterEndDate Date
+Declare @QuarterStartDate Date
+
+Set @QuarterStartDate =  ?--'1/1/2017'
+Set @QuarterEndDate   =  ?-- '3/31/2017'
+
+;With CTE_UncollectiblePremium As
+
+(
+	 SELECT PolicyNumber, EffectiveDate, PrimaryInsuredFEINID,
+				Case when IT.ChargeCode = 'OccupationalDisease' then '0200' else '0100' end As ReportCode,		
+				Case when cast(BT.TransactionDate as date) Between @QuarterStartDate And @QuarterEndDate and BT.TransactionTypeCode ='ChargeBilled' and BT.LedgersideName = 'CREDIT'   then BT.TransactionAmount else 0 end WrittenPremium,
+				Case when cast(BT.TransactionDate as date) Between @QuarterStartDate And @QuarterEndDate and BT.TransactionTypeCode ='ChargeWrittenOff'  and BT.WriteOffReason = 'Uncollectable' then BT.TransactionAmount else 0 end  As UncollectiblePremium,
+				0 As ProducerFeesOnUncollectiblePremium,
+				0 As ServicingCarrierAllowanceOnUncollectiblePremium,
+				0 As ProducerFees
+	
+	FROM	FactBillingTransaction As F, DimBillingTransaction As BT, DimPolicy As P, DimInvoiceItem As IT
+	where	F.BillingTransactionID = BT.BillingTransactionID and F.PolicyID = P.PolicyID  and F.InvoiceItemID = it.InvoiceItemID
+		 		and cast(P.EffectiveDate as Date) &lt;= @QuarterEndDate and cast(P.JobCloseDate as Date) &lt;= @QuarterEndDate
+				and P.BaseState = 'IN'	
+				and F.LegacySourceSystem = 'WC'  		
+				and IT.InvoiceCategory &lt;&gt; 'Indiana Second Injury Fund Surcharge' 
+				And Not Exists (Select 1 from DimPolicy cp Where p.PolicyNumber = cp.PolicyNumber and p.TermNumber = cp.TermNumber and Cast(cp.EffectiveDate as Date) = Cast(cp.CancellationDate as Date) 
+										and cp.ModelNumber = (select max(ModelNumber) From DimPolicy As cp1 where  p.PolicyNumber = cp1.PolicyNumber and p.TermNumber = cp1.TermNumber and Convert(varchar, cp1.JobCloseDate, 101) &lt;= @QuarterEndDate))  -- To include Policies got cancelled and reinstated 
+
+ )
+ 
+select	'IN' as State,
+	'IN2' as RecordTypeCodeC1	
+	,'D2' as RecordIdentifierC2	
+	,ReportCode ReportCodeC3			
+	,'13' as PoolCodeC4			
+	,'19968' as CarrierCodeC5			
+	,Left( Replace(convert(varchar, @QuarterEndDate,110),'-',''),4) + Right(Year(@QuarterEndDate),2) QtrEndingDateC6	
+	,Year(EffectiveDate)	PolicyYearC7
+	,'130' as StateCodeC8		
+	,dbo.udf_MakeFixedWidthStringIN(PolicyNumber,' ',30)PolicyNumberC9
+	 ,dbo.udf_MakeFixedWidthStringIN(Replace(PrimaryInsuredFEINID,'-',''),' ',9)TaxIdentificationNumberC10
+	,' ' as ReservedforFutureUseC11
+	,dbo.udf_MakeFixedWidthStringIN(case when Sum(round(ISNULL(UncollectiblePremium,0),2)) &lt;1000 then 'U' else 'O' end,' ',1) as PremiumCategoryC12
+	,dbo.udf_MakeFixedWidthStringIN(Sum(Cast(round(ISNULL(UncollectiblePremium,0),2)as decimal(18,2))),'0',13) as UncollectiblePremiumC13
+	,dbo.udf_MakeFixedWidthStringIN(Sum(cast(round(ISNULL(UncollectiblePremium,0)*0.153,2) as decimal(18,2))),'0',13) as ServicingCarrierAllowanceC14 --This ServicingCarrierAllowance is based on UncollectiblePremium
+	,dbo.udf_MakeFixedWidthStringIN(Sum(ProducerFees),'0',10) as ProducerFeesC15
+	,Replicate(' ',14) as ReservedforFutureUseC16
+
+from CTE_UncollectiblePremium 
+Where  (ProducerFees != 0 or UncollectiblePremium != 0 )
+group by ReportCode,Year(EffectiveDate),PolicyNumber,PrimaryInsuredFEINID</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{7DFF5DEC-EB75-4619-8479-54A6BE69D96F};"Parameter1:Input",{1AA85D62-0517-481C-B19C-DD0EFC87A66C};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\IN2D2\EDW.Connections[OleDbConnection]"
+                  connectionManagerID="{963E2DB2-18B6-40C1-8429-4D9E39F630C5}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCodeC1]"
+                      length="3"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]"
+                      name="RecordTypeCodeC1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[RecordIdentifierC2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[RecordIdentifierC2]"
+                      length="2"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[RecordIdentifierC2]"
+                      name="RecordIdentifierC2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ReportCodeC3]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[ReportCodeC3]"
+                      length="4"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ReportCodeC3]"
+                      name="ReportCodeC3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PoolCodeC4]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[PoolCodeC4]"
+                      length="2"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PoolCodeC4]"
+                      name="PoolCodeC4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[CarrierCodeC5]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[CarrierCodeC5]"
+                      length="5"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[CarrierCodeC5]"
+                      name="CarrierCodeC5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[QtrEndingDateC6]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[QtrEndingDateC6]"
+                      length="6"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[QtrEndingDateC6]"
+                      name="QtrEndingDateC6"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PolicyYearC7]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[PolicyYearC7]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PolicyYearC7]"
+                      name="PolicyYearC7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[StateCodeC8]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[StateCodeC8]"
+                      length="3"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[StateCodeC8]"
+                      name="StateCodeC8"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PolicyNumberC9]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumberC9]"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PolicyNumberC9]"
+                      name="PolicyNumberC9"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[TaxIdentificationNumberC10]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[TaxIdentificationNumberC10]"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[TaxIdentificationNumberC10]"
+                      name="TaxIdentificationNumberC10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ReservedforFutureUseC11]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[ReservedforFutureUseC11]"
+                      length="1"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ReservedforFutureUseC11]"
+                      name="ReservedforFutureUseC11"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PremiumCategoryC12]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[PremiumCategoryC12]"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PremiumCategoryC12]"
+                      name="PremiumCategoryC12"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[UncollectiblePremiumC13]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[UncollectiblePremiumC13]"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[UncollectiblePremiumC13]"
+                      name="UncollectiblePremiumC13"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ServicingCarrierAllowanceC14]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[ServicingCarrierAllowanceC14]"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ServicingCarrierAllowanceC14]"
+                      name="ServicingCarrierAllowanceC14"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ProducerFeesC15]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[ProducerFeesC15]"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ProducerFeesC15]"
+                      name="ProducerFeesC15"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ReservedforFutureUseC16]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[ReservedforFutureUseC16]"
+                      length="14"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ReservedforFutureUseC16]"
+                      name="ReservedforFutureUseC16"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      length="2"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[State]"
+                      name="State"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="RecordTypeCodeC1" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[RecordIdentifierC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="RecordIdentifierC2" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[ReportCodeC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ReportCodeC3" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[PoolCodeC4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="PoolCodeC4" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[CarrierCodeC5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="CarrierCodeC5" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[QtrEndingDateC6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="QtrEndingDateC6" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[PolicyYearC7]"
+                      dataType="i4"
+                      name="PolicyYearC7" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[StateCodeC8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="StateCodeC8" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumberC9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="PolicyNumberC9" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[TaxIdentificationNumberC10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="TaxIdentificationNumberC10" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[ReservedforFutureUseC11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ReservedforFutureUseC11" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[PremiumCategoryC12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="PremiumCategoryC12" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[UncollectiblePremiumC13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="UncollectiblePremiumC13" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[ServicingCarrierAllowanceC14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="ServicingCarrierAllowanceC14" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[ProducerFeesC15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="ProducerFeesC15" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[ReservedforFutureUseC16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="14"
+                      name="ReservedforFutureUseC16" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="State" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[State]"
+                      name="State" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[RecordTypeCodeC1]"
+                      name="RecordTypeCodeC1" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[RecordIdentifierC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[RecordIdentifierC2]"
+                      name="RecordIdentifierC2" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ReportCodeC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ReportCodeC3]"
+                      name="ReportCodeC3" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[PoolCodeC4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[PoolCodeC4]"
+                      name="PoolCodeC4" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[CarrierCodeC5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[CarrierCodeC5]"
+                      name="CarrierCodeC5" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[QtrEndingDateC6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[QtrEndingDateC6]"
+                      name="QtrEndingDateC6" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[PolicyYearC7]"
+                      dataType="i4"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[PolicyYearC7]"
+                      name="PolicyYearC7" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[StateCodeC8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[StateCodeC8]"
+                      name="StateCodeC8" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[PolicyNumberC9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[PolicyNumberC9]"
+                      name="PolicyNumberC9" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[TaxIdentificationNumberC10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[TaxIdentificationNumberC10]"
+                      name="TaxIdentificationNumberC10" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ReservedforFutureUseC11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ReservedforFutureUseC11]"
+                      name="ReservedforFutureUseC11" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[PremiumCategoryC12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[PremiumCategoryC12]"
+                      name="PremiumCategoryC12" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[UncollectiblePremiumC13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[UncollectiblePremiumC13]"
+                      name="UncollectiblePremiumC13" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ServicingCarrierAllowanceC14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ServicingCarrierAllowanceC14]"
+                      name="ServicingCarrierAllowanceC14" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ProducerFeesC15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ProducerFeesC15]"
+                      name="ProducerFeesC15" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ReservedforFutureUseC16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="14"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ReservedforFutureUseC16]"
+                      name="ReservedforFutureUseC16" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\IN2D2\PoolData"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="PoolData"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[PoolData]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 100</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">100</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\IN2D2\PoolData.Connections[OleDbConnection]"
+                  connectionManagerID="{963E2DB2-18B6-40C1-8429-4D9E39F630C5}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[RecordTypeCodeC1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="RecordTypeCodeC1"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[RecordIdentifierC2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="RecordIdentifierC2"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[RecordIdentifierC2]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[ReportCodeC3]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="ReportCodeC3"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ReportCodeC3]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[PoolCodeC4]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="PoolCodeC4"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column4]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PoolCodeC4]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[StateCodeC8]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="StateCodeC8"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column8]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[StateCodeC8]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[PolicyYearC7]"
+                      cachedDataType="i4"
+                      cachedName="PolicyYearC7"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column7]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PolicyYearC7]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[CarrierCodeC5]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="CarrierCodeC5"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column5]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[CarrierCodeC5]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[QtrEndingDateC6]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="6"
+                      cachedName="QtrEndingDateC6"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column6]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[QtrEndingDateC6]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[PolicyNumberC9]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="PolicyNumberC9"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column9]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PolicyNumberC9]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[TaxIdentificationNumberC10]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="TaxIdentificationNumberC10"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column10]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[TaxIdentificationNumberC10]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[ReservedforFutureUseC11]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ReservedforFutureUseC11"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column11]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ReservedforFutureUseC11]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[PremiumCategoryC12]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="PremiumCategoryC12"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column12]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[PremiumCategoryC12]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[UncollectiblePremiumC13]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="UncollectiblePremiumC13"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column13]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[UncollectiblePremiumC13]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[ServicingCarrierAllowanceC14]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="ServicingCarrierAllowanceC14"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column14]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ServicingCarrierAllowanceC14]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[ProducerFeesC15]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="ProducerFeesC15"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column15]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ProducerFeesC15]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[ReservedforFutureUseC16]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="14"
+                      cachedName="ReservedforFutureUseC16"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column16]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[ReservedforFutureUseC16]" />
+                    <inputColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].Columns[State]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="State"
+                      externalMetadataColumnId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      lineageId="Package\IN2D2\EDW.Outputs[OLE DB Source Output].Columns[State]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="Column1" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="Column2" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="Column3" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="Column4" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="Column5" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="Column6" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="Column7" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="Column8" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column9" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column10" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column11" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column12" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column13" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column14" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column15" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column16" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column17" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column18" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column19]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column19" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column20]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column20" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column21]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column21" />
+                    <externalMetadataColumn
+                      refId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input].ExternalColumns[Column22]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column22" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\IN2D2\PoolData.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\IN2D2\PoolData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\IN2D2\PoolData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\IN2D2\PoolData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\IN2D2\PoolData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\IN2D2.Paths[OLE DB Source Output]"
+              endId="Package\IN2D2\PoolData.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\IN2D2\EDW.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="110,42"
+          Id="Package\IN2D2"
+          TopLeft="132.5,59.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\IN2D2">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="124,42"
+          Id="Package\IN2D2\PoolData"
+          TopLeft="164.5,132.5" />
+        <NodeLayout
+          Size="105,42"
+          Id="Package\IN2D2\EDW"
+          TopLeft="176.5,15.5" />
+        <EdgeLayout
+          Id="Package\IN2D2.Paths[OLE DB Source Output]"
+          TopLeft="227.75,57.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,75"
+              Start="0,0"
+              End="0,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\IN2D2\EDW">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\IN2D2\PoolData">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

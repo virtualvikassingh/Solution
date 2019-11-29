@@ -1,0 +1,2699 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/21/2016 8:22:19 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\vikas.singh"
+  DTS:DTSID="{5108BA58-B9F1-42B2-A3AA-4C7AE764AF14}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="PostProcessor"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="31"
+  DTS:VersionGUID="{84ABA2AA-19A5-4478-8AEC-FBB8FA1F0F59}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[GWBillingCenter]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{4053C0A6-2EE3-4D19-A5B6-CAB382D08625}"
+      DTS:ObjectName="GWBillingCenter">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::BillingCenterDBName]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::GWServerName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ACF-APPDW01;Initial Catalog=BillingCenter;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[GWClaimCenter]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{4A3BC3CC-DBC7-4FC8-946A-123C8E91C6D4}"
+      DTS:ObjectName="GWClaimCenter">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::ClaimCenterDBName]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::GWServerName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ACF-APPDW01;Initial Catalog=ClaimCenter;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[GWPolicyCenter]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{E551028B-1597-4FBD-8B5D-6E6440860000}"
+      DTS:ObjectName="GWPolicyCenter">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::PolicyCenterDBName]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::GWServerName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ACF-APPDW01;Initial Catalog=PolicyCenter;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[REPBillingCenter]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{43562E13-F696-417F-A79B-EC96283E0994}"
+      DTS:ObjectName="REPBillingCenter">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::BillingCenterDBName]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::REPServerName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ACF-COGDW01;Initial Catalog=BillingCenter;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[REPClaimCenter]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{F9F30817-8EFF-421C-A6CF-9192E1790EB6}"
+      DTS:ObjectName="REPClaimCenter">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::ClaimCenterDBName]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::REPServerName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ACF-COGDW01;Initial Catalog=ClaimCenter;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[REPPolicyCenter]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{D3390AAE-5E63-47A8-A691-8219A238C099}"
+      DTS:ObjectName="REPPolicyCenter">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::PolicyCenterDBName]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::REPServerName]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=ACF-COGDW01;Initial Catalog=PolicyCenter;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{03196EA1-D9E0-4AF5-A9F8-0F21F92309BC}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="FailedCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Check For Failures"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{9D9B8F18-2EE3-4667-9A90-015FD6207FD2}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Check For Failures"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+          SQLTask:SqlStatementSource="Select Count(1)  FailedCount&#xA;From dmproc.BatchIdentifier&#xA;Where Cast(StartDate as Date) = Cast(GetDate() as Date)&#xA;And Status != 'Completed'&#xA;and BatchId &gt;= (Select max(BatchID)&#xA;&#x9;&#x9;&#x9;&#x9;From dmproc.BatchIdentifier&#xA;&#x9;&#x9;&#x9;&#x9;Where cast(StartDate as Date) = Cast(GetDate() as Date)&#xA;&#x9;&#x9;&#x9;&#x9;and LOB = 'EDW-PC'&#xA;&#x9;&#x9;&#x9;&#x9;)&#xA;&#xA; &#xA;"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="FailedCount"
+            SQLTask:DtsVariableName="User::FailedCount" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Force the package to Fail"
+      DTS:CreationName="Microsoft.ExpressionTask"
+      DTS:Description="Expression Task"
+      DTS:DTSID="{B83F85B7-02AF-4E52-8520-892DA4526F62}"
+      DTS:ExecutableType="Microsoft.ExpressionTask"
+      DTS:FailPackageOnFailure="True"
+      DTS:ForceExecutionResult="1"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Force the package to Fail"
+      DTS:TaskContact="Expression Task;Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <ExpressionTask
+          Expression="1==1" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\ReplicationCount"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{FC8D2B40-C32C-4697-A186-0977C97885F6}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="ReplicationCount">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\ReplicationCount\Create Temp Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{A0AEE875-E8F4-44DD-B07E-EC1E710E8596}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create Temp Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+              SQLTask:SqlStatementSource="&#xA;IF OBJECT_ID('dbo.tempDailyGWRowCount', N'U') IS NOT NULL &#xA;  DROP TABLE dbo.tempDailyGWRowCount; &#xA;  &#xA;Create Table tempDailyGWRowCount&#xA;(&#xA;&#x9;TableName nvarchar(200) NULL,&#xA;&#x9;RecordCount bigint NULL&#xA;)&#xA;&#xA;  &#xA;IF OBJECT_ID('dbo.tempDailyReplicationRowCount', N'U') IS NOT NULL &#xA;  DROP TABLE dbo.tempDailyReplicationRowCount; &#xA;  &#xA;&#xA;Create Table tempDailyReplicationRowCount&#xA;(&#xA;&#x9;TableName nvarchar(200) NULL,&#xA;&#x9;RecordCount bigint NULL&#xA;)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\ReplicationCount\DailyReplicationCount"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{2CCEBEC8-766E-4624-B3C3-A2EE0913B281}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DailyReplicationCount"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="DailyReplicationCount"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[DailyReplicationCount]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 100</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">100</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Connections[OleDbConnection]"
+                      connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].Columns[TableName]"
+                          cachedDataType="wstr"
+                          cachedLength="200"
+                          cachedName="TableName"
+                          externalMetadataColumnId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].ExternalColumns[TableName]"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[TableName]" />
+                        <inputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].Columns[GWRecordCount]"
+                          cachedDataType="i8"
+                          cachedName="GWRecordCount"
+                          externalMetadataColumnId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].ExternalColumns[GWRecordCount]"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[GWRecordCount]" />
+                        <inputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].Columns[ReplicationRecordCount]"
+                          cachedDataType="i8"
+                          cachedName="ReplicationRecordCount"
+                          externalMetadataColumnId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].ExternalColumns[ReplicationRecordCount]"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[ReplicationRecordCount]" />
+                        <inputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].Columns[DateAdded]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="DateAdded"
+                          externalMetadataColumnId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[DateAdded]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].ExternalColumns[TableName]"
+                          dataType="wstr"
+                          length="200"
+                          name="TableName" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].ExternalColumns[GWRecordCount]"
+                          dataType="i8"
+                          name="GWRecordCount" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].ExternalColumns[ReplicationRecordCount]"
+                          dataType="i8"
+                          name="ReplicationRecordCount" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                          dataType="dbTimeStamp"
+                          name="DateAdded" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Temp GW and REP tables"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Select Distinct t.TableName, g.RecordCount GWRecordCount, r.RecordCount ReplicationRecordCount, GetDate() as DateAdded
+From DailyReplicationTables t
+Left join tempDailyGWRowCount g on t.TableName = g.TableName
+Left Join tempDailyReplicationRowCount r on t.TableName = r.TableName</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Connections[OleDbConnection]"
+                      connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[TableName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          length="200"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[TableName]"
+                          name="TableName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[GWRecordCount]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].ExternalColumns[GWRecordCount]"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[GWRecordCount]"
+                          name="GWRecordCount"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[ReplicationRecordCount]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].ExternalColumns[ReplicationRecordCount]"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[ReplicationRecordCount]"
+                          name="ReplicationRecordCount"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[DateAdded]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].ExternalColumns[DateAdded]"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].Columns[DateAdded]"
+                          name="DateAdded"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          dataType="wstr"
+                          length="200"
+                          name="TableName" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].ExternalColumns[GWRecordCount]"
+                          dataType="i8"
+                          name="GWRecordCount" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].ExternalColumns[ReplicationRecordCount]"
+                          dataType="i8"
+                          name="ReplicationRecordCount" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output].ExternalColumns[DateAdded]"
+                          dataType="dbTimeStamp"
+                          name="DateAdded" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          dataType="wstr"
+                          length="200"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          name="TableName" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[GWRecordCount]"
+                          dataType="i8"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[GWRecordCount]"
+                          name="GWRecordCount" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[ReplicationRecordCount]"
+                          dataType="i8"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[ReplicationRecordCount]"
+                          name="ReplicationRecordCount" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[DateAdded]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[DateAdded]"
+                          name="DateAdded" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\ReplicationCount\DailyReplicationCount.Paths[OLE DB Source Output]"
+                  endId="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\ReplicationCount\Delete Today's Records"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{65B37F79-0127-4E12-B2B7-EFF79B38E02C}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete Today's Records"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+              SQLTask:SqlStatementSource="Delete from DailyReplicationcount Where Cast(DateAdded as Date) = Cast(GetDate() as Date)" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\ReplicationCount\Drop Temp Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{9F73C2D2-4748-4E74-826D-5DF05E0252E6}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Drop Temp Tables"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+              SQLTask:SqlStatementSource="&#xA;IF OBJECT_ID('dbo.tempDailyGWRowCount', N'U') IS NOT NULL &#xA;  DROP TABLE dbo.tempDailyGWRowCount; &#xA; &#xA;IF OBJECT_ID('dbo.tempDailyReplicationRowCount', N'U') IS NOT NULL &#xA;  DROP TABLE dbo.tempDailyReplicationRowCount; &#xA;  " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\ReplicationCount\Get GW Record Count"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{6629F21A-1502-47A9-8AA9-D0966A235454}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get GW Record Count"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\ReplicationCount\Get GW Record Count\GW BC"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="GW BC"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Select t.name TableName, i.rows RowCounts
+From sysobjects t, sysindexes i
+Where t.xtype = 'U' and i.id = t.id and i.indid in (0,1) 
+Order by t.Name</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\ReplicationCount\Get GW Record Count\GW BC.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[GWBillingCenter]"
+                      connectionManagerRefId="Package.ConnectionManagers[GWBillingCenter]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          name="TableName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          name="RowCounts"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          name="TableName" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          dataType="i4"
+                          name="RowCounts" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          name="TableName" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          name="RowCounts" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\ReplicationCount\Get GW Record Count\GW CC"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="GW CC"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Select t.name TableName, i.rows RowCounts
+From sysobjects t, sysindexes i
+Where t.xtype = 'U' and i.id = t.id and i.indid in (0,1) 
+Order by t.Name</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\ReplicationCount\Get GW Record Count\GW CC.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[GWClaimCenter]"
+                      connectionManagerRefId="Package.ConnectionManagers[GWClaimCenter]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          name="TableName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          name="RowCounts"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          name="TableName" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          dataType="i4"
+                          name="RowCounts" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          name="TableName" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          name="RowCounts" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\ReplicationCount\Get GW Record Count\GW PC"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="GW PC"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Select t.name TableName, i.rows RowCounts
+From sysobjects t, sysindexes i
+Where t.xtype = 'U' and i.id = t.id and i.indid in (0,1) 
+Order by t.Name</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\ReplicationCount\Get GW Record Count\GW PC.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[GWPolicyCenter]"
+                      connectionManagerRefId="Package.ConnectionManagers[GWPolicyCenter]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          name="TableName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          name="RowCounts"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          name="TableName" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          dataType="i4"
+                          name="RowCounts" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          name="TableName" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          name="RowCounts" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="tmpDailyGWRowCount"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[tempDailyGWRowCount]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Connections[OleDbConnection]"
+                      connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].Columns[TableName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="TableName"
+                          externalMetadataColumnId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].ExternalColumns[TableName]"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]" />
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].Columns[RowCounts]"
+                          cachedDataType="i8"
+                          cachedName="RowCounts"
+                          externalMetadataColumnId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].ExternalColumns[RecordCount]"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].ExternalColumns[TableName]"
+                          dataType="wstr"
+                          length="200"
+                          name="TableName" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].ExternalColumns[RecordCount]"
+                          dataType="i8"
+                          name="RecordCount" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\ReplicationCount\Get GW Record Count\Union All"
+                  componentClassID="Microsoft.UnionAll"
+                  contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+                  name="Union All"
+                  version="1">
+                  <inputs>
+                    <input
+                      refId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 1]"
+                      name="Union All Input 1">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 1].Columns[RowCounts]"
+                          cachedDataType="i8"
+                          cachedName="RowCounts"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output].Columns[RowCounts]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 1].Columns[TableName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="TableName"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output].Columns[TableName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]}</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 2]"
+                      hasSideEffects="true"
+                      name="Union All Input 2">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 2].Columns[RowCounts]"
+                          cachedDataType="i8"
+                          cachedName="RowCounts"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output].Columns[RowCounts]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 2].Columns[TableName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="TableName"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output].Columns[TableName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]}</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 3]"
+                      hasSideEffects="true"
+                      name="Union All Input 3">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 3].Columns[RowCounts]"
+                          cachedDataType="i8"
+                          cachedName="RowCounts"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output].Columns[RowCounts]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 3].Columns[TableName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="TableName"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output].Columns[TableName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]}</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 4]"
+                      dangling="true"
+                      hasSideEffects="true"
+                      name="Union All Input 4">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1]"
+                      name="Union All Output 1">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]"
+                          dataType="i8"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]"
+                          name="RowCounts" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]"
+                          name="TableName" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\ReplicationCount\Get GW Record Count.Paths[OLE DB Source Output]"
+                  endId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 1]"
+                  name="OLE DB Source Output"
+                  startId="Package\ReplicationCount\Get GW Record Count\GW PC.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\ReplicationCount\Get GW Record Count.Paths[OLE DB Source Output1]"
+                  endId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 2]"
+                  name="OLE DB Source Output"
+                  startId="Package\ReplicationCount\Get GW Record Count\GW CC.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\ReplicationCount\Get GW Record Count.Paths[OLE DB Source Output2]"
+                  endId="Package\ReplicationCount\Get GW Record Count\Union All.Inputs[Union All Input 3]"
+                  name="OLE DB Source Output"
+                  startId="Package\ReplicationCount\Get GW Record Count\GW BC.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\ReplicationCount\Get GW Record Count.Paths[Union All Output 1]"
+                  endId="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input]"
+                  name="Union All Output 1"
+                  startId="Package\ReplicationCount\Get GW Record Count\Union All.Outputs[Union All Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\ReplicationCount\Get REP Record Count"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:DelayValidation="True"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{20cdee81-0174-4c33-9bae-7baa782dec23}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Get REP Record Count"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\ReplicationCount\Get REP Record Count\REP BC"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="REP BC"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Select t.name TableName, i.rows RowCounts
+From sysobjects t, sysindexes i
+Where t.xtype = 'U' and i.id = t.id and i.indid in (0,1) 
+Order by t.Name</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\ReplicationCount\Get REP Record Count\REP BC.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[REPBillingCenter]"
+                      connectionManagerRefId="Package.ConnectionManagers[REPBillingCenter]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          name="TableName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          name="RowCounts"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          name="TableName" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          dataType="i4"
+                          name="RowCounts" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          name="TableName" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          name="RowCounts" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\ReplicationCount\Get REP Record Count\REP CC"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="REP CC"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Select t.name TableName, i.rows RowCounts
+From sysobjects t, sysindexes i
+Where t.xtype = 'U' and i.id = t.id and i.indid in (0,1) 
+Order by t.Name</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\ReplicationCount\Get REP Record Count\REP CC.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[REPClaimCenter]"
+                      connectionManagerRefId="Package.ConnectionManagers[REPClaimCenter]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          name="TableName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          name="RowCounts"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          name="TableName" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          dataType="i4"
+                          name="RowCounts" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          name="TableName" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          name="RowCounts" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\ReplicationCount\Get REP Record Count\REP PC"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="REP PC"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">Select t.name TableName, i.rows RowCounts
+From sysobjects t, sysindexes i
+Where t.xtype = 'U' and i.id = t.id and i.indid in (0,1) 
+Order by t.Name</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\ReplicationCount\Get REP Record Count\REP PC.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[REPPolicyCenter]"
+                      connectionManagerRefId="Package.ConnectionManagers[REPPolicyCenter]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output].Columns[TableName]"
+                          name="TableName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output].Columns[RowCounts]"
+                          name="RowCounts"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          name="TableName" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output].ExternalColumns[RowCounts]"
+                          dataType="i4"
+                          name="RowCounts" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                          name="TableName" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Error Output].Columns[RowCounts]"
+                          name="RowCounts" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="tmpDailyGWRowCount"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[tempDailyReplicationRowCount]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 1000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">1000</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Connections[OleDbConnection]"
+                      connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].Columns[TableName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="TableName"
+                          externalMetadataColumnId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].ExternalColumns[TableName]"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]" />
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].Columns[RowCounts]"
+                          cachedDataType="i8"
+                          cachedName="RowCounts"
+                          externalMetadataColumnId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].ExternalColumns[RecordCount]"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].ExternalColumns[TableName]"
+                          dataType="wstr"
+                          length="200"
+                          name="TableName" />
+                        <externalMetadataColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input].ExternalColumns[RecordCount]"
+                          dataType="i8"
+                          name="RecordCount" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\ReplicationCount\Get REP Record Count\Union All"
+                  componentClassID="Microsoft.UnionAll"
+                  contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+                  name="Union All"
+                  version="1">
+                  <inputs>
+                    <input
+                      refId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 1]"
+                      name="Union All Input 1">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 1].Columns[RowCounts]"
+                          cachedDataType="i8"
+                          cachedName="RowCounts"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output].Columns[RowCounts]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 1].Columns[TableName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="TableName"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output].Columns[TableName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]}</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 2]"
+                      hasSideEffects="true"
+                      name="Union All Input 2">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 2].Columns[RowCounts]"
+                          cachedDataType="i8"
+                          cachedName="RowCounts"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output].Columns[RowCounts]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 2].Columns[TableName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="TableName"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output].Columns[TableName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]}</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 3]"
+                      hasSideEffects="true"
+                      name="Union All Input 3">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 3].Columns[RowCounts]"
+                          cachedDataType="i8"
+                          cachedName="RowCounts"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output].Columns[RowCounts]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]}</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 3].Columns[TableName]"
+                          cachedDataType="wstr"
+                          cachedLength="128"
+                          cachedName="TableName"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output].Columns[TableName]">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Output column lineage ID"
+                              name="OutputColumnLineageID">#{Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]}</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                    <input
+                      refId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 4]"
+                      dangling="true"
+                      hasSideEffects="true"
+                      name="Union All Input 4">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1]"
+                      name="Union All Output 1">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]"
+                          dataType="i8"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[RowCounts]"
+                          name="RowCounts" />
+                        <outputColumn
+                          refId="Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]"
+                          dataType="wstr"
+                          length="128"
+                          lineageId="Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1].Columns[TableName]"
+                          name="TableName" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\ReplicationCount\Get REP Record Count.Paths[OLE DB Source Output]"
+                  endId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 1]"
+                  name="OLE DB Source Output"
+                  startId="Package\ReplicationCount\Get REP Record Count\REP PC.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\ReplicationCount\Get REP Record Count.Paths[OLE DB Source Output1]"
+                  endId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 2]"
+                  name="OLE DB Source Output"
+                  startId="Package\ReplicationCount\Get REP Record Count\REP CC.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\ReplicationCount\Get REP Record Count.Paths[OLE DB Source Output2]"
+                  endId="Package\ReplicationCount\Get REP Record Count\Union All.Inputs[Union All Input 3]"
+                  name="OLE DB Source Output"
+                  startId="Package\ReplicationCount\Get REP Record Count\REP BC.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\ReplicationCount\Get REP Record Count.Paths[Union All Output 1]"
+                  endId="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount.Inputs[OLE DB Destination Input]"
+                  name="Union All Output 1"
+                  startId="Package\ReplicationCount\Get REP Record Count\Union All.Outputs[Union All Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\ReplicationCount.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{5BB10DC4-B17F-437A-AA7B-A9F2099B6081}"
+          DTS:From="Package\ReplicationCount\Create Temp Tables"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\ReplicationCount\Get GW Record Count" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\ReplicationCount.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{F465097F-C9D1-4B32-91CA-339BA7B47EB1}"
+          DTS:From="Package\ReplicationCount\Get GW Record Count"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\ReplicationCount\Get REP Record Count" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\ReplicationCount.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{23564312-9C8C-4115-88BA-92235610FA49}"
+          DTS:From="Package\ReplicationCount\Get REP Record Count"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\ReplicationCount\DailyReplicationCount" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\ReplicationCount.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{77267824-FC7F-4A1B-8510-0FCBC509005B}"
+          DTS:From="Package\ReplicationCount\Delete Today's Records"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\ReplicationCount\Create Temp Tables" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\ReplicationCount.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{94780840-BA35-4022-907B-7BE87C8848CA}"
+          DTS:From="Package\ReplicationCount\DailyReplicationCount"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\ReplicationCount\Drop Temp Tables" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SendValidationReport"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{D49CF954-04E7-46E8-9C82-72BE37EC8283}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SendValidationReport"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+          SQLTask:SqlStatementSource="Exec dbo.spSendEmailForDailyValidation" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{70FBD2AC-94BF-4F0D-822A-118CBEE01B3C}"
+      DTS:From="Package\ReplicationCount"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SendValidationReport" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{AEF78FC8-0C05-481E-904C-33FE918BEBC4}"
+      DTS:From="Package\SendValidationReport"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Check For Failures" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{ACB9F3FD-B94B-4AA8-A839-B790B5533813}"
+      DTS:EvalOp="3"
+      DTS:Expression="@[User::FailedCount]&gt;0"
+      DTS:From="Package\Check For Failures"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Force the package to Fail" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="8">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Check For Failures"
+          TopLeft="280.5,307.5" />
+        <NodeLayout
+          Size="211,42"
+          Id="Package\Force the package to Fail"
+          TopLeft="533.5,309.5" />
+        <NodeLayout
+          Size="196,42"
+          Id="Package\ReplicationCount\Create Temp Tables"
+          TopLeft="5.5,76" />
+        <NodeLayout
+          Size="196,42"
+          Id="Package\ReplicationCount\DailyReplicationCount"
+          TopLeft="5.5,279.5" />
+        <NodeLayout
+          Size="196,42"
+          Id="Package\ReplicationCount\Delete Today's Records"
+          TopLeft="5.5,5.5" />
+        <NodeLayout
+          Size="196,42"
+          Id="Package\ReplicationCount\Drop Temp Tables"
+          TopLeft="5.5,350.5" />
+        <NodeLayout
+          Size="196,42"
+          Id="Package\ReplicationCount\Get GW Record Count"
+          TopLeft="5.5,143.5" />
+        <NodeLayout
+          Size="196,42"
+          Id="Package\ReplicationCount\Get REP Record Count"
+          TopLeft="5.5,212" />
+        <EdgeLayout
+          Id="Package\ReplicationCount.PrecedenceConstraints[Constraint]"
+          TopLeft="103.5,118">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,25.5"
+              Start="0,0"
+              End="0,18">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ReplicationCount.PrecedenceConstraints[Constraint 1]"
+          TopLeft="103.5,185.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26.5"
+              Start="0,0"
+              End="0,19">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ReplicationCount.PrecedenceConstraints[Constraint 2]"
+          TopLeft="103.5,254">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,25.5"
+              Start="0,0"
+              End="0,18">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ReplicationCount.PrecedenceConstraints[Constraint 3]"
+          TopLeft="103.5,47.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.5"
+              Start="0,0"
+              End="0,21">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ReplicationCount.PrecedenceConstraints[Constraint 4]"
+          TopLeft="103.5,321.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29"
+              Start="0,0"
+              End="0,21.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="205,447"
+          Size="205,490"
+          Id="Package\ReplicationCount"
+          TopLeft="10,6" />
+        <NodeLayout
+          Size="195,42"
+          Id="Package\SendValidationReport"
+          TopLeft="275.5,229.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="215,250.75">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="60.5,0"
+              Start="0,0"
+              End="53,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="53,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="371.75,271.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36"
+              Start="0,0"
+              End="0,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="460.5,329.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="73,0"
+              Start="0,0"
+              End="65.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="65.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="24.75,5,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\ReplicationCount\DailyReplicationCount">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="200,42"
+          Id="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables"
+          TopLeft="129.5,12.5" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount"
+          TopLeft="134.5,118.5" />
+        <EdgeLayout
+          Id="Package\ReplicationCount\DailyReplicationCount.Paths[OLE DB Source Output]"
+          TopLeft="227.25,54.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,64"
+              Start="0,0"
+              End="0,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ReplicationCount\DailyReplicationCount\DailyReplicationCount">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ReplicationCount\DailyReplicationCount\Temp GW and REP tables">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\ReplicationCount\Get GW Record Count">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="185,42"
+          Id="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount"
+          TopLeft="179,240" />
+        <NodeLayout
+          Size="111,42"
+          Id="Package\ReplicationCount\Get GW Record Count\GW PC"
+          TopLeft="54.5,24.5" />
+        <NodeLayout
+          Size="112,42"
+          Id="Package\ReplicationCount\Get GW Record Count\GW CC"
+          TopLeft="218,24" />
+        <NodeLayout
+          Size="112,42"
+          Id="Package\ReplicationCount\Get GW Record Count\GW BC"
+          TopLeft="372.5,23.5" />
+        <NodeLayout
+          Size="121,42"
+          Id="Package\ReplicationCount\Get GW Record Count\Union All"
+          TopLeft="208.5,108.5" />
+        <EdgeLayout
+          Id="Package\ReplicationCount\Get GW Record Count.Paths[Union All Output 1]"
+          TopLeft="270.25,150.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,89.5"
+              Start="0,0"
+              End="0,82">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,82" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ReplicationCount\Get GW Record Count.Paths[OLE DB Source Output2]"
+          TopLeft="428.5,65.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-131.25,43"
+              Start="0,0"
+              End="-131.25,35.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.0485175202156" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.0485175202156"
+                    Point2="0,28.0485175202156"
+                    Point3="-4,28.0485175202156" />
+                  <mssgle:LineSegment
+                    End="-127.25,28.0485175202156" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-127.25,28.0485175202156"
+                    Point2="-131.25,28.0485175202156"
+                    Point3="-131.25,32.0485175202156" />
+                  <mssgle:LineSegment
+                    End="-131.25,35.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ReplicationCount\Get GW Record Count.Paths[OLE DB Source Output1]"
+          TopLeft="271.5,66">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,42.5"
+              Start="0,0"
+              End="0,35">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,35" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ReplicationCount\Get GW Record Count.Paths[OLE DB Source Output]"
+          TopLeft="110,66.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="130.75,42"
+              Start="0,0"
+              End="130.75,34.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.3962264150943" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,23.3962264150943"
+                    Point2="0,27.3962264150943"
+                    Point3="4,27.3962264150943" />
+                  <mssgle:LineSegment
+                    End="126.75,27.3962264150943" />
+                  <mssgle:CubicBezierSegment
+                    Point1="126.75,27.3962264150943"
+                    Point2="130.75,27.3962264150943"
+                    Point3="130.75,31.3962264150943" />
+                  <mssgle:LineSegment
+                    End="130.75,34.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ReplicationCount\Get GW Record Count\GW PC">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ReplicationCount\Get GW Record Count\tmpDailyGWRowCount">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ReplicationCount\Get GW Record Count\GW CC">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ReplicationCount\Get GW Record Count\GW BC">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\ReplicationCount\Get REP Record Count">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="185,42"
+          Id="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount"
+          TopLeft="179,240" />
+        <NodeLayout
+          Size="113,42"
+          Id="Package\ReplicationCount\Get REP Record Count\REP PC"
+          TopLeft="54.5,24.5" />
+        <NodeLayout
+          Size="114,42"
+          Id="Package\ReplicationCount\Get REP Record Count\REP CC"
+          TopLeft="218,24" />
+        <NodeLayout
+          Size="114,42"
+          Id="Package\ReplicationCount\Get REP Record Count\REP BC"
+          TopLeft="372.5,23.5" />
+        <NodeLayout
+          Size="121,42"
+          Id="Package\ReplicationCount\Get REP Record Count\Union All"
+          TopLeft="209.5,116.5" />
+        <EdgeLayout
+          Id="Package\ReplicationCount\Get REP Record Count.Paths[Union All Output 1]"
+          TopLeft="270.75,158.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,81.5"
+              Start="0,0"
+              End="0,74">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,74" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ReplicationCount\Get REP Record Count.Paths[OLE DB Source Output2]"
+          TopLeft="429.5,65.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-131.25,51"
+              Start="0,0"
+              End="-131.25,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.266846361186" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,29.266846361186"
+                    Point2="0,33.266846361186"
+                    Point3="-4,33.266846361186" />
+                  <mssgle:LineSegment
+                    End="-127.25,33.266846361186" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-127.25,33.266846361186"
+                    Point2="-131.25,33.266846361186"
+                    Point3="-131.25,37.266846361186" />
+                  <mssgle:LineSegment
+                    End="-131.25,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ReplicationCount\Get REP Record Count.Paths[OLE DB Source Output1]"
+          TopLeft="272.5,66">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.5"
+              Start="0,0"
+              End="0,43">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\ReplicationCount\Get REP Record Count.Paths[OLE DB Source Output]"
+          TopLeft="111,66.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="130.75,50"
+              Start="0,0"
+              End="130.75,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.6145552560647" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,28.6145552560647"
+                    Point2="0,32.6145552560647"
+                    Point3="4,32.6145552560647" />
+                  <mssgle:LineSegment
+                    End="126.75,32.6145552560647" />
+                  <mssgle:CubicBezierSegment
+                    Point1="126.75,32.6145552560647"
+                    Point2="130.75,32.6145552560647"
+                    Point3="130.75,36.6145552560647" />
+                  <mssgle:LineSegment
+                    End="130.75,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="0,0,0,0"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\ReplicationCount\Get REP Record Count\REP PC">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ReplicationCount\Get REP Record Count\tmpDailyGWRowCount">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ReplicationCount\Get REP Record Count\REP CC">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\ReplicationCount\Get REP Record Count\REP BC">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

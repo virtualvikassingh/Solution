@@ -1,0 +1,1494 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/26/2016 1:21:56 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\peng.wang"
+  DTS:DTSID="{BF548CB9-570E-49DB-8479-F0AF0D975722}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCPOLS_Load_LinkRecords"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="301"
+  DTS:VersionGUID="{3B56FC80-E424-4329-86AD-67A3CE82B151}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="StartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::StartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{217E5DCA-6D3C-422A-9D0B-2BDA12D51291}"
+      DTS:ObjectName="StartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{6083A90D-9334-48E7-8C46-773A920549EB}"
+      DTS:ObjectName="BatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="EndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::EndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{CCC98059-CFC9-41CD-82B5-AD3DCE5772DE}"
+      DTS:ObjectName="EndDate" />
+  </DTS:Configurations>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="7"
+      DTS:DTSID="{17582DFB-13DC-41E1-9010-D11911393A59}"
+      DTS:ObjectName="RunDate">
+      <DTS:Property
+        DTS:DataType="7"
+        DTS:Name="ParameterValue">10/11/2016 11:51:13 AM</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0D57E010-FF88-4922-85F4-45578A265B79}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="EndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">5/18/2017 7:15:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">1/14/2017 11:15:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{FCE4CAC3-2F56-4DBE-A0A9-A5AAD804837A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C68BBA2C-4120-445E-8D12-92982E9C14E3}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\Process Failed.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{A36DD66B-0DE9-4D0A-BE06-F332E90C7BD6}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{1C8A28A8-6318-49D0-8082-18BF213FABEE}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="&#xA;Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{6DA52F83-1C2F-4C9E-A120-39B94CB8FDD3}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\DFT Load Link data"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{D42B44D5-FEA7-41EF-84C3-64086259F9AC}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DFT Load Link data"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE DEST - WCPOLS_Link"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[WCPOLS_Link]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">10000</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="PolicyNumber"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number_Identifier]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].Columns[insert date]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="insert date"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Output].Columns[insert date]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].Columns[policy number]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="policy number"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Output].Columns[policy number]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].Columns[EffectiveDate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="EffectiveDate"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Effective_Date]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[EffectiveDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].Columns[DataEffectiveDate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="5"
+                          cachedName="DataEffectiveDate"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Transaction_Issue_Date]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[DataEffectiveDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].Columns[State]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="State"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[StateName]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[State]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].Columns[CompanyCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="5"
+                          cachedName="CompanyCode"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Code]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[CompanyCode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].Columns[PolicyID]"
+                          cachedDataType="i4"
+                          cachedName="PolicyID"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[PolicyID]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].Columns[JoinType]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="JoinType"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[JoinType]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[JoinType]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].Columns[TransactionCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="TransactionCode"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Transaction_Code]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[TransactionCode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].Columns[GWRowNumber]"
+                          cachedDataType="i8"
+                          cachedName="GWRowNumber"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[PolicyGWRowNumber]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Link_ID]"
+                          dataType="i8"
+                          name="Link_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="Policy_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          name="Carrier_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number_Identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="Policy_Number_Identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Effective_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Policy_Effective_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Transaction_Issue_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          name="Transaction_Issue_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Transaction_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Transaction_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          dataType="dbTimeStamp"
+                          name="Insert_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="dbTimeStamp"
+                          name="Update_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[StateName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="StateName" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[JoinType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="JoinType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input].ExternalColumns[PolicyGWRowNumber]"
+                          dataType="i8"
+                          name="PolicyGWRowNumber" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE SRC - FactPolicyTransactionChange"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With CTE AS
+(
+
+	SELECT count(*) Ratings_count , PolicyNumber  ,convert(date,dp.JobUpdateTime) JobUpdateTime
+	FROM FactPolicyTransactionChange fpt inner join DimPolicy dp on fpt.PolicyID = dp.PolicyID
+		join DimLOB L on fpt.LOBID=l.LOBID
+
+	where TransactionType in ('Policy Change') 
+		and PolicyStatus = 'Bound' 
+		and dp.IssueDate is not null 
+		and (cast(dp.JobUpdateTime as date) &gt; ? and cast(dp.JobUpdateTime as date) &lt;= ?) 
+		--and dp.BaseState in ('MI','IN') --VS-- Removed on 10/08 to include other states as well. 
+		and L.LOBCode in ( 'WorkersCompLine','WC7Line') 
+		and dp.PolicyChangeType in ('Rating','Additional')
+	group by PolicyNumber, convert(date,dp.JobUpdateTime)
+)
+
+SELECT   fpt.PolicyID, dp.GWRowNumber,
+	'19968' as CompanyCode,
+	Cast(dp.PolicyNumber as varchar(18)) as PolicyNumber,
+	Cast(isnull(replace(convert(varchar, dp.EffectiveDate,2),'.',''),'      ') as varchar(6)) as EffectiveDate,
+	Right('000'+ isnull(SUBSTRING(cast(datepart(YY,dp.JobCloseDate)as varchar(4)),3,4),''),2) + right('000'+ isnull(cast(datepart(DY,dp.JobCloseDate) as varchar(3)),''),3)  as DataEffectiveDate ,
+	Case When dp.TransactionType in  ('Submission','Rewrite')  then '01'
+	  when dp.TransactionType in ('Renewal')  then '02'
+      when dp.TransactionType in ('Cancellation','Reinstatement')  then '05'
+	  when dp.TransactionType = 'Policy Change' then '08'
+	Else '00' End as TransactionCode,
+	Cast(isnull(dp.BaseState,'  ') as varchar(2)) as State,
+	'00'  as JoinType
+	 
+FROM FactPolicyTransactionChange fpt inner join DimPolicy dp on fpt.PolicyID = dp.PolicyID
+	join DimLOB L on fpt.LOBID=l.LOBID
+where TransactionType in( 'Submission','Reinstatement','Rewrite') 
+	and PolicyStatus = 'Bound' 
+	and dp.IssueDate is not null 
+	and (cast(dp.JobUpdateTime as date) &gt; ? and cast(dp.JobUpdateTime as date) &lt;= ?) 
+	--and dp.BaseState in ('MI','IN') --VS-- Removed on 10/08 to include other states as well. 
+	and L.LOBCode in ( 'WorkersCompLine','WC7Line') 
+
+--showing the renewal transaction on same day in case non renwal is not issued on prior term
+Union 
+
+SELECT   fpt.PolicyID, dp.GWRowNumber,
+	'19968' as CompanyCode,
+	Cast(dp.PolicyNumber as varchar(18)) as PolicyNumber,
+	Cast(isnull(replace(convert(varchar, dp.EffectiveDate,2),'.',''),'      ') as varchar(6)) as EffectiveDate,
+	Right('000'+ isnull(SUBSTRING(cast(datepart(YY,dp.JobCloseDate)as varchar(4)),3,4),''),2) + right('000'+ isnull(cast(datepart(DY,dp.JobCloseDate) as varchar(3)),''),3)  as DataEffectiveDate ,
+	Case When dp.TransactionType in  ('Submission','Rewrite')  then '01'
+	  when dp.TransactionType in ('Renewal')  then '02'
+      when dp.TransactionType in ('Cancellation','Reinstatement')  then '05'
+	  when dp.TransactionType = 'Policy Change' then '08'
+	Else '00' End as TransactionCode,
+	Cast(isnull(dp.BaseState,'  ') as varchar(2)) as State,
+	'00'  as JoinType
+	 
+FROM FactPolicyTransactionChange fpt inner join DimPolicy dp on fpt.PolicyID = dp.PolicyID
+	join DimLOB L on fpt.LOBID=l.LOBID
+where TransactionType in( 'Renewal') 
+	and PolicyStatus = 'Bound'  and dp.eventname is null
+	and dp.IssueDate is not null 
+	and (cast(dp.JobUpdateTime as date) &gt; ? and cast(dp.JobUpdateTime as date) &lt;= ?) 
+	--and dp.BaseState in ('MI','IN')--VS-- Removed on 10/08 to include other states as well. 
+	and L.LOBCode in ( 'WorkersCompLine','WC7Line') 
+
+Union 
+--Showing the renewal transaction on same day in case non renewal term is issued on prior term for IN (NCCI) only
+SELECT   fpt.PolicyID, dp.GWRowNumber,
+	'19968' as CompanyCode,
+	Cast(dp.PolicyNumber as varchar(18)) as PolicyNumber,
+	Cast(isnull(replace(convert(varchar, dp.EffectiveDate,2),'.',''),'      ') as varchar(6)) as EffectiveDate,
+	Right('000'+ isnull(SUBSTRING(cast(datepart(YY,dp.JobCloseDate)as varchar(4)),3,4),''),2) + right('000'+ isnull(cast(datepart(DY,dp.JobCloseDate) as varchar(3)),''),3)  as DataEffectiveDate ,
+	Case When dp.TransactionType in  ('Submission','Rewrite')  then '01'
+	  when dp.TransactionType in ('Renewal')  then '02'
+      when dp.TransactionType in ('Cancellation','Reinstatement')  then '05'
+	  when dp.TransactionType = 'Policy Change' then '08'
+	 Else '00' End as TransactionCode,
+	Cast(isnull(dp.BaseState,'  ') as varchar(2)) as State,
+	'00'  as JoinType
+	 
+FROM FactPolicyTransactionChange fpt inner join DimPolicy dp on fpt.PolicyID = dp.PolicyID
+	join DimLOB L on fpt.LOBID=l.LOBID
+	inner join DimState ds on dp.BaseState = ds.StateAbbr
+where TransactionType in('Renewal') 
+	and PolicyStatus = 'Bound' 
+	and eventname='SendNonRenewalDocuments'
+	and dp.IssueDate is not null 
+	and (cast(dp.JobUpdateTime as date) &gt; ? and cast(dp.JobUpdateTime as date) &lt;= ?) 
+	And IsNCCI = 1 --and dp.BaseState in ('IN')	
+	and L.LOBCode in ( 'WorkersCompLine','WC7Line') 
+
+Union 
+--moving the renewal transaction to next day file instead of the actual date in case non renewal is issued for the prior term for 
+--MI only
+SELECT   fpt.PolicyID, dp.GWRowNumber,
+	'19968' as CompanyCode,
+	Cast(dp.PolicyNumber as varchar(18)) as PolicyNumber,
+	Cast(isnull(replace(convert(varchar, dp.EffectiveDate,2),'.',''),'      ') as varchar(6)) as EffectiveDate,
+	Right('000'+ isnull(SUBSTRING(cast(datepart(YY,(DATEADD(d,1,dp.JobCloseDate)))as varchar(4)),3,4),''),2) + right('000'+ isnull(cast(datepart(DY,(DATEADD(d,1,dp.JobCloseDate))) as varchar(3)),''),3)  as DataEffectiveDate ,
+	Case when dp.TransactionType in ('Renewal')  then '02'
+	 Else '00' End as TransactionCode,
+	Cast(isnull(dp.BaseState,'  ') as varchar(2)) as State,
+	'00'  as JoinType
+	 
+FROM FactPolicyTransactionChange fpt inner join DimPolicy dp on fpt.PolicyID = dp.PolicyID
+	join DimLOB L on fpt.LOBID=l.LOBID
+where TransactionType ='Renewal'
+	and PolicyStatus = 'Bound' 
+	and eventname='SendNonRenewalDocuments'
+	and dp.IssueDate is not null 
+	and (cast(dp.JobUpdateTime as date) &gt; DATEADD(day, -1, convert(date,?)) and cast(dp.JobUpdateTime as date) &lt;= DATEADD(day, -1, convert(date,?))) 
+	and dp.BaseState in ('MI')
+	and L.LOBCode in ( 'WorkersCompLine','WC7Line') 
+
+Union 
+--Dummy Reinstatement addition for the policies which has been renewed after sending renewal alert before 25 days
+SELECT   fpt.PolicyID, dp.GWRowNumber,
+	'19968' as CompanyCode,
+	Cast(dp.PreviousPolicyNumber as varchar(18)) as PolicyNumber,
+	Cast(isnull(replace(convert(varchar,coalesce(prev1.EffectiveDate,prev2.EffectiveDate),2),'.',''),'      ') as varchar(6)) as EffectiveDate,
+	Right('000'+ isnull(SUBSTRING(cast(datepart(YY,dp.JobCloseDate)as varchar(4)),3,4),''),2) + right('000'+ isnull(cast(datepart(DY,dp.JobCloseDate) as varchar(3)),''),3)  as DataEffectiveDate ,
+	'11' as TransactionCode,
+	Cast(isnull(dp.BaseState,'  ') as varchar(2)) as State,
+	'00'  as JoinType
+	 
+FROM FactPolicyTransactionChange fpt 
+	inner join DimPolicy dp on fpt.PolicyID = dp.PolicyID
+	inner join DimLOB L on fpt.LOBID=l.LOBID
+	Left Join (
+				select Policynumber,effectivedate,expirationdate 
+				from (
+					Select Policynumber,effectivedate,expirationdate,jobupdatetime,dense_rank() over (partition by policynumber order by jobupdatetime desc) rank2  
+					from (
+						select policynumber ,effectivedate,expirationdate,jobupdatetime ,dense_rank() over (partition by policynumber order by effectivedate desc) rank1  
+						from(
+							select distinct policynumber,effectivedate,expirationdate,JobUpdateTime from dimpolicy where policynumber is not null
+							) m 
+						) n where n.rank1=2 
+					)  v where v.rank2=1
+			  ) prev1 On Prev1.policynumber = dp.policynumber
+	Left Join (
+				Select Policynumber,effectivedate,expirationdate
+				from (
+					select policynumber ,effectivedate,expirationdate,JobUpdateTime, dense_rank() over (partition by policynumber order by JobUpdateTime desc) rank
+					from(
+						select distinct policynumber,effectivedate,expirationdate,JobUpdateTime 
+						from dimpolicy where policynumber in (select previouspolicynumber from dimpolicy where policynumber&lt;&gt;PreviousPolicyNumber) 
+						) m where policynumber is not null
+					 ) n where n.rank=1 
+				) prev2 On prev2.policynumber=dp.PreviousPolicyNumber
+
+where TransactionType in( 'Renewal') 
+	and PolicyStatus = 'Bound' 
+	and eventname='SendNonRenewalDocuments'
+	and dp.IssueDate is not null 
+	and (cast(dp.JobCloseDate  as date) &gt; ? and cast(dp.JobCloseDate as date) &lt;= ?) 
+	and dp.BaseState ='MI'
+	and L.LOBCode in ( 'WorkersCompLine','WC7Line') 
+
+UNION ---Non Renewal
+
+SELECT pp.PolicyID, 
+	pp.GWRowNumber,
+	'19968' as CompanyCode,
+	Cast(pp.PolicyNumber as varchar(18)) as PolicyNumber,
+	Cast(isnull(replace(convert(varchar, pp.EffectiveDate,2),'.',''),'      ') as varchar(6)) as EffectiveDate,
+	Right('000'+ isnull(SUBSTRING(cast(datepart(YY,cp.EventUpdateTime)as varchar(4)),3,4),''),2) + right('000'+ isnull(cast(datepart(DY,cp.EventUpdateTime) as varchar(3)),''),3)  as DataEffectiveDate ,
+    '05' as TransactionCode,
+	Cast(isnull(pp.BaseState,'  ') as varchar(2)) as State,
+	'00'  as JoinType
+	 
+FROM FactPolicyTransactionChange fpt 
+	inner join DimPolicy cp on fpt.PolicyID = cp.PolicyID
+	inner join DimLOB L on fpt.LOBID = l.LOBID
+	inner join DimPolicy pp on cp.PreviousPolicyNumber = pp.PolicyNumber
+where cp.TransactionType = 'Renewal'
+	and cp.EventName = 'SendNonRenewalDocuments' 
+	and pp.IssueDate is not null 
+	and pp.MostRecentModel = 1 
+	and (cast(cp.EventUpdateTime as date) &gt; ? and cast(cp.EventUpdateTime as date) &lt;= ?) 
+	--and pp.BaseState in ('MI','IN')
+	and L.LOBCode in ( 'WorkersCompLine','WC7Line') 
+	and cp.effectivedate&gt;pp.effectivedate
+
+UNION
+--Get 'Canceling','Bound' Cancellation base on JobCreateTime, will only report once
+SELECT   fpt.PolicyID, dp.GWRowNumber,
+	'19968' as CompanyCode,
+	Cast(dp.PolicyNumber as varchar(18)) as PolicyNumber,
+	Cast(isnull(replace(convert(varchar, dp.EffectiveDate,2),'.',''),'      ') as varchar(6)) as EffectiveDate,
+	Case when PolicyStatus ='Canceling' then 
+	Right('000'+ isnull(SUBSTRING(cast(datepart(YY,dp.JobCreateTime)as varchar(4)),3,4),''),2) + right('000'+ isnull(cast(datepart(DY,dp.JobCreateTime) as varchar(3)),''),3) 
+	else Right('000'+ isnull(SUBSTRING(cast(datepart(YY,dp.JobCloseDate)as varchar(4)),3,4),''),2) + right('000'+ isnull(cast(datepart(DY,dp.JobCloseDate) as varchar(3)),''),3) end  as DataEffectiveDate ,
+	Case When dp.TransactionType = 'Submission' then '01'
+	  when dp.TransactionType in ('Renewal')  then '02'
+      when dp.TransactionType in ('Cancellation','Reinstatement')  then '05'
+	  when dp.TransactionType = 'Policy Change' then '08'	 
+	Else '00' End as TransactionCode,
+	Cast(isnull(dp.BaseState,'  ') as varchar(2)) as State,
+	'00'  as JoinType 
+FROM FactPolicyTransactionChange fpt inner join DimPolicy dp on fpt.PolicyID = dp.PolicyID
+join DimLOB L on fpt.LOBID=l.LOBID
+where TransactionType in( 'Cancellation') 
+and PolicyStatus in ('Canceling','Bound','Rescinded')
+and cast(dp.JobCreateTime as date) &gt; ? and cast(dp.JobCreateTime as date) &lt;= ?
+--and dp.BaseState in ('MI','IN')
+and L.LOBCode in ( 'WorkersCompLine','WC7Line') 
+
+UNION
+--Get 'Rescinded' Cancellation base on JobUpdateTime, consider it as reinstatement in WCPOLS
+
+SELECT   fpt.PolicyID, dp.GWRowNumber,
+	'19968' as CompanyCode,
+	Cast(dp.PolicyNumber as varchar(18)) as PolicyNumber,
+	Cast(isnull(replace(convert(varchar, dp.EffectiveDate,2),'.',''),'      ') as varchar(6)) as EffectiveDate,
+	Right('000'+ isnull(SUBSTRING(cast(datepart(YY,dp.JobCloseDate)as varchar(4)),3,4),''),2) + right('000'+ isnull(cast(datepart(DY,dp.JobCloseDate) as varchar(3)),''),3)  as DataEffectiveDate ,
+	Case When dp.TransactionType = 'Submission' then '01'
+	  when dp.TransactionType in ('Renewal')  then '02'
+      when dp.TransactionType in ('Cancellation','Reinstatement')  then '05'
+	  when dp.TransactionType = 'Policy Change' then '08'	 
+	Else '00' End as TransactionCode,
+	Cast(isnull(dp.BaseState,'  ') as varchar(2)) as State,
+	'00'  as JoinType
+FROM FactPolicyTransactionChange fpt inner join DimPolicy dp on fpt.PolicyID = dp.PolicyID
+join DimLOB L on fpt.LOBID=l.LOBID
+where TransactionType in( 'Cancellation') 
+and PolicyStatus in ('Rescinded')
+and cast(dp.JobUpdateTime as date) &gt; ? and cast(dp.JobUpdateTime as date) &lt;= ?
+--and dp.BaseState in ('MI','IN')
+and L.LOBCode in ( 'WorkersCompLine','WC7Line') 
+
+UNION
+
+select PolicyID,GWRowNumber,CompanyCode,PolicyNumber,EffectiveDate,DataEffectiveDate,Case when Ratings_Count&gt;=1 and TransactionCode='10' then '08' else TransactionCode end as TransactionCode,State,JoinType
+from (
+SELECT   fpt.PolicyID, dp.GWRowNumber,
+	'19968' as CompanyCode,
+	Cast(dp.PolicyNumber as varchar(18)) as PolicyNumber,
+	Cast(isnull(replace(convert(varchar, dp.EffectiveDate,2),'.',''),'      ') as varchar(6)) as EffectiveDate,
+	Right('000'+ isnull(SUBSTRING(cast(datepart(YY,dp.JobCloseDate)as varchar(4)),3,4),''),2) + right('000'+ isnull(cast(datepart(DY,dp.JobCloseDate) as varchar(3)),''),3)  as DataEffectiveDate ,
+	Case when ds.IsNCCI =  1 then '08'
+	     when dp.BaseState = 'MI' and dp.PolicyChangeType in ('Rating','Additional') then '08'
+	     when dp.BaseState = 'MI' and dp.PolicyChangeType = 'NonRating' then '10'
+		 when dp.BaseState = 'MI' and dp.PolicyChangeType is null then '10'
+	     else '00' 
+	End as TransactionCode,
+	Cast(isnull(dp.BaseState,'  ') as varchar(2)) as State,
+	'00'  as JoinType,
+	row_number() over (partition by dp.PolicyNumber,convert(date,dp.JobUpdateTime) order by dp.PolicyTransactionEffectiveDate desc ,dp.ModelDate desc) as rn,
+	ISNULL(CTE.Ratings_count,0) Ratings_count
+FROM FactPolicyTransactionChange fpt inner join ( select * from DimPolicy where (JobDescription &lt;&gt; 'Bulk Policy Owner Change' or JobDescription is null) ) dp on fpt.PolicyID = dp.PolicyID
+join DimLOB L on fpt.LOBID=l.LOBID
+Left join DimState ds on dp.BaseState = ds.StateAbbr
+LEFT JOIN CTE ON CTE.PolicyNumber = dp.PolicyNumber and CTE.JobUpdateTime = Convert(date,dp.JobUpdateTime)
+
+where TransactionType in ('Policy Change') 
+and PolicyStatus = 'Bound' 
+and dp.IssueDate is not null 
+and (cast(dp.JobUpdateTime as date) &gt; ? and cast(dp.JobUpdateTime as date) &lt;= ?) 
+--and dp.BaseState in ('MI','IN')
+and L.LOBCode in ( 'WorkersCompLine','WC7Line') 
+) qry
+where rn = 1
+
+
+UNION ------ Z1
+
+SELECT   fpt.PolicyID, dp.GWRowNumber,
+	'19968' as CompanyCode,
+	Cast(dp.PolicyNumber as varchar(18)) as PolicyNumber,
+	Cast(isnull(replace(convert(varchar, dp.EffectiveDate,2),'.',''),'      ') as varchar(6)) as EffectiveDate,
+	Right('000'+ isnull(SUBSTRING(cast(datepart(YY,pa.UpdateTime)as varchar(4)),3,4),''),2) + right('000'+ isnull(cast(datepart(DY,pa.UpdateTime) as varchar(3)),''),3)  as DataEffectiveDate ,
+	  '17' as TransactionCode,
+	Cast(isnull(dp.BaseState,'  ') as varchar(2)) as State,
+	'Z1'  as JoinType
+	 
+FROM FactPolicyTransactionChange fpt inner join DimPolicy dp on fpt.PolicyID = dp.PolicyID 
+									 Inner join DimPolicyAudit pa  on pa.PolicyID = dp.PolicyID and pa.IsActive='1'
+									 Left Join DimState ds on dp.BaseState = ds.StateAbbr
+join DimLOB L on fpt.LOBID=l.LOBID
+where TransactionType in( 'Submission','Cancellation','Renewal','Reinstatement','Policy Change','Rewrite') 
+and PolicyStatus = 'Bound' 
+and dp.IssueDate is not null 
+and (cast(pa.UpdateTime as date) &gt; ? and cast(pa.UpdateTime as date) &lt;= ?) 
+And ds.IsNCCI = 1 --and dp.BaseState = 'IN'
+and L.LOBCode in ( 'WorkersCompLine','WC7Line')</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD};"Parameter1:Input",{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E};"Parameter2:Input",{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD};"Parameter3:Input",{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E};"Parameter4:Input",{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD};"Parameter5:Input",{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E};"Parameter6:Input",{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD};"Parameter7:Input",{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E};"Parameter8:Input",{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD};"Parameter9:Input",{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E};"Parameter10:Input",{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD};"Parameter11:Input",{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E};"Parameter12:Input",{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD};"Parameter13:Input",{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E};"Parameter14:Input",{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD};"Parameter15:Input",{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E};"Parameter16:Input",{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD};"Parameter17:Input",{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E};"Parameter18:Input",{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD};"Parameter19:Input",{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E};"Parameter20:Input",{2088E3EA-78F1-4FE8-A6FB-B35C782DBCCD};"Parameter21:Input",{E8038A8D-F985-4BCD-BF4F-06F3D6561F5E};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[CompanyCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[CompanyCode]"
+                          length="5"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[CompanyCode]"
+                          name="CompanyCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          length="18"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[EffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[EffectiveDate]"
+                          length="6"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[EffectiveDate]"
+                          name="EffectiveDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[DataEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[DataEffectiveDate]"
+                          length="5"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[DataEffectiveDate]"
+                          name="DataEffectiveDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[State]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                          length="2"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[State]"
+                          name="State"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          name="PolicyID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[JoinType]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[JoinType]"
+                          length="2"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[JoinType]"
+                          name="JoinType"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[TransactionCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[TransactionCode]"
+                          length="2"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[TransactionCode]"
+                          name="TransactionCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                          name="GWRowNumber"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[CompanyCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          name="CompanyCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[EffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="EffectiveDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[DataEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          name="DataEffectiveDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="State" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[JoinType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="JoinType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[TransactionCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="TransactionCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                          dataType="i8"
+                          name="GWRowNumber" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[CompanyCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[CompanyCode]"
+                          name="CompanyCode" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          name="PolicyNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[EffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[EffectiveDate]"
+                          name="EffectiveDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[DataEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="5"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[DataEffectiveDate]"
+                          name="DataEffectiveDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[State]"
+                          name="State" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          name="PolicyID" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[JoinType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[JoinType]"
+                          name="JoinType" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[TransactionCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[TransactionCode]"
+                          name="TransactionCode" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                          dataType="i8"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                          name="GWRowNumber" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\DFT Load Link data\set insert time"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="set insert time"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\DFT Load Link data\set insert time.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\set insert time.Inputs[Derived Column Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="PolicyNumber"
+                          lineageId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Sequence Container\DFT Load Link data\set insert time.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Output].Columns[insert date]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Output].Columns[insert date]"
+                          name="insert date"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[GETDATE]()</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">GETDATE()</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Output].Columns[policy number]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="18"
+                          lineageId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Output].Columns[policy number]"
+                          name="policy number"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,18,1252)#{Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output].Columns[PolicyNumber]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,18,1252)PolicyNumber</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Sequence Container\DFT Load Link data\set insert time.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\DFT Load Link data.Paths[Derived Column Output]"
+                  endId="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Sequence Container\DFT Load Link data\set insert time.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Sequence Container\DFT Load Link data.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\DFT Load Link data\set insert time.Inputs[Derived Column Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{6E02B8FC-F848-499B-933F-68572ABF9DB5}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{0E015533-74F8-4A43-8EF8-045794C7D267}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{749DB59C-EEEF-44E4-8649-EA50A5750855}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{FA7EABE3-71E9-40E6-A969-84EAC11D8AA5}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{2BBA841A-711C-4A8A-9D9C-C30AA6B1263C}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{323812EB-DBA8-4A5E-8EAC-8813E92E6553}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{BC8991D3-177E-4460-9A90-0F6CE5A795BC}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Process Completed"
+          TopLeft="98,321" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Process Failed"
+          TopLeft="427,328" />
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Sequence Container\DFT Load Link data"
+          TopLeft="19,17.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="205,115"
+          Size="205,158"
+          Id="Package\Sequence Container"
+          TopLeft="216,119" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="230,44" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="318.5,86">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="318.5,277">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-136.5,44"
+              Start="0,0"
+              End="-136.5,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18"
+                    Point2="0,22"
+                    Point3="-4,22" />
+                  <mssgle:LineSegment
+                    End="-132.5,22" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-132.5,22"
+                    Point2="-136.5,22"
+                    Point3="-136.5,26" />
+                  <mssgle:LineSegment
+                    End="-136.5,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="351.333333333333,277">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="148.166666666667,51"
+              Start="0,0"
+              End="148.166666666667,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6369796708616" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.6369796708616"
+                    Point2="0,20.6369796708616"
+                    Point3="4,20.6369796708616" />
+                  <mssgle:LineSegment
+                    End="144.166666666667,20.6369796708616" />
+                  <mssgle:CubicBezierSegment
+                    Point1="144.166666666667,20.6369796708616"
+                    Point2="148.166666666667,20.6369796708616"
+                    Point3="148.166666666667,24.6369796708616" />
+                  <mssgle:LineSegment
+                    End="148.166666666667,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="58.8419856770835,25.6369796708616,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="533,159" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Sequence Container\DFT Load Link data">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link"
+          TopLeft="181,270" />
+        <NodeLayout
+          Size="267,42"
+          Id="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange"
+          TopLeft="146.5,64" />
+        <NodeLayout
+          Size="169,42"
+          Id="Package\Sequence Container\DFT Load Link data\set insert time"
+          TopLeft="197.5,160" />
+        <EdgeLayout
+          Id="Package\Sequence Container\DFT Load Link data.Paths[OLE DB Source Output]"
+          TopLeft="281,106">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\DFT Load Link data.Paths[Derived Column Output]"
+          TopLeft="282.25,202">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,68"
+              Start="0,0"
+              End="0,60.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\DFT Load Link data\OLE DEST - WCPOLS_Link">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\DFT Load Link data\OLE SRC - FactPolicyTransactionChange">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

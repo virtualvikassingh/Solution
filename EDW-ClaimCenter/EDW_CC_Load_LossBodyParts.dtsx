@@ -1,0 +1,2408 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CheckpointFileName="C:\checkpointDimension.xml"
+  DTS:CheckpointUsage="1"
+  DTS:CreationDate="10/7/2013 3:07:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DMZWKSTN1"
+  DTS:CreatorName="MMI\T159072"
+  DTS:DTSID="{F01C2E8E-EF9B-41C1-A703-378E52D9BFD1}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="EDW_CC_Load_LossBodyParts"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="1300"
+  DTS:VersionGUID="{AFC5B214-C75B-4AFD-AB8A-14560CBC9505}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{1650DFF1-5E6B-4851-B4B8-2396DCD433F3}"
+      DTS:ObjectName="configBatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="IncrementDays"
+      DTS:ConfigurationVariable="\Package.Variables[User::IncrementDays].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{121A2E94-ACEF-4681-9473-161CE76BF587}"
+      DTS:ObjectName="configIncrementDays" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1AFFBF1B-CABF-42CB-B2CE-D6364219D1FD}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">2</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FF6F8EA9-D1E1-4FB2-B18A-AAB420CA02FE}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="IncrementDays">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9154CBF9-D045-4AF1-AC4F-B1B3E8DC728D}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{73212DCF-D000-41F1-BA6D-66D8337C70D9}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5C7720C7-1634-4084-8F52-4443E7A0008C}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UnChangeCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{55D46D68-EED3-40AB-8082-3606917AAA56}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdateCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">3,7,OnError,19,OnExecStatusChanged,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnExecStatusChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - LossBodyParts"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{B83990B7-D6DC-4C0D-A022-7882C248DEC9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - LossBodyParts"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - LossBodyParts\CNT - Insert"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Insert">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::InsertCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - LossBodyParts\CNT - Insert.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - LossBodyParts\CNT - Insert.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - LossBodyParts\CNT - Insert.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - LossBodyParts\CNT - Source"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Source">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::SourceCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - LossBodyParts\CNT - Source.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - LossBodyParts\CNT - Source.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - LossBodyParts\CNT - Source.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - LossBodyParts\CNT - Unchanged"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Unchanged">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UnChangeCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - LossBodyParts\CNT - Unchanged.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - LossBodyParts\CNT - Unchanged.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - LossBodyParts\CNT - Unchanged.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - LossBodyParts\CNT - Update"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Update">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UpdateCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - LossBodyParts\CNT - Update.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - LossBodyParts\CNT - Update.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - LossBodyParts\CNT - Update.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - LossBodyParts\CSPL - Check Column Update"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="CSPL - Check Column Update"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Inputs[Conditional Split Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Inputs[Conditional Split Input].Columns[EDWBeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="EDWBeanVersion"
+                      lineageId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup Match Output].Columns[EDWBeanVersion]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Outputs[SameBeanVersion]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SameBeanVersion"
+                  synchronousInputId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">(#{Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[BeanVersion]} == #{Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup Match Output].Columns[EDWBeanVersion]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">(BeanVersion == EDWBeanVersion)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Outputs[DifferentBeanVersion]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="DifferentBeanVersion"
+                  synchronousInputId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - LossBodyParts\Dest - LossBodyParts"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Dest - LossBodyParts"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[LossBodyParts]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Connections[OleDbConnection]"
+                  connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].Columns[BodyPartName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="BodyPartName"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[BodyPartName]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[BodyPartName]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].Columns[NatureOfInjury]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="NatureOfInjury"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[NatureOfInjury]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[NatureOfInjury]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].Columns[LossCause]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="LossCause"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[LossCause]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[LossCause]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].Columns[AccidentType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="AccidentType"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[AccidentType]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[AccidentType]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].Columns[Decision]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="Decision"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[Decision]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[Decision]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].Columns[PublicId]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="PublicId"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[PublicId]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[BatchId]"
+                      lineageId="Package\DFT - LossBodyParts\DRV - Get BatchID.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].Columns[ClaimId]"
+                      cachedDataType="i4"
+                      cachedName="ClaimId"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[ClaimID]"
+                      lineageId="Package\DFT - LossBodyParts\Lookup Claimid.Outputs[Lookup Match Output].Columns[ClaimId]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].Columns[DetailBodyPart]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="DetailBodyPart"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[DetailBodyPart]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[DetailBodyPart]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[LossBodyPartsID]"
+                      dataType="i4"
+                      name="LossBodyPartsID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[ClaimID]"
+                      dataType="i4"
+                      name="ClaimID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[BodyPartName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="BodyPartName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[NatureOfInjury]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="NatureOfInjury" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[LossCause]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="LossCause" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[AccidentType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="AccidentType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[Decision]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Decision" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[BatchId]"
+                      dataType="i4"
+                      name="BatchId" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[DateUpdated]"
+                      dataType="dbTimeStamp"
+                      name="DateUpdated" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input].ExternalColumns[DetailBodyPart]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="DetailBodyPart" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - LossBodyParts\DRV - Get BatchID"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DRV - Get BatchID"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - LossBodyParts\DRV - Get BatchID.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - LossBodyParts\DRV - Get BatchID.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\DRV - Get BatchID.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\DRV - Get BatchID.Outputs[Derived Column Output].Columns[BatchID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - LossBodyParts\DRV - Get BatchID.Outputs[Derived Column Output].Columns[BatchID]"
+                      name="BatchID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[User::BatchID]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[User::BatchID]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - LossBodyParts\DRV - Get BatchID.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\DRV - Get BatchID.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\DRV - Get BatchID.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\DRV - Get BatchID.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\DRV - Get BatchID.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\DRV - Get BatchID.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - LossBodyParts\Lookup - LossBodyParts"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup - LossBodyParts"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select PublicId, BeanVersion EDWBeanVersion from LossBodyParts</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (Select PublicId, BeanVersion EDWBeanVersion from LossBodyParts) [refTable]
+where [refTable].[PublicId] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PublicId" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="EDWBeanVersion" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[PublicId]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Connections[OleDbConnection]"
+                  connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Inputs[Lookup Input].Columns[PublicId]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="PublicId"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[PublicId]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PublicId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup Match Output].Columns[EDWBeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="20"
+                      lineageId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup Match Output].Columns[EDWBeanVersion]"
+                      name="EDWBeanVersion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">EDWBeanVersion</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - LossBodyParts\Lookup Claimid"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="Lookup Claimid"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select PublicId, ClaimId from DimClaim</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (Select PublicId, ClaimId from DimClaim) [refTable]
+where [refTable].[PublicId] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PublicId" dataType="DT_STR" length="120" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="ClaimId" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[ClaimIDLookup]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - LossBodyParts\Lookup Claimid.Connections[OleDbConnection]"
+                  connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - LossBodyParts\Lookup Claimid.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Lookup Claimid.Inputs[Lookup Input].Columns[ClaimIDLookup]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="ClaimIDLookup"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[ClaimIDLookup]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PublicId</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - LossBodyParts\Lookup Claimid.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\Lookup Claimid.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\Lookup Claimid.Outputs[Lookup Match Output].Columns[ClaimId]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Copy Column"
+                      lineageId="Package\DFT - LossBodyParts\Lookup Claimid.Outputs[Lookup Match Output].Columns[ClaimId]"
+                      name="ClaimId"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">ClaimId</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - LossBodyParts\Lookup Claimid.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\Lookup Claimid.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - LossBodyParts\Lookup Claimid.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\Lookup Claimid.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\Lookup Claimid.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\Lookup Claimid.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\Lookup Claimid.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\Lookup Claimid.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - LossBodyParts\SRC - ClaimCenter"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - ClaimCenter"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select  cl.PublicID ClaimIDLookup, bp.PublicId, 
+		pt.Name BodyPartName,
+		dbp.Name DetailBodyPart,
+		it.Name NatureOfInjury,
+		lc.name LossCause,
+		at.name AccidentType,		
+		cd.Name Decision,
+		cast(concat(cl.BeanVersion, ic.BeanVersion, bp.BeanVersion) as varchar(20)) as BeanVersion		 
+		 
+		from 
+		cc_Claim cl 
+		left join cc_incident ic on  cl.ID  =  ic.ClaimID and ClaimIncident = 1 
+		inner join cc_bodypart bp on bp.IncidentID = ic.id 	 
+		left join cctl_wcbodyparttype pt on bp.PrimaryBodyPart = pt.id
+		left join cctl_detailedbodyparttype dbp on bp.DetailedBodyPart = dbp.id
+		left join cctl_detailedinjurytype it on DetailedInjuryType = it.id
+		left join cctl_losscause lc on cl.LossCause = lc.id
+		left join cctl_accidenttype at on cl.AccidentType = at.id
+		left join cctl_compensabilitydecision cd on bp.CompensabilityDecision = cd.Id
+Where claimnumber like 'ARC%'
+AND  ic.Retired = 0 
+And (
+	cl.UpdateTime &gt;= dateadd(d,?,cast(getdate() as date))
+	OR
+	ic.UpdateTime &gt;= dateadd(d,?,cast(getdate() as date))
+	OR
+	bp.UpdateTime &gt;= dateadd(d,?,cast(getdate() as date))
+	)</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{FF6F8EA9-D1E1-4FB2-B18A-AAB420CA02FE};"Parameter1:Input",{FF6F8EA9-D1E1-4FB2-B18A-AAB420CA02FE};"Parameter2:Input",{FF6F8EA9-D1E1-4FB2-B18A-AAB420CA02FE};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Connections[OleDbConnection]"
+                  connectionManagerID="{253715E8-A206-42D4-8880-6BF3C9D74C5D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[GWStaging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[ClaimIDLookup]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[ClaimIDLookup]"
+                      length="20"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[ClaimIDLookup]"
+                      name="ClaimIDLookup"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[BodyPartName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[BodyPartName]"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[BodyPartName]"
+                      name="BodyPartName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[NatureOfInjury]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[NatureOfInjury]"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[NatureOfInjury]"
+                      name="NatureOfInjury"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[LossCause]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[LossCause]"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[LossCause]"
+                      name="LossCause"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[AccidentType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[AccidentType]"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[AccidentType]"
+                      name="AccidentType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[Decision]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[Decision]"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[Decision]"
+                      name="Decision"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      length="20"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      name="BeanVersion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[PublicId]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[PublicId]"
+                      length="20"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[PublicId]"
+                      name="PublicId"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[DetailBodyPart]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[DetailBodyPart]"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[DetailBodyPart]"
+                      name="DetailBodyPart"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[ClaimIDLookup]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="ClaimIDLookup" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[BodyPartName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="BodyPartName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[NatureOfInjury]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="NatureOfInjury" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[LossCause]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="LossCause" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[AccidentType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="AccidentType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[Decision]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Decision" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[PublicId]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="PublicId" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].ExternalColumns[DetailBodyPart]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="DetailBodyPart" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[ClaimIDLookup]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[ClaimIDLookup]"
+                      name="ClaimIDLookup" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[PublicId]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[PublicId]"
+                      name="PublicId" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[BodyPartName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[BodyPartName]"
+                      name="BodyPartName" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[DetailBodyPart]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[DetailBodyPart]"
+                      name="DetailBodyPart" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[NatureOfInjury]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[NatureOfInjury]"
+                      name="NatureOfInjury" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[LossCause]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[LossCause]"
+                      name="LossCause" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[AccidentType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[AccidentType]"
+                      name="AccidentType" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[Decision]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[Decision]"
+                      name="Decision" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      name="BeanVersion" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - LossBodyParts\Update LossBodyParts"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="Update LossBodyParts"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+ Update LossBodyParts
+ Set DateUpdated = GETDATE(),
+ BodyPartName = ?,
+ NatureOfInjury = ?,
+ LossCause = ?,
+ AccidentType = ?,
+ Decision = ?,
+ BeanVersion = ?,
+ BatchId  = ?,
+DetailBodyPart = ?
+
+ Where PublicId = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - LossBodyParts\Update LossBodyParts.Connections[OleDbConnection]"
+                  connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].Columns[BodyPartName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="BodyPartName"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[BodyPartName]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].Columns[NatureOfInjury]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="NatureOfInjury"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[NatureOfInjury]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].Columns[LossCause]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="LossCause"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[LossCause]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].Columns[AccidentType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="AccidentType"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[AccidentType]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].Columns[Decision]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="Decision"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[Decision]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      lineageId="Package\DFT - LossBodyParts\DRV - Get BatchID.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].Columns[DetailBodyPart]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="DetailBodyPart"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[DetailBodyPart]" />
+                    <inputColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].Columns[PublicId]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="PublicId"
+                      externalMetadataColumnId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      lineageId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output].Columns[PublicId]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      dataType="i4"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Param_7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_8">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - LossBodyParts\Update LossBodyParts.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - LossBodyParts\Update LossBodyParts.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\Update LossBodyParts.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - LossBodyParts\Update LossBodyParts.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - LossBodyParts\Update LossBodyParts.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - LossBodyParts.Paths[Derived Column Output]"
+              endId="Package\DFT - LossBodyParts\Lookup Claimid.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - LossBodyParts\DRV - Get BatchID.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - LossBodyParts.Paths[Lookup Match Output]"
+              endId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Inputs[Lookup Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - LossBodyParts\Lookup Claimid.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - LossBodyParts.Paths[Lookup Match Output1]"
+              endId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - LossBodyParts.Paths[Lookup No Match Output]"
+              endId="Package\DFT - LossBodyParts\CNT - Insert.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\DFT - LossBodyParts\Lookup - LossBodyParts.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\DFT - LossBodyParts.Paths[OLE DB Source Output]"
+              endId="Package\DFT - LossBodyParts\CNT - Source.Inputs[Row Count Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - LossBodyParts\SRC - ClaimCenter.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT - LossBodyParts.Paths[Row Count Output 1]"
+              endId="Package\DFT - LossBodyParts\DRV - Get BatchID.Inputs[Derived Column Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - LossBodyParts\CNT - Source.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - LossBodyParts.Paths[Row Count Output 11]"
+              endId="Package\DFT - LossBodyParts\Dest - LossBodyParts.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - LossBodyParts\CNT - Insert.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - LossBodyParts.Paths[Row Count Output 12]"
+              endId="Package\DFT - LossBodyParts\Update LossBodyParts.Inputs[OLE DB Command Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - LossBodyParts\CNT - Update.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - LossBodyParts.Paths[SameBeanVersion]"
+              endId="Package\DFT - LossBodyParts\CNT - Unchanged.Inputs[Row Count Input 1]"
+              name="SameBeanVersion"
+              startId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Outputs[SameBeanVersion]" />
+            <path
+              refId="Package\DFT - LossBodyParts.Paths[Type 1]"
+              endId="Package\DFT - LossBodyParts\CNT - Update.Inputs[Row Count Input 1]"
+              name="Type 1"
+              startId="Package\DFT - LossBodyParts\CSPL - Check Column Update.Outputs[DifferentBeanVersion]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{EE7DF811-3261-4BC3-B7B9-34FB0201CB0E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="200" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7711A4FC-4D5E-4E56-80F2-3D36BB32312E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{005163F3-740B-4DB6-9249-945A216A55AD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{2C33E2AB-3078-4B14-983D-CD9C258E6F04}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - LossBodyParts" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{993D2978-10A0-4A6B-A77B-AE1B96BD1BBA}"
+      DTS:From="Package\DFT - LossBodyParts"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL - Conclude Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{ECD65786-F526-4DBC-815F-CF9C5FE19F51}"
+      DTS:From="Package\DFT - LossBodyParts"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SQL - Conclude Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{9221A022-0437-42A9-A76E-8D6ACD03F62F}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{6998F85C-9E86-4F55-94F9-EE820241BBE5}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{D62570B9-86CD-43E1-8304-07B2E5B2A066}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package\DFT - LossBodyParts"
+          TopLeft="315.5,120" />
+        <NodeLayout
+          Size="244,42"
+          Id="Package\SQL - Conclude Process Completed"
+          TopLeft="126,216" />
+        <NodeLayout
+          Size="244,42"
+          Id="Package\SQL - Conclude Process Failed"
+          TopLeft="421,216" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="310.5,27" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="401.25,69">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51"
+              Start="0,0"
+              End="0,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="375.5,162">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-127.5,54"
+              Start="0,0"
+              End="-127.5,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.8918918918919" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.8918918918919"
+                    Point2="0,21.8918918918919"
+                    Point3="-4,21.8918918918919" />
+                  <mssgle:LineSegment
+                    End="-123.5,21.8918918918919" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-123.5,21.8918918918919"
+                    Point2="-127.5,21.8918918918919"
+                    Point3="-127.5,25.8918918918919" />
+                  <mssgle:LineSegment
+                    End="-127.5,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="431.5,162">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="111.5,54"
+              Start="0,0"
+              End="111.5,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.8918918918919" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.8918918918919"
+                    Point2="0,21.8918918918919"
+                    Point3="4,21.8918918918919" />
+                  <mssgle:LineSegment
+                    End="107.5,21.8918918918919" />
+                  <mssgle:CubicBezierSegment
+                    Point1="107.5,21.8918918918919"
+                    Point2="111.5,21.8918918918919"
+                    Point3="111.5,25.8918918918919" />
+                  <mssgle:LineSegment
+                    End="111.5,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="40.50865234375,26.8918918918919,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\DFT - LossBodyParts">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="183,42"
+          Id="Package\DFT - LossBodyParts\Update LossBodyParts"
+          TopLeft="721.5,387.5" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - LossBodyParts\CNT - Update"
+          TopLeft="692.75,301.071428571429" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\DFT - LossBodyParts\Lookup - LossBodyParts"
+          TopLeft="100.125,305.5" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\DFT - LossBodyParts\SRC - ClaimCenter"
+          TopLeft="100.125,7.5" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - LossBodyParts\CNT - Unchanged"
+          TopLeft="389.9,382.214285714286" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\DFT - LossBodyParts\Dest - LossBodyParts"
+          TopLeft="100.125,471.5" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\DFT - LossBodyParts\CNT - Source"
+          TopLeft="100.125,87.3571428571429" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\DFT - LossBodyParts\DRV - Get BatchID"
+          TopLeft="100.125,159.214285714286" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\DFT - LossBodyParts\CNT - Insert"
+          TopLeft="100.125,385.642857142857" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - LossBodyParts\CSPL - Check Column Update"
+          TopLeft="385.9,305.071428571429" />
+        <NodeLayout
+          Size="193,42"
+          Id="Package\DFT - LossBodyParts\Lookup Claimid"
+          TopLeft="100.125,230.5" />
+        <EdgeLayout
+          Id="Package\DFT - LossBodyParts.Paths[Type 1]"
+          TopLeft="612.9,324.071428571429">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="79.85,0"
+              Start="0,0"
+              End="72.35,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="72.35,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-10.66193359375,5,93.6738671875,9.7978515625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - LossBodyParts.Paths[SameBeanVersion]"
+          TopLeft="501.4,347.071428571429">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35.142857142857"
+              Start="0,0"
+              End="0,27.642857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.642857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-40.02259765625,9.0445731026785,80.0451953125,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - LossBodyParts.Paths[Row Count Output 12]"
+          TopLeft="809.625,343.071428571429">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.428571428571"
+              Start="0,0"
+              End="0,36.928571428571">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.928571428571" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - LossBodyParts.Paths[Row Count Output 11]"
+          TopLeft="196.625,427.642857142857">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.857142857143"
+              Start="0,0"
+              End="0,36.357142857143">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.357142857143" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - LossBodyParts.Paths[Row Count Output 1]"
+          TopLeft="196.625,129.357142857143">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.8571428571431"
+              Start="0,0"
+              End="0,22.3571428571431">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.3571428571431" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - LossBodyParts.Paths[OLE DB Source Output]"
+          TopLeft="196.625,49.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37.8571428571429"
+              Start="0,0"
+              End="0,30.3571428571429">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.3571428571429" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - LossBodyParts.Paths[Lookup No Match Output]"
+          TopLeft="196.625,347.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.142857142857"
+              Start="0,0"
+              End="0,30.642857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.642857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,9.5167410714285,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - LossBodyParts.Paths[Lookup Match Output1]"
+          TopLeft="293.125,326.285714285715">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="92.775,0"
+              Start="0,0"
+              End="85.275,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="85.275,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-5.55388671875,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - LossBodyParts.Paths[Lookup Match Output]"
+          TopLeft="196.625,272.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33"
+              Start="0,0"
+              End="0,25.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,6.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - LossBodyParts.Paths[Derived Column Output]"
+          TopLeft="196.625,201.214285714286">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29.285714285714"
+              Start="0,0"
+              End="0,21.785714285714">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.785714285714" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - LossBodyParts\Lookup - LossBodyParts">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - LossBodyParts\SRC - ClaimCenter">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - LossBodyParts\Dest - LossBodyParts">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - LossBodyParts\Lookup Claimid">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

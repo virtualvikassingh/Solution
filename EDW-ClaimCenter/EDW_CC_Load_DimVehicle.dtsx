@@ -1,0 +1,2425 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CheckpointFileName="C:\checkpointDimension.xml"
+  DTS:CheckpointUsage="1"
+  DTS:CreationDate="10/7/2013 3:07:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DMZWKSTN1"
+  DTS:CreatorName="MMI\T159072"
+  DTS:DTSID="{AD060D7D-0E38-401B-9BBB-475963CEDD42}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2150.2"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="EDW_CC_Load_DimVehicle"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="1203"
+  DTS:VersionGUID="{22207511-3D65-4B5F-A48B-60AD32E7D8A4}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{25E3BB91-D2F5-4951-9FEF-12B7445074F8}"
+      DTS:ObjectName="configBatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="IncrementDays"
+      DTS:ConfigurationVariable="\Package.Variables[User::IncrementDays].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{15D1F1B9-E8DD-439E-A736-47D677C8A930}"
+      DTS:ObjectName="configIncrementDays" />
+  </DTS:Configurations>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="GWStaging"
+      DTS:CreationName="Microsoft.LogProviderSQLServer"
+      DTS:Description="Writes log entries for events to a SQL Server database"
+      DTS:DTSID="{D3D97696-71A0-4727-8E92-1EBE78F85A19}"
+      DTS:ObjectName="SSIS log provider for SQL Server">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DD506B4C-5695-4B60-906F-6704B884B555}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8364C883-32A3-4365-9D4D-536B34E11714}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="IncrementDays">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{82F5286C-5265-4156-8A99-9FCA0018E422}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{37B438BC-B64C-4C06-8E5D-9726071A36F0}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{27F94799-F4A1-47E7-9541-506A815F75E3}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UnChangeCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FA10B46B-C027-49C6-84F1-5C888F571341}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdateCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">3,7,OnError,19,OnExecStatusChanged,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnExecStatusChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - DimVehicle"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{0C618A2C-F940-4DF0-9067-5E9C286E7F7A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - DimVehicle"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - DimVehicle\CNT - Insert"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Insert">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::InsertCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimVehicle\CNT - Insert.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimVehicle\CNT - Insert.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimVehicle\CNT - Insert.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimVehicle\CNT - Source"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Source">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::SourceCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimVehicle\CNT - Source.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimVehicle\CNT - Source.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimVehicle\CNT - Source.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimVehicle\CNT - Unchanged"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Unchanged">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UnChangeCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimVehicle\CNT - Unchanged.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimVehicle\CNT - Unchanged.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimVehicle\CNT - Unchanged.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimVehicle\CNT - Update"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Update">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UpdateCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimVehicle\CNT - Update.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimVehicle\CNT - Update.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimVehicle\CNT - Update.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimVehicle\CSPL - Check Bean Version"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="CSPL - Check Bean Version"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Inputs[Conditional Split Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Inputs[Conditional Split Input].Columns[EDW_BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="EDW_BeanVersion"
+                      lineageId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Outputs[SameBeanVersion]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SameBeanVersion"
+                  synchronousInputId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">(#{Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[BeanVersion]} == #{Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">(BeanVersion == EDW_BeanVersion)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Outputs[DifferentBeanVersion]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="DifferentBeanVersion"
+                  synchronousInputId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DRV - Get BatchID &amp; Legacy"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      name="BatchID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[User::BatchID]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[User::BatchID]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="25"
+                      lineageId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[LegacySourceSystem]"
+                      name="LegacySourceSystem"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,25,1252)@[$Project::LegacySourceSystem]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,25,1252)@[$Project::LegacySourceSystem]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimVehicle\LKP - DimVehicle"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - DimVehicle"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select PublicID  ,BeanVersion From DimVehicle</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select PublicID  ,BeanVersion From DimVehicle) [refTable]
+where [refTable].[PublicID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PublicID" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="BeanVersion" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[PublicID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimVehicle\LKP - DimVehicle.Connections[OleDbConnection]"
+                  connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimVehicle\LKP - DimVehicle.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\LKP - DimVehicle.Inputs[Lookup Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[PublicID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PublicID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - DimVehicle\LKP - DimVehicle.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="30"
+                      lineageId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]"
+                      name="EDW_BeanVersion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">BeanVersion</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - DimVehicle\LKP - DimVehicle.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - DimVehicle\LKP - DimVehicle.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimVehicle\Load DimVehicle"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Load DimVehicle"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimVehicle]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">10000</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimVehicle\Load DimVehicle.Connections[OleDbConnection]"
+                  connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[Color]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="Color"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[Color]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Color]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[LicensePlate]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="LicensePlate"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LicensePlate]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LicensePlate]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[Make]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="Make"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[Make]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Make]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[Model]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="Model"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[Model]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Model]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[Vin]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="Vin"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[VIN]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Vin]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[Year]"
+                      cachedDataType="i4"
+                      cachedName="Year"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[Year]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Year]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      lineageId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[IsActive]"
+                      cachedDataType="i4"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[IsActive]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[GWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="GWRowNumber"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[LegacySourceSystem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="LegacySourceSystem"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      lineageId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[LegacySourceSystem]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[Manufacturer]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="Manufacturer"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[Manufacturer]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Manufacturer]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[lienname]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="lienname"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LienHolderName]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[lienname]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[IsLoanInd]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="IsLoanInd"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[IsLoanInd]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[IsLoanInd]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[LoanMonthlyPayment]"
+                      cachedDataType="numeric"
+                      cachedName="LoanMonthlyPayment"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LoanMonthlyPayment]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LoanMonthlyPayment]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[LoanMonthsRemaining]"
+                      cachedDataType="i4"
+                      cachedName="LoanMonthsRemaining"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LoanMonthsRemaining]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LoanMonthsRemaining]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[LoanPayoffAmount]"
+                      cachedDataType="numeric"
+                      cachedName="LoanPayoffAmount"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LoanPayoffAmount]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LoanPayoffAmount]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[OffRoadStyle]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="OffRoadStyle"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[OffRoadStyle]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[OffRoadStyle]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[SerialNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="SerialNumber"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[SerialNumber]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[SerialNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[VehicleState]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="VehicleState"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[VehicleState]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[VehicleState]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[VehicleStyle]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="VehicleStyle"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[VehicleStyle]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[VehicleStyle]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[BoatType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="BoatType"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[BoatType]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[BoatType]" />
+                    <inputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].Columns[RiskUnitType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="RiskUnitType"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[RiskUnitType]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[RiskUnitType]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[VehicleID]"
+                      dataType="i4"
+                      name="VehicleID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[Year]"
+                      dataType="i4"
+                      name="Year" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[Make]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Make" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[Model]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Model" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[Color]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Color" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[VIN]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="VIN" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LicensePlate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LicensePlate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      dataType="bool"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[DataEffectiveDate]"
+                      dataType="dbTimeStamp"
+                      name="DataEffectiveDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[DataExpirationDate]"
+                      dataType="dbTimeStamp"
+                      name="DataExpirationDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      dataType="i4"
+                      name="BatchID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="LegacySourceSystem" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[DateUpdated]"
+                      dataType="dbTimeStamp"
+                      name="DateUpdated" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[Manufacturer]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Manufacturer" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LienHolderName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="LienHolderName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[IsLoanInd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="IsLoanInd" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LoanMonthlyPayment]"
+                      dataType="numeric"
+                      name="LoanMonthlyPayment"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LoanMonthsRemaining]"
+                      dataType="i4"
+                      name="LoanMonthsRemaining" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[LoanPayoffAmount]"
+                      dataType="numeric"
+                      name="LoanPayoffAmount"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[OffRoadStyle]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="OffRoadStyle" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[SerialNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="SerialNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[VehicleState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="VehicleState" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[VehicleStyle]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="VehicleStyle" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[BoatType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="BoatType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input].ExternalColumns[RiskUnitType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="RiskUnitType" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimVehicle\Load DimVehicle.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\Load DimVehicle.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\Load DimVehicle.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\Load DimVehicle.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC_OLE - Get Staging Data for Vehicle"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">WITH cte 
+AS
+(
+    SELECT vo.VehicleID, cc.BeanVersion, coalesce(cc.Name, isnull(cc.FirstName,'') + ' ' + isnull(cc.LastName,'')) as Name, ROW_NUMBER() OVER (PARTITION BY VehicleID ORDER BY Name ASC) rn 
+    FROM ccadmin.cc_vehicleowner vo
+    LEFT JOIN ccadmin.cc_contact cc ON vo.LienholderID = cc.ID AND cc.retired = 0
+)
+, Lienholder 
+AS
+(
+    SELECT c.VehicleID, c.rn ,CONCAT(c.BeanVersion,isnull(cast(a.BeanVersion as varchar),'')) AS BeanVersion, c.Name+isnull(','+a.Name,'') AS Lienname
+    FROM cte c
+    LEFT JOIN cte a ON c.VehicleID = a.VehicleID AND c.rn = a.rn-1
+    WHERE c.rn &lt; 3
+)
+SELECT vh.PublicID
+     , vh.Make 
+     , vh.Color
+	 , CAST(vm.Name AS VARCHAR(50))  AS Manufacturer
+	 , vh.Model
+	 , vh.Vin
+	 , vh.LicensePlate
+	 , cast(lh.lienname as varchar(100)) as lienname
+	 , vh.[Year]
+	 , CASE WHEN vh.Loan =1 THEN 'Y' ELSE 'N' END AS IsLoanInd
+	 , vh.LoanMonthlyPayment
+	 , vh.LoanMonthsRemaining
+	 , vh.LoanPayoffAmount
+	 , CAST(rv.Name AS VARCHAR(100)) AS OffRoadStyle
+	 , vh.SerialNumber
+	 , CAST(j.Name AS VARCHAR(20))    AS VehicleState
+	 , CAST(vhs.Name AS VARCHAR(100)) AS VehicleStyle
+	 , vs.name AS BoatType
+	 , CAST(cru.name AS VARCHAR(50))AS RiskUnitType
+	 , CAST(CONCAT(vh.BeanVersion, ru.BeanVersion, lh.BeanVersion) AS VARCHAR(20)) AS BeanVersion
+	 , vh.Id AS GWRowNumber
+	 , CASE WHEN vh.Retired != 0 THEN 0 ELSE 1 END AS IsActive 
+FROM ccadmin.cc_vehicle vh
+LEFT JOIN ccadmin.cc_riskunit ru              ON vh.ID = ru.VehicleID AND ru.Retired = 0
+LEFT JOIN ccadmin.cctl_boattype vs            ON vh.boattype = vs.id
+LEFT JOIN ccadmin.cctl_vehiclemanufacturer vm ON vh.manufacturer = vm.id
+LEFT JOIN ccadmin.cctl_offroadvehiclestyle rv ON vh.OffRoadStyle = rv.id
+LEFT JOIN ccadmin.cctl_jurisdiction j         ON vh.[state] = j.id
+LEFT JOIN ccadmin.cctl_vehiclestyle vhs       ON vh.Style = vhs.id
+LEFT JOIN ccadmin.cctl_riskunit cru           ON ru.subtype = cru.ID
+LEFT JOIN lienholder    lh            ON vh.id = lh.vehicleID AND lh.rn = 1
+WHERE
+   vh.UpdateTime &gt;= DATEADD(d,?,CAST(GETDATE() AS DATE))
+OR ru.UpdateTime &gt;= DATEADD(d,?,CAST(GETDATE() AS DATE))</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{8364C883-32A3-4365-9D4D-536B34E11714};"Parameter1:Input",{8364C883-32A3-4365-9D4D-536B34E11714};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Connections[OleDbConnection]"
+                  connectionManagerID="{253715E8-A206-42D4-8880-6BF3C9D74C5D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[GWStaging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Color]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Color]"
+                      length="40"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Color]"
+                      name="Color"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LicensePlate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[LicensePlate]"
+                      length="40"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LicensePlate]"
+                      name="LicensePlate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Make]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Make]"
+                      length="40"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Make]"
+                      name="Make"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Model]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Model]"
+                      length="40"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Model]"
+                      name="Model"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Vin]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Vin]"
+                      length="40"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Vin]"
+                      name="Vin"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Year]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Year]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Year]"
+                      name="Year"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      length="64"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      name="PublicID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      length="20"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      name="BeanVersion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      name="GWRowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      name="IsActive"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[lienname]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[lienname]"
+                      length="100"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[lienname]"
+                      name="lienname"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[BoatType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[BoatType]"
+                      length="256"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[BoatType]"
+                      name="BoatType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[IsLoanInd]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[IsLoanInd]"
+                      length="1"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[IsLoanInd]"
+                      name="IsLoanInd"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LoanMonthlyPayment]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[LoanMonthlyPayment]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LoanMonthlyPayment]"
+                      name="LoanMonthlyPayment"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LoanMonthsRemaining]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[LoanMonthsRemaining]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LoanMonthsRemaining]"
+                      name="LoanMonthsRemaining"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LoanPayoffAmount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[LoanPayoffAmount]"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[LoanPayoffAmount]"
+                      name="LoanPayoffAmount"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Manufacturer]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Manufacturer]"
+                      length="50"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[Manufacturer]"
+                      name="Manufacturer"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[OffRoadStyle]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[OffRoadStyle]"
+                      length="100"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[OffRoadStyle]"
+                      name="OffRoadStyle"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[SerialNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[SerialNumber]"
+                      length="20"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[SerialNumber]"
+                      name="SerialNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[VehicleState]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[VehicleState]"
+                      length="20"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[VehicleState]"
+                      name="VehicleState"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[VehicleStyle]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[VehicleStyle]"
+                      length="100"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[VehicleStyle]"
+                      name="VehicleStyle"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[RiskUnitType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[RiskUnitType]"
+                      length="50"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].Columns[RiskUnitType]"
+                      name="RiskUnitType"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Color]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="Color" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[LicensePlate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="LicensePlate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Make]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="Make" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Model]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="Model" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Vin]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      name="Vin" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Year]"
+                      dataType="i4"
+                      name="Year" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      dataType="i4"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[lienname]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="lienname" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[BoatType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="BoatType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[IsLoanInd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="IsLoanInd" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[LoanMonthlyPayment]"
+                      dataType="numeric"
+                      name="LoanMonthlyPayment"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[LoanMonthsRemaining]"
+                      dataType="i4"
+                      name="LoanMonthsRemaining" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[LoanPayoffAmount]"
+                      dataType="numeric"
+                      name="LoanPayoffAmount"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[Manufacturer]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Manufacturer" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[OffRoadStyle]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="OffRoadStyle" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[SerialNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="SerialNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[VehicleState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="VehicleState" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[VehicleStyle]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="VehicleStyle" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output].ExternalColumns[RiskUnitType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="RiskUnitType" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Color]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Color]"
+                      name="Color" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[LicensePlate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[LicensePlate]"
+                      name="LicensePlate" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[lienname]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[lienname]"
+                      name="lienname" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Make]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Make]"
+                      name="Make" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Model]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Model]"
+                      name="Model" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Vin]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Vin]"
+                      name="Vin" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Year]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Year]"
+                      name="Year" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      name="PublicID" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[BoatType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[BoatType]"
+                      name="BoatType" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[IsLoanInd]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[IsLoanInd]"
+                      name="IsLoanInd" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[LoanMonthlyPayment]"
+                      dataType="numeric"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[LoanMonthlyPayment]"
+                      name="LoanMonthlyPayment"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[LoanMonthsRemaining]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[LoanMonthsRemaining]"
+                      name="LoanMonthsRemaining" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[LoanPayoffAmount]"
+                      dataType="numeric"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[LoanPayoffAmount]"
+                      name="LoanPayoffAmount"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Manufacturer]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[Manufacturer]"
+                      name="Manufacturer" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[OffRoadStyle]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[OffRoadStyle]"
+                      name="OffRoadStyle" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[SerialNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[SerialNumber]"
+                      name="SerialNumber" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[VehicleState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[VehicleState]"
+                      name="VehicleState" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[VehicleStyle]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[VehicleStyle]"
+                      name="VehicleStyle" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[RiskUnitType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[RiskUnitType]"
+                      name="RiskUnitType" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      name="BeanVersion" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      name="GWRowNumber" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      name="IsActive" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - DimVehicle.Paths[Derived Column Output]"
+              endId="Package\DFT - DimVehicle\LKP - DimVehicle.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - DimVehicle.Paths[Lookup Match Output]"
+              endId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - DimVehicle.Paths[Lookup No Match Output]"
+              endId="Package\DFT - DimVehicle\CNT - Insert.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\DFT - DimVehicle\LKP - DimVehicle.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\DFT - DimVehicle.Paths[OLE DB Source Output]"
+              endId="Package\DFT - DimVehicle\CNT - Source.Inputs[Row Count Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT - DimVehicle.Paths[Row Count Output 1]"
+              endId="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy.Inputs[Derived Column Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - DimVehicle\CNT - Source.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - DimVehicle.Paths[Row Count Output 11]"
+              endId="Package\DFT - DimVehicle\Load DimVehicle.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - DimVehicle\CNT - Insert.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - DimVehicle.Paths[SameBeanVersion]"
+              endId="Package\DFT - DimVehicle\CNT - Unchanged.Inputs[Row Count Input 1]"
+              name="SameBeanVersion"
+              startId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Outputs[SameBeanVersion]" />
+            <path
+              refId="Package\DFT - DimVehicle.Paths[Type 1]"
+              endId="Package\DFT - DimVehicle\CNT - Update.Inputs[Row Count Input 1]"
+              name="Type 1"
+              startId="Package\DFT - DimVehicle\CSPL - Check Bean Version.Outputs[DifferentBeanVersion]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2d30ee57-28be-4340-a079-236ef59b88c7}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="200" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7f0ade1e-adf4-4cf3-8ad0-9785e2078e14}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{8bd56352-3916-4958-9b52-53eb1e337919}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{A9661699-DD9E-43D7-A8FB-346B607A1A77}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - DimVehicle" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{C9F11C18-62D7-478D-9C2A-2D4F57D8A5A6}"
+      DTS:From="Package\DFT - DimVehicle"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL - Conclude Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{77F4B0C8-999F-44E3-805C-6369A863FDD0}"
+      DTS:From="Package\DFT - DimVehicle"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SQL - Conclude Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{525932DE-D174-44CB-BBCE-86A9AC729E17}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{F9506885-E40E-469F-9702-4EC3B601E1FB}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{2ea2170b-bd48-4a3e-acda-8ce245a87303}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="246,42"
+          Id="Package\DFT - DimVehicle"
+          TopLeft="134,138" />
+        <NodeLayout
+          Size="246,42"
+          Id="Package\SQL - Conclude Process Completed"
+          TopLeft="2,245" />
+        <NodeLayout
+          Size="246,42"
+          Id="Package\SQL - Conclude Process Failed"
+          TopLeft="284,245" />
+        <NodeLayout
+          Size="246,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="134,42" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="257,84">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="217.333333333333,180">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-92.3333333333333,65"
+              Start="0,0"
+              End="-92.3333333333333,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.2520193861066" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.2520193861066"
+                    Point2="0,26.2520193861066"
+                    Point3="-4,26.2520193861066" />
+                  <mssgle:LineSegment
+                    End="-88.3333333333333,26.2520193861066" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-88.3333333333333,26.2520193861066"
+                    Point2="-92.3333333333333,26.2520193861066"
+                    Point3="-92.3333333333333,30.2520193861066" />
+                  <mssgle:LineSegment
+                    End="-92.3333333333333,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="296.666666666667,180">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="110.333333333333,65"
+              Start="0,0"
+              End="110.333333333333,57.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,22.2520193861066" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,22.2520193861066"
+                    Point2="0,26.2520193861066"
+                    Point3="4,26.2520193861066" />
+                  <mssgle:LineSegment
+                    End="106.333333333333,26.2520193861066" />
+                  <mssgle:CubicBezierSegment
+                    Point1="106.333333333333,26.2520193861066"
+                    Point2="110.333333333333,26.2520193861066"
+                    Point3="110.333333333333,30.2520193861066" />
+                  <mssgle:LineSegment
+                    End="110.333333333333,57.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="39.9253190104165,31.2520193861066,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="414,105" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\DFT - DimVehicle">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="256,42"
+          Id="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle"
+          TopLeft="84.3263888888889,8.27777777777779" />
+        <NodeLayout
+          Size="256,42"
+          Id="Package\DFT - DimVehicle\Load DimVehicle"
+          TopLeft="84.3263888888889,416.5" />
+        <NodeLayout
+          Size="245,42"
+          Id="Package\DFT - DimVehicle\CSPL - Check Bean Version"
+          TopLeft="411.444444444445,249.97619047619" />
+        <NodeLayout
+          Size="245,42"
+          Id="Package\DFT - DimVehicle\CNT - Update"
+          TopLeft="746.666666666667,256.642857142857" />
+        <NodeLayout
+          Size="245,42"
+          Id="Package\DFT - DimVehicle\CNT - Unchanged"
+          TopLeft="415.444444444445,323.150793650793" />
+        <NodeLayout
+          Size="256,42"
+          Id="Package\DFT - DimVehicle\CNT - Source"
+          TopLeft="84.3263888888889,81.8809523809527" />
+        <NodeLayout
+          Size="256,42"
+          Id="Package\DFT - DimVehicle\CNT - Insert"
+          TopLeft="84.3263888888889,322.785714285714" />
+        <NodeLayout
+          Size="256,42"
+          Id="Package\DFT - DimVehicle\DRV - Get BatchID &amp; Legacy"
+          TopLeft="84.3263888888889,164.261904761904" />
+        <NodeLayout
+          Size="256,42"
+          Id="Package\DFT - DimVehicle\LKP - DimVehicle"
+          TopLeft="84.3263888888889,246.642857142857" />
+        <EdgeLayout
+          Id="Package\DFT - DimVehicle.Paths[Type 1]"
+          TopLeft="656.444444444445,274.309523809524">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="90.2222222222218,0"
+              Start="0,0"
+              End="82.7222222222218,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="82.7222222222218,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-5.47582248263909,5,93.6738671875,9.7978515625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimVehicle.Paths[SameBeanVersion]"
+          TopLeft="535.944444444445,291.97619047619">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.1746031746029"
+              Start="0,0"
+              End="0,23.6746031746029">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.6746031746029" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-40.02259765625,7.06044611855143,80.0451953125,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimVehicle.Paths[Row Count Output 11]"
+          TopLeft="212.326388888889,364.785714285714">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.714285714286"
+              Start="0,0"
+              End="0,44.214285714286">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.214285714286" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimVehicle.Paths[Row Count Output 1]"
+          TopLeft="212.326388888889,123.880952380953">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.3809523809516"
+              Start="0,0"
+              End="0,32.8809523809516">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.8809523809516" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimVehicle.Paths[OLE DB Source Output]"
+          TopLeft="212.326388888889,50.2777777777778">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.6031746031749"
+              Start="0,0"
+              End="0,24.1031746031749">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.1031746031749" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimVehicle.Paths[Lookup Match Output]"
+          TopLeft="340.326388888889,269.309523809524">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="71.1180555555559,0"
+              Start="0,0"
+              End="63.6180555555559,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="63.6180555555559,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-16.3823589409721,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimVehicle.Paths[Derived Column Output]"
+          TopLeft="212.326388888889,206.261904761904">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.3809523809527"
+              Start="0,0"
+              End="0,32.8809523809527">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,32.8809523809527" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimVehicle.Paths[Lookup No Match Output]"
+          TopLeft="212.326388888889,288.642857142857">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.142857142857"
+              Start="0,0"
+              End="0,26.642857142857">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.642857142857" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,7.5167410714285,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimVehicle\SRC_OLE - Get Staging Data for Vehicle">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimVehicle\Load DimVehicle">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimVehicle\LKP - DimVehicle">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,2338 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/11/2018 11:54:38 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ACF-EWAQW01"
+  DTS:CreatorName="ACFS24\vikas.singh"
+  DTS:DTSID="{B59ADEEA-4178-471A-9C90-6DF619A71325}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCSTAT - CreateTextFile"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="61"
+  DTS:VersionGUID="{CA7FF93C-F085-49BB-A907-271378FEC47C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[IN]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{37A64DBC-2A5A-448C-869D-6B95F85F75F3}"
+      DTS:ObjectName="IN">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::WCSTAT_IN_FileName]+"PRED250e.ARSC_"+(DT_WSTR,4)DatePart("yyyy", GetDate()) + RIGHT("0" + (DT_WSTR,2)DatePart("mm", GetDate()), 2) + RIGHT("0" + (DT_WSTR,2)DatePart("dd", GetDate()), 2)+ "_v1.txt"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\Solution\Outbound Reports\WCSTAT\PRED250e.ARSC_20181031_v1.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{D71C5223-6338-456D-959C-CB6F7FCC1401}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MI]"
+      DTS:CreationName="FLATFILE"
+      DTS:DTSID="{F1D8E77E-6415-470C-80A0-18116294F59C}"
+      DTS:ObjectName="MI">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Project::WCSTAT_MI_FileName]+"BEEP.ARSC_"+(DT_WSTR,4)DatePart("yyyy", GetDate()) + RIGHT("0" + (DT_WSTR,2)DatePart("mm", GetDate()), 2) + RIGHT("0" + (DT_WSTR,2)DatePart("dd", GetDate()), 2)+ "_v1.txt"</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="Delimited"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter=""
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\Solution\Outbound Reports\WCSTAT\BEEP.ARSC_20181031_v1.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Column 0"
+              DTS:DTSID="{958520F6-4B3C-4305-86AC-17226BD06498}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportMonth"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportMonth].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{B211C387-7351-4DFF-8ED2-F93D8C1B97A1}"
+      DTS:ObjectName="ReportMonth" />
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportYear"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportYear].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{1D8CD522-505D-48DD-B499-17F81112BECF}"
+      DTS:ObjectName="ReportYear" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6D5F989E-0DA8-4433-A13D-F0CF64ED7410}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportMonth">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{356A6E49-62EF-4459-8A3C-03DFAAF1AA20}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportYear">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - Create Text Files"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E24B3472-F179-42A5-A959-C900EB94FA6B}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - Create Text Files"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - Create Text Files\Electronic Transmittal"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Electronic Transmittal"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select '21' as ExposureStateCode, 1 as SortOrder, '1' SortOrder1,'1' SortOrder2,
+
+  '$!+WORKCOMP+!$' 
++ dbo.udf_MakeFixedWidthStringIN('POCReporting@accidentfund.com','',31)
++ '  '
++ 'WCS'
++ '00021'
++ Right(Cast(YEAR(dbo.udf_GetDate())*1000+DATEPART(y,dbo.udf_GetDate()) as varchar(7)),5) +'V'+'01'
++ 'S'
++ Replicate(' ',8)
++ '19968'
++ dbo.udf_MakeFixedWidthStringIN('Ashley Pyle','',25)
++ ' '
++ '5177085033'
++ Replicate(' ',6)
++ '5173672897'
++ Convert(varchar(8), dbo.udf_GetDate(),112)
+ + dbo.udf_MakeFixedWidthStringIN('200 N. Grand','',60)
+ + dbo.udf_MakeFixedWidthStringIN('Lansing','',30)
++ 'MI'
++ '489017990'
++ 'C'
++ Replicate(' ',9)
++ ' '
++ ' ' Details</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Create Text Files\Electronic Transmittal.Connections[OleDbConnection]"
+                  connectionManagerID="{5D61FD35-9751-47D2-B783-21BBF451814D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[Details]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].ExternalColumns[Details]"
+                      length="1104"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[Details]"
+                      name="Details"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].ExternalColumns[ExposureStateCode]"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[ExposureStateCode]"
+                      name="ExposureStateCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[SortOrder]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].ExternalColumns[SortOrder]"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[SortOrder]"
+                      name="SortOrder"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[SortOrder1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].ExternalColumns[SortOrder1]"
+                      length="1"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[SortOrder1]"
+                      name="SortOrder1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[SortOrder2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].ExternalColumns[SortOrder2]"
+                      length="1"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[SortOrder2]"
+                      name="SortOrder2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].ExternalColumns[Details]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1104"
+                      name="Details" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].ExternalColumns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ExposureStateCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].ExternalColumns[SortOrder]"
+                      dataType="i4"
+                      name="SortOrder" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].ExternalColumns[SortOrder1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="SortOrder1" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].ExternalColumns[SortOrder2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="SortOrder2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[ExposureStateCode]"
+                      name="ExposureStateCode" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[SortOrder]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[SortOrder]"
+                      name="SortOrder" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[SortOrder1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[SortOrder1]"
+                      name="SortOrder1" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[SortOrder2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[SortOrder2]"
+                      name="SortOrder2" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[Details]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1104"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[Details]"
+                      name="Details" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Create Text Files\File Control"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="File Control"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select ExposureStateCode, DateAdded,   99 SortOrder, '99' SortOrder1, '99' SortOrder2,
+	(
+		Replicate('9',40) 
+		+ '9'	--RecordTypeCode
+		+ Cast(Format(Sum(DetailRecordCount),'00000000')   as varchar(8))	--DetailRecordCount
+		+ Cast(Format(Sum(UnitRecordCount),'0000000')   as varchar(7))		--UnitRecordCount
+		+ Cast(ReportYear as varchar(4))					--PrimaryEffectiveYear
+		+ Right('00' + Cast(ReportMonth as varchar(2)),2)	--PrimaryEffectiveMonth
+		+ Cast(Format(Sum(ICRTotal),'00000000')   as varchar(8))  --ICRTotal
+		+ Replicate(' ',180) --ReservedForFutureuse
+	) ReportData
+	
+from 
+	(
+		Select  
+		IIF(ExposureState = 'MI','21','13') ExposureStateCode, 
+		1 DetailRecordCount, 
+		IIF(Column1 = 1, 1,0) UnitRecordCount, 
+		0 as ICRTotal,
+		Cast(l.DateAdded as Date) DateAdded,
+		l.ReportingMonth,
+		l.ReportingYear,
+		Month(DATEADD(Month,  -18, dbo.udf_GetDate())) ReportMonth,
+		Year( DATEADD(Month,  -18, dbo.udf_GetDate())) ReportYear
+
+	 From WCStatLinkData l
+		inner join WCStatReportData r on l.PolicyID = r.PolicyID and l.ReportingMonth = r.ReportingMonth and l.ReportingYear = r.ReportingYear  and l.RecordType = IIF(r.RecordType = 'CorrectionHeader', 'Correction', r.RecordType)
+	 Where Column1 NOT IN ( 5,6)
+		and r.ReportingMonth = Month(dbo.udf_GetDate()) 
+		and r.Reportingyear = Year(dbo.udf_GetDate())
+	 
+
+	 UNION All
+
+	 Select 
+		IIF(ExposureState = 'MI','21','13') ExposureStateCode, 
+		1  DetailRecordCount, 
+		IIF(Column1 = 1, 1,0)  UnitRecordCount, 
+		0 as ICRTotal,
+		Cast(l.DateAdded as Date) DateAdded,
+		l.ReportingMonth,
+		l.ReportingYear,
+		Month(DATEADD(Month,  -18 , dbo.udf_GetDate())) ReportMonth,
+		Year( DATEADD(Month,  -18 , dbo.udf_GetDate())) ReportYear
+
+	 From WCStatLinkData l
+		inner join WCStatReportData r on l.PolicyNumberIdentifier = r.PolicyNumber and l.TermNumber = r.TermNumber and l.ReportingMonth = r.ReportingMonth and l.ReportingYear = r.ReportingYear and l.RecordType = IIF(r.RecordType = 'CorrectionHeader', 'Correction', r.RecordType)
+	 Where Column1 In( 5,6)
+		and r.ReportingMonth = Month(dbo.udf_GetDate()) 
+		and r.Reportingyear = Year(dbo.udf_GetDate())
+	 )T
+
+ 
+
+Group By ExposureStateCode, DateAdded, ReportingYear, ReportingMonth, ReportYear, ReportMonth</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{6D5F989E-0DA8-4433-A13D-F0CF64ED7410};"Parameter1:Input",{356A6E49-62EF-4459-8A3C-03DFAAF1AA20};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Create Text Files\File Control.Connections[OleDbConnection]"
+                  connectionManagerID="{92E7D99B-74F9-414C-93B4-3FBDA62D5F91}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WCSTAT]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[SortOrder]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[SortOrder]"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[SortOrder]"
+                      name="SortOrder"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[ExposureStateCode]"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[ExposureStateCode]"
+                      name="ExposureStateCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[DateAdded]"
+                      dataType="wstr"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[DateAdded]"
+                      length="10"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[DateAdded]"
+                      name="DateAdded"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[ReportData]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[ReportData]"
+                      length="250"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[ReportData]"
+                      name="ReportData"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[SortOrder1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[SortOrder1]"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[SortOrder1]"
+                      name="SortOrder1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[SortOrder2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[SortOrder2]"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[SortOrder2]"
+                      name="SortOrder2"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[SortOrder]"
+                      dataType="i4"
+                      name="SortOrder" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ExposureStateCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[DateAdded]"
+                      dataType="wstr"
+                      length="10"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[ReportData]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="ReportData" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[SortOrder1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="SortOrder1" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].ExternalColumns[SortOrder2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="SortOrder2" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[ExposureStateCode]"
+                      name="ExposureStateCode" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[DateAdded]"
+                      dataType="wstr"
+                      length="10"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[DateAdded]"
+                      name="DateAdded" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[SortOrder]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[SortOrder]"
+                      name="SortOrder" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[SortOrder1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[SortOrder1]"
+                      name="SortOrder1" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[SortOrder2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[SortOrder2]"
+                      name="SortOrder2" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[ReportData]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[ReportData]"
+                      name="ReportData" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Create Text Files\IN File"
+              componentClassID="Microsoft.FlatFileDestination"
+              contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Flat File Destination"
+              localeId="1033"
+              name="IN File">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header" />
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Create Text Files\IN File.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[IN]"
+                  connectionManagerRefId="Package.ConnectionManagers[IN]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Create Text Files\IN File.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\IN File.Inputs[Flat File Destination Input].Columns[ReportData]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8000"
+                      cachedName="ReportData"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\IN File.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[ReportData]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\IN File.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Column 0" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\DFT - Create Text Files\MI File"
+              componentClassID="Microsoft.FlatFileDestination"
+              contactInfo="Flat File Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Flat File Destination"
+              localeId="1033"
+              name="MI File">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Specifies whether the data will overwrite or append to the destination file."
+                  name="Overwrite">true</property>
+                <property
+                  dataType="System.Null"
+                  description="Specifies the text to write to the destination file before any data is written."
+                  expressionType="Notify"
+                  name="Header" />
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Create Text Files\MI File.Connections[FlatFileConnection]"
+                  connectionManagerID="Package.ConnectionManagers[MI]"
+                  connectionManagerRefId="Package.ConnectionManagers[MI]"
+                  name="FlatFileConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - Create Text Files\MI File.Inputs[Flat File Destination Input]"
+                  hasSideEffects="true"
+                  name="Flat File Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\MI File.Inputs[Flat File Destination Input].Columns[ReportData]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8000"
+                      cachedName="ReportData"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\MI File.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[ReportData]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\MI File.Inputs[Flat File Destination Input].ExternalColumns[Column 0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Column 0" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+            </component>
+            <component
+              refId="Package\DFT - Create Text Files\MI or IN ?"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="MI or IN ?"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - Create Text Files\MI or IN ?.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\MI or IN ?.Inputs[Conditional Split Input].Columns[ExposureStateCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ExposureStateCode"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[ExposureStateCode]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Create Text Files\MI or IN ?.Outputs[MI]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="MI"
+                  synchronousInputId="Package\DFT - Create Text Files\MI or IN ?.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[ExposureStateCode]} == "21"</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">ExposureStateCode == "21"</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Create Text Files\MI or IN ?.Outputs[IN]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="IN"
+                  synchronousInputId="Package\DFT - Create Text Files\MI or IN ?.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - Create Text Files\MI or IN ?.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT - Create Text Files\MI or IN ?.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\MI or IN ?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\MI or IN ?.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\MI or IN ?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\MI or IN ?.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Create Text Files\Sort"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="Sort"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - Create Text Files\Sort.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Inputs[Sort Input].Columns[ExposureStateCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ExposureStateCode"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ExposureStateCode]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Inputs[Sort Input].Columns[ReportData]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8000"
+                      cachedName="ReportData"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ReportData]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Inputs[Sort Input].Columns[PolicyNumberIdentifier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="PolicyNumberIdentifier"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[PolicyNumberIdentifier]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">2</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Inputs[Sort Input].Columns[TermNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TermNumber"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[TermNumber]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">3</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Inputs[Sort Input].Columns[Column1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="Column1"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[Column1]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">5</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Inputs[Sort Input].Columns[SortOrder]"
+                      cachedDataType="i4"
+                      cachedName="SortOrder"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Inputs[Sort Input].Columns[SortOrder1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="SortOrder1"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder1]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">6</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Inputs[Sort Input].Columns[SortOrder2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="SortOrder2"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder2]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">7</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Inputs[Sort Input].Columns[SortOrder3]"
+                      cachedDataType="i4"
+                      cachedName="SortOrder3"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder3]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">4</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[ExposureStateCode]"
+                      name="ExposureStateCode">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ExposureStateCode]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[ReportData]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[ReportData]"
+                      name="ReportData">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ReportData]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[PolicyNumberIdentifier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[PolicyNumberIdentifier]"
+                      name="PolicyNumberIdentifier"
+                      sortKeyPosition="2">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[PolicyNumberIdentifier]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[TermNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[TermNumber]"
+                      name="TermNumber"
+                      sortKeyPosition="3">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[TermNumber]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[Column1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[Column1]"
+                      name="Column1"
+                      sortKeyPosition="5">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[Column1]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[SortOrder]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[SortOrder]"
+                      name="SortOrder"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[SortOrder1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[SortOrder1]"
+                      name="SortOrder1"
+                      sortKeyPosition="6">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder1]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[SortOrder2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[SortOrder2]"
+                      name="SortOrder2"
+                      sortKeyPosition="7">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder2]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[SortOrder3]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output].Columns[SortOrder3]"
+                      name="SortOrder3"
+                      sortKeyPosition="4">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder3]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Create Text Files\Union All"
+              componentClassID="Microsoft.UnionAll"
+              contactInfo="Union All;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combines rows from multiple data flows without sorting. For example, add rows back to a data flow after correction of errors. If sorting is important, we recommend using the Merge transformation."
+              name="Union All"
+              version="1">
+              <inputs>
+                <input
+                  refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 1]"
+                  name="Union All Input 1">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 1].Columns[ExposureStateCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ExposureStateCode"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[ExposureStateCode]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ExposureStateCode]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 1].Columns[ReportData]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="8000"
+                      cachedName="ReportData"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[ReportData]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ReportData]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 1].Columns[PolicyNumberIdentifier]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="PolicyNumberIdentifier"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[PolicyNumberIdentifier]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[PolicyNumberIdentifier]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 1].Columns[TermNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TermNumber"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[TermNumber]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[TermNumber]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 1].Columns[Column1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="Column1"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[Column1]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[Column1]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 1].Columns[SortOrder]"
+                      cachedDataType="i4"
+                      cachedName="SortOrder"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 1].Columns[SortOrder1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="SortOrder1"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder1]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder1]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 1].Columns[SortOrder2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="SortOrder2"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder2]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder2]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 1].Columns[SortOrder3]"
+                      cachedDataType="i4"
+                      cachedName="SortOrder3"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder3]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder3]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 2]"
+                  hasSideEffects="true"
+                  name="Union All Input 2">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 2].Columns[ExposureStateCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="ExposureStateCode"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[ExposureStateCode]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ExposureStateCode]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 2].Columns[Details]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1104"
+                      cachedName="Details"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[Details]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ReportData]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 2].Columns[SortOrder]"
+                      cachedDataType="i4"
+                      cachedName="SortOrder"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[SortOrder]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 2].Columns[SortOrder1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="SortOrder1"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[SortOrder1]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder1]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 2].Columns[SortOrder2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="SortOrder2"
+                      lineageId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output].Columns[SortOrder2]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder2]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 4]"
+                  hasSideEffects="true"
+                  name="Union All Input 4">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 4].Columns[SortOrder]"
+                      cachedDataType="i4"
+                      cachedName="SortOrder"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[SortOrder]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 4].Columns[ExposureStateCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="ExposureStateCode"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[ExposureStateCode]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ExposureStateCode]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 4].Columns[ReportData]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="ReportData"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[ReportData]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ReportData]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 4].Columns[SortOrder1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="SortOrder1"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[SortOrder1]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder1]}</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 4].Columns[SortOrder2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="SortOrder2"
+                      lineageId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output].Columns[SortOrder2]">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Output column lineage ID"
+                          name="OutputColumnLineageID">#{Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder2]}</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 3]"
+                  dangling="true"
+                  hasSideEffects="true"
+                  name="Union All Input 3">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1]"
+                  name="Union All Output 1">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ExposureStateCode]"
+                      name="ExposureStateCode" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ReportData]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[ReportData]"
+                      name="ReportData" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[PolicyNumberIdentifier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[PolicyNumberIdentifier]"
+                      name="PolicyNumberIdentifier" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[TermNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[TermNumber]"
+                      name="TermNumber" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[Column1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[Column1]"
+                      name="Column1" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder]"
+                      name="SortOrder" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder1]"
+                      name="SortOrder1" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder2]"
+                      name="SortOrder2" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder3]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1].Columns[SortOrder3]"
+                      name="SortOrder3" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - Create Text Files\WCSTATReportData"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="WCSTATReportData"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select l.PolicyNumberIdentifier,
+	l.TermNumber,
+	r.Column1,
+	2 SortOrder,
+	ISNULL(r.Column3,'0000000')SortOrder1,
+	ISNULL(r.Column11,'0000000')SortOrder2,
+	Case l.RecordType
+		When 'Original' Then 1 
+		When 'CorrectionHeader' Then 2
+		When 'CorrectionOriginal' Then 3
+		When 'Correction' Then 4
+		When 'SubsequentHeader' Then 5
+		When 'Subsequent' Then 6
+	End as SortOrder3,
+	l.ExposureStateCode,
+    l.CarrierCode
+  + l.PolicyNumberIdentifier
+  + l.SeperatedSegmentNumber
+  + l.ReservedForFutureUse
+  + l.ExposureStateCode
+  + l.PolicyEffectiveDate
+  + r.ReportNumber
+  + l.CorrectionSeqNumber
+
+  + ISNULL(r.Column1,'')
+  + ISNULL(r.Column2,'')
+  + ISNULL(r.Column3,'')
+  + ISNULL(r.Column4,'')
+  + ISNULL(r.Column5,'')
+  + ISNULL(r.Column6,'')  
+  + ISNULL(r.Column7,'')
+  + ISNULL(r.Column8,'')
+  + ISNULL(r.Column9,'')
+  + ISNULL(r.Column10,'')
+  + ISNULL(r.Column11,'')
+  + ISNULL(r.Column12,'')
+  + ISNULL(r.Column13,'')
+  + ISNULL(r.Column14,'')
+  + ISNULL(r.Column15,'')
+  + ISNULL(r.Column16,'')
+  + ISNULL(r.Column17,'')
+  + ISNULL(r.Column18,'')
+  + ISNULL(r.Column19,'')
+  + ISNULL(r.Column20,'')
+  + ISNULL(r.Column21,'')
+  + ISNULL(r.Column22,'')
+  + ISNULL(r.Column23,'')
+  + ISNULL(r.Column24,'')
+  + ISNULL(r.Column25,'')
+  + ISNULL(r.Column26,'')
+  + ISNULL(r.Column27,'')
+  + ISNULL(r.Column28,'')
+  + ISNULL(r.Column29,'')
+  + ISNULL(r.Column30,'')
+  + ISNULL(r.Column31,'')
+  + ISNULL(r.Column32,'')
+  + ISNULL(r.Column33,'')
+  + ISNULL(r.Column34,'')
+  + ISNULL(r.Column35,'')
+  + ISNULL(r.Column36,'')
+  + ISNULL(r.Column37,'')
+  + ISNULL(r.Column38,'')
+  + ISNULL(r.Column39,'')
+  + ISNULL(r.Column40,'')
+  + ISNULL(r.Column41,'')
+  + ISNULL(r.Column42,'')
+  + ISNULL(r.Column43,'')
+  + ISNULL(r.Column44,'')
+  + ISNULL(r.Column45,'')
+  + ISNULL(r.Column46,'')
+  + ISNULL(r.Column47,'') ReportData
+
+ From WCStatLinkData l
+ inner join WCStatReportData r  --on l.PolicyID = r.PolicyID 
+ on l.PolicyNumberIdentifier = r.PolicyNumber and l.TermNumber = r.TermNumber and l.ReportingMonth = r.ReportingMonth and l.ReportingYear = r.ReportingYear and l.RecordType = IIF(r.RecordType in ('CorrectionHeader','CorrectionOriginal'), 'Correction', r.RecordType)
+
+ Where 1 = 1 --AND Column1 NOT IN ( 5,6)
+ And l.ReportingMonth = Month(dbo.udf_Getdate())
+ And l.ReportingYear = Year(dbo.udf_GetDate())
+ --and r.PolicyNumber ='ARP120000409'
+  Order by PolicyNumberIdentifier, TermNumber, Column1, SortOrder1, SortOrder2
+
+
+ /*
+ UNION
+
+ Select l1.PolicyNumberIdentifier, 	
+	l1.TermNumber,
+	r1.Column1,
+	2 SortOrder,
+	ISNULL(r1.Column3,'0000000')SortOrder1,
+	ISNULL(r1.Column11,'0000000')SortOrder2,
+	Case l1.RecordType
+		When 'Original' Then 1 
+		When 'CorrectionHeader' Then 2
+		When 'CorrectionOriginal' Then 3
+		When 'Correction' Then 4
+		When 'SubsequentHeader' Then 5
+		When 'Subsequent' Then 6
+	End as SortOrder3,
+	l1.ExposureStateCode,
+    l1.CarrierCode
+  + l1.PolicyNumberIdentifier
+  + l1.SeperatedSegmentNumber
+  + l1.ReservedForFutureUse
+  + l1.ExposureStateCode
+  + l1.PolicyEffectiveDate
+  + r1.ReportNumber
+  + l1.CorrectionSeqNumber
+
+  + ISNULL(r1.Column1,'')
+  + ISNULL(r1.Column2,'')
+  + ISNULL(r1.Column3,'')
+  + ISNULL(r1.Column4,'')
+  + ISNULL(r1.Column5,'')
+  + ISNULL(r1.Column6,'')  
+  + ISNULL(r1.Column7,'')
+  + ISNULL(r1.Column8,'')
+  + ISNULL(r1.Column9,'')
+  + ISNULL(r1.Column10,'')
+  + ISNULL(r1.Column11,'')
+  + ISNULL(r1.Column12,'')
+  + ISNULL(r1.Column13,'')
+  + ISNULL(r1.Column14,'')
+  + ISNULL(r1.Column15,'')
+  + ISNULL(r1.Column16,'')
+  + ISNULL(r1.Column17,'')
+  + ISNULL(r1.Column18,'')
+  + ISNULL(r1.Column19,'')
+  + ISNULL(r1.Column20,'')
+  + ISNULL(r1.Column21,'')
+  + ISNULL(r1.Column22,'')
+  + ISNULL(r1.Column23,'')
+  + ISNULL(r1.Column24,'')
+  + ISNULL(r1.Column25,'')
+  + ISNULL(r1.Column26,'')
+  + ISNULL(r1.Column27,'')
+  + ISNULL(r1.Column28,'')
+  + ISNULL(r1.Column29,'')
+  + ISNULL(r1.Column30,'')
+  + ISNULL(r1.Column31,'')
+  + ISNULL(r1.Column32,'')
+  + ISNULL(r1.Column33,'')
+  + ISNULL(r1.Column34,'')
+  + ISNULL(r1.Column35,'')
+  + ISNULL(r1.Column36,'')
+  + ISNULL(r1.Column37,'')
+  + ISNULL(r1.Column38,'')
+  + ISNULL(r1.Column39,'')
+  + ISNULL(r1.Column40,'')
+  + ISNULL(r1.Column41,'')
+  + ISNULL(r1.Column42,'')
+  + ISNULL(r1.Column43,'')
+  + ISNULL(r1.Column44,'')
+  + ISNULL(r1.Column45,'')
+  + ISNULL(r1.Column46,'')
+  + ISNULL(r1.Column47,'') ReportData
+
+ From WCStatLinkData l1
+ inner join WCStatReportData r1 on l1.PolicyNumberIdentifier = r1.PolicyNumber and l1.TermNumber = r1.TermNumber and l1.ReportingMonth = r1.ReportingMonth and l1.ReportingYear = r1.ReportingYear and l1.RecordType = IIF(r1.RecordType in('CorrectionHeader','CorrectionOriginal'), 'Correction', r1.RecordType)
+ Where 1 = 1 --and Column1 In( 5,6)
+ And l1.ReportingMonth = Month(dbo.udf_Getdate())
+ And l1.ReportingYear = Year(dbo.udf_GetDate())
+ 
+
+
+ */</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{6D5F989E-0DA8-4433-A13D-F0CF64ED7410};"Parameter1:Input",{356A6E49-62EF-4459-8A3C-03DFAAF1AA20};"Parameter2:Input",{6D5F989E-0DA8-4433-A13D-F0CF64ED7410};"Parameter3:Input",{356A6E49-62EF-4459-8A3C-03DFAAF1AA20};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - Create Text Files\WCSTATReportData.Connections[OleDbConnection]"
+                  connectionManagerID="{92E7D99B-74F9-414C-93B4-3FBDA62D5F91}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WCSTAT]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[ExposureStateCode]"
+                      length="50"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[ExposureStateCode]"
+                      name="ExposureStateCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[ReportData]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[ReportData]"
+                      length="8000"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[ReportData]"
+                      name="ReportData"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[PolicyNumberIdentifier]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumberIdentifier]"
+                      length="250"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[PolicyNumberIdentifier]"
+                      name="PolicyNumberIdentifier"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      name="TermNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[Column1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[Column1]"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[Column1]"
+                      name="Column1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[SortOrder]"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder]"
+                      name="SortOrder"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[SortOrder1]"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder1]"
+                      name="SortOrder1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[SortOrder2]"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder2]"
+                      name="SortOrder2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder3]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[SortOrder3]"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].Columns[SortOrder3]"
+                      name="SortOrder3"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ExposureStateCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[ReportData]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      name="ReportData" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumberIdentifier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="PolicyNumberIdentifier" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TermNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[Column1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column1" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[SortOrder]"
+                      dataType="i4"
+                      name="SortOrder" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[SortOrder1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="SortOrder1" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[SortOrder2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="SortOrder2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output].ExternalColumns[SortOrder3]"
+                      dataType="i4"
+                      name="SortOrder3" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[PolicyNumberIdentifier]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[PolicyNumberIdentifier]"
+                      name="PolicyNumberIdentifier" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[SortOrder]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[SortOrder]"
+                      name="SortOrder" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      name="TermNumber" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[Column1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[Column1]"
+                      name="Column1" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[SortOrder1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[SortOrder1]"
+                      name="SortOrder1" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[SortOrder2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[SortOrder2]"
+                      name="SortOrder2" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[SortOrder3]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[SortOrder3]"
+                      name="SortOrder3" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[ExposureStateCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[ExposureStateCode]"
+                      name="ExposureStateCode" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[ReportData]"
+                      codePage="1252"
+                      dataType="str"
+                      length="8000"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[ReportData]"
+                      name="ReportData" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - Create Text Files.Paths[IN]"
+              endId="Package\DFT - Create Text Files\IN File.Inputs[Flat File Destination Input]"
+              name="IN"
+              startId="Package\DFT - Create Text Files\MI or IN ?.Outputs[IN]" />
+            <path
+              refId="Package\DFT - Create Text Files.Paths[MI]"
+              endId="Package\DFT - Create Text Files\MI File.Inputs[Flat File Destination Input]"
+              name="MI"
+              startId="Package\DFT - Create Text Files\MI or IN ?.Outputs[MI]" />
+            <path
+              refId="Package\DFT - Create Text Files.Paths[OLE DB Source Output]"
+              endId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Create Text Files\WCSTATReportData.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT - Create Text Files.Paths[OLE DB Source Output1]"
+              endId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 2]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Create Text Files\Electronic Transmittal.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT - Create Text Files.Paths[OLE DB Source Output2]"
+              endId="Package\DFT - Create Text Files\Union All.Inputs[Union All Input 4]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - Create Text Files\File Control.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT - Create Text Files.Paths[Sort Output]"
+              endId="Package\DFT - Create Text Files\MI or IN ?.Inputs[Conditional Split Input]"
+              name="Sort Output"
+              startId="Package\DFT - Create Text Files\Sort.Outputs[Sort Output]" />
+            <path
+              refId="Package\DFT - Create Text Files.Paths[Union All Output 1]"
+              endId="Package\DFT - Create Text Files\Sort.Inputs[Sort Input]"
+              name="Union All Output 1"
+              startId="Package\DFT - Create Text Files\Union All.Outputs[Union All Output 1]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="186.666666666667,42"
+          Id="Package\DFT - Create Text Files"
+          TopLeft="369.5,127.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\DFT - Create Text Files">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="132,42"
+          Id="Package\DFT - Create Text Files\File Control"
+          TopLeft="613.5,54.5" />
+        <NodeLayout
+          Size="109,42"
+          Id="Package\DFT - Create Text Files\IN File"
+          TopLeft="502.5,545.5" />
+        <NodeLayout
+          Size="127,42"
+          Id="Package\DFT - Create Text Files\MI or IN ?"
+          TopLeft="369.5,411.5" />
+        <NodeLayout
+          Size="173,42"
+          Id="Package\DFT - Create Text Files\WCSTATReportData"
+          TopLeft="122.5,55.5" />
+        <NodeLayout
+          Size="98,42"
+          Id="Package\DFT - Create Text Files\Sort"
+          TopLeft="381,317" />
+        <NodeLayout
+          Size="121,42"
+          Id="Package\DFT - Create Text Files\Union All"
+          TopLeft="365.5,223.5" />
+        <NodeLayout
+          Size="111,42"
+          Id="Package\DFT - Create Text Files\MI File"
+          TopLeft="213.5,545.5" />
+        <NodeLayout
+          Size="181,42"
+          Id="Package\DFT - Create Text Files\Electronic Transmittal"
+          TopLeft="338.5,54.5" />
+        <EdgeLayout
+          Id="Package\DFT - Create Text Files.Paths[MI]"
+          TopLeft="413.166666666667,453.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-144.166666666667,92"
+              Start="0,0"
+              End="-144.166666666667,84.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.4867807153966" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,33.4867807153966"
+                    Point2="0,37.4867807153966"
+                    Point3="-4,37.4867807153966" />
+                  <mssgle:LineSegment
+                    End="-140.166666666667,37.4867807153966" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-140.166666666667,37.4867807153966"
+                    Point2="-144.166666666667,37.4867807153966"
+                    Point3="-144.166666666667,41.4867807153966" />
+                  <mssgle:LineSegment
+                    End="-144.166666666667,84.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-78.2078645833335,42.4867807153966,12.2490625,9.2705078125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Create Text Files.Paths[IN]"
+          TopLeft="452.833333333333,453.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="104.166666666667,92"
+              Start="0,0"
+              End="104.166666666667,84.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.4867807153966" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,33.4867807153966"
+                    Point2="0,37.4867807153966"
+                    Point3="4,37.4867807153966" />
+                  <mssgle:LineSegment
+                    End="100.166666666667,37.4867807153966" />
+                  <mssgle:CubicBezierSegment
+                    Point1="100.166666666667,37.4867807153966"
+                    Point2="104.166666666667,37.4867807153966"
+                    Point3="104.166666666667,41.4867807153966" />
+                  <mssgle:LineSegment
+                    End="104.166666666667,84.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="46.4766341145835,42.4867807153966,11.2133984375,9.2705078125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Create Text Files.Paths[Union All Output 1]"
+          TopLeft="428,265.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51.5"
+              Start="0,0"
+              End="0,44">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Create Text Files.Paths[Sort Output]"
+          TopLeft="431.5,359">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52.5"
+              Start="0,0"
+              End="0,45">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Create Text Files.Paths[OLE DB Source Output2]"
+          TopLeft="679.5,96.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-225.25,127"
+              Start="0,0"
+              End="-225.25,119.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,78.8409703504043" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,78.8409703504043"
+                    Point2="0,82.8409703504043"
+                    Point3="-4,82.8409703504043" />
+                  <mssgle:LineSegment
+                    End="-221.25,82.8409703504043" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-221.25,82.8409703504043"
+                    Point2="-225.25,82.8409703504043"
+                    Point3="-225.25,86.8409703504043" />
+                  <mssgle:LineSegment
+                    End="-225.25,119.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Create Text Files.Paths[OLE DB Source Output1]"
+          TopLeft="427.5,96.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,127"
+              Start="0,0"
+              End="0,119.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,119.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - Create Text Files.Paths[OLE DB Source Output]"
+          TopLeft="209,97.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="188.75,126"
+              Start="0,0"
+              End="188.75,118.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,78.188679245283" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,78.188679245283"
+                    Point2="0,82.188679245283"
+                    Point3="4,82.188679245283" />
+                  <mssgle:LineSegment
+                    End="184.75,82.188679245283" />
+                  <mssgle:CubicBezierSegment
+                    Point1="184.75,82.188679245283"
+                    Point2="188.75,82.188679245283"
+                    Point3="188.75,86.188679245283" />
+                  <mssgle:LineSegment
+                    End="188.75,118.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Create Text Files\File Control">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Create Text Files\WCSTATReportData">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - Create Text Files\Electronic Transmittal">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

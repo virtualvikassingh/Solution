@@ -1,0 +1,2786 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/4/2013 1:56:33 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="WRGLT20055"
+  DTS:CreatorName="WRGD\jober"
+  DTS:DTSID="{494CEFBD-606E-490D-A5AB-167DD068F9B3}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="12.0.2430.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="EDW_WC_Load_FactProduction"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="821"
+  DTS:VersionGUID="{96C08145-537F-4460-841F-F381DAFD115E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[EnterpriseDataWarehouse]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{BE3B9453-07FB-444B-82CC-3BC4A59A5159}"
+      DTS:ObjectName="EnterpriseDataWarehouse">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::EDWDatabase]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::TargetServer]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=SQLDEDW\DBD;Initial Catalog=EDW;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[GWStaging]"
+      DTS:CreationName="OLEDB"
+      DTS:DTSID="{07165350-454A-4750-BD1A-16901CAFBD3A}"
+      DTS:ObjectName="GWStaging">
+      <DTS:PropertyExpression
+        DTS:Name="InitialCatalog">@[$Project::GWStagingDatabase]</DTS:PropertyExpression>
+      <DTS:PropertyExpression
+        DTS:Name="ServerName">@[$Project::SourceServer]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:ConnectionString="Data Source=MMDSQLGWV01\mmisqlgwd12;Initial Catalog=ClaimCenterR1;Provider=SQLNCLI11.1;Integrated Security=SSPI;Auto Translate=False;" />
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{36805666-79A8-465B-9394-BB729DCDD010}"
+      DTS:ObjectName="cnfg_BatchID" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1B2A09AA-D100-4277-A2C6-3DD6375DD13D}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5F125896-9F8C-4539-81C3-BB6781FC0C8D}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{58433FB8-174F-4D0D-83C2-4E5FD1742C9A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{4BA0957F-A3CC-4C75-9D52-73CBD54E3229}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UnChangeCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{829571AF-886B-44E2-90AA-123C469DA344}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdateCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">3,7,OnError,19,OnExecStatusChanged,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="Diagnostic"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="DiagnosticEx"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnExecStatusChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnInformation"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPipelinePostComponentCall"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPipelinePostEndOfRowset"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPipelinePostPrimeOutput"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPipelinePreComponentCall"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPipelinePreEndOfRowset"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPipelinePrePrimeOutput"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPipelineRowsSent"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPostExecute"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPostValidate"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPreExecute"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnPreValidate"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnProgress"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnQueryCancel"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnVariableValueChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnWarning"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\SEQC - EDW"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{DDDCD5DB-26A0-41B1-A3A8-DAB48B5D59C2}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SEQC - EDW">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\SEQC - EDW\Delete Existing Records"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:Disabled="True"
+          DTS:DTSID="{AAA967CE-6106-4A45-9C9B-F716FC74BDB3}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Delete Existing Records"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2012; © 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BE3B9453-07FB-444B-82CC-3BC4A59A5159}"
+              SQLTask:BypassPrepare="False"
+              SQLTask:SqlStatementSource="DECLARE @BatchSize INT&#xA;SET @BatchSize = ?&#xA;&#xA;WHILE @BatchSize &lt;&gt; 0&#xA;BEGIN&#xA; DELETE TOP (@BatchSize)&#xA; FROM FactProduction&#xA; WHERE LegacySourceSystem = ?&#xA; SET @BatchSize = @@rowcount&#xA; CHECKPOINT&#xA;END " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="$Project::DeleteBatchSize"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="User::LegacySourceSystem"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="-1" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\SEQC - EDW\DFT - Fact Production"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{DE93D3CF-3F89-4B26-BAE8-CC0601E60CE6}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DFT - Fact Production"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\SEQC - EDW\DFT - Fact Production\CNT - Insert Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="CNT - Insert Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::InsertCount</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQC - EDW\DFT - Fact Production\CNT - Insert Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQC - EDW\DFT - Fact Production\CNT - Insert Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQC - EDW\DFT - Fact Production\CNT - Insert Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQC - EDW\DFT - Fact Production\CNT - Source Count"
+                  componentClassID="Microsoft.RowCount"
+                  contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+                  name="CNT - Source Count">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable to hold the row count."
+                      name="VariableName">User::SourceCount</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\SEQC - EDW\DFT - Fact Production\CNT - Source Count.Inputs[Row Count Input 1]"
+                      hasSideEffects="true"
+                      name="Row Count Input 1">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQC - EDW\DFT - Fact Production\CNT - Source Count.Outputs[Row Count Output 1]"
+                      name="Row Count Output 1"
+                      synchronousInputId="Package\SEQC - EDW\DFT - Fact Production\CNT - Source Count.Inputs[Row Count Input 1]">
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="drv_BatchID"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Outputs[Derived Column Output].Columns[BatchID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Outputs[Derived Column Output].Columns[BatchID]"
+                          name="BatchID"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">@[User::BatchID]</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">@[User::BatchID]</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE_DEST - Load WCProduction"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[FactProduction]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">10000</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[EnterpriseDataWarehouse]"
+                      connectionManagerRefId="Package.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[CompanyID]"
+                          cachedDataType="i4"
+                          cachedName="CompanyID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[CompanyID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[CompanyID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[AgencyID]"
+                          cachedDataType="i4"
+                          cachedName="AgencyID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[AgencyID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[AgencyID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ProducerID]"
+                          cachedDataType="i4"
+                          cachedName="ProducerID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ProducerID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ProducerID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[EarnedPremium]"
+                          cachedDataType="cy"
+                          cachedName="EarnedPremium"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[EarnedPremium]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[EarnedPremium]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[WrittenPremium]"
+                          cachedDataType="cy"
+                          cachedName="WrittenPremium"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[WrittenPremium]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[WrittenPremium]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ProductID]"
+                          cachedDataType="i4"
+                          cachedName="ProductID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ProductID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[LossReserveChange]"
+                          cachedDataType="cy"
+                          cachedName="LossReserveChange"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossReserveChange]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossReserveChange]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[LossMonthID]"
+                          cachedDataType="i4"
+                          cachedName="LossMonthID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossMonthID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossMonthID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[CalendarMonthID]"
+                          cachedDataType="i4"
+                          cachedName="CalendarMonthID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[CalendarMonthID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[CalendarMonthID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ExpensePaidDCC]"
+                          cachedDataType="cy"
+                          cachedName="ExpensePaidDCC"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpensePaidDCC]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpensePaidDCC]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ExpensePaidAO]"
+                          cachedDataType="cy"
+                          cachedName="ExpensePaidAO"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpensePaidAO]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpensePaidAO]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[PolicyMonthID]"
+                          cachedDataType="cy"
+                          cachedName="PolicyMonthID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[PolicyMonthID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[PolicyMonthID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[LegacySourceSystem]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="LegacySourceSystem"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[PolicyID]"
+                          cachedDataType="i4"
+                          cachedName="PolicyID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[PolicyID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[InforcePremium]"
+                          cachedDataType="cy"
+                          cachedName="InforcePremium"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[InforcePremium]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[InforcePremium]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[UnEarnedPremium]"
+                          cachedDataType="numeric"
+                          cachedName="UnEarnedPremium"
+                          cachedPrecision="38"
+                          cachedScale="2"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[UnEarnedPremium]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[UnEarnedPremium]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[CummulativeEarnedPremium]"
+                          cachedDataType="numeric"
+                          cachedName="CummulativeEarnedPremium"
+                          cachedPrecision="38"
+                          cachedScale="2"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[CummulativeEarnedPremium]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[CummulativeEarnedPremium]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[LossPaid]"
+                          cachedDataType="cy"
+                          cachedName="LossPaid"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossPaid]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossPaid]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[LossReserveInitial]"
+                          cachedDataType="cy"
+                          cachedName="LossReserveInitial"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossReserveInitial]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossReserveInitial]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[LossOutstandingReserveFinancial]"
+                          cachedDataType="cy"
+                          cachedName="LossOutstandingReserveFinancial"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossOutstandingReserveFinancial]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossOutstandingReserveFinancial]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[LossOutstandingReserveNatural]"
+                          cachedDataType="cy"
+                          cachedName="LossOutstandingReserveNatural"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossOutstandingReserveNatural]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossOutstandingReserveNatural]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ExpenseReserveAO]"
+                          cachedDataType="cy"
+                          cachedName="ExpenseReserveAO"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseReserveAO]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseReserveAO]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ExpenseReserveDCC]"
+                          cachedDataType="cy"
+                          cachedName="ExpenseReserveDCC"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseReserveDCC]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseReserveDCC]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ExpenseAOOutstandingReserveFinancial]"
+                          cachedDataType="cy"
+                          cachedName="ExpenseAOOutstandingReserveFinancial"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseAOOutstandingReserveFinancial]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseAOOutstandingReserveFinancial]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ExpenseAOOutstandingReserveNatural]"
+                          cachedDataType="cy"
+                          cachedName="ExpenseAOOutstandingReserveNatural"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseAOOutstandingReserveNatural]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseAOOutstandingReserveNatural]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ExpenseDCCOutstandingReserveFinancial]"
+                          cachedDataType="cy"
+                          cachedName="ExpenseDCCOutstandingReserveFinancial"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseDCCOutstandingReserveFinancial]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseDCCOutstandingReserveFinancial]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ExpenseDCCOutstandingReserveNatural]"
+                          cachedDataType="cy"
+                          cachedName="ExpenseDCCOutstandingReserveNatural"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseDCCOutstandingReserveNatural]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseDCCOutstandingReserveNatural]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[OpenCount]"
+                          cachedDataType="i4"
+                          cachedName="OpenCount"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[OpenCount]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[OpenCount]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[AccountID]"
+                          cachedDataType="i4"
+                          cachedName="AccountID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[AccountID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[AccountID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ClosedwoPayment]"
+                          cachedDataType="i4"
+                          cachedName="ClosedwoPayment"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ClosedwoPaymentCount]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ClosedwoPayment]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ClosedwPayment]"
+                          cachedDataType="i4"
+                          cachedName="ClosedwPayment"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ClosedwPaymentCount]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ClosedwPayment]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ReportedCount]"
+                          cachedDataType="i4"
+                          cachedName="ReportedCount"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ReportedCount]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ReportedCount]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[BatchID]"
+                          cachedDataType="i4"
+                          cachedName="BatchID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Outputs[Derived Column Output].Columns[BatchID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[ReportedMonthID]"
+                          cachedDataType="i4"
+                          cachedName="ReportedMonthID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ReportedMonthID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ReportedMonthID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[AggRiskLocationID]"
+                          cachedDataType="i4"
+                          cachedName="AggRiskLocationID"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[AggRiskLocationID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[AggRiskLocationID]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[SalvageRecovery]"
+                          cachedDataType="cy"
+                          cachedName="SalvageRecovery"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[SalvageRecovery]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[SalvageRecovery]" />
+                        <inputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].Columns[SubrogationRecovery]"
+                          cachedDataType="cy"
+                          cachedName="SubrogationRecovery"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[SubrogationRecovery]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[SubrogationRecovery]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[StatID]"
+                          dataType="i4"
+                          name="StatID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[CompanyID]"
+                          dataType="i4"
+                          name="CompanyID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[AgencyID]"
+                          dataType="i4"
+                          name="AgencyID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ProducerID]"
+                          dataType="i4"
+                          name="ProducerID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[EarnedPremium]"
+                          dataType="cy"
+                          name="EarnedPremium" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[WrittenPremium]"
+                          dataType="cy"
+                          name="WrittenPremium" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                          dataType="dbTimeStamp"
+                          name="DateAdded" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                          dataType="i4"
+                          name="BatchID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ProductID]"
+                          dataType="i4"
+                          name="ProductID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossReserveChange]"
+                          dataType="cy"
+                          name="LossReserveChange" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossReserveNew]"
+                          dataType="cy"
+                          name="LossReserveNew" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[PaidFastTrack]"
+                          dataType="cy"
+                          name="PaidFastTrack" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[SalvagePaid]"
+                          dataType="cy"
+                          name="SalvagePaid" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[SubroPaid]"
+                          dataType="cy"
+                          name="SubroPaid" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[IncurredLoss]"
+                          dataType="cy"
+                          name="IncurredLoss" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossMonthID]"
+                          dataType="i4"
+                          name="LossMonthID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[CalendarMonthID]"
+                          dataType="i4"
+                          name="CalendarMonthID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpensePaidDCC]"
+                          dataType="cy"
+                          name="ExpensePaidDCC" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpensePaidAO]"
+                          dataType="cy"
+                          name="ExpensePaidAO" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[PaidAgainstReserve]"
+                          dataType="cy"
+                          name="PaidAgainstReserve" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ReinsurancePaid]"
+                          dataType="cy"
+                          name="ReinsurancePaid" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ReinsuranceALAE]"
+                          dataType="cy"
+                          name="ReinsuranceALAE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ReinsuranceReserveNew]"
+                          dataType="cy"
+                          name="ReinsuranceReserveNew" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ReinsuranceReserveChange]"
+                          dataType="cy"
+                          name="ReinsuranceReserveChange" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[SubroALAE]"
+                          dataType="cy"
+                          name="SubroALAE" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[PolicyMonthID]"
+                          dataType="i4"
+                          name="PolicyMonthID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="LegacySourceSystem" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[InforcePremium]"
+                          dataType="cy"
+                          name="InforcePremium" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[UnEarnedPremium]"
+                          dataType="numeric"
+                          name="UnEarnedPremium"
+                          precision="18"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[CummulativeEarnedPremium]"
+                          dataType="numeric"
+                          name="CummulativeEarnedPremium"
+                          precision="18"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[AccountID]"
+                          dataType="i4"
+                          name="AccountID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ReportedCount]"
+                          dataType="i4"
+                          name="ReportedCount" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[OpenCount]"
+                          dataType="i4"
+                          name="OpenCount" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ClosedwPaymentCount]"
+                          dataType="i4"
+                          name="ClosedwPaymentCount" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ClosedwoPaymentCount]"
+                          dataType="i4"
+                          name="ClosedwoPaymentCount" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossReserveInitial]"
+                          dataType="cy"
+                          name="LossReserveInitial" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossPaid]"
+                          dataType="cy"
+                          name="LossPaid" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossOutstandingReserveFinancial]"
+                          dataType="cy"
+                          name="LossOutstandingReserveFinancial" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[LossOutstandingReserveNatural]"
+                          dataType="cy"
+                          name="LossOutstandingReserveNatural" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseReserveAO]"
+                          dataType="cy"
+                          name="ExpenseReserveAO" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseReserveDCC]"
+                          dataType="cy"
+                          name="ExpenseReserveDCC" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseAOOutstandingReserveFinancial]"
+                          dataType="cy"
+                          name="ExpenseAOOutstandingReserveFinancial" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseAOOutstandingReserveNatural]"
+                          dataType="cy"
+                          name="ExpenseAOOutstandingReserveNatural" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseDCCOutstandingReserveFinancial]"
+                          dataType="cy"
+                          name="ExpenseDCCOutstandingReserveFinancial" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ExpenseDCCOutstandingReserveNatural]"
+                          dataType="cy"
+                          name="ExpenseDCCOutstandingReserveNatural" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[ReportedMonthID]"
+                          dataType="i4"
+                          name="ReportedMonthID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[AggRiskLocationID]"
+                          dataType="i4"
+                          name="AggRiskLocationID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[SalvageRecovery]"
+                          dataType="cy"
+                          name="SalvageRecovery" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input].ExternalColumns[SubrogationRecovery]"
+                          dataType="cy"
+                          name="SubrogationRecovery" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE_SRC - WC_Production"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor">;WITH DateParam as
+(select 1 as JoinCondition, YEAR(dateadd(m,-1,getdate())) YearP, MONTH(dateadd(m,-1,getdate())) MonthP, 
+CONVERT(nvarchar(6), dateadd(m,0,getdate()), 112) TrxCurrMonth, CONVERT(nvarchar(6), dateadd(m,-1,getdate()), 112) TrxPastMonth
+)
+,RiskLocation
+AS
+(
+select DISTINCT PolicyID, Aggid, f.RiskLocationID, rl.AddressLine1, rl.AddressLine2, rl.City, rl.County, rl.PostalCode
+from FactWCPremiumTransaction f
+Join DimRiskLocation rl ON f.RiskLocationID = rl.RiskLocationID
+)
+,Metrics as
+(SELECT
+	CompanyID,
+	AccountID,
+	AgencyID,
+	ProducerID,
+	PolicyID,
+	LossMonthID,
+	CalendarMonthID,
+	PolicyMonthID,
+	ProductID,
+	ReportedMonthID,
+	AggRiskLocationID,
+	LegacySourceSystem,
+	SUM(LossReserveChange) AS LossReserveChange,
+	SUM(LossReserveInitial) AS LossReserveInitial,
+	SUM(LossPaid) AS LossPaid,
+	SUM(LossOutstandingReserveFinancial) AS LossOutstandingReserveFinancial,
+	SUM(LossOutstandingReserveNatural) AS LossOutstandingReserveNatural,
+	SUM(ExpensePaidAO) AS ExpensePaidAO,
+	SUM(ExpensePaidDCC) AS ExpensePaidDCC,
+	SUM(ExpenseReserveAO) AS ExpenseReserveAO,
+	SUM(ExpenseReserveDCC) AS ExpenseReserveDCC,
+	SUM(ExpenseAOOutstandingReserveFinancial) AS ExpenseAOOutstandingReserveFinancial,
+	SUM(ExpenseAOOutstandingReserveNatural) AS ExpenseAOOutstandingReserveNatural,
+	SUM(ExpenseDCCOutstandingReserveFinancial) AS ExpenseDCCOutstandingReserveFinancial,
+	SUM(ExpenseDCCOutstandingReserveNatural) AS ExpenseDCCOutstandingReserveNatural,
+	SUM(EarnedPremium) AS EarnedPremium,
+	SUM(WrittenPremium) AS WrittenPremium,
+	SUM(InforcePremium) AS InforcePremium,
+    SUM(CummulativeEarnedPremium) AS CummulativeEarnedPremium,
+	SUM(UnEarnedPremium) AS UnEarnedPremium,
+	SUM(SalvageRecovery) AS SalvageRecovery,
+	SUM(SubrogationRecovery) AS SubrogationRecovery
+FROM
+	FactWCProfitability a
+	JOIN DimMonth b ON a.CalendarMonthID = b.MonthID
+	JOIN DateParam dp on dp.JoinCondition = 1   
+WHERE 
+	b.MonthofYear = dp.MonthP
+	AND b.Year = dp.YearP
+GROUP BY
+	CompanyID,
+	AccountID,
+	AgencyID,
+	ProducerID,
+	PolicyID,
+	LossMonthID,
+	CalendarMonthID,
+	PolicyMonthID,
+	ProductID,
+	ReportedMonthID,
+	AggRiskLocationID,
+	LegacySourceSystem
+)
+,ClaimCounts as
+(select AccountID, f.PolicyID, CompanyID, ProducerID, AgencyID, ProductID, 
+polmonth.MonthID PolicyMonthID,COALESCE(rl.AggID,-1) as AggRiskLocationID,
+Rptmonth.MonthID ReportedMonthID,
+lossmonth.MonthID LossMonthID, 'WC' as LegacySourceSystem,
+sum(CASE WHEN st.PublicID = 'Opened' and fd.MonthofYear = MonthP and fd.Year = YearP
+       THEN 1 ELSE 0
+END) ReportedCount,
+sum(CASE WHEN st.PublicID in ('Opened','Reopened') and f.ToDate is null and fd.MonthofYear &lt;= MonthP and fd.Year &lt;= YearP
+       THEN 1 ELSE 0
+END) OpenCount,
+sum(CASE WHEN st.PublicID in ('Closed') and f.CloseIndicator = 'wpayment'
+                and fd.MonthofYear = MonthP and fd.Year = YearP
+       THEN 1
+       WHEN st.PublicID in ('Reopened') and f.CloseIndicator = 'wpayment'
+                and fd.MonthofYear = MonthP and fd.Year = YearP
+       THEN -1
+       ELSE 0
+END) ClosedwPayment,
+sum(CASE WHEN st.PublicID in ('Closed') and f.CloseIndicator = 'wopayment'
+                and fd.MonthofYear = MonthP and fd.Year = YearP
+       THEN 1
+       WHEN st.PublicID in ('Reopened') and f.CloseIndicator = 'wopayment'
+                and fd.MonthofYear = MonthP and fd.Year = YearP
+       THEN -1
+       ELSE 0
+END) ClosedwoPayment
+from FactClaimStatusChange f
+JOIN DimClaim clm ON f.ClaimID = clm.ClaimID
+JOIN DimPolicy pol ON f.PolicyID = pol.PolicyID
+JOIN DimLossLocation ll ON f.LossLocationID = ll.LossLocationID
+JOIN DimStatus st ON f.StatusID = st.StatusID
+JOIN DimDate fd ON f.FromDateID = fd.DateID
+JOIN DimDate b ON f.LossDateID = b.DateID
+JOIN DateParam dp on dp.JoinCondition = 1   
+JOIN DimMonth polmonth ON month(pol.EffectiveDate) = polmonth.MonthofYear and year(pol.EffectiveDate) = polmonth.Year
+JOIN DimMonth lossmonth ON b.MonthofYear = lossmonth.MonthofYear and b.Year = lossmonth.Year
+JOIN DimMonth Rptmonth ON month(clm.ReportedDate) = Rptmonth.MonthofYear and Year(clm.ReportedDate) = Rptmonth.Year
+LEFT JOIN RiskLocation rl ON 
+	ISNULL(rl.AddressLine1,'-1') = ISNULL(ll.AddressLine1,'-1')
+	AND ISNULL(rl.AddressLine2,'-1') = ISNULL(ll.AddressLine2,'-1')
+	AND ISNULL(rl.City,'-1') = ISNULL(ll.City,'-1')
+	AND ISNULL(rl.County,'-1') = ISNULL(ll.County,'-1')
+	AND ISNULL(rl.PostalCode,'-1') = ISNULL(ll.PostalCode,'-1')
+	AND rl.PolicyID = f.PolicyID
+WHERE 1=1
+and pol.ProductCode = 'WC7WorkersComp'
+and fd.MonthofYear &lt;= MonthP and fd.Year &lt;= YearP
+GROUP BY
+AccountID, f.PolicyID, CompanyID, ProducerID, AgencyID, ProductID
+,polmonth.MonthID, lossmonth.MonthID, Rptmonth.MonthID, rl.AggID
+)
+select
+	COALESCE(CM.AccountID,EC.AccountID,-1) as AccountID,
+    COALESCE(CM.PolicyID,EC.PolicyID,-1) as PolicyID,
+    COALESCE(CM.CompanyID,EC.CompanyID,-1) as CompanyID,
+    COALESCE(CM.ProducerID,EC.ProducerID,-1) as ProducerID,
+    COALESCE(CM.AgencyID,EC.AgencyID,-1) as AgencyID,
+    COALESCE(CM.ProductID,EC.ProductID,-1) as ProductID,
+    COALESCE(CM.PolicyMonthID,EC.PolicyMonthID,-1) as PolicyMonthID,
+    COALESCE(CM.LossMonthID,Ec.LossMonthID,-1) as LossMonthID,
+    COALESCE(CM.ReportedMonthID,Ec.ReportedMonthID,-1) as ReportedMonthID,
+	TrxPastMonth as CalendarMonthID,
+	COALESCE(CM.AggRiskLocationID,EC.AggRiskLocationID) as AggRiskLocationID,
+	COALESCE(CM.LegacySourceSystem,EC.LegacySourceSystem) as LegacySourceSystem,
+	COALESCE(LossReserveChange,0.00) AS LossReserveChange,
+	COALESCE(LossReserveInitial,0.00) AS LossReserveInitial,
+	COALESCE(LossPaid,0.00) AS LossPaid,
+	COALESCE(LossOutstandingReserveFinancial,0.00) AS LossOutstandingReserveFinancial,
+	COALESCE(LossOutstandingReserveNatural,0.00) AS LossOutstandingReserveNatural,
+	COALESCE(ExpensePaidAO,0.00) AS ExpensePaidAO,
+	COALESCE(ExpensePaidDCC,0.00) AS ExpensePaidDCC,
+	COALESCE(ExpenseReserveAO,0.00) AS ExpenseReserveAO,
+	COALESCE(ExpenseReserveDCC,0.00) AS ExpenseReserveDCC,
+	COALESCE(ExpenseAOOutstandingReserveFinancial,0.00) AS ExpenseAOOutstandingReserveFinancial,
+	COALESCE(ExpenseAOOutstandingReserveNatural,0.00) AS ExpenseAOOutstandingReserveNatural,
+	COALESCE(ExpenseDCCOutstandingReserveFinancial,0.00) AS ExpenseDCCOutstandingReserveFinancial,
+	COALESCE(ExpenseDCCOutstandingReserveNatural,0.00) AS ExpenseDCCOutstandingReserveNatural,
+	COALESCE(EarnedPremium,0.00) AS EarnedPremium,
+	COALESCE(WrittenPremium,0.00) AS WrittenPremium,
+	COALESCE(InforcePremium,0.00) AS InforcePremium,
+    COALESCE(CummulativeEarnedPremium,0.00) AS CummulativeEarnedPremium,
+	COALESCE(UnEarnedPremium,0.00) AS UnEarnedPremium,
+	COALESCE(ReportedCount,0) as ReportedCount,
+	COALESCE(OpenCount,0) as OpenCount,
+	COALESCE(ClosedwoPayment,0) as ClosedwoPayment,
+	COALESCE(ClosedwPayment,0) as ClosedwPayment,
+	COALESCE(CM.SalvageRecovery,0) as SalvageRecovery,
+	COALESCE(CM.SubrogationRecovery,0) as SubrogationRecovery
+FROM Metrics CM
+FULL OUTER JOIN ClaimCounts EC ON
+       CM.CompanyID = EC.CompanyID
+       AND CM.AccountID = EC.AccountID
+       AND CM.AgencyID = EC.AgencyID
+       AND CM.ProducerID = EC.ProducerID
+       AND CM.PolicyID = EC.PolicyID
+    AND CM.LossMonthID = EC.LossMonthID
+    AND CM.ReportedMonthID = EC.ReportedMonthID
+    AND CM.PolicyMonthID = EC.PolicyMonthID
+       AND CM.ProductID = EC.ProductID
+JOIN DateParam dp on dp.JoinCondition = 1</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{3038447A-BBBC-4090-9B76-F13941D4A32A};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Connections[OleDbConnection]"
+                      connectionManagerID="Package.ConnectionManagers[EnterpriseDataWarehouse]"
+                      connectionManagerRefId="Package.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[CompanyID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[CompanyID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[CompanyID]"
+                          name="CompanyID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[AgencyID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[AgencyID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[AgencyID]"
+                          name="AgencyID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ProducerID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ProducerID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ProducerID]"
+                          name="ProducerID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[EarnedPremium]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[EarnedPremium]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[EarnedPremium]"
+                          name="EarnedPremium"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[WrittenPremium]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[WrittenPremium]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[WrittenPremium]"
+                          name="WrittenPremium"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ProductID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ProductID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ProductID]"
+                          name="ProductID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossReserveChange]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossReserveChange]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossReserveChange]"
+                          name="LossReserveChange"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossMonthID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossMonthID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossMonthID]"
+                          name="LossMonthID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[CalendarMonthID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[CalendarMonthID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[CalendarMonthID]"
+                          name="CalendarMonthID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpensePaidDCC]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpensePaidDCC]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpensePaidDCC]"
+                          name="ExpensePaidDCC"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpensePaidAO]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpensePaidAO]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpensePaidAO]"
+                          name="ExpensePaidAO"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[PolicyMonthID]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[PolicyMonthID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[PolicyMonthID]"
+                          name="PolicyMonthID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                          length="50"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                          name="LegacySourceSystem"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          name="PolicyID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[InforcePremium]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[InforcePremium]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[InforcePremium]"
+                          name="InforcePremium"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[UnEarnedPremium]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[UnEarnedPremium]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[UnEarnedPremium]"
+                          name="UnEarnedPremium"
+                          precision="38"
+                          scale="2"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[CummulativeEarnedPremium]"
+                          dataType="numeric"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[CummulativeEarnedPremium]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[CummulativeEarnedPremium]"
+                          name="CummulativeEarnedPremium"
+                          precision="38"
+                          scale="2"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossReserveInitial]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossReserveInitial]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossReserveInitial]"
+                          name="LossReserveInitial"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossPaid]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossPaid]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossPaid]"
+                          name="LossPaid"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossOutstandingReserveFinancial]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossOutstandingReserveFinancial]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossOutstandingReserveFinancial]"
+                          name="LossOutstandingReserveFinancial"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossOutstandingReserveNatural]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossOutstandingReserveNatural]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[LossOutstandingReserveNatural]"
+                          name="LossOutstandingReserveNatural"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseReserveAO]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseReserveAO]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseReserveAO]"
+                          name="ExpenseReserveAO"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseReserveDCC]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseReserveDCC]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseReserveDCC]"
+                          name="ExpenseReserveDCC"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseAOOutstandingReserveFinancial]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseAOOutstandingReserveFinancial]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseAOOutstandingReserveFinancial]"
+                          name="ExpenseAOOutstandingReserveFinancial"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseAOOutstandingReserveNatural]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseAOOutstandingReserveNatural]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseAOOutstandingReserveNatural]"
+                          name="ExpenseAOOutstandingReserveNatural"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseDCCOutstandingReserveFinancial]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseDCCOutstandingReserveFinancial]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseDCCOutstandingReserveFinancial]"
+                          name="ExpenseDCCOutstandingReserveFinancial"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseDCCOutstandingReserveNatural]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseDCCOutstandingReserveNatural]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ExpenseDCCOutstandingReserveNatural]"
+                          name="ExpenseDCCOutstandingReserveNatural"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[OpenCount]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[OpenCount]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[OpenCount]"
+                          name="OpenCount"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[AccountID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[AccountID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[AccountID]"
+                          name="AccountID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ReportedCount]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ReportedCount]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ReportedCount]"
+                          name="ReportedCount"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ClosedwoPayment]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ClosedwoPayment]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ClosedwoPayment]"
+                          name="ClosedwoPayment"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ClosedwPayment]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ClosedwPayment]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ClosedwPayment]"
+                          name="ClosedwPayment"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ReportedMonthID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ReportedMonthID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[ReportedMonthID]"
+                          name="ReportedMonthID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[AggRiskLocationID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[AggRiskLocationID]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[AggRiskLocationID]"
+                          name="AggRiskLocationID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[SalvageRecovery]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[SalvageRecovery]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[SalvageRecovery]"
+                          name="SalvageRecovery"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[SubrogationRecovery]"
+                          dataType="cy"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[SubrogationRecovery]"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].Columns[SubrogationRecovery]"
+                          name="SubrogationRecovery"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[CompanyID]"
+                          dataType="i4"
+                          name="CompanyID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[AgencyID]"
+                          dataType="i4"
+                          name="AgencyID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ProducerID]"
+                          dataType="i4"
+                          name="ProducerID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[EarnedPremium]"
+                          dataType="numeric"
+                          name="EarnedPremium"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[WrittenPremium]"
+                          dataType="numeric"
+                          name="WrittenPremium"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ProductID]"
+                          dataType="i4"
+                          name="ProductID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossReserveChange]"
+                          dataType="numeric"
+                          name="LossReserveChange"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossMonthID]"
+                          dataType="i4"
+                          name="LossMonthID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[CalendarMonthID]"
+                          dataType="wstr"
+                          length="6"
+                          name="CalendarMonthID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpensePaidDCC]"
+                          dataType="numeric"
+                          name="ExpensePaidDCC"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpensePaidAO]"
+                          dataType="numeric"
+                          name="ExpensePaidAO"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[PolicyMonthID]"
+                          dataType="i4"
+                          name="PolicyMonthID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="LegacySourceSystem" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[InforcePremium]"
+                          dataType="numeric"
+                          name="InforcePremium"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[UnEarnedPremium]"
+                          dataType="numeric"
+                          name="UnEarnedPremium"
+                          precision="38"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[CummulativeEarnedPremium]"
+                          dataType="numeric"
+                          name="CummulativeEarnedPremium"
+                          precision="38"
+                          scale="2" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossReserveInitial]"
+                          dataType="numeric"
+                          name="LossReserveInitial"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossPaid]"
+                          dataType="numeric"
+                          name="LossPaid"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossOutstandingReserveFinancial]"
+                          dataType="numeric"
+                          name="LossOutstandingReserveFinancial"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[LossOutstandingReserveNatural]"
+                          dataType="numeric"
+                          name="LossOutstandingReserveNatural"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseReserveAO]"
+                          dataType="numeric"
+                          name="ExpenseReserveAO"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseReserveDCC]"
+                          dataType="numeric"
+                          name="ExpenseReserveDCC"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseAOOutstandingReserveFinancial]"
+                          dataType="numeric"
+                          name="ExpenseAOOutstandingReserveFinancial"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseAOOutstandingReserveNatural]"
+                          dataType="numeric"
+                          name="ExpenseAOOutstandingReserveNatural"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseDCCOutstandingReserveFinancial]"
+                          dataType="numeric"
+                          name="ExpenseDCCOutstandingReserveFinancial"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ExpenseDCCOutstandingReserveNatural]"
+                          dataType="numeric"
+                          name="ExpenseDCCOutstandingReserveNatural"
+                          precision="19"
+                          scale="4" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[OpenCount]"
+                          dataType="i4"
+                          name="OpenCount" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[AccountID]"
+                          dataType="i4"
+                          name="AccountID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ReportedCount]"
+                          dataType="i4"
+                          name="ReportedCount" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ClosedwoPayment]"
+                          dataType="i4"
+                          name="ClosedwoPayment" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ClosedwPayment]"
+                          dataType="i4"
+                          name="ClosedwPayment" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[ReportedMonthID]"
+                          dataType="i4"
+                          name="ReportedMonthID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[AggRiskLocationID]"
+                          dataType="i4"
+                          name="AggRiskLocationID" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[SalvageRecovery]"
+                          dataType="cy"
+                          name="SalvageRecovery" />
+                        <externalMetadataColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output].ExternalColumns[SubrogationRecovery]"
+                          dataType="cy"
+                          name="SubrogationRecovery" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[CompanyID]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[CompanyID]"
+                          name="CompanyID" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[AccountID]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[AccountID]"
+                          name="AccountID" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[AgencyID]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[AgencyID]"
+                          name="AgencyID" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ProducerID]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ProducerID]"
+                          name="ProducerID" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          name="PolicyID" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossMonthID]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossMonthID]"
+                          name="LossMonthID" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[CalendarMonthID]"
+                          dataType="wstr"
+                          length="6"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[CalendarMonthID]"
+                          name="CalendarMonthID" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ProductID]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ProductID]"
+                          name="ProductID" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ReportedMonthID]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ReportedMonthID]"
+                          name="ReportedMonthID" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossReserveChange]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossReserveChange]"
+                          name="LossReserveChange"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[AggRiskLocationID]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[AggRiskLocationID]"
+                          name="AggRiskLocationID" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                          name="LegacySourceSystem" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[OpenCount]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[OpenCount]"
+                          name="OpenCount" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpensePaidDCC]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpensePaidDCC]"
+                          name="ExpensePaidDCC"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossReserveInitial]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossReserveInitial]"
+                          name="LossReserveInitial"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossPaid]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossPaid]"
+                          name="LossPaid"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossOutstandingReserveFinancial]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossOutstandingReserveFinancial]"
+                          name="LossOutstandingReserveFinancial"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossOutstandingReserveNatural]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[LossOutstandingReserveNatural]"
+                          name="LossOutstandingReserveNatural"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpensePaidAO]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpensePaidAO]"
+                          name="ExpensePaidAO"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[EarnedPremium]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[EarnedPremium]"
+                          name="EarnedPremium"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseReserveAO]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseReserveAO]"
+                          name="ExpenseReserveAO"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseReserveDCC]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseReserveDCC]"
+                          name="ExpenseReserveDCC"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseAOOutstandingReserveFinancial]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseAOOutstandingReserveFinancial]"
+                          name="ExpenseAOOutstandingReserveFinancial"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseAOOutstandingReserveNatural]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseAOOutstandingReserveNatural]"
+                          name="ExpenseAOOutstandingReserveNatural"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseDCCOutstandingReserveFinancial]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseDCCOutstandingReserveFinancial]"
+                          name="ExpenseDCCOutstandingReserveFinancial"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseDCCOutstandingReserveNatural]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ExpenseDCCOutstandingReserveNatural]"
+                          name="ExpenseDCCOutstandingReserveNatural"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[WrittenPremium]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[WrittenPremium]"
+                          name="WrittenPremium"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[PolicyMonthID]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[PolicyMonthID]"
+                          name="PolicyMonthID" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[InforcePremium]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[InforcePremium]"
+                          name="InforcePremium"
+                          precision="19"
+                          scale="4" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[CummulativeEarnedPremium]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[CummulativeEarnedPremium]"
+                          name="CummulativeEarnedPremium"
+                          precision="38"
+                          scale="2" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ReportedCount]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ReportedCount]"
+                          name="ReportedCount" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[UnEarnedPremium]"
+                          dataType="numeric"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[UnEarnedPremium]"
+                          name="UnEarnedPremium"
+                          precision="38"
+                          scale="2" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ClosedwoPayment]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ClosedwoPayment]"
+                          name="ClosedwoPayment" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ClosedwPayment]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ClosedwPayment]"
+                          name="ClosedwPayment" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[SalvageRecovery]"
+                          dataType="cy"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[SalvageRecovery]"
+                          name="SalvageRecovery" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[SubrogationRecovery]"
+                          dataType="cy"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[SubrogationRecovery]"
+                          name="SubrogationRecovery" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\SEQC - EDW\DFT - Fact Production.Paths[Derived Column Output]"
+                  endId="Package\SEQC - EDW\DFT - Fact Production\CNT - Insert Count.Inputs[Row Count Input 1]"
+                  name="Derived Column Output"
+                  startId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\SEQC - EDW\DFT - Fact Production.Paths[OLE DB Source Output]"
+                  endId="Package\SEQC - EDW\DFT - Fact Production\CNT - Source Count.Inputs[Row Count Input 1]"
+                  name="OLE DB Source Output"
+                  startId="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\SEQC - EDW\DFT - Fact Production.Paths[Row Count Output 1]"
+                  endId="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction.Inputs[OLE DB Destination Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQC - EDW\DFT - Fact Production\CNT - Insert Count.Outputs[Row Count Output 1]" />
+                <path
+                  refId="Package\SEQC - EDW\DFT - Fact Production.Paths[Row Count Output 11]"
+                  endId="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID.Inputs[Derived Column Input]"
+                  name="Row Count Output 1"
+                  startId="Package\SEQC - EDW\DFT - Fact Production\CNT - Source Count.Outputs[Row Count Output 1]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\SEQC - EDW.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{BD9A3D8E-952D-41ED-9BBA-787CC6BC92B6}"
+          DTS:From="Package\SEQC - EDW\Delete Existing Records"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\SEQC - EDW\DFT - Fact Production" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{a1515d64-98d0-4f52-9d58-3630f1c0a143}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{BE3B9453-07FB-444B-82CC-3BC4A59A5159}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="200" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{50d282a5-e890-46ff-b5e6-cb1ac64fe555}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{BE3B9453-07FB-444B-82CC-3BC4A59A5159}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{B793262B-2300-41C8-B84B-C89E884969EB}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{BE3B9453-07FB-444B-82CC-3BC4A59A5159}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{9477F4BB-94E8-4EB9-9C08-6D75F1731A5C}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SEQC - EDW" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{4047E72D-8278-46B8-BF39-7DCA182FE98A}"
+      DTS:From="Package\SEQC - EDW"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL - Conclude Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{AE8BEE64-8AB5-4C91-838B-220887CF28F1}"
+      DTS:From="Package\SEQC - EDW"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SQL - Conclude Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{968298C5-9EE0-4600-8BA8-AEA6C7D37D60}"
+      DTS:EventID="750661184"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{72467293-6DC6-4F2A-B648-0F50A76EDD85}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{572EBEB1-E147-4348-85BE-F7DE0302120E}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{BE3B9453-07FB-444B-82CC-3BC4A59A5159}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select -1&#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="239,42"
+          Id="Package\SEQC - EDW\Delete Existing Records"
+          TopLeft="42.583333333333,31.833333333333" />
+        <NodeLayout
+          Size="239,42"
+          Id="Package\SEQC - EDW\DFT - Fact Production"
+          TopLeft="42.583333333333,99.833333333333" />
+        <EdgeLayout
+          Id="Package\SEQC - EDW.PrecedenceConstraints[Constraint]"
+          TopLeft="162.083333333333,73.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,26"
+              Start="0,0"
+              End="0,18.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="325,197"
+          Size="325,240"
+          Id="Package\SEQC - EDW"
+          TopLeft="235,100" />
+        <NodeLayout
+          Size="265,42"
+          Id="Package\SQL - Conclude Process Completed"
+          TopLeft="103,389" />
+        <NodeLayout
+          Size="265,42"
+          Id="Package\SQL - Conclude Process Failed"
+          TopLeft="458,389" />
+        <NodeLayout
+          Size="265,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="267.083333333333,18.8333333333335" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="398.541666666667,60.8333333333335">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,39.1666666666665"
+              Start="0,0"
+              End="0,31.6666666666665">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.6666666666665" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="344.666666666667,340">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-109.166666666667,49"
+              Start="0,0"
+              End="-109.166666666667,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.7440293937538" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.7440293937538"
+                    Point2="0,19.7440293937538"
+                    Point3="-4,19.7440293937538" />
+                  <mssgle:LineSegment
+                    End="-105.166666666667,19.7440293937538" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-105.166666666667,19.7440293937538"
+                    Point2="-109.166666666667,19.7440293937538"
+                    Point3="-109.166666666667,23.7440293937538" />
+                  <mssgle:LineSegment
+                    End="-109.166666666667,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="450.333333333333,340">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="140.166666666667,49"
+              Start="0,0"
+              End="140.166666666667,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.7440293937538" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.7440293937538"
+                    Point2="0,19.7440293937538"
+                    Point3="4,19.7440293937538" />
+                  <mssgle:LineSegment
+                    End="136.166666666667,19.7440293937538" />
+                  <mssgle:CubicBezierSegment
+                    Point1="136.166666666667,19.7440293937538"
+                    Point2="140.166666666667,19.7440293937538"
+                    Point3="140.166666666667,23.7440293937538" />
+                  <mssgle:LineSegment
+                    End="140.166666666667,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="54.8419856770833,24.7440293937538,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="251,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="60,60" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\SEQC - EDW\DFT - Fact Production">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="137,42"
+          Id="Package\SEQC - EDW\DFT - Fact Production\drv_BatchID"
+          TopLeft="293,214" />
+        <NodeLayout
+          Size="232,42"
+          Id="Package\SEQC - EDW\DFT - Fact Production\CNT - Source Count"
+          TopLeft="247.25,140.666666666667" />
+        <NodeLayout
+          Size="232,42"
+          Id="Package\SEQC - EDW\DFT - Fact Production\CNT - Insert Count"
+          TopLeft="250.25,289.333333333333" />
+        <NodeLayout
+          Size="232,42"
+          Id="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction"
+          TopLeft="249.25,359" />
+        <NodeLayout
+          Size="205,42"
+          Id="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production"
+          TopLeft="263.25,65" />
+        <EdgeLayout
+          Id="Package\SEQC - EDW\DFT - Fact Production.Paths[OLE DB Source Output]"
+          TopLeft="364.5,107">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.666666666667"
+              Start="0,0"
+              End="0,26.166666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.166666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQC - EDW\DFT - Fact Production.Paths[Derived Column Output]"
+          TopLeft="363.875,256">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,33.333333333333"
+              Start="0,0"
+              End="0,25.833333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,25.833333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQC - EDW\DFT - Fact Production.Paths[Row Count Output 11]"
+          TopLeft="362.375,182.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.333333333333"
+              Start="0,0"
+              End="0,23.833333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.833333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\SEQC - EDW\DFT - Fact Production.Paths[Row Count Output 1]"
+          TopLeft="365.75,331.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,27.666666666667"
+              Start="0,0"
+              End="0,20.166666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.166666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQC - EDW\DFT - Fact Production\OLE_DEST - Load WCProduction">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\SEQC - EDW\DFT - Fact Production\OLE_SRC - WC_Production">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

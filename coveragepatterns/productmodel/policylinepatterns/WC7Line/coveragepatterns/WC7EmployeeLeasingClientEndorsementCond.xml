@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<ConditionPattern
+  codeIdentifier="WC7EmployeeLeasingClientEndorsementCond"
+  conditionSubtype="WC7WorkersCompCond"
+  coverageCategory="WC7WorkCompLineCategoryCond"
+  existence="Electable"
+  lookupTableName="WC7Cond"
+  owningEntityType="WC7WorkersCompLine"
+  policyLinePattern="WC7Line"
+  priority="1180"
+  public-id="WC7EmployeeLeasingClientEndorsementCond"
+  referenceDateByType="PolicyTerm">
+  <AvailabilityScript><![CDATA[      var employeeType = WC7WorkersCompLine.EmployeeLeasingPlan.ProfessionalEmployeeType
+      var policyType =  WC7WorkersCompLine.EmployeeLeasingPlan.PolicyType
+      return (employeeType == "PEO" and not WC7WorkersCompLine.hasLocationsOnlyInJurisdictions({TC_IN, TC_WI}))
+        or (employeeType == "PEO" and policyType == "Master" and WC7WorkersCompLine.hasLocationInAnyOfJurisdictions({TC_WI}))
+        or (employeeType == "PEO" and policyType == "MultiplePEO" and WC7WorkersCompLine.hasLocationInAnyOfJurisdictions({TC_AZ}))
+
+
+    
+  ]]></AvailabilityScript>
+  <CovTerms/>
+</ConditionPattern>

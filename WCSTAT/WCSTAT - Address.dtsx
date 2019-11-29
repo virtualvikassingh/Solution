@@ -1,0 +1,1003 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/11/2018 11:54:38 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ACF-EWAQW01"
+  DTS:CreatorName="ACFS24\vikas.singh"
+  DTS:DTSID="{7185452A-7C61-4D78-B666-F64DCA5D29CD}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCSTAT - Address"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="25"
+  DTS:VersionGUID="{DA223D30-3DCA-4CFF-B3E6-580033987CD7}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportMonth"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportMonth].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{74F86680-1652-43D1-9525-09B02C048796}"
+      DTS:ObjectName="ReportMonth" />
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportYear"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportYear].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{AED35C6F-D75F-40CA-BBD3-6C22969BB5E6}"
+      DTS:ObjectName="ReportYear" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{92A867E8-F4CF-4110-8E41-7624FE9D142B}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportMonth">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{71BBD09E-77AD-4E9C-8532-0EAD7168917D}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportYear">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Address Record"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{44394520-ACD7-4A2B-B183-ACD71FB682A5}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Address Record"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Address Record\DEST - WCStatReportData"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DEST - WCStatReportData"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STAGE_WCStatReportData]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Address Record\DEST - WCStatReportData.Connections[OleDbConnection]"
+                  connectionManagerID="{92E7D99B-74F9-414C-93B4-3FBDA62D5F91}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WCSTAT]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PolicyID]"
+                      cachedDataType="i4"
+                      cachedName="PolicyID"
+                      externalMetadataColumnId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyID]" />
+                    <inputColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ExposureState]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ExposureState"
+                      externalMetadataColumnId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ExposureState]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureState]" />
+                    <inputColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[RecordTypeCodeC1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="RecordTypeCodeC1"
+                      externalMetadataColumnId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]" />
+                    <inputColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[AddressOfInsuredC2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="AddressOfInsuredC2"
+                      externalMetadataColumnId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[AddressOfInsuredC2]" />
+                    <inputColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC3]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="130"
+                      cachedName="ReservedForFutureUseC3"
+                      externalMetadataColumnId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC3]" />
+                    <inputColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="PolicyNumber"
+                      externalMetadataColumnId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                    <inputColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReportMonth]"
+                      cachedDataType="i4"
+                      cachedName="ReportMonth"
+                      externalMetadataColumnId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportMonth]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]" />
+                    <inputColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReportYear]"
+                      cachedDataType="i4"
+                      cachedName="ReportYear"
+                      externalMetadataColumnId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportYear]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]" />
+                    <inputColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[TermNumber]"
+                      cachedDataType="i4"
+                      cachedName="TermNumber"
+                      externalMetadataColumnId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[TermNumber]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[StatID]"
+                      dataType="i8"
+                      name="StatID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column4" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column5" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column6" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column7" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column8" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column9" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column11" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column12" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column13" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column14" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column15" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column16" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column17" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column18" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column19]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column19" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column20]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column20" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column21]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column21" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column22]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column22" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column23]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column23" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column24]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column24" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column25]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column25" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column26]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column26" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column27]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column27" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column28]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column28" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column29]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column29" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column30]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column30" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column31]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column31" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column32]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column32" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column33]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column33" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column34]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column34" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column35]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column35" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column36]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column36" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column37]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column37" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column38]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column38" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column39]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column39" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column40]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column40" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column41]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column41" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column42]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column42" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column43]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column43" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column44]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column44" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column45]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column45" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column46]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column46" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column47]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column47" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ExposureState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                      dataType="i8"
+                      name="PolicyID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="PolicyNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[TermNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TermNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportMonth]"
+                      dataType="i4"
+                      name="ReportMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportYear]"
+                      dataType="i4"
+                      name="ReportYear" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingMonth]"
+                      dataType="i4"
+                      name="ReportingMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingYear]"
+                      dataType="i4"
+                      name="ReportingYear" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Address Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Address Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Address Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Address Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Address Record\SRC - DimPolicy"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - DimPolicy"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With  CTE_Address as 
+(
+	Select 	 
+	 '3' RecordTypeCodeC1,	 
+	 dbo.udf_MakeFixedWidthStringIN(ISNULL(p.AddressLine1,'') +   IIF(p.AddressLine2 IS NULL,'', ', ' + p.AddressLine2) +  IIF(p.AddressLine3 IS NULL,'', ', ' + p.AddressLine3) +  IIF(p.City IS NULL,'', ', ' + p.City)  +  IIF(p.State IS NULL,'', ', ' + p.State) 	 +  IIF(p.PostalCode IS NULL,'', ', ' + p.PostalCode),'',79) AddressOfInsuredC2,
+	 Replicate(' ',130) ReservedForFutureUseC3,
+	 p.PolicyID,
+	 p.PolicyNumber, 
+	 p.TermNumber, 
+	 p.EffectiveDate, 
+	 l.State ExposureState,
+	 ep.ReportMonth, 
+	 ep.ReportYear,
+	 Row_number() over(partition by p.PolicyNumber, p.TermNumber order by p.JobCloseDate Desc) RowNumber 
+
+ From FactWCPremiumTransaction f 
+	inner join DimPolicy p  on f.PolicyID = p.PolicyID
+	inner join DimWCCoverage c on f.CoverageID = c.CoverageID
+    inner join DimRiskLocation l on f.RiskLocationID = l.RiskLocationID
+	inner join VW_WCStatEffectivePolicies ep on ep.PolicyNumber = p.PolicyNumber and ep.TermNumber = p.TermNumber 
+
+Where l.State in ('MI','IN')
+	And p.EffectiveDate &lt; DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)
+	and p.JobCloseDate &lt;  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GETDATE()), 0)
+	and p.TransactionType = 'Audit'
+	and p.PolicyStatus  = 'Completed'
+ 
+ )
+
+
+ Select * from CTE_Address
+ Where RowNumber = 1 
+ Order by PolicyNumber</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Address Record\SRC - DimPolicy.Connections[OleDbConnection]"
+                  connectionManagerID="{5D61FD35-9751-47D2-B783-21BBF451814D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCodeC1]"
+                      length="1"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]"
+                      name="RecordTypeCodeC1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                      name="PolicyID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      length="50"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      name="PolicyNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[EffectiveDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[EffectiveDate]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[EffectiveDate]"
+                      name="EffectiveDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureState]"
+                      length="50"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureState]"
+                      name="ExposureState"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RowNumber]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RowNumber]"
+                      name="RowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[AddressOfInsuredC2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[AddressOfInsuredC2]"
+                      length="250"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[AddressOfInsuredC2]"
+                      name="AddressOfInsuredC2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC3]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC3]"
+                      length="130"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC3]"
+                      name="ReservedForFutureUseC3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      name="TermNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportMonth]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]"
+                      name="ReportMonth"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportYear]"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]"
+                      name="ReportYear"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="RecordTypeCodeC1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                      dataType="i4"
+                      name="PolicyID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="PolicyNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[EffectiveDate]"
+                      dataType="dbTimeStamp"
+                      name="EffectiveDate" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ExposureState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RowNumber]"
+                      dataType="i8"
+                      name="RowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[AddressOfInsuredC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="AddressOfInsuredC2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="130"
+                      name="ReservedForFutureUseC3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      dataType="i4"
+                      name="TermNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportMonth]"
+                      dataType="i4"
+                      name="ReportMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportYear]"
+                      dataType="i4"
+                      name="ReportYear" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RecordTypeCodeC1]"
+                      name="RecordTypeCodeC1" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[AddressOfInsuredC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[AddressOfInsuredC2]"
+                      name="AddressOfInsuredC2" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="130"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC3]"
+                      name="ReservedForFutureUseC3" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                      dataType="i4"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                      name="PolicyID" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      name="PolicyNumber" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      dataType="i4"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      name="TermNumber" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[EffectiveDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[EffectiveDate]"
+                      name="EffectiveDate" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureState]"
+                      name="ExposureState" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportMonth]"
+                      dataType="i4"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportMonth]"
+                      name="ReportMonth" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportYear]"
+                      dataType="i4"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportYear]"
+                      name="ReportYear" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RowNumber]"
+                      dataType="i8"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RowNumber]"
+                      name="RowNumber" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Address Record.Paths[OLE DB Source Output]"
+              endId="Package\Load Address Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Address Record\SRC - DimPolicy.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="178,42"
+          Id="Package\Load Address Record"
+          TopLeft="217.5,158.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Address Record">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Load Address Record\DEST - WCStatReportData"
+          TopLeft="171.5,179.5" />
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Load Address Record\SRC - DimPolicy"
+          TopLeft="197.5,33.5" />
+        <EdgeLayout
+          Id="Package\Load Address Record.Paths[OLE DB Source Output]"
+          TopLeft="273.75,75.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,104"
+              Start="0,0"
+              End="0,96.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,96.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Address Record\DEST - WCStatReportData">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Address Record\SRC - DimPolicy">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

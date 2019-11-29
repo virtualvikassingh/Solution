@@ -1,0 +1,2301 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/26/2016 5:51:15 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\vikas.singh"
+  DTS:DTSID="{C07BD6E6-9B68-4D45-9EE5-C6596760252C}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCPOLS_Load_USLH"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="243"
+  DTS:VersionGUID="{348627CB-6B91-42CC-93CE-5264BE68BE67}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{E2E70994-2EF5-47F6-93C5-2207FE158AAA}"
+      DTS:ObjectName="BatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="StartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::StartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{45CAEC83-324C-4D1D-BF56-42D26DC19DEB}"
+      DTS:ObjectName="StartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="EndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::EndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{A0D303BA-6D5C-4C0D-ACFB-7B8EDA554F61}"
+      DTS:ObjectName="EndDate" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{09C22DFA-62D3-4063-920D-7B12D18D1A69}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{B7F56420-7147-4E70-89C5-74004DC6EB28}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="EndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">1/25/2017 7:08:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C864DFD4-18B7-4B5B-9716-4BD642FDD001}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">1/1/2017 12:18:00 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{8A90902F-C80C-4DD8-BF6B-85AD22FEE11C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{ACE1743D-CBFF-4717-ADB0-42E30F45AE62}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\Process Failed.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{FAA37C40-E215-43DB-B975-E7013ADCCA22}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{8B4C7A12-D15F-4DA8-826F-2CF406E6D7B6}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="&#xA;Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{6BF17EB8-2840-45E0-A3D3-F3801506F47E}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\DFT Load Staging"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{26AA3731-11E3-4016-8CD1-C585CE9A6DEA}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="DFT Load Staging"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\DFT Load Staging\Insert date"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Insert date"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\DFT Load Staging\Insert date.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\Insert date.Inputs[Derived Column Input].Columns[Data]"
+                          cachedCodepage="1252"
+                          cachedDataType="text"
+                          cachedName="Data"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[Data]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Sequence Container\DFT Load Staging\Insert date.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Output].Columns[Insert date]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Output].Columns[Insert date]"
+                          name="Insert date"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[GETDATE]()</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">GETDATE()</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Output].Columns[DATA NEW]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="150"
+                          lineageId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Output].Columns[DATA NEW]"
+                          name="DATA NEW"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,150,1252)#{Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[Data]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,150,1252)Data</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Sequence Container\DFT Load Staging\Insert date.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\DFT Load Staging\OLE D USLH"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE D USLH"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[WCPOLS_USLH]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">0</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].Columns[Policyid]"
+                          cachedDataType="i4"
+                          cachedName="Policyid"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyId]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[Policyid]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="PolicyNumber"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].Columns[PolicyState]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="PolicyState"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyState]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[PolicyState]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].Columns[RecordType]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="RecordType"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[RecordType]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[RecordType]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].Columns[EndorsmentNum]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="EndorsmentNum"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[EndorsmentNum]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[EndorsmentNum]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].Columns[BureauVI]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="BureauVI"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[BureauVI]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[BureauVI]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].Columns[PolicyName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="34"
+                          cachedName="PolicyName"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Inusred]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[PolicyName]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].Columns[effect_date]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="effect_date"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[effect_date]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].Columns[Insert date]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="Insert date"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Output].Columns[Insert date]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].Columns[DATA NEW]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="150"
+                          cachedName="DATA NEW"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[Data]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Output].Columns[DATA NEW]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[USLH_ID]"
+                          dataType="i8"
+                          name="USLH_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyId]"
+                          dataType="i4"
+                          name="PolicyId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="PolicyState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RecordType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[EndorsmentNum]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="EndorsmentNum" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="BureauVI" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[Data]"
+                          codePage="1252"
+                          dataType="str"
+                          length="150"
+                          name="Data" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Inusred]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="Name_Of_Inusred" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Endorsement_Effective_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          dataType="dbTimeStamp"
+                          name="Insert_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="dbTimeStamp"
+                          name="Update_Date" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\DFT Load Staging\OLE S Staging"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE S Staging"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">with
+Trans
+as (
+select policyid, PolicyNumber,PolicyState , PolicyName,  [EffectiveDate] ,[RecordType],[EndorsmentNum],[BureauVI]
+       ,cast( cast(isnull(enstate,'00') as varchar(2))+right('0000'+isnull(factor,''),4)  as varchar(max)) as B ,y,x 
+from [dbo].[Stage_WCPOLS_USLH] where x=1 
+
+union all
+
+select C.policyid, C.PolicyNumber, c.PolicyState,C.PolicyName,c.EffectiveDate,c.RecordType,c.EndorsmentNum,c.BureauVI
+     , c.B +cast(isnull(s.enstate,'00') as varchar(2))+right('0000'+isnull(s.Factor,''),4)  as B  , s.y ,s.x  from trans as c
+ join [dbo].[Stage_WCPOLS_USLH] S  on S.policyid=C.policyid and s.y=c.y  AND S.x=c.x+1 
+)
+
+select Policyid 
+,cast(PolicyNumber  as varchar(18))  as PolicyNumber
+,cast(PolicyState  as varchar(2)) as PolicyState
+,RecordType
+,EndorsmentNum
+,BureauVI
+,left(B+replicate('0',150),150 ) as Data
+,PolicyName
+, right(replace(convert(date,EffectiveDate,2),'-',''),6)    as effect_date
+from  
+(
+select *  , row_number() over (partition by policyid, Y order by x desc ) as ind  from Trans ) a
+where ind=1</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping"></property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[Policyid]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[Policyid]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[Policyid]"
+                          name="Policyid"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          length="18"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          length="2"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          name="PolicyState"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[RecordType]"
+                          length="2"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[RecordType]"
+                          name="RecordType"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[EndorsmentNum]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[EndorsmentNum]"
+                          length="8"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[EndorsmentNum]"
+                          name="EndorsmentNum"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[BureauVI]"
+                          length="1"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[BureauVI]"
+                          name="BureauVI"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[Data]"
+                          codePage="1252"
+                          dataType="text"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[Data]"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[Data]"
+                          name="Data"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[PolicyName]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[PolicyName]"
+                          length="34"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[PolicyName]"
+                          name="PolicyName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[effect_date]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[effect_date]"
+                          length="6"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].Columns[effect_date]"
+                          name="effect_date"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[Policyid]"
+                          dataType="i4"
+                          name="Policyid" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="PolicyState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RecordType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[EndorsmentNum]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="EndorsmentNum" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="BureauVI" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[Data]"
+                          codePage="1252"
+                          dataType="text"
+                          name="Data" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[PolicyName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="PolicyName" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output].ExternalColumns[effect_date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="effect_date" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[Policyid]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[Policyid]"
+                          name="Policyid" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          name="PolicyNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          name="PolicyState" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[RecordType]"
+                          name="RecordType" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[EndorsmentNum]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[EndorsmentNum]"
+                          name="EndorsmentNum" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[BureauVI]"
+                          name="BureauVI" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[Data]"
+                          codePage="1252"
+                          dataType="text"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[Data]"
+                          name="Data" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[PolicyName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[PolicyName]"
+                          name="PolicyName" />
+                        <outputColumn
+                          refId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[effect_date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Error Output].Columns[effect_date]"
+                          name="effect_date" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\DFT Load Staging.Paths[Derived Column Output]"
+                  endId="Package\Sequence Container\DFT Load Staging\OLE D USLH.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Sequence Container\DFT Load Staging\Insert date.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Sequence Container\DFT Load Staging.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\DFT Load Staging\Insert date.Inputs[Derived Column Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\DFT Load Staging\OLE S Staging.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Load Stage_WCPOLS_USLH"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{1164376C-5C5E-4B69-A2F8-53CB29D6C1FF}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load Stage_WCPOLS_USLH"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="LKP State"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from lkp.lkp_state WHERE STATECODE !='01'</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from lkp.lkp_state WHERE STATECODE !='01') [refTable]
+where [refTable].[StateAbbr] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Statecode" dataType="DT_STR" length="5" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="StateAbbr" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="State" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EnState]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Inputs[Lookup Input].Columns[EnState]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="EnState"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EnState]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">StateAbbr</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="FailComponent"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Outputs[Lookup Match Output].Columns[Statecode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="5"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Outputs[Lookup Match Output].Columns[Statecode]"
+                          name="Statecode"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">Statecode</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE SRC - FactPolicyForm"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With QualiPol
+as
+(
+select distinct w.PolicyID,p.PolicyNumber,p.BaseState,p.PrimaryInsuredName,f.FormNumber, W.EndorsementEffectiveDate EffectiveDate  
+From FactPolicyForm w
+		Inner Join DimPolicy p on w.PolicyID = p.PolicyID
+		Inner Join DimForm f on w.formid = f.FormID 
+			--05 OCT - VS - Added join on DimState to use IsNCCI column. This column is replacing all the NCCI States e.g. IN, VA, CT, IL etc.
+		Left join DimState ds on p.BaseState = ds.StateAbbr
+		left join  (select *,  row_number() over (partition by policyid order by effectivedate)  as RowNumber  
+					from 
+                      (
+						Select distinct f.PolicyID, wc.EffectiveDate  
+						from DimWCCoverage  wc Inner join FactWCPremiumTransaction f on wc.CoverageID = f.CoverageID ) c 
+					) as e on e.PolicyID = w.PolicyID and e.RowNumber = 1
+	Where f.FormNumber like 'WC 00 01 06 _'
+		And f.IsEndorsement = 1
+		And (
+			(p.TransactionType in ('Submission','Policy Change','Rewrite') And (cast(P.JobUpdateTime as date) &gt; ? and cast(p.JobUpdateTime as date) &lt;= ?)) OR
+			(p.TransactionType ='Renewal'  and p.eventname='SendNonRenewalDocuments' and p.BaseState='MI' And (cast(P.JobUpdateTime as date) &gt;DATEADD(day, -1, convert(date,?)) and cast(p.JobUpdateTime as date) &lt;=DATEADD(day, -1, convert(date,?)))) OR
+			(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname is null) OR
+			(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname='SendNonRenewalDocuments' and ds.IsNCCI = 1 /*p.BaseState = 'IN'*/)
+		)
+		and p.PolicyStatus = 'Bound'
+		
+)
+
+select *,ROW_NUMBER() over(partition by PolicyID, Col_Spliter_X order by ScheduleNumber ) as Row_Spliter_Y
+ from (
+		select 
+		 qp.PolicyID
+		,qp.PolicyNumber
+		,cast(qp.Basestate  as varchar(50)) as PolicyState
+		,cast(qp.PrimaryInsuredName as varchar(34)) as PrimaryInsuredName
+		,qp.EffectiveDate
+		,'19' as RecordType
+		,'WC000106' as Endorsment_Num
+		, substring(formnumber,13,1)  as BureauVI
+		,en.State AS EnState
+		,EndorsementValue2
+		,right('0000'+replace(ltrim(str(EndorsementValue2,10,1)),'.',''),4) as Factor
+		,en.ScheduleNumber 
+		,ntile(25) over (partition by qp.PolicyID order by en.ScheduleNumber ) as Col_Spliter_X
+		from  WCPolicyEndorsement en inner join QualiPol  qp on qp.PolicyID = en.PolicyID 
+		where  PatternCode='WC7LongshoreAndHarborWorkersCompensationActRatCond' 
+
+) AS SourceTable</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{C864DFD4-18B7-4B5B-9716-4BD642FDD001};"Parameter1:Input",{B7F56420-7147-4E70-89C5-74004DC6EB28};"Parameter2:Input",{C864DFD4-18B7-4B5B-9716-4BD642FDD001};"Parameter3:Input",{B7F56420-7147-4E70-89C5-74004DC6EB28};"Parameter4:Input",{C864DFD4-18B7-4B5B-9716-4BD642FDD001};"Parameter5:Input",{B7F56420-7147-4E70-89C5-74004DC6EB28};"Parameter6:Input",{C864DFD4-18B7-4B5B-9716-4BD642FDD001};"Parameter7:Input",{B7F56420-7147-4E70-89C5-74004DC6EB28};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[ScheduleNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[ScheduleNumber]"
+                          length="256"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[ScheduleNumber]"
+                          name="ScheduleNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EnState]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[EnState]"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EnState]"
+                          name="EnState"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Factor]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[Factor]"
+                          length="256"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Factor]"
+                          name="Factor"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          name="PolicyID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          name="PolicyState"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PrimaryInsuredName]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PrimaryInsuredName]"
+                          length="34"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PrimaryInsuredName]"
+                          name="PrimaryInsuredName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EffectiveDate]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[EffectiveDate]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EffectiveDate]"
+                          name="EffectiveDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[RecordType]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[RecordType]"
+                          name="RecordType"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Endorsment_Num]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[Endorsment_Num]"
+                          length="8"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Endorsment_Num]"
+                          name="Endorsment_Num"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[BureauVI]"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[BureauVI]"
+                          name="BureauVI"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Col_Spliter_X]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[Col_Spliter_X]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Col_Spliter_X]"
+                          name="Col_Spliter_X"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Row_Spliter_Y]"
+                          dataType="i8"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[Row_Spliter_Y]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Row_Spliter_Y]"
+                          name="Row_Spliter_Y"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EndorsementValue2]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[EndorsementValue2]"
+                          length="256"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EndorsementValue2]"
+                          name="EndorsementValue2"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[ScheduleNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="256"
+                          name="ScheduleNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[EnState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="EnState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[Factor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="Factor" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="PolicyState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PrimaryInsuredName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="PrimaryInsuredName" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[EffectiveDate]"
+                          dataType="dbTimeStamp2"
+                          name="EffectiveDate"
+                          scale="7" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RecordType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[Endorsment_Num]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="Endorsment_Num" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="BureauVI" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[Col_Spliter_X]"
+                          dataType="i8"
+                          name="Col_Spliter_X" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[Row_Spliter_Y]"
+                          dataType="i8"
+                          name="Row_Spliter_Y" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[EndorsementValue2]"
+                          codePage="1252"
+                          dataType="str"
+                          length="256"
+                          name="EndorsementValue2" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          name="PolicyNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[ScheduleNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="256"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[ScheduleNumber]"
+                          name="ScheduleNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[EnState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[EnState]"
+                          name="EnState" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[Factor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[Factor]"
+                          name="Factor" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          name="PolicyID" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          name="PolicyState" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PrimaryInsuredName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PrimaryInsuredName]"
+                          name="PrimaryInsuredName" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[EndorsementValue2]"
+                          codePage="1252"
+                          dataType="str"
+                          length="256"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[EndorsementValue2]"
+                          name="EndorsementValue2" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[EffectiveDate]"
+                          dataType="dbTimeStamp2"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[EffectiveDate]"
+                          name="EffectiveDate"
+                          scale="7" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[RecordType]"
+                          name="RecordType" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[Endorsment_Num]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[Endorsment_Num]"
+                          name="Endorsment_Num" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[BureauVI]"
+                          name="BureauVI" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[Col_Spliter_X]"
+                          dataType="i8"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[Col_Spliter_X]"
+                          name="Col_Spliter_X" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[Row_Spliter_Y]"
+                          dataType="i8"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[Row_Spliter_Y]"
+                          name="Row_Spliter_Y" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE Staging USLH"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[Stage_WCPOLS_USLH]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="PolicyNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[ScheduleNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="256"
+                          cachedName="ScheduleNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[ScheduleNumber]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[ScheduleNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[Factor]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="256"
+                          cachedName="Factor"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[Factor]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Factor]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[PolicyID]"
+                          cachedDataType="i4"
+                          cachedName="PolicyID"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyId]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyID]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[PolicyState]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="PolicyState"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyState]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyState]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[Statecode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="5"
+                          cachedName="Statecode"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[Enstate]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Outputs[Lookup Match Output].Columns[Statecode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[PrimaryInsuredName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="34"
+                          cachedName="PrimaryInsuredName"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyName]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PrimaryInsuredName]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[EffectiveDate]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="EffectiveDate"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveDate]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EffectiveDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[RecordType]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="RecordType"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[RecordType]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[RecordType]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[Endorsment_Num]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="Endorsment_Num"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[EndorsmentNum]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Endorsment_Num]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[BureauVI]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="BureauVI"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[BureauVI]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[BureauVI]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[Col_Spliter_X]"
+                          cachedDataType="i8"
+                          cachedName="Col_Spliter_X"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[X]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Col_Spliter_X]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].Columns[Row_Spliter_Y]"
+                          cachedDataType="i8"
+                          cachedName="Row_Spliter_Y"
+                          externalMetadataColumnId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[Y]"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[Row_Spliter_Y]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyId]"
+                          dataType="i4"
+                          name="PolicyId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="PolicyState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[Enstate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="Enstate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[Factor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="256"
+                          name="Factor" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[ScheduleNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="256"
+                          name="ScheduleNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[X]"
+                          dataType="i4"
+                          name="X" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[Y]"
+                          dataType="i4"
+                          name="Y" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[PolicyName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="PolicyName" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[EffectiveDate]"
+                          dataType="dbTimeStamp"
+                          name="EffectiveDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RecordType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[EndorsmentNum]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="EndorsmentNum" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input].ExternalColumns[BureauVI]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="BureauVI" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\Load Stage_WCPOLS_USLH.Paths[Lookup Match Output]"
+                  endId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH.Inputs[OLE DB Destination Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Sequence Container\Load Stage_WCPOLS_USLH.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Truncate Stage_WCPOLS_USLH"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{7AEBFA06-7EFB-48A4-B8A7-1A20BD33C2D8}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Stage_WCPOLS_USLH"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}"
+              SQLTask:SqlStatementSource="Truncate table [dbo].[Stage_WCPOLS_USLH]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{2C2FB849-A818-421E-8A75-A48EE5E611E9}"
+          DTS:From="Package\Sequence Container\Truncate Stage_WCPOLS_USLH"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\Sequence Container\Load Stage_WCPOLS_USLH" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\Sequence Container.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{D797B461-4AF1-4ED7-8901-32817071B70D}"
+          DTS:From="Package\Sequence Container\Load Stage_WCPOLS_USLH"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\Sequence Container\DFT Load Staging" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{FB14FBDC-CA9C-406A-A215-436F7CC2D4B4}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{2705486F-15CC-41B1-92F7-24F7C5823E82}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{01C8BC2A-073C-45E9-BCB0-1EE7362CFF37}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{AE34AC37-4E41-435E-9718-80A7DE7D2636}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{99A5C4F5-E55E-483D-85FD-CD48258A9D7A}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{9C63A82F-7FBC-4E94-8C8B-48B079C0D17E}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{B180B42A-446E-49C4-9C72-87D39DCF87D4}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Process Completed"
+          TopLeft="490.142857142857,303" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Process Failed"
+          TopLeft="510,391.571428571428" />
+        <NodeLayout
+          Size="163,42"
+          Id="Package\Sequence Container\DFT Load Staging"
+          TopLeft="53,227" />
+        <NodeLayout
+          Size="209,42"
+          Id="Package\Sequence Container\Load Stage_WCPOLS_USLH"
+          TopLeft="27.7142857142857,114.428571428571" />
+        <NodeLayout
+          Size="228,42"
+          Id="Package\Sequence Container\Truncate Stage_WCPOLS_USLH"
+          TopLeft="24.4285714285714,19.9999999999999" />
+        <EdgeLayout
+          Id="Package\Sequence Container.PrecedenceConstraints[Constraint]"
+          TopLeft="135.321428571429,61.9999999999999">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,52.4285714285711"
+              Start="0,0"
+              End="0,44.9285714285711">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,44.9285714285711" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container.PrecedenceConstraints[Constraint 1]"
+          TopLeft="133.357142857143,156.428571428571">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,70.571428571429"
+              Start="0,0"
+              End="0,63.071428571429">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.071428571429" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="292,335"
+          Size="292,378"
+          Id="Package\Sequence Container"
+          TopLeft="89.8571428571429,133.857142857143" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="488.142857142857,204" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="488.142857142857,227.678571428572">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-106.285714285714,0"
+              Start="0,0"
+              End="-98.7857142857141,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-98.7857142857141,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="381.857142857143,323.428571428572">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="108.285714285714,0"
+              Start="0,0"
+              End="100.785714285714,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="100.785714285714,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="381.857142857143,413.964285714286">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="128.142857142857,0"
+              Start="0,0"
+              End="120.642857142857,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="120.642857142857,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="45.0800809151786,5,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="532,174" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Sequence Container\DFT Load Staging">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="146,42"
+          Id="Package\Sequence Container\DFT Load Staging\OLE S Staging"
+          TopLeft="120,27" />
+        <NodeLayout
+          Size="131,42"
+          Id="Package\Sequence Container\DFT Load Staging\Insert date"
+          TopLeft="129,131" />
+        <NodeLayout
+          Size="137,42"
+          Id="Package\Sequence Container\DFT Load Staging\OLE D USLH"
+          TopLeft="124,241" />
+        <EdgeLayout
+          Id="Package\Sequence Container\DFT Load Staging.Paths[OLE DB Source Output]"
+          TopLeft="193.75,69">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,62"
+              Start="0,0"
+              End="0,54.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,54.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\DFT Load Staging.Paths[Derived Column Output]"
+          TopLeft="193.5,173">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,68"
+              Start="0,0"
+              End="0,60.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,60.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\DFT Load Staging\OLE S Staging">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\DFT Load Staging\OLE D USLH">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <TaskHost
+    design-time-name="Package\Sequence Container\Load Stage_WCPOLS_USLH">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm"
+          TopLeft="190.988888888889,57" />
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State"
+          TopLeft="190.988888888889,152" />
+        <NodeLayout
+          Size="165,42"
+          Id="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH"
+          TopLeft="202.988888888889,253" />
+        <EdgeLayout
+          Id="Package\Sequence Container\Load Stage_WCPOLS_USLH.Paths[OLE DB Source Output]"
+          TopLeft="291.488888888889,99">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53"
+              Start="0,0"
+              End="0,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\Load Stage_WCPOLS_USLH.Paths[Lookup Match Output]"
+          TopLeft="288.488888888889,194">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,19.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE SRC - FactPolicyForm">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load Stage_WCPOLS_USLH\LKP State">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load Stage_WCPOLS_USLH\OLE Staging USLH">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

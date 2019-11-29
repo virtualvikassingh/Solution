@@ -1,0 +1,2200 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Report xmlns="http://schemas.microsoft.com/sqlserver/reporting/2016/01/reportdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <AutoRefresh>0</AutoRefresh>
+  <DataSources>
+    <DataSource Name="GWBC">
+      <DataSourceReference>GWBC</DataSourceReference>
+      <rd:SecurityType>None</rd:SecurityType>
+      <rd:DataSourceID>24cb67a1-80dd-4aa7-b796-c76c4aa21dbd</rd:DataSourceID>
+    </DataSource>
+  </DataSources>
+  <DataSets>
+    <DataSet Name="LapsePolicies">
+      <Query>
+        <DataSourceName>GWBC</DataSourceName>
+        <QueryParameters>
+          <QueryParameter Name="@CurrentQuarterEndDate">
+            <Value>=Parameters!CurrentQuarterEndDate.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+          <QueryParameter Name="@PreviousQuarterEndDate">
+            <Value>=Parameters!PreviousQuarterEndDate.Value</Value>
+            <rd:UserDefined>true</rd:UserDefined>
+          </QueryParameter>
+        </QueryParameters>
+        <CommandText>Declare @QuarterEndDate Date;
+
+Declare @PrevQuarterEndDate Date;
+
+SET @QuarterEndDate		 =  Convert(Date, @CurrentQuarterEndDate)
+
+Set @PrevQuarterEndDate		= Convert(Date,@PreviousQuarterEndDate)
+ 
+
+ 
+;With CTE_Policy as 
+( Select * from (
+	Select distinct  A.AccountNumber, PolicyNumber,PP.TermNumber, j.Name BaseState,
+	DATEDIFF(M, PP.PeriodStart, IIF(PP.CancellationDate is NUll,PP.periodEND, PP.CancellationDate )) PolicyTerm
+	,row_number() over (partition by pp.PolicyNumber,pp.TermNumber order by jb.updatetime desc ) rank,
+	CASE 
+		WHEN j.TYPECODE = 'IN' THEN NULL 
+		WHEN (select count(4) from [PolicyCenter].dbo.pcx_wc7surchargeplan_ext pl 
+		inner join [PolicyCenter].dbo.pctl_wc7surchargeplantype_ext ty on pl.PlanType = ty.id where pl.BranchID = pp.ID) &gt; 0 
+		then (select top 1 ty.name from [PolicyCenter].dbo.pcx_wc7surchargeplan_ext pl inner join [PolicyCenter].dbo.pctl_wc7surchargeplantype_ext ty on pl.PlanType = ty.id 
+		where pl.BranchID = pp.ID)
+		ELSE 'Rating Plan A' -- Rating Plan A stored as modifier in pcx_wc7modifier
+	END RatingPlan
+	From PolicyCenter.dbo.PC_PolicyPeriod PP 
+		inner hash  Join PolicyCenter.dbo.pctl_policyperiodstatus as PS on pp.Status = PS.ID
+		inner hash Join PolicyCenter.dbo.pc_job as PJ on PP.JobID = PJ.ID
+		Inner hash  Join PolicyCenter.dbo.pc_policy as P on PP.PolicyID = P.ID
+		Inner hash  Join PolicyCenter.dbo.pc_account as A on P.AccountID = A.ID
+		inner join PolicyCenter.dbo.pctl_jurisdiction j on baseState = j.id
+		Left Join [PolicyCenter].dbo.pc_job jb On pp.JobID = jb.ID
+		Left Join [PolicyCenter].dbo.pctl_job job On jb.Subtype = job.ID
+	Where 
+		PS.TYPECODE	= 'Bound' and j.TYPECODE ='MI'
+		and pp.PublicID not in 
+		 (select PublicID  from PolicyCenter.dbo.PC_PolicyPeriod PP
+		   where Cast(pp.PeriodStart as Date)= Cast(pp.CancellationDate as DAte) 
+		  ) ) m where rank=1
+)
+
+,CTE_EffectivePolicy as 
+(	Select 
+		BCTL_UWCOMPANY.NAME AS BRANDNAME,
+		bctl_uwcompany.Name As "Undewriting Company",
+		Case when pcju.TYPECODE = 'MI' then '15' when pcju.TYPECODE = 'IN' then '13' else 'NA' end As "Pool Code",
+		BC_POLICYPERIOD.UNDERWRITER,
+		BC_PRODUCER.NAME AS PRODUCERNAME,
+        BC_PRODUCERCODE.CODE AS PRODUCERCODE,
+		BC_ACCOUNT.ACCOUNTNAME,
+        BC_ACCOUNT.ACCOUNTNUMBER,
+        Case when C.Name IS Null then C.FirstName + ' ' + C.LastName else C.Name end  AS POLICYNAME,
+        BC_POLICYPERIOD.POLICYNUMBER,
+		BC_POLICYPERIOD.TermNumber,
+        BC_POLICYPERIOD.POLICYPEREFFDATE AS POLICYEFFDATE,
+        BC_POLICYPERIOD.POLICYPEREXPIRDATE AS POLICYPEREXPIRDATE,
+		bctl_accountsegment.NAME As "Segment",
+		(BC_CONTACT.FIRSTNAME + ' ' + BC_CONTACT.LASTNAME) PAYER_NAME
+		
+ from   BC_POLICYPERIOD
+        JOIN BC_POLICY ON  BC_POLICY.ID =  BC_POLICYPERIOD.POLICYID
+		join bctl_jurisdiction pcju on bc_policyperiod.RiskJurisdiction = pcju.ID
+		left join  bc_policyperiodcontact PC on  bc_policyperiod.ID = PC.PrimaryPolicyPeriodID
+		join bc_CONTACT C on  C.ID = PC.ContactID  and PC.ID &lt;&gt; PC.Retired
+        JOIN BC_ACCOUNT ON  BC_ACCOUNT.ID =  BC_POLICY.ACCOUNTID
+		left join bctl_accountsegment on  bc_account.segment =  bctl_accountsegment.ID
+		Left Join BCTL_UWCOMPANY ON  BC_POLICYPERIOD.UWCOMPANY =  BCTL_UWCOMPANY.ID
+		LEFT JOIN BC_ACCOUNTCONTACT ON  BC_ACCOUNTCONTACT.ACCOUNTID= BC_ACCOUNT.ID  AND PRIMARYPAYER=1
+        LEFT JOIN BC_CONTACT ON  BC_ACCOUNTCONTACT.CONTACTID =  BC_CONTACT.ID
+        LEFT JOIN BC_POLICYCOMMISSION ON  BC_POLICYCOMMISSION.PRIMARYPOLICYPERIODID=  BC_POLICYPERIOD.ID
+        LEFT JOIN BC_PRODUCERCODE ON BC_PRODUCERCODE.ID = BC_POLICYCOMMISSION.PRODUCERCODEID
+        LEFT JOIN BC_PRODUCER     ON BC_PRODUCERCODE.PRODUCERID =  BC_PRODUCER.ID
+	
+)
+
+,CTE_PolicyTransaction as
+(
+	Select 
+		acc.AccountNumber,PP.PolicyNumber,PP.TermNumber, -- cc.name ChargeCategory, cc.ID ChargeCategoryID,
+		Sum(case when trx.Subtype = 54 and cp.ID not in (6,20) and lds.NAME = 'Credit' then trx.Amount else 0 end) AS Curr_Written_Premium,
+		Sum(case when trx.Subtype = 54 and cp.ID not in (6,20) and lds.NAME = 'Credit' and cast(trx.TransactionDate as date) &lt;= @PrevQuarterEndDate 
+		then trx.Amount else 0 end) AS Prev_Written_Premium,
+		Sum(case when trx.Subtype = 54 and cp.ID not in (6,20) and lds.NAME = 'Credit' then trx.Amount else 0 end) +
+		Sum(case when trx.Subtype = 54 and tacptr.TAccountType in (4,1)  and  cp.ID in (6,20) and lds.NAME = 'Credit' then trx.Amount else 0 end) 
+		AS Curr_Policy_Premium,
+		Sum(case when (trx.Subtype = 16 and lds.NAME = 'Credit' ) then trx.Amount else 0 end) AS Curr_Billed_Premium,
+		Sum(case when trx.Subtype = 54 and cp.ID not in (6,20) and lds.NAME = 'Credit' and cast(trx.TransactionDate as date) &lt;= @PrevQuarterEndDate 
+		then trx.Amount else 0 end) +
+		Sum(case when trx.Subtype = 54 and tacptr.TAccountType in (4,1)  and  cp.ID in (6,20) and lds.NAME = 'Credit' and 
+		cast(trx.TransactionDate as date) &lt;= @PrevQuarterEndDate then trx.Amount else 0 end) 
+		AS Prev_Policy_Premium,
+		Sum(case when (trx.Subtype = 16 and lds.NAME = 'Credit' and cast(trx.TransactionDate as date) &lt;= @PrevQuarterEndDate) then trx.Amount else 0 end)
+		AS Prev_Billed_Premium,
+		SUM(case when trx.Subtype =30 and tlwo.TYPECODE='Uncollectable' then trx.Amount else 0 end) AS Curr_Uncollected_Premium,
+		SUM(case when trx.Subtype =30 and tlwo.TYPECODE='Uncollectable' and cast(trx.TransactionDate as date) &lt;= @PrevQuarterEndDate then trx.Amount else 0 end) 
+		AS Prev_Uncollected_Premium
+	from BC_lineitem li
+		JOIN BC_transaction trx ON li.TransactionID = trx.ID
+		JOIN bctl_transaction btrx ON trx.Subtype = btrx.ID
+		JOIN BC_taccount tac ON li.TAccountID = tac.ID
+		JOIN bctl_ledgerside lds ON li.Type = lds.ID
+		JOIN BC_TAccountPattern tacptr ON tac.TAccountPatternID = tacptr.ID
+		join bc_policyperiod as pp on tac.TAccountContainerID = pp.HiddenTAccountContainerID
+		Join bc_policy as p on pp.PolicyID = p.ID
+		JOIN bc_account as acc on p.AccountID = acc.ID
+		JOIN bc_chargepattern cp on tacptr.ChargePatternID = cp.ID
+		JOIN bctl_chargecategory cc on cp.Category = cc.Id
+		left join bc_chargeinstancecontext cic on cic.TransactionID = trx.ID
+		left join bc_writeoff wo on wo.ID = cic.WriteoffID
+		left join bctl_writeoffreason tlwo on tlwo.ID = wo.Reason
+
+	where trx.Subtype in (54,16,30)
+	and cast(trx.TransactionDate as date) &lt;= @QuarterEndDate  
+	Group by acc.AccountNumber,PP.PolicyNumber,PP.TermNumber--, cc.name, cc.id
+
+)
+
+
+
+Select  
+@QuarterEndDate As "QtrEndingMMDDYY" ,
+'210' AS 'STATE CODE',
+'MICHIGAN' AS 'STATE',
+P.RatingPlan ReportCode,
+Year (EP.POLICYEFFDATE) PolicyYear,
+.228 As 'Non-surcharge SCA Rate (%)',
+SUM(ISNULL(PT.Curr_Written_Premium,0) - ISNULL(PT.Prev_Written_Premium,0)) As 'GROSS WRITTEN PREMIUM',
+SUM(ISNULL(PT.Prev_Policy_Premium,0) - ISNULL(PT.Prev_Billed_Premium,0))  AS  'BEGINNING DEFERRED PREMIUM',
+SUM(ISNULL(PT.Curr_Policy_Premium,0) - ISNULL(PT.Curr_Billed_Premium,0)) AS 'ENDING DEFERRED PREMIUM', 
+SUM(ISNULL(PT.Curr_Written_Premium,0) - ISNULL(PT.Prev_Written_Premium,0)) + SUM(ISNULL(PT.Prev_Policy_Premium,0) - ISNULL(PT.Prev_Billed_Premium,0))-
+SUM(ISNULL(PT.Curr_Policy_Premium,0) - ISNULL(PT.Curr_Billed_Premium,0)) AS 'PREMIUM CEDED TO THE POOL',
+SUM(ISNULL(Curr_Uncollected_Premium,0))-SUM(ISNULL(Prev_Uncollected_Premium,0)) As 'UNCOLLECTED PREMIUM',
+0.228*((SUM(ISNULL(PT.Curr_Written_Premium,0) - ISNULL(PT.Prev_Written_Premium,0)) + SUM(ISNULL(PT.Prev_Policy_Premium,0) - ISNULL(PT.Prev_Billed_Premium,0))-
+SUM(ISNULL(PT.Curr_Policy_Premium,0) - ISNULL(PT.Curr_Billed_Premium,0)))-(SUM(ISNULL(Curr_Uncollected_Premium,0))-SUM(ISNULL(Prev_Uncollected_Premium,0)))) ServicingCarrierAllowance
+
+From
+	CTE_Policy As P
+	 Inner Join CTE_EffectivePolicy EP ON P.PolicyNumber = EP.PolicyNumber and EP.TermNumber =  P.TermNumber --and P.AccountNumber = EP.AccountNumber 
+	 Left Join CTE_PolicyTransaction PT ON EP.PolicyNumber = PT.PolicyNumber and EP.TermNumber = PT.TermNumber 
+Group by P.RatingPlan,Year (EP.POLICYEFFDATE)
+
+
+</CommandText>
+      </Query>
+      <Fields>
+        <Field Name="QtrEndingMMDDYY">
+          <DataField>QtrEndingMMDDYY</DataField>
+          <rd:TypeName>System.DateTime</rd:TypeName>
+        </Field>
+        <Field Name="STATE_CODE">
+          <DataField>STATE CODE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="ReportCode">
+          <DataField>ReportCode</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="STATE">
+          <DataField>STATE</DataField>
+          <rd:TypeName>System.String</rd:TypeName>
+        </Field>
+        <Field Name="PolicyYear">
+          <DataField>PolicyYear</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Non_surcharge_SCA_Rate____">
+          <DataField>Non-surcharge SCA Rate (%)</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="GROSS_WRITTEN_PREMIUM">
+          <DataField>GROSS WRITTEN PREMIUM</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="BEGINNING_DEFERRED_PREMIUM">
+          <DataField>BEGINNING DEFERRED PREMIUM</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="ENDING_DEFERRED_PREMIUM">
+          <DataField>ENDING DEFERRED PREMIUM</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="UNCOLLECTED_PREMIUM">
+          <DataField>UNCOLLECTED PREMIUM</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="PREMIUM_CEDED_TO_THE_POOL">
+          <DataField>PREMIUM CEDED TO THE POOL</DataField>
+          <rd:TypeName>System.Decimal</rd:TypeName>
+        </Field>
+        <Field Name="Net_Ceded_Non_Surcharge_Premium">
+          <Value>=Fields!PREMIUM_CEDED_TO_THE_POOL.Value - Fields!UNCOLLECTED_PREMIUM.Value</Value>
+        </Field>
+        <Field Name="ServicingCarrierAllowance">
+          <DataField>ServicingCarrierAllowance</DataField>
+          <rd:TypeName>System.Int32</rd:TypeName>
+        </Field>
+        <Field Name="Non_Surcharge_Premium_based_SCA_Subtotal">
+          <Value>=Fields!Net_Ceded_Non_Surcharge_Premium.Value*Fields!Non_surcharge_SCA_Rate____.Value</Value>
+        </Field>
+        <Field Name="Total_ceded_premium_as_reported_on_NP4">
+          <Value>=Fields!PREMIUM_CEDED_TO_THE_POOL.Value</Value>
+        </Field>
+        <Field Name="Total_SCA_as_reported_on_NP4">
+          <Value>=Fields!ServicingCarrierAllowance.Value</Value>
+        </Field>
+      </Fields>
+    </DataSet>
+  </DataSets>
+  <ReportSections>
+    <ReportSection>
+      <Body>
+        <ReportItems>
+          <Tablix Name="Tablix1">
+            <TablixBody>
+              <TablixColumns>
+                <TablixColumn>
+                  <Width>0.55845in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.05335in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.8882in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.815in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>0.9525in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.16331in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.2525in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.2525in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.2525in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.2525in</Width>
+                </TablixColumn>
+                <TablixColumn>
+                  <Width>1.23192in</Width>
+                </TablixColumn>
+              </TablixColumns>
+              <TablixRows>
+                <TablixRow>
+                  <Height>1in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox9">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>STATE CODE</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox9</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox11">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>STATE</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>NAME</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox11</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox20">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>POLICY YEAR</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox20</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox68">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>RATING PLAN</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox68</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox14">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>NON-SURCHARGE SCA RATE (%)</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox14</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox13">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>NON-SURCHARGE CEDED PREMIUM</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox13</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox15">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>NET UNCOLL
+NON-SURCHARGE
+PREMIUM</Value>
+                                  <Style>
+                                    <FontStyle>Normal</FontStyle>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <TextDecoration>None</TextDecoration>
+                                    <Color>#000000</Color>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox15</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox17">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>NET CEDED NON-SURCHARGE PREMIUM</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox17</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>NON-SURCHARGE PREMIUM BASED SCA  SUBTOTAL</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox23">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>TOTAL CEDED PREMIUM AS REPORTED ON NP-4</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox23</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox27">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>TOTAL SCA AS REPORTED ON NP-4</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox27</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="STATE_CODE">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!STATE_CODE.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>STATE_CODE</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="STATE">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!STATE.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Left</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>STATE</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="PolicyYear1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!PolicyYear.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>PolicyYear1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="ReportCode1">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!ReportCode.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>ReportCode1</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Non_surcharge_SCA_Rate____">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Non_surcharge_SCA_Rate____.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>0.00%</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Center</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Non_surcharge_SCA_Rate____</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="PREMIUM_CEDED_TO_THE_POOL2">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!PREMIUM_CEDED_TO_THE_POOL.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>PREMIUM_CEDED_TO_THE_POOL2</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="UNCOLLECTED_PREMIUM">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!UNCOLLECTED_PREMIUM.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>UNCOLLECTED_PREMIUM</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Net_Ceded_Non_Surcharge_Premium">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Net_Ceded_Non_Surcharge_Premium.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Net_Ceded_Non_Surcharge_Premium</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Non_Surcharge_Premium_based_SCA_Subtotal">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Non_Surcharge_Premium_based_SCA_Subtotal.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Non_Surcharge_Premium_based_SCA_Subtotal</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Total_ceded_premium_as_reported_on_NP4">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Total_ceded_premium_as_reported_on_NP4.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Total_ceded_premium_as_reported_on_NP4</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Total_SCA_as_reported_on_NP4">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Fields!Total_SCA_as_reported_on_NP4.Value</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Total_SCA_as_reported_on_NP4</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+                <TablixRow>
+                  <Height>0.25in</Height>
+                  <TablixCells>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox33">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>Grand Totals</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox33</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <TopBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </TopBorder>
+                            <BottomBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </BottomBorder>
+                            <LeftBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </LeftBorder>
+                            <RightBorder>
+                              <Color>Black</Color>
+                              <Style>Solid</Style>
+                              <Width>1pt</Width>
+                            </RightBorder>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                        <ColSpan>4</ColSpan>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell />
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox44">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value />
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox44</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox38">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!PREMIUM_CEDED_TO_THE_POOL.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox38</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox39">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!UNCOLLECTED_PREMIUM.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox39</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox40">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!Net_Ceded_Non_Surcharge_Premium.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox40</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox41">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!Non_Surcharge_Premium_based_SCA_Subtotal.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox41</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox42">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!Total_ceded_premium_as_reported_on_NP4.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox42</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                    <TablixCell>
+                      <CellContents>
+                        <Textbox Name="Textbox43">
+                          <CanGrow>true</CanGrow>
+                          <KeepTogether>true</KeepTogether>
+                          <Paragraphs>
+                            <Paragraph>
+                              <TextRuns>
+                                <TextRun>
+                                  <Value>=Sum(Fields!Total_SCA_as_reported_on_NP4.Value)</Value>
+                                  <Style>
+                                    <FontFamily>Segoe UI</FontFamily>
+                                    <FontWeight>Bold</FontWeight>
+                                    <Format>'$'#,0.00;('$'#,0.00)</Format>
+                                  </Style>
+                                </TextRun>
+                              </TextRuns>
+                              <Style>
+                                <TextAlign>Right</TextAlign>
+                              </Style>
+                            </Paragraph>
+                          </Paragraphs>
+                          <rd:DefaultName>Textbox43</rd:DefaultName>
+                          <Style>
+                            <Border>
+                              <Style>Solid</Style>
+                            </Border>
+                            <BackgroundColor>LightGrey</BackgroundColor>
+                            <PaddingLeft>2pt</PaddingLeft>
+                            <PaddingRight>2pt</PaddingRight>
+                            <PaddingTop>2pt</PaddingTop>
+                            <PaddingBottom>2pt</PaddingBottom>
+                            <rd:FormatSymbolCulture>en-US</rd:FormatSymbolCulture>
+                          </Style>
+                        </Textbox>
+                      </CellContents>
+                    </TablixCell>
+                  </TablixCells>
+                </TablixRow>
+              </TablixRows>
+            </TablixBody>
+            <TablixColumnHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+                <TablixMember />
+              </TablixMembers>
+            </TablixColumnHierarchy>
+            <TablixRowHierarchy>
+              <TablixMembers>
+                <TablixMember />
+                <TablixMember>
+                  <Group Name="PolicyYear">
+                    <GroupExpressions>
+                      <GroupExpression>=Fields!PolicyYear.Value</GroupExpression>
+                    </GroupExpressions>
+                  </Group>
+                  <SortExpressions>
+                    <SortExpression>
+                      <Value>=Fields!PolicyYear.Value</Value>
+                    </SortExpression>
+                  </SortExpressions>
+                  <TablixMembers>
+                    <TablixMember>
+                      <Group Name="REPORT_CODE">
+                        <GroupExpressions>
+                          <GroupExpression>=Fields!ReportCode.Value</GroupExpression>
+                        </GroupExpressions>
+                      </Group>
+                      <TablixMembers>
+                        <TablixMember>
+                          <Group Name="Details" />
+                        </TablixMember>
+                      </TablixMembers>
+                    </TablixMember>
+                  </TablixMembers>
+                </TablixMember>
+                <TablixMember />
+              </TablixMembers>
+            </TablixRowHierarchy>
+            <DataSetName>LapsePolicies</DataSetName>
+            <PageBreak>
+              <BreakLocation>End</BreakLocation>
+            </PageBreak>
+            <SortExpressions>
+              <SortExpression>
+                <Value>=Fields!PolicyYear.Value</Value>
+              </SortExpression>
+              <SortExpression>
+                <Value>=Fields!ReportCode.Value</Value>
+              </SortExpression>
+            </SortExpressions>
+            <Top>0.06944in</Top>
+            <Height>1.5in</Height>
+            <Width>11.67273in</Width>
+            <Style>
+              <Border>
+                <Style>None</Style>
+              </Border>
+            </Style>
+          </Tablix>
+        </ReportItems>
+        <Height>1.56944in</Height>
+        <Style />
+      </Body>
+      <Width>11.67273in</Width>
+      <Page>
+        <PageHeader>
+          <Height>1in</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Image Name="Image4">
+              <Source>Embedded</Source>
+              <Value>AccidentFundlogo</Value>
+              <Sizing>FitProportional</Sizing>
+              <Height>0.7in</Height>
+              <Width>2.5in</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+              </Style>
+            </Image>
+            <Textbox Name="Textbox2">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>NP5- SERVICING CARRIER ALLOWANCE REPORT</Value>
+                      <Style>
+                        <FontSize>14pt</FontSize>
+                        <FontWeight>Bold</FontWeight>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Center</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox2</rd:DefaultName>
+              <Left>2.64583in</Left>
+              <Height>0.25in</Height>
+              <Width>7.79498in</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox5">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>REPORTING COMPANY :</Value>
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox2</rd:DefaultName>
+              <Top>0.31944in</Top>
+              <Left>5.1097in</Left>
+              <Height>0.25in</Height>
+              <Width>1.57361in</Width>
+              <ZIndex>2</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox6">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>CARRIER CODE :</Value>
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox2</rd:DefaultName>
+              <Top>0.63542in</Top>
+              <Left>2.64583in</Left>
+              <Height>0.25in</Height>
+              <Width>1.11457in</Width>
+              <ZIndex>3</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox8">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>NAME OF POOL :</Value>
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox2</rd:DefaultName>
+              <Top>0.63542in</Top>
+              <Left>5.1097in</Left>
+              <Height>0.25in</Height>
+              <Width>1.57361in</Width>
+              <ZIndex>4</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox7">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>19968</Value>
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Left</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox2</rd:DefaultName>
+              <Top>0.63542in</Top>
+              <Left>3.75416in</Left>
+              <Height>0.25in</Height>
+              <Width>1.35554in</Width>
+              <ZIndex>5</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox10">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Accident Fund Insurance Company of America</Value>
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox2</rd:DefaultName>
+              <Top>0.31944in</Top>
+              <Left>6.68331in</Left>
+              <Height>0.25in</Height>
+              <Width>3.7575in</Width>
+              <ZIndex>6</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox12">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Michigan Workers' Compensation Placement Facility</Value>
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox2</rd:DefaultName>
+              <Top>0.63542in</Top>
+              <Left>6.68331in</Left>
+              <Height>0.25in</Height>
+              <Width>3.7575in</Width>
+              <ZIndex>7</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>Solid</Style>
+            </Border>
+            <TopBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </TopBorder>
+            <BottomBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </BottomBorder>
+            <LeftBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </LeftBorder>
+            <RightBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </RightBorder>
+          </Style>
+        </PageHeader>
+        <PageFooter>
+          <Height>0.36444in</Height>
+          <PrintOnFirstPage>true</PrintOnFirstPage>
+          <PrintOnLastPage>true</PrintOnLastPage>
+          <ReportItems>
+            <Textbox Name="Textbox32">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value xml:space="preserve"> </Value>
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>= "Page " + CStr(Globals!PageNumber) + "of " + CStr(Globals!TotalPages)</Value>
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style />
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox32</rd:DefaultName>
+              <Top>0.08444in</Top>
+              <Height>0.28in</Height>
+              <Width>3.3125in</Width>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+            <Textbox Name="Textbox21">
+              <CanGrow>true</CanGrow>
+              <KeepTogether>true</KeepTogether>
+              <Paragraphs>
+                <Paragraph>
+                  <TextRuns>
+                    <TextRun>
+                      <Value>Report Run Date  </Value>
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                    <TextRun>
+                      <Value>=Globals!ExecutionTime</Value>
+                      <Style>
+                        <FontFamily>Segoe UI</FontFamily>
+                        <FontSize>8pt</FontSize>
+                      </Style>
+                    </TextRun>
+                  </TextRuns>
+                  <Style>
+                    <TextAlign>Right</TextAlign>
+                  </Style>
+                </Paragraph>
+              </Paragraphs>
+              <rd:DefaultName>Textbox21</rd:DefaultName>
+              <Top>0.08444in</Top>
+              <Left>7.93581in</Left>
+              <Height>0.28in</Height>
+              <Width>3.73692in</Width>
+              <ZIndex>1</ZIndex>
+              <Style>
+                <Border>
+                  <Style>None</Style>
+                </Border>
+                <PaddingLeft>2pt</PaddingLeft>
+                <PaddingRight>2pt</PaddingRight>
+                <PaddingTop>2pt</PaddingTop>
+                <PaddingBottom>2pt</PaddingBottom>
+              </Style>
+            </Textbox>
+          </ReportItems>
+          <Style>
+            <Border>
+              <Style>Solid</Style>
+            </Border>
+            <TopBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </TopBorder>
+            <BottomBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </BottomBorder>
+            <LeftBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </LeftBorder>
+            <RightBorder>
+              <Color>Black</Color>
+              <Style>Solid</Style>
+              <Width>1pt</Width>
+            </RightBorder>
+          </Style>
+        </PageFooter>
+        <PageHeight>8.27in</PageHeight>
+        <PageWidth>11.69in</PageWidth>
+        <Style />
+      </Page>
+    </ReportSection>
+  </ReportSections>
+  <ReportParameters>
+    <ReportParameter Name="CurrentQuarterEndDate">
+      <DataType>DateTime</DataType>
+      <Prompt>Current Quarter End Date</Prompt>
+    </ReportParameter>
+    <ReportParameter Name="PreviousQuarterEndDate">
+      <DataType>DateTime</DataType>
+      <Prompt>Previous Quarter End Date</Prompt>
+    </ReportParameter>
+  </ReportParameters>
+  <ReportParametersLayout>
+    <GridLayoutDefinition>
+      <NumberOfColumns>2</NumberOfColumns>
+      <NumberOfRows>1</NumberOfRows>
+      <CellDefinitions>
+        <CellDefinition>
+          <ColumnIndex>0</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>CurrentQuarterEndDate</ParameterName>
+        </CellDefinition>
+        <CellDefinition>
+          <ColumnIndex>1</ColumnIndex>
+          <RowIndex>0</RowIndex>
+          <ParameterName>PreviousQuarterEndDate</ParameterName>
+        </CellDefinition>
+      </CellDefinitions>
+    </GridLayoutDefinition>
+  </ReportParametersLayout>
+  <EmbeddedImages>
+    <EmbeddedImage Name="AccidentFundlogo">
+      <MIMEType>image/png</MIMEType>
+      <ImageData>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</ImageData>
+    </EmbeddedImage>
+  </EmbeddedImages>
+  <ConsumeContainerWhitespace>true</ConsumeContainerWhitespace>
+  <rd:ReportUnitType>Inch</rd:ReportUnitType>
+  <rd:ReportID>db72b39e-2aba-4634-a50d-b283c9c8d08b</rd:ReportID>
+</Report>

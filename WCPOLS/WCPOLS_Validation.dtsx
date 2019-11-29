@@ -1,0 +1,2380 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="12/6/2016 5:52:03 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\peng.wang"
+  DTS:DTSID="{49ABF7B0-6056-4687-AA1C-EDE7A29EC3AC}"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCPOLS_Validation"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="85"
+  DTS:VersionGUID="{4C330E05-62C3-4284-B4E3-928A7D111A1E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:ConnectionManagers>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[INFilePath]"
+      DTS:CreationName="FLATFILE"
+      DTS:Description="INFilePath"
+      DTS:DTSID="{5B140077-7AB0-42EC-931C-2AB935D28BFE}"
+      DTS:ObjectName="INFilePath">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Package::INFilePath_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="RaggedRight"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowsToSkip="1"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:RowDelimiter="_x000D__x000A_"
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\Solution\WCPOL_File\UAT\POLICY.19968_NCCI_20170120.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnDelimiter=""
+              DTS:ColumnWidth="5"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:ObjectName="Prefix"
+              DTS:DTSID="{666EFD6D-7B05-440B-B60B-D0BA596282F6}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnDelimiter=""
+              DTS:ColumnWidth="12"
+              DTS:MaximumWidth="12"
+              DTS:DataType="129"
+              DTS:ObjectName="PolicyNumber"
+              DTS:DTSID="{B33B04E5-2C3A-4272-B9AA-2505E1B95B91}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Remaining"
+              DTS:DTSID="{54A23314-A488-43C7-81E4-CC2C7B0DB069}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+    <DTS:ConnectionManager
+      DTS:refId="Package.ConnectionManagers[MIFilePath]"
+      DTS:CreationName="FLATFILE"
+      DTS:Description="MIFilePath"
+      DTS:DTSID="{9B17052A-0039-460E-89DC-9EAB92A2CC76}"
+      DTS:ObjectName="MIFilePath">
+      <DTS:PropertyExpression
+        DTS:Name="ConnectionString">@[$Package::MIFilePath_ConnectionString]</DTS:PropertyExpression>
+      <DTS:ObjectData>
+        <DTS:ConnectionManager
+          DTS:Format="RaggedRight"
+          DTS:LocaleID="1033"
+          DTS:HeaderRowsToSkip="1"
+          DTS:HeaderRowDelimiter="_x000D__x000A_"
+          DTS:ColumnNamesInFirstDataRow="True"
+          DTS:RowDelimiter="_x000D__x000A_"
+          DTS:TextQualifier="_x003C_none_x003E_"
+          DTS:CodePage="1252"
+          DTS:ConnectionString="E:\Solution\WCPOL_File\UAT\PDEP_19968_00021_201701200203.txt">
+          <DTS:FlatFileColumns>
+            <DTS:FlatFileColumn
+              DTS:ColumnDelimiter=""
+              DTS:ColumnWidth="5"
+              DTS:MaximumWidth="5"
+              DTS:DataType="129"
+              DTS:ObjectName="Prefix"
+              DTS:DTSID="{B5788BF7-D775-4C1F-AC8D-C38A447768D7}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnDelimiter=""
+              DTS:ColumnWidth="12"
+              DTS:MaximumWidth="12"
+              DTS:DataType="129"
+              DTS:ObjectName="PolicyNumber"
+              DTS:DTSID="{D4F46079-0C9E-43C3-A2C8-7AA922A13E2F}"
+              DTS:CreationName="" />
+            <DTS:FlatFileColumn
+              DTS:ColumnType="Delimited"
+              DTS:ColumnDelimiter="_x000D__x000A_"
+              DTS:MaximumWidth="50"
+              DTS:DataType="129"
+              DTS:TextQualified="True"
+              DTS:ObjectName="Remaining"
+              DTS:DTSID="{89E49960-7041-4A43-9F02-98B308FFFB4D}"
+              DTS:CreationName="" />
+          </DTS:FlatFileColumns>
+        </DTS:ConnectionManager>
+      </DTS:ObjectData>
+    </DTS:ConnectionManager>
+  </DTS:ConnectionManagers>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="7"
+      DTS:DTSID="{AE7CA815-B3E1-42A4-A881-1A12BD241DA2}"
+      DTS:ObjectName="EndDate">
+      <DTS:Property
+        DTS:DataType="7"
+        DTS:Name="ParameterValue">1/23/2017 4:01:48 AM</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{369A31F6-015E-40C5-BB1A-43ABD8038293}"
+      DTS:ObjectName="INFilePath_ConnectionString">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">E:\Solution\WCPOL_File\UAT\POLICY.19968_NCCI_20170120.txt</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{5C5AD42B-951B-4464-A136-7FE48370A167}"
+      DTS:ObjectName="MIFilePath_ConnectionString">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">E:\Solution\WCPOL_File\UAT\PDEP_19968_00021_201701200203.txt</DTS:Property>
+    </DTS:PackageParameter>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="7"
+      DTS:DTSID="{1F05D20A-B93D-4FEE-B673-2A57BA666022}"
+      DTS:ObjectName="StartDate">
+      <DTS:Property
+        DTS:DataType="7"
+        DTS:Name="ParameterValue">1/23/2017 4:01:43 AM</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{559EFF0A-96AB-48D7-9DA8-0DE400B4A8E1}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="IncrementDays">
+      <DTS:VariableValue
+        DTS:DataType="3">-100</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{53C24A95-6DB6-4A56-9824-645A93413D67}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="IN_Path">
+      <DTS:VariableValue
+        DTS:DataType="8">E:\Solution\WCPOL_File\UAT\POLICY.19968_NCCI_20161202.txt</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8E86B868-2EE0-4FFE-9323-ACF56F00BF63}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="MI_Path">
+      <DTS:VariableValue
+        DTS:DataType="8">E:\Solution\WCPOL_File\UAT\PDEP_19968_00021_201612020515.txt</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3978751F-C8A5-4208-A15A-38C2B0A4EE2F}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="StageExecutionID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Check Flat File"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{02A85F45-2153-4A8D-9F60-CDA2F24B8B78}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Check Flat File"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Check Flat File\Derived Column"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="Derived Column"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input].Columns[PolicyNumberFile]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="18"
+                      cachedName="PolicyNumberFile"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyNumberFile]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input].Columns[PolicyNumberPC]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="PolicyNumberPC"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyNumberPC]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input].Columns[PolicyGWRowNumberFile]"
+                      cachedDataType="i8"
+                      cachedName="PolicyGWRowNumberFile"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyGWRowNumberFile]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input].Columns[PolicyGWRowNumberPC]"
+                      cachedDataType="i8"
+                      cachedName="PolicyGWRowNumberPC"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyGWRowNumberPC]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input].Columns[TransactionCodeFile]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TransactionCodeFile"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[TransactionCodeFile]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input].Columns[TransactionCodePC]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TransactionCodePC"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[TransactionCodePC]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input].Columns[JoinTypePC]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="JoinTypePC"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[JoinTypePC]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input].Columns[JoinTypeFile]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="JoinTypeFile"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[JoinTypeFile]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[PolicyNumber]"
+                      name="PolicyNumber"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyNumberFile]}) ? #{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyNumberPC]} : #{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyNumberFile]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(PolicyNumberFile) ? PolicyNumberPC : PolicyNumberFile</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[StartDate]"
+                      dataType="date"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[StartDate]"
+                      name="StartDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Package::StartDate]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Package::StartDate]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[EndDate]"
+                      dataType="date"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[EndDate]"
+                      name="EndDate"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[$Package::EndDate]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[$Package::EndDate]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[IfGotUpdatedInPC]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[IfGotUpdatedInPC]"
+                      name="IfGotUpdatedInPC"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyNumberPC]}) ? (DT_STR,1,1252)"N" : (DT_STR,1,1252)"Y"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(PolicyNumberPC) ? (DT_STR,1,1252)"N" : (DT_STR,1,1252)"Y"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[IfExistsInFile]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="1"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[IfExistsInFile]"
+                      name="IfExistsInFile"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyNumberFile]}) ? (DT_STR,1,1252)"N" : (DT_STR,1,1252)"Y"</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(PolicyNumberFile) ? (DT_STR,1,1252)"N" : (DT_STR,1,1252)"Y"</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[StageExecutionID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[StageExecutionID]"
+                      name="StageExecutionID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[User::StageExecutionID]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[User::StageExecutionID]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[PolicyGWRowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[PolicyGWRowNumber]"
+                      name="PolicyGWRowNumber"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyGWRowNumberFile]}) ? #{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyGWRowNumberPC]} : #{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyGWRowNumberFile]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(PolicyGWRowNumberFile) ? PolicyGWRowNumberPC : PolicyGWRowNumberFile</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[TransactionCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[TransactionCode]"
+                      name="TransactionCode"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[TransactionCodeFile]}) ? #{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[TransactionCodePC]} : #{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[TransactionCodeFile]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(TransactionCodeFile) ? TransactionCodePC : TransactionCodeFile</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[JoinType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[JoinType]"
+                      name="JoinType"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[ISNULL](#{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[JoinTypeFile]}) ? #{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[JoinTypePC]} : #{Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[JoinTypeFile]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">ISNULL(JoinTypeFile) ? JoinTypePC : JoinTypeFile</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Check Flat File\Load new Policy"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="Load new Policy"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dmproc].[WCPOLSValidation]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">10000</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Check Flat File\Load new Policy.Connections[OleDbConnection]"
+                  connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                      cachedDataType="wstr"
+                      cachedLength="40"
+                      cachedName="PolicyNumber"
+                      externalMetadataColumnId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[PolicyNumber]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].Columns[StartDate]"
+                      cachedDataType="date"
+                      cachedName="StartDate"
+                      externalMetadataColumnId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[ExecuteStartDate]"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[StartDate]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].Columns[EndDate]"
+                      cachedDataType="date"
+                      cachedName="EndDate"
+                      externalMetadataColumnId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[ExecuteEndDate]"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[EndDate]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].Columns[StageExecutionID]"
+                      cachedDataType="i4"
+                      cachedName="StageExecutionID"
+                      externalMetadataColumnId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[WCPOLSStagingID]"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[StageExecutionID]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].Columns[PolicyGWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="PolicyGWRowNumber"
+                      externalMetadataColumnId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[PolicyGWRowNumber]"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[PolicyGWRowNumber]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].Columns[UpdateTimeInPC]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="UpdateTimeInPC"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[UpdateTimeInPC]"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[UpdateTimeInPC]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].Columns[WCPOLSFileName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="33"
+                      cachedName="WCPOLSFileName"
+                      externalMetadataColumnId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[FileNameIfExists]"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[WCPOLSFileName]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].Columns[TransactionCode]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="TransactionCode"
+                      externalMetadataColumnId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[TransactionCode]"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[TransactionCode]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].Columns[JoinType]"
+                      cachedDataType="wstr"
+                      cachedLength="2"
+                      cachedName="JoinType"
+                      externalMetadataColumnId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[JoinType]"
+                      lineageId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output].Columns[JoinType]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[ExecuteStartDate]"
+                      dataType="dbTimeStamp"
+                      name="ExecuteStartDate" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[ExecuteEndDate]"
+                      dataType="dbTimeStamp"
+                      name="ExecuteEndDate" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="PolicyNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[WCPOLSStagingID]"
+                      dataType="i4"
+                      name="WCPOLSStagingID" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[PolicyGWRowNumber]"
+                      dataType="i4"
+                      name="PolicyGWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[UpdateTimeInPC]"
+                      dataType="dbTimeStamp"
+                      name="UpdateTimeInPC" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[FileNameIfExists]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="FileNameIfExists" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[TransactionCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="TransactionCode" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input].ExternalColumns[JoinType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="JoinType" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Check Flat File\Load new Policy.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Check Flat File\Load new Policy.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Check Flat File\Load new Policy.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Load new Policy.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Check Flat File\Load new Policy.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Check Flat File\Merge Join"
+              componentClassID="Microsoft.MergeJoin"
+              contactInfo="Merge Join;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Combine two sorted data flows into one using the FULL, LEFT, or INNER join. We recommend this transformation when data flows can be sorted at their sources."
+              name="Merge Join"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of join to perform."
+                  name="JoinType"
+                  typeConverter="JoinType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the number of columns in the ordering key."
+                  name="NumKeyColumns">1</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the null values are treated as equal values."
+                  name="TreatNullsAsEqual">true</property>
+                <property
+                  dataType="System.Int32"
+                  description="Indicates the requested maximum buffers per input before blocking."
+                  name="MaxBuffersPerInput">5</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Left Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input].Columns[PolicyGWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="PolicyGWRowNumber"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[PolicyGWRowNumber]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input].Columns[PolicyNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="18"
+                      cachedName="PolicyNumber"
+                      lineageId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[PolicyNumber]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input].Columns[FileName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="33"
+                      cachedName="FileName"
+                      lineageId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[FileName]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input].Columns[Transaction_Code]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="Transaction_Code"
+                      lineageId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[Transaction_Code]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input].Columns[JoinType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="JoinType"
+                      lineageId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[JoinType]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+                <input
+                  refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input]"
+                  hasSideEffects="true"
+                  name="Merge Join Right Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input].Columns[PolicyGWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="PolicyGWRowNumber"
+                      cachedSortKeyPosition="1"
+                      lineageId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[PolicyGWRowNumber]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input].Columns[PolicyNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="PolicyNumber"
+                      lineageId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[PolicyNumber]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input].Columns[UpdateTime]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="UpdateTime"
+                      cachedScale="7"
+                      lineageId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[UpdateTime]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input].Columns[TransactionCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TransactionCode"
+                      lineageId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[TransactionCode]" />
+                    <inputColumn
+                      refId="Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input].Columns[JoinType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="JoinType"
+                      lineageId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[JoinType]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output]"
+                  isSorted="true"
+                  name="Merge Join Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyNumberFile]"
+                      codePage="1252"
+                      dataType="str"
+                      length="18"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyNumberFile]"
+                      name="PolicyNumberFile">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input].Columns[PolicyNumber]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyNumberPC]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyNumberPC]"
+                      name="PolicyNumberPC">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input].Columns[PolicyNumber]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyGWRowNumberFile]"
+                      dataType="i8"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyGWRowNumberFile]"
+                      name="PolicyGWRowNumberFile"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input].Columns[PolicyGWRowNumber]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyGWRowNumberPC]"
+                      dataType="i8"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[PolicyGWRowNumberPC]"
+                      name="PolicyGWRowNumberPC">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input].Columns[PolicyGWRowNumber]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[WCPOLSFileName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="33"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[WCPOLSFileName]"
+                      name="WCPOLSFileName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input].Columns[FileName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[UpdateTimeInPC]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[UpdateTimeInPC]"
+                      name="UpdateTimeInPC"
+                      scale="7">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input].Columns[UpdateTime]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[TransactionCodeFile]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[TransactionCodeFile]"
+                      name="TransactionCodeFile">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input].Columns[Transaction_Code]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[TransactionCodePC]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[TransactionCodePC]"
+                      name="TransactionCodePC">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input].Columns[TransactionCode]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[JoinTypePC]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[JoinTypePC]"
+                      name="JoinTypePC">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input].Columns[JoinType]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[JoinTypeFile]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output].Columns[JoinTypeFile]"
+                      name="JoinTypeFile">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="The input column associated with this output column"
+                          name="InputColumnID">#{Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input].Columns[JoinType]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Check Flat File\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select distinct 
+PolicyGWRowNumber 
+,cast(upper(ltrim(rtrim(Policy_Number_Identifier ))) as varchar(18)) as PolicyNumber
+,Transaction_Code
+,JoinType
+,case when StateCodeToSplitMIandIN = 'MI' then right(FilePath,33)
+when StateCodeToSplitMIandIN = 'IN' then right(FilePath,30) end
+ as FileName
+from dmproc.WCPOLSValidationLinkData
+order by PolicyGWRowNumber</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Check Flat File\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyGWRowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PolicyGWRowNumber]"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyGWRowNumber]"
+                      name="PolicyGWRowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[FileName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FileName]"
+                      length="33"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[FileName]"
+                      name="FileName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      length="18"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      name="PolicyNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[Transaction_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Transaction_Code]"
+                      length="2"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[Transaction_Code]"
+                      name="Transaction_Code"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[JoinType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[JoinType]"
+                      length="2"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[JoinType]"
+                      name="JoinType"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PolicyGWRowNumber]"
+                      dataType="i8"
+                      name="PolicyGWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[FileName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="33"
+                      name="FileName" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="18"
+                      name="PolicyNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[Transaction_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="Transaction_Code" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[JoinType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="JoinType" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PolicyGWRowNumber]"
+                      dataType="i8"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PolicyGWRowNumber]"
+                      name="PolicyGWRowNumber" />
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="18"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      name="PolicyNumber" />
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Transaction_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[Transaction_Code]"
+                      name="Transaction_Code" />
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[JoinType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[JoinType]"
+                      name="JoinType" />
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FileName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="33"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[FileName]"
+                      name="FileName" />
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Check Flat File\Policy Period"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="Policy Period"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With CTE_Message as 
+(
+	Select ID, PolicyPeriodID, EventName, SendTime, SendLockedTime, CreationTime, 1 BeanVersion 
+	from pc_message  
+	Where EventName in ('SendNonRenewalDocuments')
+)
+
+
+ SELECT  
+	 pp.ID as PolicyGWRowNumber
+	 ,cast(upper(ltrim(rtrim(pp.PolicyNumber))) as varchar(18)) as PolicyNumber
+	 ,Case When job.Name in  ('Submission','Rewrite') then '01'
+			When job.Name = 'Renewal' then '02'
+		  when job.Name in ('Cancellation','Reinstatement')  then '05'
+		  when job.Name = 'Policy Change' then '08'
+		  else '00' End as TransactionCode
+	,jb.UpdateTime
+	,'00' as JoinType
+
+from dbo.pc_policyperiod  pp
+	inner Join dbo.pc_job jb On pp.JobID = jb.ID
+	inner Join dbo.pctl_job job On jb.Subtype = job.ID
+	inner join dbo.pctl_policyperiodstatus pps on pp.Status=pps.ID
+	inner Join dbo.pc_policy po With(NoLock) On po.ID = pp.PolicyID
+	inner join dbo.pctl_jurisdiction jup on pp.BaseState = jup.ID
+	inner join dbo.pc_policyline pl on pp.id=pl.branchid AND pp.EditEffectiveDate &gt;= COALESCE(pl.EFFECTIVEDATE,'1900-01-01') and pp.EditEffectiveDate &lt; COALESCE(pl.EXPIRATIONDATE,'9999-12-31')
+
+where job.NAME in ( 'Submission','Renewal','Reinstatement','Rewrite')
+	and pps.name='Bound'  
+	and po.IssueDate is not null
+	and cast(jb.UpdateTime as date) &gt;  ? and cast(jb.UpdateTime as date) &lt;= ?
+	and Left(jup.TYPECODE,2) in ('MI','IN') --BaseState
+	and pl.patterncode in ('WorkersCompLine','WC7Line') 
+
+UNION--------NonRenewal
+
+SELECT  Distinct 
+	pp.ID as PolicyGWRowNumber
+	,cast(upper(ltrim(rtrim(pp.PolicyNumber))) as varchar(18)) as PolicyNumber
+	,'05' as TransactionCode
+	,jb.UpdateTime
+	,'00' as JoinType	
+	 
+FROM dbo.pc_policyperiod  cp  
+	inner join dbo.pc_policyperiod  pp on cp.BasedOnID = pp.id
+	inner Join dbo.pc_job jb On cp.JobID = jb.ID
+	inner Join dbo.pctl_job job On jb.Subtype = job.ID
+	inner join dbo.pctl_policyperiodstatus pps on cp.Status = pps.ID
+	inner Join dbo.pc_policy po With(NoLock) On po.ID = cp.PolicyID
+	Inner join CTE_Message mes on cp.id = mes.PolicyPeriodID 
+	inner join dbo.pctl_jurisdiction jup on cp.BaseState = jup.ID
+	inner join dbo.pc_policyline pl on cp.id = pl.branchid AND cp.EditEffectiveDate &gt;= COALESCE(pl.EFFECTIVEDATE,'1900-01-01') and cp.EditEffectiveDate &lt; COALESCE(pl.EXPIRATIONDATE,'9999-12-31')
+WHERE  job.NAME in ('Renewal')
+	and mes.EventName in ('SendNonRenewalDocuments')
+	and po.IssueDate is not null
+	and Left(jup.TYPECODE,2) in ('MI','IN') --BaseState
+	and pl.patterncode in ('WorkersCompLine','WC7Line')
+	--and cp.policynumber = 'ARP12000531001' 
+	and cast( mes.CreationTime as date) &gt;  ? and cast( mes.CreationTime as date) &lt;= ?
+
+
+UNION
+--Get 'Quoted','Cancelling','Bound' Cancellation base on JobCreateTime, will only report once
+SELECT  
+  pp.ID as PolicyGWRowNumber
+ ,cast(upper(ltrim(rtrim(pp.PolicyNumber))) as varchar(18)) as PolicyNumber
+ ,Case When job.Name = 'Submission' then '01'
+		When job.Name = 'Renewal' then '02'
+      when job.Name in ('Cancellation','Reinstatement')  then '05'
+	  when job.Name = 'Policy Change' then '08'
+	  else '00' End as TransactionCode
+,jb.UpdateTime
+,'00' as JoinType
+
+from dbo.pc_policyperiod  pp
+	inner Join dbo.pc_job jb On pp.JobID = jb.ID
+	inner Join dbo.pctl_job job On jb.Subtype = job.ID
+	inner join dbo.pctl_policyperiodstatus pps on pp.Status=pps.ID
+	inner Join dbo.pc_policy po With(NoLock) On po.ID = pp.PolicyID
+	inner join dbo.pctl_jurisdiction jup on pp.BaseState = jup.ID
+	inner join dbo.pc_policyline pl on pp.id=pl.branchid AND pp.EditEffectiveDate &gt;= COALESCE(pl.EFFECTIVEDATE,'1900-01-01') and pp.EditEffectiveDate &lt; COALESCE(pl.EXPIRATIONDATE,'9999-12-31')
+where job.NAME in ('Cancellation')
+	and pps.name in ('Canceling','Bound','Rescinded')  
+	--and po.IssueDate is not null
+	and cast(jb.CreateTime as date) &gt;  ? and cast(jb.CreateTime as date) &lt;= ?
+	and Left(jup.TYPECODE,2) in ('MI','IN') --BaseState
+	and pl.patterncode in ('WorkersCompLine','WC7Line') 
+
+UNION
+--Get 'Withdrawn','Rescinded' Cancellation base on JobUpdateTime, will only get those which change to 'Withdrawn','Rescinded' not in the same day as JobCreateTime, consider them as reinstatement in WCPOLS
+SELECT  
+  pp.ID as PolicyGWRowNumber
+ ,cast(upper(ltrim(rtrim(pp.PolicyNumber))) as varchar(18)) as PolicyNumber
+ ,Case When job.Name = 'Submission' then '01'
+		When job.Name = 'Renewal' then '02'
+      when job.Name in ('Cancellation','Reinstatement')  then '05'
+	  when job.Name = 'Policy Change' then '08'
+	  else '00' End as TransactionCode
+,jb.UpdateTime
+,'00' as JoinType
+from dbo.pc_policyperiod  pp
+	inner Join dbo.pc_job jb On pp.JobID = jb.ID
+	inner Join dbo.pctl_job job On jb.Subtype = job.ID
+	inner join dbo.pctl_policyperiodstatus pps on pp.Status=pps.ID
+	inner Join dbo.pc_policy po With(NoLock) On po.ID = pp.PolicyID
+	inner join dbo.pctl_jurisdiction jup on pp.BaseState = jup.ID
+	inner join dbo.pc_policyline pl on pp.id=pl.branchid AND pp.EditEffectiveDate &gt;= COALESCE(pl.EFFECTIVEDATE,'1900-01-01') and pp.EditEffectiveDate &lt; COALESCE(pl.EXPIRATIONDATE,'9999-12-31')
+where job.NAME in ('Cancellation')
+	and pps.name in ('Rescinded')  
+	and cast(jb.CreateTime as date) &lt; cast(jb.UpdateTime as date) and cast(jb.UpdateTime as date) &gt;  ? and cast(jb.UpdateTime as date) &lt;= ?
+	and Left(jup.TYPECODE,2) in ('MI','IN') --BaseState
+	and pl.patterncode in ('WorkersCompLine','WC7Line') 
+
+union 
+
+SELECT PolicyGWRowNumber ,PolicyNumber ,TransactionCode ,UpdateTime
+,'00' as JoinType
+from (
+		select  
+		pp.ID as PolicyGWRowNumber
+		,cast(upper(ltrim(rtrim(pp.PolicyNumber))) as varchar(18)) as PolicyNumber
+		,Case when Left(jup.TYPECODE,2) = 'IN' then '08'
+			 when Left(jup.TYPECODE,2) = 'MI' and ct.TypeCode in ('Rating','Additional') then '08'
+			 when Left(jup.TYPECODE,2) = 'MI' and ct.TypeCode = 'NonRating' then '10'
+			 when Left(jup.TYPECODE,2) = 'MI' and ct.TypeCode is null then '10'
+			 else '00' 
+		End as TransactionCode
+		,jb.UpdateTime
+		,row_number() over (partition by pp.PolicyNumber order by Cast(pp.editeffectivedate As DateTime) desc ,pp.ModelDate desc) as rn
+		from dbo.pc_policyperiod  pp
+			inner Join dbo.pc_job jb On pp.JobID = jb.ID
+			inner Join dbo.pctl_job job On jb.Subtype = job.ID
+			inner join dbo.pctl_policyperiodstatus pps on pp.Status=pps.ID
+			inner Join dbo.pc_policy po With(NoLock) On po.ID = pp.PolicyID
+			inner join dbo.pctl_jurisdiction jup on pp.BaseState = jup.ID
+			inner join dbo.pc_policyline pl on pp.id=pl.branchid AND pp.EditEffectiveDate &gt;= COALESCE(pl.EFFECTIVEDATE,'1900-01-01') and pp.EditEffectiveDate &lt; COALESCE(pl.EXPIRATIONDATE,'9999-12-31')
+			left join dbo.pctl_wcpolicychangetypeext ct on jb.WCPolicyChangeTypeExt=ct.ID
+		where job.NAME in ('Policy Change')
+			and pps.name='Bound'  
+			and po.IssueDate is not null
+			and cast(jb.UpdateTime as date) &gt;  ? and cast(jb.UpdateTime as date) &lt;= ?
+			and Left(jup.TYPECODE,2) in ('MI','IN') --BaseState
+			and pl.patterncode in ('WorkersCompLine','WC7Line') 
+	) qry
+where rn = 1
+
+union --Z1
+
+
+SELECT  
+ pp.ID as PolicyGWRowNumber
+,cast(upper(ltrim(rtrim(pp.PolicyNumber))) as varchar(18)) as PolicyNumber
+,'17' as TransactionCode
+,ci.UpdateTime
+,'Z1' as JoinType
+
+from (select ID from (Select ID, ROW_NUMBER() Over (Partition  by PolicyNumber order by CreateTime desc) RowNumber From dbo.pc_policyperiod where ModelDate is NOT NULL) z where RowNumber = 1) ppa
+	inner join dbo.pc_policyperiod  pp on pp.ID = ppa.ID
+	inner Join dbo.pc_job jb On pp.JobID = jb.ID
+	inner Join dbo.pctl_job job On jb.Subtype = job.ID
+	inner join dbo.pctl_policyperiodstatus pps on pp.Status=pps.ID
+	inner Join dbo.pc_policy po With(NoLock) On po.ID = pp.PolicyID
+	inner join dbo.pctl_jurisdiction jup on pp.BaseState = jup.ID
+	inner join dbo.pc_policyline pl on pp.id=pl.branchid AND pp.EditEffectiveDate &gt;= COALESCE(pl.EFFECTIVEDATE,'1900-01-01') and pp.EditEffectiveDate &lt; COALESCE(pl.EXPIRATIONDATE,'9999-12-31')
+	inner join dbo.pcx_complianceinfo_ext  ci on ci.PolicyTerm = pp.PolicyTermID  
+	Left Join dbo.pc_contact cont With(NoLock) On pp.PNIContactDenorm = cont.ID
+	Left Join dbo.pc_contact pow With(NoLock) On pp.PolicyOwner = pow.ID
+	Left Join dbo.pctl_contact ctl With(NoLock) On cont.Subtype = ctl.ID
+	Left Join dbo.pc_address pa With(NoLock) On cont.PrimaryAddressID = pa.ID
+	Left Join dbo.pctl_state ps With(NoLock) On pa.State = ps.ID
+
+where job.NAME in ( 'Submission','Cancellation','Renewal','Reinstatement','Policy Change','Rewrite')
+	and pps.name='Bound'  
+	and po.IssueDate is not null
+	and cast(ci.UpdateTime as date) &gt;  ? and cast(ci.UpdateTime as date) &lt;= ?
+	and ci.Retired='0'
+	and Left(ps.TYPECODE,2) = 'IN' --BaseState
+	and pl.patterncode in ('WorkersCompLine','WC7Line')</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{1F05D20A-46C2-4FEE-B673-2A57BA666022};"Parameter1:Input",{AE7CA815-4C1E-42A4-A881-1A12BD241DA2};"Parameter2:Input",{1F05D20A-46C2-4FEE-B673-2A57BA666022};"Parameter3:Input",{AE7CA815-4C1E-42A4-A881-1A12BD241DA2};"Parameter4:Input",{1F05D20A-46C2-4FEE-B673-2A57BA666022};"Parameter5:Input",{AE7CA815-4C1E-42A4-A881-1A12BD241DA2};"Parameter6:Input",{1F05D20A-46C2-4FEE-B673-2A57BA666022};"Parameter7:Input",{AE7CA815-4C1E-42A4-A881-1A12BD241DA2};"Parameter8:Input",{1F05D20A-46C2-4FEE-B673-2A57BA666022};"Parameter9:Input",{AE7CA815-4C1E-42A4-A881-1A12BD241DA2};"Parameter10:Input",{1F05D20A-46C2-4FEE-B673-2A57BA666022};"Parameter11:Input",{AE7CA815-4C1E-42A4-A881-1A12BD241DA2};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Check Flat File\Policy Period.Connections[OleDbConnection]"
+                  connectionManagerID="{70687BDC-7B33-47E9-9302-7945B152A0B2}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[GWStaging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      length="40"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      name="PolicyNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[PolicyGWRowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].ExternalColumns[PolicyGWRowNumber]"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[PolicyGWRowNumber]"
+                      name="PolicyGWRowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[UpdateTime]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].ExternalColumns[UpdateTime]"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[UpdateTime]"
+                      name="UpdateTime"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[TransactionCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].ExternalColumns[TransactionCode]"
+                      length="2"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[TransactionCode]"
+                      name="TransactionCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[JoinType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].ExternalColumns[JoinType]"
+                      length="2"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[JoinType]"
+                      name="JoinType"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="18"
+                      name="PolicyNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].ExternalColumns[PolicyGWRowNumber]"
+                      dataType="i8"
+                      name="PolicyGWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].ExternalColumns[UpdateTime]"
+                      dataType="dbTimeStamp2"
+                      name="UpdateTime"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].ExternalColumns[TransactionCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TransactionCode" />
+                    <externalMetadataColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].ExternalColumns[JoinType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="JoinType" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[PolicyGWRowNumber]"
+                      dataType="i8"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[PolicyGWRowNumber]"
+                      name="PolicyGWRowNumber" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[TransactionCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[TransactionCode]"
+                      name="TransactionCode" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[UpdateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[UpdateTime]"
+                      name="UpdateTime"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[JoinType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[JoinType]"
+                      name="JoinType" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="18"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      name="PolicyNumber" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Check Flat File\SortFile"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="SortFile"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Check Flat File\SortFile.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Check Flat File\SortFile.Inputs[Sort Input].Columns[PolicyNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="18"
+                      cachedName="PolicyNumber"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyNumber]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Check Flat File\SortFile.Inputs[Sort Input].Columns[PolicyGWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="PolicyGWRowNumber"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyGWRowNumber]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Check Flat File\SortFile.Inputs[Sort Input].Columns[FileName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="33"
+                      cachedName="FileName"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[FileName]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Check Flat File\SortFile.Inputs[Sort Input].Columns[Transaction_Code]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="Transaction_Code"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[Transaction_Code]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Check Flat File\SortFile.Inputs[Sort Input].Columns[JoinType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="JoinType"
+                      lineageId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[JoinType]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Check Flat File\SortFile.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="18"
+                      lineageId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[PolicyNumber]"
+                      name="PolicyNumber">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyNumber]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[PolicyGWRowNumber]"
+                      dataType="i8"
+                      lineageId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[PolicyGWRowNumber]"
+                      name="PolicyGWRowNumber"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyGWRowNumber]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[FileName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="33"
+                      lineageId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[FileName]"
+                      name="FileName">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[FileName]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[Transaction_Code]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[Transaction_Code]"
+                      name="Transaction_Code">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[Transaction_Code]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[JoinType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\SortFile.Outputs[Sort Output].Columns[JoinType]"
+                      name="JoinType">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output].Columns[JoinType]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Check Flat File\SortPC"
+              componentClassID="Microsoft.Sort"
+              contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+              description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+              name="SortPC"
+              version="1">
+              <properties>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                  name="EliminateDuplicates">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the maximum number of threads to use for sorting."
+                  expressionType="Notify"
+                  name="MaximumThreads">-1</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\Check Flat File\SortPC.Inputs[Sort Input]"
+                  name="Sort Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Check Flat File\SortPC.Inputs[Sort Input].Columns[PolicyNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="40"
+                      cachedName="PolicyNumber"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[PolicyNumber]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Check Flat File\SortPC.Inputs[Sort Input].Columns[PolicyGWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="PolicyGWRowNumber"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[PolicyGWRowNumber]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">1</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Check Flat File\SortPC.Inputs[Sort Input].Columns[UpdateTime]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="UpdateTime"
+                      cachedScale="7"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[UpdateTime]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Check Flat File\SortPC.Inputs[Sort Input].Columns[TransactionCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TransactionCode"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[TransactionCode]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                    <inputColumn
+                      refId="Package\Check Flat File\SortPC.Inputs[Sort Input].Columns[JoinType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="JoinType"
+                      lineageId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[JoinType]">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the comparison options for character data."
+                          name="NewComparisonFlags">0</property>
+                        <property
+                          dataType="System.Int32"
+                          description="Specifies the sort order of the column."
+                          name="NewSortKeyPosition">0</property>
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Check Flat File\SortPC.Outputs[Sort Output]"
+                  isSorted="true"
+                  name="Sort Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="40"
+                      lineageId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[PolicyNumber]"
+                      name="PolicyNumber">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[PolicyNumber]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[PolicyGWRowNumber]"
+                      dataType="i8"
+                      lineageId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[PolicyGWRowNumber]"
+                      name="PolicyGWRowNumber"
+                      sortKeyPosition="1">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[PolicyGWRowNumber]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[UpdateTime]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[UpdateTime]"
+                      name="UpdateTime"
+                      scale="7">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[UpdateTime]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[TransactionCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[TransactionCode]"
+                      name="TransactionCode">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[TransactionCode]}</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[JoinType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Check Flat File\SortPC.Outputs[Sort Output].Columns[JoinType]"
+                      name="JoinType">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the lineage identifier of the input column that is associated with this output column."
+                          name="SortColumnId">#{Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output].Columns[JoinType]}</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Check Flat File.Paths[Derived Column Output]"
+              endId="Package\Check Flat File\Load new Policy.Inputs[OLE DB Destination Input]"
+              name="Derived Column Output"
+              startId="Package\Check Flat File\Derived Column.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\Check Flat File.Paths[Merge Join Output]"
+              endId="Package\Check Flat File\Derived Column.Inputs[Derived Column Input]"
+              name="Merge Join Output"
+              startId="Package\Check Flat File\Merge Join.Outputs[Merge Join Output]" />
+            <path
+              refId="Package\Check Flat File.Paths[OLE DB Source Output]"
+              endId="Package\Check Flat File\SortPC.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Check Flat File\Policy Period.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Check Flat File.Paths[OLE DB Source Output1]"
+              endId="Package\Check Flat File\SortFile.Inputs[Sort Input]"
+              name="OLE DB Source Output"
+              startId="Package\Check Flat File\OLE DB Source.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\Check Flat File.Paths[Sort Output]"
+              endId="Package\Check Flat File\Merge Join.Inputs[Merge Join Left Input]"
+              name="Sort Output"
+              startId="Package\Check Flat File\SortFile.Outputs[Sort Output]" />
+            <path
+              refId="Package\Check Flat File.Paths[Sort Output1]"
+              endId="Package\Check Flat File\Merge Join.Inputs[Merge Join Right Input]"
+              name="Sort Output"
+              startId="Package\Check Flat File\SortPC.Outputs[Sort Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Get Stage Execution ID"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A57851BF-1F76-4E72-BFEB-98EF70B1D35C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Get Stage Execution ID"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}"
+          SQLTask:SqlStatementSource="select max(ID) as ID&#xA;from&#xA; [WCPOLSStaging] &#xA;  WHERE Sourcesystem = 'WCPOLS' &#xA;  AND Cast(ExecuteStartDate as Date) = ?&#xA;  AND Cast(ExecuteEndDate as Date) = ?&#xA;  AND IsFileSent = 'Y'&#xA;  AND ExecutionStatus = 'Y'"
+          SQLTask:ResultType="ResultSetType_SingleRow" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ResultBinding
+            SQLTask:ResultName="ID"
+            SQLTask:DtsVariableName="User::StageExecutionID" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="$Package::StartDate"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="7"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="$Package::EndDate"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="7"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Send Email"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{db44adfa-7f1d-4186-8414-dd0f2b3c51f4}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Send Email"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}"
+          SQLTask:SqlStatementSource="exec [dbo].[spSendEmailForDailyValidation]" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{C42485C6-87F1-4757-9504-B233D4ACA3C9}"
+      DTS:From="Package\Get Stage Execution ID"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Check Flat File" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{81422885-CDF8-40CB-8296-32A02E823B1D}"
+      DTS:From="Package\Check Flat File"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Send Email" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="204,42"
+          Id="Package\Check Flat File"
+          TopLeft="400.333333333333,263" />
+        <NodeLayout
+          Size="204,42"
+          Id="Package\Get Stage Execution ID"
+          TopLeft="400.333333333333,158" />
+        <NodeLayout
+          Size="204,42"
+          Id="Package\Send Email"
+          TopLeft="400.333333333333,361" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="502.333333333333,200">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,63"
+              Start="0,0"
+              End="0,55.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,55.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="502.333333333333,305">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,56"
+              Start="0,0"
+              End="0,48.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,48.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Check Flat File">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Check Flat File\SortPC"
+          TopLeft="545,135.5" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Check Flat File\OLE DB Source"
+          TopLeft="288,44" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Check Flat File\Merge Join"
+          TopLeft="426,249" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Check Flat File\Load new Policy"
+          TopLeft="430.5,407.5" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Check Flat File\SortFile"
+          TopLeft="286,143" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Check Flat File\Policy Period"
+          TopLeft="546,40" />
+        <NodeLayout
+          Size="155,42"
+          Id="Package\Check Flat File\Derived Column"
+          TopLeft="432,329" />
+        <EdgeLayout
+          Id="Package\Check Flat File.Paths[Merge Join Output]"
+          TopLeft="506.5,291">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Check Flat File.Paths[Derived Column Output]"
+          TopLeft="508.75,371">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.5"
+              Start="0,0"
+              End="0,29">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Check Flat File.Paths[Sort Output1]"
+          TopLeft="622.5,177.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-94.5,71.5"
+              Start="0,0"
+              End="-94.5,64">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.4616858237548" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,38.4616858237548"
+                    Point2="0,42.4616858237548"
+                    Point3="-4,42.4616858237548" />
+                  <mssgle:LineSegment
+                    End="-90.5,42.4616858237548" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-90.5,42.4616858237548"
+                    Point2="-94.5,42.4616858237548"
+                    Point3="-94.5,46.4616858237548" />
+                  <mssgle:LineSegment
+                    End="-94.5,64" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Check Flat File.Paths[Sort Output]"
+          TopLeft="363.5,185">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="115.5,64"
+              Start="0,0"
+              End="115.5,56.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,34.007662835249" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,34.007662835249"
+                    Point2="0,38.007662835249"
+                    Point3="4,38.007662835249" />
+                  <mssgle:LineSegment
+                    End="111.5,38.007662835249" />
+                  <mssgle:CubicBezierSegment
+                    Point1="111.5,38.007662835249"
+                    Point2="115.5,38.007662835249"
+                    Point3="115.5,42.007662835249" />
+                  <mssgle:LineSegment
+                    End="115.5,56.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Check Flat File.Paths[OLE DB Source Output1]"
+          TopLeft="364.5,86">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,57"
+              Start="0,0"
+              End="0,49.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,49.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Check Flat File.Paths[OLE DB Source Output]"
+          TopLeft="623,82">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53.5"
+              Start="0,0"
+              End="0,46">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Check Flat File\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Check Flat File\Load new Policy">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Check Flat File\Policy Period">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

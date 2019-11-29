@@ -1,0 +1,1213 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/26/2016 5:51:15 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\vikas.singh"
+  DTS:DTSID="{4A8C83C3-7D1A-4D24-85EF-93F6F8C23018}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCPOLS_Load_FederalMineSafety"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="219"
+  DTS:VersionGUID="{E3E13464-8C8E-4605-A8C2-580826841F7C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{1EC6B8E1-2918-4D28-9FA1-D8E0AD92A8C4}"
+      DTS:ObjectName="BatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="StartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::StartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{26E20F7C-26B7-4988-BDEF-1214BB15DE36}"
+      DTS:ObjectName="StartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="EndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::EndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{1BE59C93-F940-45FC-A5F6-1FA26726D02E}"
+      DTS:ObjectName="EndDate" />
+  </DTS:Configurations>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="EnterpriseDataWarehouse"
+      DTS:CreationName="Microsoft.LogProviderSQLServer"
+      DTS:Description="Writes log entries for events to a SQL Server database"
+      DTS:DTSID="{AF701111-A17A-43B0-9133-AB152E651084}"
+      DTS:ObjectName="SSIS log provider for SQL Server">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{47D130C6-3A45-4F6B-9F72-750A3EA2D14E}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{56FC240A-7F96-4B6A-AACC-24BD4557158B}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="EndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">3/6/2017 7:10:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{41056660-18F0-4A46-88A1-CD4EB842D8A8}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">12/1/2016 12:18:00 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">2,7,OnError,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{AF701111-A17A-43B0-9133-AB152E651084}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{EFE28D80-43D3-4BF0-97CB-176DB85D2CB4}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{96D41EF8-668F-450D-BEDE-436C9988D74B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\Process Failed.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{B8A74CD7-4576-4B48-97B3-E774A7D55508}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{3C8DC6D1-D9A8-47E7-A5F6-B6744BBE3EB3}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="&#xA;Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{98A4A5C1-03EC-45EE-9805-35CFEA412466}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{B119DD8C-DC4E-402A-B777-67BB6D71A3FA}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load WCPOLS_FederalMineSafety"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE_DEST WCPOLS_FederalMineSafety"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[WCPOLS_FederalMineSafety]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 1000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">1000</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].Columns[PolicyId]"
+                          cachedDataType="i4"
+                          cachedName="PolicyId"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyId]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="PolicyNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].Columns[PolicyState]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="PolicyState"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyState]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].Columns[EndorsementNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="EndorsementNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Number]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].Columns[BureauVersionIdentifier]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="BureauVersionIdentifier"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Bureau_Version_Identifier]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].Columns[CarrierVersionIdentifier]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="11"
+                          cachedName="CarrierVersionIdentifier"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Version_Identifier]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[CarrierVersionIdentifier]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].Columns[NameOfInsured]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="34"
+                          cachedName="NameOfInsured"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Insured]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].Columns[EndorsementEffectiveDate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="EndorsementEffectiveDate"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].Columns[RecordTypeCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="RecordTypeCode"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[RecordTypeCode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].Columns[InsertDate]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="InsertDate"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[InsertDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].Columns[State_Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="State_Code"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[State_Code]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[State_Code]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="Policy_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Policy_State" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="Endorsement_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Bureau_Version_Identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Bureau_Version_Identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Version_Identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="11"
+                          name="Carrier_Version_Identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Insured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="Name_Of_Insured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          dataType="dbTimeStamp"
+                          name="Insert_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="dbTimeStamp"
+                          name="Update_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Endorsement_Effective_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Record_Type_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[FederalMineSafety_ID]"
+                          dataType="i8"
+                          name="FederalMineSafety_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input].ExternalColumns[State_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="State_Code" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE_SRC WCPolicyEndorsement"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select Distinct  
+		p.PolicyId,  
+		Left(ISNULL(p.PolicyNumber,Replicate(' ',18)),18) PolicyNumber,	
+		Left(ISNULL(p.BaseState,Replicate(' ',2)),2) PolicyState,
+		'WC000102' EndorsementNumber,
+		IIF(Len(FormNumber) &gt; 11, Right(FormNumber,1),' ') BureauVersionIdentifier, 
+		Replicate (' ',11) CarrierVersionIdentifier,
+		 
+		Left(Cast(Coalesce(s1.StateCode, s2.StateCode,0) as varchar(2)) + Replicate(0,100),100)  State_Code,
+		Left(ISNULL(p.PrimaryInsuredName,Replicate(' ',34)),34) NameOfInsured,
+		GetDate() InsertDate,
+		'27' RecordTypeCode, 
+		ISNULL(Right(Convert(varchar(10),F.EndorsementEffectiveDate ,112),6),'000000') EndorsementEffectiveDate 
+		 
+	From WCPolicyEndorsement w
+		Inner Join DimPolicy p on w.PolicyID = p.PolicyID
+		Inner Join FactPolicyForm f on p.PolicyID = f.PolicyID
+		Inner Join DimForm d on f.FormID = d.FormID		
+		Left Join FactWCPremiumTransaction t on p.PolicyId = t.Policyid 
+		Left Join DimState s1 on EndorsementValue2 = s1.StateAbbr
+		Left Join DimState s2 on EndorsementValue2 = s2.State
+		--05 OCT - VS - Added join on DimState to use IsNCCI column. This column is replacing all the NCCI States e.g. IN, VA, CT, IL etc.
+		Left join DimState ds on p.BaseState = ds.StateAbbr
+
+	Where   w.PatternCode = 'WC7FedMineSafety'
+		AND (
+				(p.TransactionType in ('Submission' ,'Policy Change','Rewrite')	And (cast(p.JobUpdateTime as date) &gt; ? and cast(p.JobUpdateTime as date) &lt;= ?)) OR
+				(p.TransactionType ='Renewal' and p.eventname='SendNonRenewalDocuments' and p.BaseState='MI' And (cast(p.JobUpdateTime as date) &gt;DATEADD(day, -1, convert(date,?)) and cast(p.JobUpdateTime as date) &lt;=DATEADD(day, -1, convert(date,?)))) OR
+				(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname is null) OR
+				(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname='SendNonRenewalDocuments' and ds.IsNCCI = 1 /*p.BaseState = 'IN'*/)
+			)
+		and PolicyStatus = 'Bound'
+		AND FormNumber Like 'WC 00 01 02%'
+		And IsEndorsement = 1</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{41056660-18F0-4A46-88A1-CD4EB842D8A8};"Parameter1:Input",{56FC240A-7F96-4B6A-AACC-24BD4557158B};"Parameter2:Input",{41056660-18F0-4A46-88A1-CD4EB842D8A8};"Parameter3:Input",{56FC240A-7F96-4B6A-AACC-24BD4557158B};"Parameter4:Input",{41056660-18F0-4A46-88A1-CD4EB842D8A8};"Parameter5:Input",{56FC240A-7F96-4B6A-AACC-24BD4557158B};"Parameter6:Input",{41056660-18F0-4A46-88A1-CD4EB842D8A8};"Parameter7:Input",{56FC240A-7F96-4B6A-AACC-24BD4557158B};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyId]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyId]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyId]"
+                          name="PolicyId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          name="PolicyState"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementNumber]"
+                          length="8"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementNumber]"
+                          name="EndorsementNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[BureauVersionIdentifier]"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]"
+                          name="BureauVersionIdentifier"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[CarrierVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[CarrierVersionIdentifier]"
+                          length="11"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[CarrierVersionIdentifier]"
+                          name="CarrierVersionIdentifier"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[NameOfInsured]"
+                          length="34"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]"
+                          name="NameOfInsured"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[InsertDate]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[InsertDate]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[InsertDate]"
+                          name="InsertDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[RecordTypeCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCode]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[RecordTypeCode]"
+                          name="RecordTypeCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementEffectiveDate]"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]"
+                          name="EndorsementEffectiveDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[State_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[State_Code]"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[State_Code]"
+                          name="State_Code"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyId]"
+                          dataType="i4"
+                          name="PolicyId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="PolicyState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="EndorsementNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="BureauVersionIdentifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[CarrierVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="11"
+                          name="CarrierVersionIdentifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="NameOfInsured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[InsertDate]"
+                          dataType="dbTimeStamp"
+                          name="InsertDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RecordTypeCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="EndorsementEffectiveDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[State_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="State_Code" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyId]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyId]"
+                          name="PolicyId" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          name="PolicyNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          name="PolicyState" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementNumber]"
+                          name="EndorsementNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[BureauVersionIdentifier]"
+                          name="BureauVersionIdentifier" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[CarrierVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="11"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[CarrierVersionIdentifier]"
+                          name="CarrierVersionIdentifier" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[State_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[State_Code]"
+                          name="State_Code" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[NameOfInsured]"
+                          name="NameOfInsured" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[InsertDate]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[InsertDate]"
+                          name="InsertDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[RecordTypeCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[RecordTypeCode]"
+                          name="RecordTypeCode" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementEffectiveDate]"
+                          name="EndorsementEffectiveDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\Load WCPOLS_FederalMineSafety.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety.Inputs[OLE DB Destination Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{E050BFB2-11D1-4C44-89F0-0CD413337BC5}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{C7F988AE-156F-41D7-A171-7BE0EA652170}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{84D2C6FF-F1E1-49B7-93AC-E89C9ECE66A9}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{6DE99B69-6BA5-46D6-A000-4FDEA58BEC00}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{D377ADE9-C1AF-4637-8CE4-42910D937766}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{F19CE12B-9ABD-4EB4-B6E0-AAB246FB05CE}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{C72FC80E-4731-4289-9C4B-7E85819CCE8B}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Process Completed"
+          TopLeft="251,407" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Process Failed"
+          TopLeft="557,413" />
+        <NodeLayout
+          Size="253,42"
+          Id="Package\Sequence Container\Load WCPOLS_FederalMineSafety"
+          TopLeft="18,24" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="296,123"
+          Size="296,166"
+          Id="Package\Sequence Container"
+          TopLeft="332,170.5" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="391,94" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="479.75,136">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.5"
+              Start="0,0"
+              End="0,27">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="432,336.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-97,70.5"
+              Start="0,0"
+              End="-97,63">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.4274193548387" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.4274193548387"
+                    Point2="0,28.4274193548387"
+                    Point3="-4,28.4274193548387" />
+                  <mssgle:LineSegment
+                    End="-93,28.4274193548387" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-93,28.4274193548387"
+                    Point2="-97,28.4274193548387"
+                    Point3="-97,32.4274193548387" />
+                  <mssgle:LineSegment
+                    End="-97,63" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="528,336.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="101.5,76.5"
+              Start="0,0"
+              End="101.5,69">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.8467741935484" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.8467741935484"
+                    Point2="0,30.8467741935484"
+                    Point3="4,30.8467741935484" />
+                  <mssgle:LineSegment
+                    End="97.5,30.8467741935484" />
+                  <mssgle:CubicBezierSegment
+                    Point1="97.5,30.8467741935484"
+                    Point2="101.5,30.8467741935484"
+                    Point3="101.5,34.8467741935484" />
+                  <mssgle:LineSegment
+                    End="101.5,69" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="35.50865234375,35.8467741935484,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="532,174" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Sequence Container\Load WCPOLS_FederalMineSafety">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="286,42"
+          Id="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety"
+          TopLeft="115.5,147.5" />
+        <NodeLayout
+          Size="291,42"
+          Id="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement"
+          TopLeft="115.5,16.5" />
+        <EdgeLayout
+          Id="Package\Sequence Container\Load WCPOLS_FederalMineSafety.Paths[OLE DB Source Output]"
+          TopLeft="259.75,58.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,89"
+              Start="0,0"
+              End="0,81.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,81.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_DEST WCPOLS_FederalMineSafety">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load WCPOLS_FederalMineSafety\OLE_SRC WCPolicyEndorsement">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

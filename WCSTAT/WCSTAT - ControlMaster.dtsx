@@ -1,0 +1,1389 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/11/2018 1:03:57 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ACF-EWAQW01"
+  DTS:CreatorName="ACFS24\vikas.singh"
+  DTS:DTSID="{98764B22-9AF2-46F6-9CC4-95C212DBCB3B}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCSTAT - ControlMaster"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="105"
+  DTS:VersionGUID="{FA848951-6AB6-46E0-8C21-E8886E32BF2E}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="EDW"
+      DTS:CreationName="Microsoft.LogProviderSQLServer"
+      DTS:Description="Writes log entries for events to a SQL Server database"
+      DTS:DTSID="{A8D0BAA2-4424-489B-96AA-BC3F08D8377E}"
+      DTS:ObjectName="SSIS log provider for SQL Server">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{2D8AC705-CE8A-4B8E-B379-FB724EB5B977}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="Counter">
+      <DTS:VariableValue
+        DTS:DataType="3">1</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3EE96414-8B0A-463D-9FC4-AA345C6520DF}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportMonth">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{09D73C9C-1966-449E-B1D7-32916A3772E0}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportYear">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{44C1E588-759D-40DC-8A3F-BEB59D3E674F}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;&#xA;----------//--------For Correction File, data to be pulled - Policies which were effective before 18 months&#xA;&#xA; ALTER View [dbo].[VW_WCStatEffectivePolicies] as &#xA; (&#xA;&#xA;&#x9;Select Distinct PolicyNumber, TermNumber, l.State,  Month(p.EffectiveDate) ReportMonth, Year(p.EffectiveDate) ReportYear, p.EffectiveDate&#xA;&#x9;From FactWCPremiumTransaction f &#xA;&#x9;&#x9;inner join DimPolicy p  on f.PolicyID = p.PolicyID&#xA;&#x9;&#x9;inner join DimRiskLocation l on f.RiskLocationID = l.RiskLocationID&#xA;&#x9;Where 1 =1 &#xA;&#x9;&#x9;and p.EffectiveDate &lt;= EOMonth(DATEADD(Month,  &quot;+  @[$Project::NoofMonths] +&quot; -1, dbo.udf_GetDate()))&#x9;&#x9;&#x9;&#x9;&#x9; &#xA;&#x9;&#x9;And Year(p.EffectiveDate) &gt;= Year(DATEADD(Month, &quot; +  @[$Project::NoofMonths] + &quot;, dbo.udf_GetDate())) - 9  &#xA;&#x9;&#x9;And PolicyStatus in ('Bound','Completed')&#xA;&#x9;&#x9;And l.State in ('MI','IN')&#xA;&#x9;&#x9;And Not Exists (Select 1 from DimPolicy cp Where p.PolicyNumber = cp.PolicyNumber and p.TermNumber = cp.TermNumber and Cast(cp.EffectiveDate as Date) = Cast(cp.CancellationDate as Date) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and cp.ModelNumber = (select max(ModelNumber) From DimPolicy As cp1 where  p.PolicyNumber = cp1.PolicyNumber and p.TermNumber = cp1.TermNumber and Convert(varchar, cp1.JobCloseDate, 101) &lt;=  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)))  -- To include Policies got cancelled and reinstated &#xA;&#x9;&#x9;And p.ModelNumber = (select max(ModelNumber) From DimPolicy As cp2 where  p.PolicyNumber = cp2.PolicyNumber and p.TermNumber = cp2.TermNumber and Convert(varchar, cp2.JobCloseDate, 101) &lt;=  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0))    -- To include Policies got cancelled and reinstated &#xA;&#x9;&#xA;&#x9;&#x9; &#xA;&#x9;&#x9;) &#xA;&#x9;&#x9;&quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="varVWCorrectionLoad">
+      <DTS:VariableValue
+        DTS:DataType="8">
+----------//--------For Correction File, data to be pulled - Policies which were effective before 18 months
+
+ ALTER View [dbo].[VW_WCStatEffectivePolicies] as 
+ (
+
+	Select Distinct PolicyNumber, TermNumber, l.State,  Month(p.EffectiveDate) ReportMonth, Year(p.EffectiveDate) ReportYear, p.EffectiveDate
+	From FactWCPremiumTransaction f 
+		inner join DimPolicy p  on f.PolicyID = p.PolicyID
+		inner join DimRiskLocation l on f.RiskLocationID = l.RiskLocationID
+	Where 1 =1 
+		and p.EffectiveDate &lt;= EOMonth(DATEADD(Month,  -18 -1, dbo.udf_GetDate()))					 
+		And Year(p.EffectiveDate) &gt;= Year(DATEADD(Month, -18, dbo.udf_GetDate())) - 9  
+		And PolicyStatus in ('Bound','Completed')
+		And l.State in ('MI','IN')
+		And Not Exists (Select 1 from DimPolicy cp Where p.PolicyNumber = cp.PolicyNumber and p.TermNumber = cp.TermNumber and Cast(cp.EffectiveDate as Date) = Cast(cp.CancellationDate as Date) 
+									and cp.ModelNumber = (select max(ModelNumber) From DimPolicy As cp1 where  p.PolicyNumber = cp1.PolicyNumber and p.TermNumber = cp1.TermNumber and Convert(varchar, cp1.JobCloseDate, 101) &lt;=  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)))  -- To include Policies got cancelled and reinstated 
+		And p.ModelNumber = (select max(ModelNumber) From DimPolicy As cp2 where  p.PolicyNumber = cp2.PolicyNumber and p.TermNumber = cp2.TermNumber and Convert(varchar, cp2.JobCloseDate, 101) &lt;=  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0))    -- To include Policies got cancelled and reinstated 
+	
+		 
+		) 
+		</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7BB3B7F1-1BB7-4263-A34C-D29F1B771BB1}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="&quot;ALTER View [dbo].[VW_WCStatEffectivePolicies] as &#xA; (&#xA;&#xA;&#x9;Select Distinct PolicyNumber, TermNumber, l.State, Month(p.EffectiveDate) ReportMonth, Year(p.EffectiveDate) ReportYear, p.EffectiveDate  &#xA;&#x9;From FactWCPremiumTransaction f &#xA;&#x9;&#x9;inner join DimPolicy p  on f.PolicyID = p.PolicyID&#xA;&#x9;&#x9;inner join DimRiskLocation l on f.RiskLocationID = l.RiskLocationID&#xA;&#x9;Where 1 =1 &#xA;&#x9;&#x9;and Month(p.EffectiveDate) = Month(DATEADD(Month,&quot; + @[$Project::NoofMonths] + &quot;, dbo.udf_GetDate()))&#xA;&#x9;&#x9;And Year(p.EffectiveDate) BETWEEN Year(DATEADD(Month, &quot; + @[$Project::NoofMonths] + &quot;, dbo.udf_GetDate())) - 9 AND Year(DATEADD(Month, &quot;+ @[$Project::NoofMonths] + &quot;, dbo.udf_GetDate()))&#xA;&#x9;&#x9;And PolicyStatus in ('Bound','Completed')&#xA;&#x9;&#x9;And l.State in ('MI','IN')&#xA;&#x9;&#x9;And Not Exists (Select 1 from DimPolicy cp Where p.PolicyNumber = cp.PolicyNumber and p.TermNumber = cp.TermNumber and Cast(cp.EffectiveDate as Date) = Cast(cp.CancellationDate as Date) &#xA;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;&#x9;and cp.ModelNumber = (select max(ModelNumber) From DimPolicy As cp1 where  p.PolicyNumber = cp1.PolicyNumber and p.TermNumber = cp1.TermNumber and Convert(varchar, cp1.JobCloseDate, 101) &lt;=  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)))  -- To include Policies got cancelled and reinstated &#xA;&#x9;&#x9;And p.ModelNumber = (select max(ModelNumber) From DimPolicy As cp2 where  p.PolicyNumber = cp2.PolicyNumber and p.TermNumber = cp2.TermNumber and Convert(varchar, cp2.JobCloseDate, 101) &lt;=  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0))    -- To include Policies got cancelled and reinstated &#xA;) &quot;"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="varVWFreshLoad">
+      <DTS:VariableValue
+        DTS:DataType="8">ALTER View [dbo].[VW_WCStatEffectivePolicies] as 
+ (
+
+	Select Distinct PolicyNumber, TermNumber, l.State, Month(p.EffectiveDate) ReportMonth, Year(p.EffectiveDate) ReportYear, p.EffectiveDate  
+	From FactWCPremiumTransaction f 
+		inner join DimPolicy p  on f.PolicyID = p.PolicyID
+		inner join DimRiskLocation l on f.RiskLocationID = l.RiskLocationID
+	Where 1 =1 
+		and Month(p.EffectiveDate) = Month(DATEADD(Month,-18, dbo.udf_GetDate()))
+		And Year(p.EffectiveDate) BETWEEN Year(DATEADD(Month, -18, dbo.udf_GetDate())) - 9 AND Year(DATEADD(Month, -18, dbo.udf_GetDate()))
+		And PolicyStatus in ('Bound','Completed')
+		And l.State in ('MI','IN')
+		And Not Exists (Select 1 from DimPolicy cp Where p.PolicyNumber = cp.PolicyNumber and p.TermNumber = cp.TermNumber and Cast(cp.EffectiveDate as Date) = Cast(cp.CancellationDate as Date) 
+									and cp.ModelNumber = (select max(ModelNumber) From DimPolicy As cp1 where  p.PolicyNumber = cp1.PolicyNumber and p.TermNumber = cp1.TermNumber and Convert(varchar, cp1.JobCloseDate, 101) &lt;=  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)))  -- To include Policies got cancelled and reinstated 
+		And p.ModelNumber = (select max(ModelNumber) From DimPolicy As cp2 where  p.PolicyNumber = cp2.PolicyNumber and p.TermNumber = cp2.TermNumber and Convert(varchar, cp2.JobCloseDate, 101) &lt;=  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0))    -- To include Policies got cancelled and reinstated 
+) </DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0"
+    DTS:LoggingMode="1">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">2,7,OnError,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{A8D0BAA2-4424-489B-96AA-BC3F08D8377E}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\CreateText File"
+      DTS:CreationName="Microsoft.ExecutePackageTask"
+      DTS:Description="Execute Package Task"
+      DTS:DTSID="{6C880C4C-4EB8-450B-A741-F320D1AF347A}"
+      DTS:ExecutableType="Microsoft.ExecutePackageTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="CreateText File"
+      DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <ExecutePackageTask>
+          <UseProjectReference>True</UseProjectReference>
+          <PackageName>WCSTAT - CreateTextFile.dtsx</PackageName>
+        </ExecutePackageTask>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Delete data for this month"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2B490B28-7B95-410E-AEDA-D4AE51BF8A5B}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Delete data for this month"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{92E7D99B-74F9-414C-93B4-3FBDA62D5F91}"
+          SQLTask:SqlStatementSource=" Delete from WCStatLinkData&#xA;Where ReportingMonth = Month(dbo.udf_GetDate())&#xA;And ReportingYear = Year(dbo.udf_GetDate())&#xA;&#xA;&#xA;Delete from WCStatReportData&#xA;Where ReportingMonth = Month(dbo.udf_GetDate())&#xA;And ReportingYear = Year(dbo.udf_GetDate())&#xA;" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::ReportMonth"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="131"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::ReportYear"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="131"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::ReportMonth"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::ReportYear"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction"
+      DTS:AssignExpression="@Counter = @Counter+1"
+      DTS:CreationName="STOCK:FORLOOP"
+      DTS:Description="For Loop Container"
+      DTS:DTSID="{C22C57BD-66C6-47D8-B580-C051F9B4F34E}"
+      DTS:EvalExpression="@Counter &lt;=2"
+      DTS:ExecutableType="STOCK:FORLOOP"
+      DTS:InitExpression="@Counter = 1"
+      DTS:LocaleID="-1"
+      DTS:MaxConcurrent="1"
+      DTS:ObjectName="For Loop - Runt these packages twice - Fresh and Correction">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Create View for Correction Records"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{04D7984F-DD12-4FFD-A3B9-C68DFB10EBE6}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create View for Correction Records"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{5D61FD35-9751-47D2-B783-21BBF451814D}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::varVWCorrectionLoad" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Create View for Original Records"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{0a14caba-d2de-49f4-b956-8e3dffc45802}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Create View for Original Records"
+          DTS:ThreadHint="1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{5D61FD35-9751-47D2-B783-21BBF451814D}"
+              SQLTask:SqlStmtSourceType="Variable"
+              SQLTask:SqlStatementSource="User::varVWFreshLoad" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Exec CorrectionRecords Pkg"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{32d1b591-c429-461b-b519-7ddacda35c67}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Exec CorrectionRecords Pkg"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>WCSTAT - CorrectionRecords.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Exec OriginalRecords Pkg"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{817513c7-07fa-4a3f-bbd2-e5a94f259040}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Exec OriginalRecords Pkg"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>WCSTAT - OriginalRecords.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Load Unit Total for Correction Records"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{db33efc2-f836-4dde-9b57-98cbd2fe2d32}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load Unit Total for Correction Records"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>WCSTAT - UnitTotal.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Load Unit Total for Original Records"
+          DTS:CreationName="Microsoft.ExecutePackageTask"
+          DTS:Description="Execute Package Task"
+          DTS:DTSID="{41fcaee6-6d98-4b4c-ae59-389c7a8ff25a}"
+          DTS:ExecutableType="Microsoft.ExecutePackageTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load Unit Total for Original Records"
+          DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <ExecutePackageTask>
+              <UseProjectReference>True</UseProjectReference>
+              <PackageName>WCSTAT - UnitTotal.dtsx</PackageName>
+            </ExecutePackageTask>
+          </DTS:ObjectData>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{b8cf91cc-2884-4466-b80b-b29df93973e2}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Seq - Correction Records">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Address"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{5b0ebc8c-2cd0-49d6-96a9-5a3a246b8f7d}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Address"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - Address.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Exposure"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{7965e334-ccb8-4b75-a8b9-ae98b0187a09}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Exposure"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - Exposure.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Header"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{7fc92fdd-52d9-4508-a62f-92dc1f334690}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Header"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - Header.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\LinkData"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{ae5505b9-f2cb-41d0-a66a-393b84673519}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="LinkData"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - LinkData.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Loss"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{bb012778-6252-4d99-8438-2aa0db36e9e0}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Loss"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - Loss.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Name"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{46340d88-5f1b-4e8a-ac76-c2a60d19f1b3}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Name"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - Name.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{1956934A-DFA4-4F65-8F7E-6F44F65F2174}"
+              DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\LinkData"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Header" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records.PrecedenceConstraints[Constraint 1]"
+              DTS:CreationName=""
+              DTS:DTSID="{957F5D52-04E0-4B4A-A98B-4255FC0E8FF6}"
+              DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Header"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 1"
+              DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Name" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records.PrecedenceConstraints[Constraint 2]"
+              DTS:CreationName=""
+              DTS:DTSID="{267E36E5-E3A1-449A-BA88-9284C10E1933}"
+              DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Name"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 2"
+              DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Address" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records.PrecedenceConstraints[Constraint 3]"
+              DTS:CreationName=""
+              DTS:DTSID="{6A2BFD02-B433-4169-A920-1D9222CDC1FC}"
+              DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Address"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 3"
+              DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Exposure" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records.PrecedenceConstraints[Constraint 4]"
+              DTS:CreationName=""
+              DTS:DTSID="{1A0D166A-E6A6-4F16-9003-844A59EE2F3D}"
+              DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Exposure"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 4"
+              DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Loss" />
+          </DTS:PrecedenceConstraints>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records"
+          DTS:CreationName="STOCK:SEQUENCE"
+          DTS:Description="Sequence Container"
+          DTS:DTSID="{0AB58E7C-C620-4477-91FB-A03853C6CCCA}"
+          DTS:ExecutableType="STOCK:SEQUENCE"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Seq - Original Records">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:Executables>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Address"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{f5ddee81-75b3-44a5-be3a-60bbd43585b1}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Address"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - Address.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Exposure"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{50a10d53-debd-4b18-ac1a-1cc1f3b8b244}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Exposure"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - Exposure.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Header"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{F189F082-8B6B-446A-AC83-47100305DC2C}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Header"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - Header.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\LinkData"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{479DD07A-B3FC-4F84-B05F-CF93A086A962}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="LinkData"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - LinkData.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Loss"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{7421e350-0f9f-4c18-816d-38d1f4bfbac1}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Loss"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - Loss.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+            <DTS:Executable
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Name"
+              DTS:CreationName="Microsoft.ExecutePackageTask"
+              DTS:Description="Execute Package Task"
+              DTS:DTSID="{CE4E0FAF-2ADD-4574-83F7-73B0C402CC9C}"
+              DTS:ExecutableType="Microsoft.ExecutePackageTask"
+              DTS:LocaleID="-1"
+              DTS:ObjectName="Name"
+              DTS:TaskContact="Microsoft Corporation; Microsoft SQL Server; Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+              <DTS:Variables />
+              <DTS:LoggingOptions
+                DTS:FilterKind="0" />
+              <DTS:ObjectData>
+                <ExecutePackageTask>
+                  <UseProjectReference>True</UseProjectReference>
+                  <PackageName>WCSTAT - Name.dtsx</PackageName>
+                </ExecutePackageTask>
+              </DTS:ObjectData>
+            </DTS:Executable>
+          </DTS:Executables>
+          <DTS:PrecedenceConstraints>
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records.PrecedenceConstraints[Constraint]"
+              DTS:CreationName=""
+              DTS:DTSID="{34B419F6-D79C-4E54-BEB2-32DC138E71F6}"
+              DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\LinkData"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint"
+              DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Header" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records.PrecedenceConstraints[Constraint 1]"
+              DTS:CreationName=""
+              DTS:DTSID="{DAC59743-B049-4B99-99F8-3D0EB2055DDF}"
+              DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Header"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 1"
+              DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Name" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records.PrecedenceConstraints[Constraint 2]"
+              DTS:CreationName=""
+              DTS:DTSID="{2B100150-D5BE-4440-873E-EB77B34AFB21}"
+              DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Name"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 2"
+              DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Address" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records.PrecedenceConstraints[Constraint 3]"
+              DTS:CreationName=""
+              DTS:DTSID="{6DA8E71D-9EDB-4436-8A89-141F1F2DA553}"
+              DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Address"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 3"
+              DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Exposure" />
+            <DTS:PrecedenceConstraint
+              DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records.PrecedenceConstraints[Constraint 4]"
+              DTS:CreationName=""
+              DTS:DTSID="{29553449-10B4-4B2B-9DCA-24F3EB9EEBBD}"
+              DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Exposure"
+              DTS:LogicalAnd="True"
+              DTS:ObjectName="Constraint 4"
+              DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Loss" />
+          </DTS:PrecedenceConstraints>
+        </DTS:Executable>
+        <DTS:Executable
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction\Truncate Stage Tables"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{B6C1B605-F0F4-4D46-9A3F-1A3F2AEC1058}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Truncate Stage Tables"
+          DTS:ThreadHint="0">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{92E7D99B-74F9-414C-93B4-3FBDA62D5F91}"
+              SQLTask:SqlStatementSource="Truncate Table Stage_WCStatLinkData;&#xA;&#xA;Truncate Table Stage_WCStatReportData;&#xA;&#xA;Truncate Table Stage_WCStatUnitTotal;&#xA; " xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask" />
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+      <DTS:PrecedenceConstraints>
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint]"
+          DTS:CreationName=""
+          DTS:DTSID="{81D9C013-FEEC-4698-B0DD-5318DD3A7AEA}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[User::Counter] == 1"
+          DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Truncate Stage Tables"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint"
+          DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Create View for Original Records" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 1]"
+          DTS:CreationName=""
+          DTS:DTSID="{D3934DF1-D17B-4E46-A1D0-11D76E5C30D9}"
+          DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Create View for Correction Records"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 1"
+          DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 2]"
+          DTS:CreationName=""
+          DTS:DTSID="{17A5736E-7A6E-40FC-A3C8-57A7658D6A54}"
+          DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 2"
+          DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Exec OriginalRecords Pkg" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 3]"
+          DTS:CreationName=""
+          DTS:DTSID="{0FB60005-8DB3-4B76-8D2E-7B572B598347}"
+          DTS:EvalOp="3"
+          DTS:Expression="@[User::Counter] ==2"
+          DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Truncate Stage Tables"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 3"
+          DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Create View for Correction Records" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 4]"
+          DTS:CreationName=""
+          DTS:DTSID="{4415E393-747C-495C-9B49-9D1438A18155}"
+          DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Create View for Original Records"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 4"
+          DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 5]"
+          DTS:CreationName=""
+          DTS:DTSID="{57070EAF-FBC4-460A-8B82-D738BFA79C17}"
+          DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 5"
+          DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Exec CorrectionRecords Pkg" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 6]"
+          DTS:CreationName=""
+          DTS:DTSID="{BFBDC31F-638A-424C-84BB-D8E6FDD9A7B7}"
+          DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Exec CorrectionRecords Pkg"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 6"
+          DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Load Unit Total for Correction Records" />
+        <DTS:PrecedenceConstraint
+          DTS:refId="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 7]"
+          DTS:CreationName=""
+          DTS:DTSID="{B3C6B6B6-F8FB-433A-8CAF-6E0C14E554FA}"
+          DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction\Exec OriginalRecords Pkg"
+          DTS:LogicalAnd="True"
+          DTS:ObjectName="Constraint 7"
+          DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction\Load Unit Total for Original Records" />
+      </DTS:PrecedenceConstraints>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{208883C0-B776-4A52-BF6A-52C40CDAFD67}"
+      DTS:From="Package\For Loop - Runt these packages twice - Fresh and Correction"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\CreateText File" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{AD65AC8D-70A4-422A-B08C-34B110681CE5}"
+      DTS:From="Package\Delete data for this month"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\For Loop - Runt these packages twice - Fresh and Correction" />
+  </DTS:PrecedenceConstraints>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="64" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="150,42"
+          Id="Package\CreateText File"
+          TopLeft="1108,477" />
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Delete data for this month"
+          TopLeft="569.785707989517,23.5" />
+        <NodeLayout
+          Size="244,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Create View for Correction Records"
+          TopLeft="457,101" />
+        <NodeLayout
+          Size="232,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Create View for Original Records"
+          TopLeft="95,97" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Exec CorrectionRecords Pkg"
+          TopLeft="465,525" />
+        <NodeLayout
+          Size="198,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Exec OriginalRecords Pkg"
+          TopLeft="111,534.5" />
+        <NodeLayout
+          Size="259,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Load Unit Total for Correction Records"
+          TopLeft="446.5,611" />
+        <NodeLayout
+          Size="247,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Load Unit Total for Original Records"
+          TopLeft="92,613" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Address"
+          TopLeft="182.5,166.5" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Exposure"
+          TopLeft="178.5,89.5" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Header"
+          TopLeft="16.5,92.5" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\LinkData"
+          TopLeft="13.5,13.5" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Loss"
+          TopLeft="180.5,13" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records\Name"
+          TopLeft="17.5,170.5" />
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records.PrecedenceConstraints[Constraint]"
+          TopLeft="76,55.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37"
+              Start="0,0"
+              End="0,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records.PrecedenceConstraints[Constraint 1]"
+          TopLeft="78,134.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36"
+              Start="0,0"
+              End="0,28.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,28.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records.PrecedenceConstraints[Constraint 2]"
+          TopLeft="139.5,189.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="43,0"
+              Start="0,0"
+              End="35.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="35.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records.PrecedenceConstraints[Constraint 3]"
+          TopLeft="241.5,166.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-35"
+              Start="0,0"
+              End="0,-27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records.PrecedenceConstraints[Constraint 4]"
+          TopLeft="240.5,89.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-34.5"
+              Start="0,0"
+              End="0,-27">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-27" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="314,268"
+          Size="314,310"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Correction Records"
+          TopLeft="416,192" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Address"
+          TopLeft="182.5,175.5" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Exposure"
+          TopLeft="183.5,94.5" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Header"
+          TopLeft="23.5,92.5" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\LinkData"
+          TopLeft="25.5,13.5" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Loss"
+          TopLeft="181.5,16" />
+        <NodeLayout
+          Size="122,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records\Name"
+          TopLeft="22.5,175.5" />
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records.PrecedenceConstraints[Constraint]"
+          TopLeft="85.5,55.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37"
+              Start="0,0"
+              End="0,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records.PrecedenceConstraints[Constraint 1]"
+          TopLeft="84,134.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41"
+              Start="0,0"
+              End="0,33.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records.PrecedenceConstraints[Constraint 2]"
+          TopLeft="144.5,196.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="38,0"
+              Start="0,0"
+              End="30.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="30.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records.PrecedenceConstraints[Constraint 3]"
+          TopLeft="244,175.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-39"
+              Start="0,0"
+              End="0,-31.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-31.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records.PrecedenceConstraints[Constraint 4]"
+          TopLeft="243.5,94.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-36.5"
+              Start="0,0"
+              End="0,-29">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-29" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="314,272"
+          Size="314,316"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Seq - Original Records"
+          TopLeft="59.5,189.5" />
+        <NodeLayout
+          Size="184,42"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction\Truncate Stage Tables"
+          TopLeft="315,8" />
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint]"
+          TopLeft="377.666666666667,50">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-166.666666666667,47"
+              Start="0,0"
+              End="-166.666666666667,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.0431034482759" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,15.0431034482759"
+                    Point2="0,19.0431034482759"
+                    Point3="-4,19.0431034482759" />
+                  <mssgle:LineSegment
+                    End="-162.666666666667,19.0431034482759" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-162.666666666667,19.0431034482759"
+                    Point2="-166.666666666667,19.0431034482759"
+                    Point3="-166.666666666667,23.0431034482759" />
+                  <mssgle:LineSegment
+                    End="-166.666666666667,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-91.3333333333335,24.0431034482759,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 1]"
+          TopLeft="576,143">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49"
+              Start="0,0"
+              End="0,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 2]"
+          TopLeft="213.25,505.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,29"
+              Start="0,0"
+              End="0,21.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,21.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 3]"
+          TopLeft="436.333333333333,50">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="142.666666666667,51"
+              Start="0,0"
+              End="142.666666666667,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6637931034483" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.6637931034483"
+                    Point2="0,20.6637931034483"
+                    Point3="4,20.6637931034483" />
+                  <mssgle:LineSegment
+                    End="138.666666666667,20.6637931034483" />
+                  <mssgle:CubicBezierSegment
+                    Point1="138.666666666667,20.6637931034483"
+                    Point2="142.666666666667,20.6637931034483"
+                    Point3="142.666666666667,24.6637931034483" />
+                  <mssgle:LineSegment
+                    End="142.666666666667,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="63.3333333333335,25.6637931034483,16,16"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 4]"
+          TopLeft="213.75,139">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50.5"
+              Start="0,0"
+              End="0,43">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 5]"
+          TopLeft="571.5,502">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,23"
+              Start="0,0"
+              End="0,15.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,15.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 6]"
+          TopLeft="573,567">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction.PrecedenceConstraints[Constraint 7]"
+          TopLeft="212.75,576.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,36.5"
+              Start="0,0"
+              End="0,29">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="805,746"
+          Size="805,789"
+          Id="Package\For Loop - Runt these packages twice - Fresh and Correction"
+          TopLeft="268.5,103.5" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="1073.5,498">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="34.5,0"
+              Start="0,0"
+              End="27,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="27,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="671.142853994759,65.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38"
+              Start="0,0"
+              End="0,30.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

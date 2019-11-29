@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<SharedDataSet xmlns="http://schemas.microsoft.com/sqlserver/reporting/2010/01/shareddatasetdefinition" xmlns:rd="http://schemas.microsoft.com/SQLServer/reporting/reportdesigner">
+  <DataSet Name="DataSet1">
+    <Query>
+      <DataSourceReference>EDWQE</DataSourceReference>
+      <DataSetParameters>
+        <DataSetParameter Name="@IsScheduled">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Int32</rd:DbType>
+        </DataSetParameter>
+        <DataSetParameter Name="@Quarter">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Int32</rd:DbType>
+        </DataSetParameter>
+        <DataSetParameter Name="@Year">
+          <ReadOnly>false</ReadOnly>
+          <Nullable>false</Nullable>
+          <OmitFromQuery>false</OmitFromQuery>
+          <rd:DbType>Int32</rd:DbType>
+        </DataSetParameter>
+      </DataSetParameters>
+      <CommandText>Declare @ReportDate as Date;
+Declare @QuarterEndDate Date;
+Declare @QuarterStartDate Date;
+Declare @PreviousQuarterStartDate Date;
+Declare @PreviousQuarterEndDate Date;
+
+Declare @Scheduled int;
+Declare @SelectedQuarter int;
+Declare @SelectedYear int;
+
+
+Set @Scheduled =  @IsScheduled
+Set @SelectedQuarter = @Quarter
+Set @SelectedYear = @Year
+
+IF @Scheduled = 1 
+Begin
+
+	Set @ReportDate = dateadd(m, -1, GETDATE()) 
+
+End
+
+ELSE
+	Begin
+
+		Set @ReportDate = (Select Date from DimDate where IsLastDayOfMonth =1 and QuarterofYear = @SelectedQuarter and Year = @SelectedYear and MonthofYear in (3,6,9,12))
+
+	END
+  
+SET @QuarterStartDate	 =  DATEADD(q, DATEDIFF(q, 0, @ReportDate), 0)
+SET @QuarterEndDate		 =  DATEADD(d, -1, DATEADD(q, DATEDIFF(q, 0, @ReportDate) + 1, 0)) 
+
+ 
+Set @PreviousQuarterStartDate	= DATEADD(qq, DATEDIFF(qq, 0, @QuarterStartDate) -1, 0)
+Set @PreviousQuarterEndDate		= DATEADD (dd, -1, DATEADD(qq, DATEDIFF(qq, 0, @QuarterStartDate), 0))
+
+Select Datepart(q,@QuarterStartDate) SelectedQuarter, Datepart(Year,@QuarterStartDate) SelectedYear, @QuarterStartDate QuarterStartDate, @QuarterEndDate QuarterEndDate, @PreviousQuarterStartDate PreviousQuarterStartDate,  @PreviousQuarterEndDate PreviousQuarterEndDate
+ </CommandText>
+    </Query>
+    <Fields>
+      <Field Name="SelectedQuarter">
+        <DataField>SelectedQuarter</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="SelectedYear">
+        <DataField>SelectedYear</DataField>
+        <rd:TypeName>System.Int32</rd:TypeName>
+      </Field>
+      <Field Name="QuarterStartDate">
+        <DataField>QuarterStartDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="QuarterEndDate">
+        <DataField>QuarterEndDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="PreviousQuarterStartDate">
+        <DataField>PreviousQuarterStartDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+      <Field Name="PreviousQuarterEndDate">
+        <DataField>PreviousQuarterEndDate</DataField>
+        <rd:TypeName>System.DateTime</rd:TypeName>
+      </Field>
+    </Fields>
+  </DataSet>
+</SharedDataSet>

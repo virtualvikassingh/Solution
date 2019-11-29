@@ -1,0 +1,1034 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="2/28/2017 3:20:47 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ACF-EWADW01"
+  DTS:CreatorName="ACFS24\vikas.singh"
+  DTS:DTSID="{E81A870B-1DAA-4604-AE5B-E7E03B44538A}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="NPX - CT"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="53"
+  DTS:VersionGUID="{6352863B-14E9-478C-8001-1F270BF22412}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="QuarterStartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::QuarterStartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{F074D303-0209-4E1C-A949-AB42D76DB11F}"
+      DTS:ObjectName="QuarterStartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="QuarterEndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::QuarterEndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{65BA519C-C168-424E-A2B4-DFF1219C1F43}"
+      DTS:ObjectName="QuarterEndDate" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{66FC6C16-C1B5-4623-9BF3-0B7C216FFED9}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="QuarterEndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">3/16/2017 11:29:48 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6CF8ECA4-5CF6-4DD7-A170-6499DCEB1A04}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="QuarterStartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">3/31/2017</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\NPXCT"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{D60504D9-0093-43C5-AB38-F51A875AA5E0}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="NPXCT"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\NPXCT\EDW"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="EDW"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Declare @QuarterEndDate as  date
+Declare @QuarterStartDate as date
+
+Set @QuarterStartDate	=?--'2017-10-01'
+Set @QuarterEndDate	=?-- '2017-12-31'
+
+;With CTE_Claims as 
+(
+Select  
+		p.PolicyId,   
+		p.RatingPlan, 	
+		c.ClaimID,
+		c.ClaimNumber ,
+		c.ClaimType,
+		c.LossDate,
+		c.CloseDate,
+		c.ReportedDate,
+		c.ClaimStatus,	
+		 
+		Sum(Round(ISNULL(f.IndemnityReserve,0),2))	 IndemnityReserve, 
+		Sum(Round(ISNULL(f.MedicalReserve,0),2))	 MedicalReserve,
+		Sum(Round(ISNULL(f.IndemnityPaid,0),2))	 IndemnityPaid,
+		Sum(Round(ISNULL(f.MedicalPaid,0),2))	 MedicalPaid,
+
+		Sum(IIF(f.ErodeReserveInd = 'N', Round(ISNULL(IndemnityPaid,0),2), 0)) IndemnityPaidWithNoErode, 
+		Sum(IIF(f.ErodeReserveInd = 'Y', Round(ISNULL(IndemnityPaid,0),2), 0)) IndemnityPaidWithErode, 
+		Sum(IIF(f.ErodeReserveInd = 'N', Round(ISNULL(MedicalPaid,0),2),   0)) MedicalPaidWithNoErode, 
+		Sum(IIF(f.ErodeReserveInd = 'Y', Round(ISNULL(MedicalPaid,0),2),   0)) MedicalPaidWithErode,
+		Sum(IIF(e.ExposureName = 'Time Loss', Round(ISNULL(f.SubrogationRecovery,0),2),0)) IndemnitySubrogationRecovery,
+		Sum(IIF(e.ExposureName = 'Medical Details', Round(ISNULL(f.SubrogationRecovery,0),2),0)) MedicalSubrogationRecovery
+ 	 
+From FactClaimTransaction f
+		inner Join DimClaim c on f.ClaimID = c.ClaimID
+		inner Join DimPolicy p on f.PolicyID = p.PolicyID
+		inner Join DimDate D on f.TransactionDateID = D.DateId
+		inner join DimExposure e on f.ExposureID = e.ExposureID
+		
+Where c.ClaimStatus != 'Draft'
+		And p.BaseState = 'MI' 
+		and F.LegacySourceSystem = 'WC'  
+		and F.CostType in ('Indemnity','Medical')	
+		And D.Date &lt;= @QuarterEndDate
+
+ Group By  
+		c.ClaimID, 
+		p.PolicyId,   
+		p.RatingPlan, 	
+		p.EffectiveDate,
+		c.LossDate,
+		c.ClaimID,
+		c.ClaimNumber ,
+		c.ClaimType,
+		c.LossDate,
+		c.CloseDate,
+		c.ReportedDate,
+		c.ClaimStatus
+
+	) 
+
+
+Select Distinct 'MI' State,
+	'NPX' as TransactionCodeC1,
+	'CT'  as RecordIdentifierC2,
+	Case RatingPlan
+		When 'Rating Plan A' Then '0380'
+		When 'Rating Plan B' Then '0480'
+		When 'Rating Plan C' Then '0580'
+	End	as ReportCodeC3,
+	'15'    as PoolCodeC4,
+	'19968' as CarrierCodeC5,
+	Left( Replace(convert(varchar, @QuarterEndDate,110),'-',''),4) + Right(Year(@QuarterEndDate),2) QTREndingDateC6,
+	Year(LossDate) as AccidentYearC7,
+	'210' as StateCodeC8,
+
+ 	 (Select Count(Distinct ClaimId)
+	 From CTE_Claims 
+	 Where-- (IndemnityReserve &lt;&gt; 0  or IndemnityPaid&lt;&gt;0 or MedicalReserve &lt;&gt; 0 or MedicalPaid&lt;&gt;0) And 
+	 Cast(ReportedDate as Date) &lt;= @QuarterEndDate
+	 And RatingPlan = C1.RatingPlan
+	 And Year(LossDate) = Year(C1.LossDate)
+	 ) ClaimsReportedC9,  
+
+	 (Select Count(Distinct ClaimId) 
+	 From CTE_Claims 
+	 Where ClaimStatus = 'Open' 
+	 And  Cast(ReportedDate as Date) &lt;= @QuarterEndDate
+	 And RatingPlan = C1.RatingPlan
+	 And Year(LossDate) = Year(C1.LossDate)
+	 )  ClaimsOutstandingC10,
+
+	 (Select Count(Distinct ClaimId)
+	 From CTE_Claims 
+	 Where ClaimStatus = 'Closed'
+	 And ((IndemnityPaid-IndemnitySubrogationRecovery &gt;0) or (MedicalPaid-MedicalSubrogationRecovery&gt;0))
+	 And Cast(CloseDate as Date) &lt;= @QuarterEndDate
+	 And RatingPlan = C1.RatingPlan
+	 And Year(LossDate) = Year(C1.LossDate)
+	 ) ClaimsClosedWithPaymentsC11,
+
+	 (Select Count(Distinct ClaimId)
+	 From CTE_Claims 
+	 Where ClaimStatus = 'Closed'
+	 And ((IndemnityPaid-IndemnitySubrogationRecovery&lt;=0) and (MedicalPaid-MedicalSubrogationRecovery&lt;=0))
+	 And Cast(CloseDate as Date) &lt;= @QuarterEndDate 
+	 And RatingPlan = C1.RatingPlan
+	 And Year(LossDate) = Year(C1.LossDate)
+	 ) ClaimsClosedWithoutPaymentsC12,
+Replicate(' ',159) FillerC13
+
+From CTE_Claims C1 
+Where 
+	(
+	IndemnityReserve != 0 OR IndemnityPaidWithNoErode != 0 or IndemnityPaidWithErode != 0 or MedicalReserve != 0 OR  MedicalPaidWithNoErode != 0 or  MedicalPaidWithErode != 0
+	)</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{6CF8ECA4-5CF6-4DD7-A170-6499DCEB1A04};"Parameter1:Input",{66FC6C16-C1B5-4623-9BF3-0B7C216FFED9};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\NPXCT\EDW.Connections[OleDbConnection]"
+                  connectionManagerID="{963E2DB2-18B6-40C1-8429-4D9E39F630C5}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      length="2"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[State]"
+                      name="State"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[TransactionCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[TransactionCodeC1]"
+                      length="3"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[TransactionCodeC1]"
+                      name="TransactionCodeC1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[RecordIdentifierC2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[RecordIdentifierC2]"
+                      length="2"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[RecordIdentifierC2]"
+                      name="RecordIdentifierC2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ReportCodeC3]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[ReportCodeC3]"
+                      length="4"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ReportCodeC3]"
+                      name="ReportCodeC3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[PoolCodeC4]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[PoolCodeC4]"
+                      length="2"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[PoolCodeC4]"
+                      name="PoolCodeC4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[CarrierCodeC5]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[CarrierCodeC5]"
+                      length="5"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[CarrierCodeC5]"
+                      name="CarrierCodeC5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[QTREndingDateC6]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[QTREndingDateC6]"
+                      length="6"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[QTREndingDateC6]"
+                      name="QTREndingDateC6"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[AccidentYearC7]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[AccidentYearC7]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[AccidentYearC7]"
+                      name="AccidentYearC7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[StateCodeC8]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[StateCodeC8]"
+                      length="3"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[StateCodeC8]"
+                      name="StateCodeC8"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsReportedC9]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[ClaimsReportedC9]"
+                      length="250"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsReportedC9]"
+                      name="ClaimsReportedC9"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsOutstandingC10]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[ClaimsOutstandingC10]"
+                      length="250"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsOutstandingC10]"
+                      name="ClaimsOutstandingC10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsClosedWithPaymentsC11]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[ClaimsClosedWithPaymentsC11]"
+                      length="250"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsClosedWithPaymentsC11]"
+                      name="ClaimsClosedWithPaymentsC11"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsClosedWithoutPaymentsC12]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[ClaimsClosedWithoutPaymentsC12]"
+                      length="250"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsClosedWithoutPaymentsC12]"
+                      name="ClaimsClosedWithoutPaymentsC12"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[FillerC13]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[FillerC13]"
+                      length="159"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[FillerC13]"
+                      name="FillerC13"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[TransactionCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="TransactionCodeC1" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[RecordIdentifierC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="RecordIdentifierC2" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[ReportCodeC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="ReportCodeC3" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[PoolCodeC4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="PoolCodeC4" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[CarrierCodeC5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="CarrierCodeC5" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[QTREndingDateC6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="QTREndingDateC6" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[AccidentYearC7]"
+                      dataType="i4"
+                      name="AccidentYearC7" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[StateCodeC8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="StateCodeC8" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[ClaimsReportedC9]"
+                      dataType="i4"
+                      name="ClaimsReportedC9" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[ClaimsOutstandingC10]"
+                      dataType="i4"
+                      name="ClaimsOutstandingC10" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[ClaimsClosedWithPaymentsC11]"
+                      dataType="i4"
+                      name="ClaimsClosedWithPaymentsC11" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[ClaimsClosedWithoutPaymentsC12]"
+                      dataType="i4"
+                      name="ClaimsClosedWithoutPaymentsC12" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].ExternalColumns[FillerC13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="159"
+                      name="FillerC13" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[State]"
+                      name="State" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[TransactionCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[TransactionCodeC1]"
+                      name="TransactionCodeC1" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[RecordIdentifierC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[RecordIdentifierC2]"
+                      name="RecordIdentifierC2" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ReportCodeC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ReportCodeC3]"
+                      name="ReportCodeC3" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[PoolCodeC4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[PoolCodeC4]"
+                      name="PoolCodeC4" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[CarrierCodeC5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[CarrierCodeC5]"
+                      name="CarrierCodeC5" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[QTREndingDateC6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[QTREndingDateC6]"
+                      name="QTREndingDateC6" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[AccidentYearC7]"
+                      dataType="i4"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[AccidentYearC7]"
+                      name="AccidentYearC7" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[StateCodeC8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[StateCodeC8]"
+                      name="StateCodeC8" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ClaimsReportedC9]"
+                      dataType="i4"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ClaimsReportedC9]"
+                      name="ClaimsReportedC9" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ClaimsOutstandingC10]"
+                      dataType="i4"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ClaimsOutstandingC10]"
+                      name="ClaimsOutstandingC10" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ClaimsClosedWithPaymentsC11]"
+                      dataType="i4"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ClaimsClosedWithPaymentsC11]"
+                      name="ClaimsClosedWithPaymentsC11" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ClaimsClosedWithoutPaymentsC12]"
+                      dataType="i4"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ClaimsClosedWithoutPaymentsC12]"
+                      name="ClaimsClosedWithoutPaymentsC12" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[FillerC13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="159"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[FillerC13]"
+                      name="FillerC13" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\NPXCT\NPXCT"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="NPXCT"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[PoolData]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 100</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">100</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\NPXCT\NPXCT.Connections[OleDbConnection]"
+                  connectionManagerID="{963E2DB2-18B6-40C1-8429-4D9E39F630C5}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[State]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="State"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[State]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[TransactionCodeC1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="TransactionCodeC1"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[TransactionCodeC1]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[RecordIdentifierC2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="RecordIdentifierC2"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[RecordIdentifierC2]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[ReportCodeC3]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="4"
+                      cachedName="ReportCodeC3"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ReportCodeC3]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[PoolCodeC4]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="PoolCodeC4"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column4]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[PoolCodeC4]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[CarrierCodeC5]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="CarrierCodeC5"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column5]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[CarrierCodeC5]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[QTREndingDateC6]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="6"
+                      cachedName="QTREndingDateC6"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column6]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[QTREndingDateC6]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[AccidentYearC7]"
+                      cachedDataType="i4"
+                      cachedName="AccidentYearC7"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column7]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[AccidentYearC7]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[StateCodeC8]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="StateCodeC8"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column8]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[StateCodeC8]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[ClaimsReportedC9]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="ClaimsReportedC9"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column9]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsReportedC9]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[ClaimsOutstandingC10]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="ClaimsOutstandingC10"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column10]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsOutstandingC10]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[ClaimsClosedWithPaymentsC11]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="ClaimsClosedWithPaymentsC11"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column11]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsClosedWithPaymentsC11]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[ClaimsClosedWithoutPaymentsC12]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="ClaimsClosedWithoutPaymentsC12"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column12]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[ClaimsClosedWithoutPaymentsC12]" />
+                    <inputColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].Columns[FillerC13]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="159"
+                      cachedName="FillerC13"
+                      externalMetadataColumnId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column13]"
+                      lineageId="Package\NPXCT\EDW.Outputs[OLE DB Source Output].Columns[FillerC13]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[ID]"
+                      dataType="i4"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="Column1" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="Column2" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="Column3" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="Column4" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="Column5" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="Column6" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="4"
+                      name="Column7" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="Column8" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column9" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column10" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column11" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column12" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column13" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column14" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column15" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column16" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column17" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column18" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column19]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column19" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column20]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column20" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column21]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column21" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[Column22]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="Column22" />
+                    <externalMetadataColumn
+                      refId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\NPXCT\NPXCT.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\NPXCT\NPXCT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\NPXCT\NPXCT.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\NPXCT\NPXCT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\NPXCT\NPXCT.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\NPXCT.Paths[OLE DB Source Output]"
+              endId="Package\NPXCT\NPXCT.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\NPXCT\EDW.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="116,42"
+          Id="Package\NPXCT"
+          TopLeft="132.5,59.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\NPXCT">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="116,42"
+          Id="Package\NPXCT\NPXCT"
+          TopLeft="155.5,134.5" />
+        <NodeLayout
+          Size="105,42"
+          Id="Package\NPXCT\EDW"
+          TopLeft="167.5,21.5" />
+        <EdgeLayout
+          Id="Package\NPXCT.Paths[OLE DB Source Output]"
+          TopLeft="216.75,63.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,71"
+              Start="0,0"
+              End="0,63.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,63.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\NPXCT\EDW">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\NPXCT\NPXCT">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

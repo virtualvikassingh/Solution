@@ -1,0 +1,2464 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/11/2018 11:54:38 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ACF-EWAQW01"
+  DTS:CreatorName="ACFS24\vikas.singh"
+  DTS:DTSID="{83038F4B-94C1-4808-AEAB-0F2A1EB7D494}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCSTAT - Header"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="29"
+  DTS:VersionGUID="{C89F47D8-5B16-4EAE-842E-5473BABC4B2C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportMonth"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportMonth].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{B211C387-7351-4DFF-8ED2-F93D8C1B97A1}"
+      DTS:ObjectName="ReportMonth" />
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportYear"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportYear].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{1D8CD522-505D-48DD-B499-17F81112BECF}"
+      DTS:ObjectName="ReportYear" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A0E786AE-9782-4916-AD41-E46876EE749A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportMonth">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E24B1B44-CDD6-4E8F-972B-3D1E6013C9E2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportYear">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Header Record"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{E408CF44-553F-4217-92D4-3F2DCA21FAE7}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Header Record"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Header Record\DEST - WCStatReportData"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DEST - WCStatReportData"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[STAGE_WCStatReportData]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Header Record\DEST - WCStatReportData.Connections[OleDbConnection]"
+                  connectionManagerID="{92E7D99B-74F9-414C-93B4-3FBDA62D5F91}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WCSTAT]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PolicyID]"
+                      cachedDataType="i4"
+                      cachedName="PolicyID"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyID]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ExposureState]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ExposureState"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ExposureState]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureState]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[RecordTypeCodeC1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="RecordTypeCodeC1"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="13"
+                      cachedName="ReservedForFutureUseC2"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC2]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PolicyExpirationDateC3]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="PolicyExpirationDateC3"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyExpirationDateC3]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[RiskIdNumberC4]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="RiskIdNumberC4"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column4]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RiskIdNumberC4]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC5]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ReservedForFutureUseC5"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column5]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC5]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[OriginalAdminNumberC6]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="OriginalAdminNumberC6"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column6]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[OriginalAdminNumberC6]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC7]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ReservedForFutureUseC7"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column7]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC7]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[EmployeeLeaseTypeCodeC8]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="EmployeeLeaseTypeCodeC8"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column8]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[EmployeeLeaseTypeCodeC8]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC9]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="22"
+                      cachedName="ReservedForFutureUseC9"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column9]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC9]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReplacementReportCodeC10]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ReplacementReportCodeC10"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column10]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReplacementReportCodeC10]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[BusinessSegIdentifierC11]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="84"
+                      cachedName="BusinessSegIdentifierC11"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column11]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[BusinessSegIdentifierC11]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ThirdPartyFederalEmpIdentifierC12]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="108"
+                      cachedName="ThirdPartyFederalEmpIdentifierC12"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column12]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ThirdPartyFederalEmpIdentifierC12]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[CorrectionTypeCodeC13]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="CorrectionTypeCodeC13"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column13]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CorrectionTypeCodeC13]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[StateEffectiveDateC14]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="72"
+                      cachedName="StateEffectiveDateC14"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column14]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[StateEffectiveDateC14]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[FEINC15]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="FEINC15"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column15]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[FEINC15]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[SeperatedDateC16]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="72"
+                      cachedName="SeperatedDateC16"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column16]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[SeperatedDateC16]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC17]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="ReservedForFutureUseC17"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column17]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC17]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ThreeYearFixedRatePolicyIndicatorC18]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ThreeYearFixedRatePolicyIndicatorC18"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column18]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ThreeYearFixedRatePolicyIndicatorC18]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[MultiStatePolicyIndicatorC19]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="MultiStatePolicyIndicatorC19"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column19]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[MultiStatePolicyIndicatorC19]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[InterStateRatedPolicyIndicatorC20]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="InterStateRatedPolicyIndicatorC20"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column20]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[InterStateRatedPolicyIndicatorC20]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[EstimatedAuditCodeC21]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="EstimatedAuditCodeC21"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column21]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[EstimatedAuditCodeC21]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[RetrospectiveRatedPolicyIndicatorC22]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="RetrospectiveRatedPolicyIndicatorC22"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column22]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RetrospectiveRatedPolicyIndicatorC22]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[CancelledMidTermIndicatorC23]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="CancelledMidTermIndicatorC23"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column23]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CancelledMidTermIndicatorC23]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ManagedCareOrganizationIndicatorC24]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ManagedCareOrganizationIndicatorC24"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column24]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ManagedCareOrganizationIndicatorC24]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[CertifiedHealthCareNetworkIndicatorC25]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="CertifiedHealthCareNetworkIndicatorC25"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column25]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CertifiedHealthCareNetworkIndicatorC25]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC26]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="ReservedForFutureUseC26"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column26]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC26]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[TypeOfCoverageIDCodeC27]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TypeOfCoverageIDCodeC27"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column27]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TypeOfCoverageIDCodeC27]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[TypeOfPlanIDCodeC28]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TypeOfPlanIDCodeC28"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column28]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TypeOfPlanIDCodeC28]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[TypeOfNonStandardIDCodeC29]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="TypeOfNonStandardIDCodeC29"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column29]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TypeOfNonStandardIDCodeC29]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC30]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="ReservedForFutureUseC30"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column30]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC30]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[LossesSubjectToDeductibleCodeC31]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LossesSubjectToDeductibleCodeC31"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column31]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[LossesSubjectToDeductibleCodeC31]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[BasisOfDeductibleCalculationCodeC32]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="BasisOfDeductibleCalculationCodeC32"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column32]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[BasisOfDeductibleCalculationCodeC32]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[DeductiblePercentageC33]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="DeductiblePercentageC33"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column33]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[DeductiblePercentageC33]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[DeductibleAmountPerClaimC34]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="DeductibleAmountPerClaimC34"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column34]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[DeductibleAmountPerClaimC34]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[DeductibleAmountAggregateC35]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="108"
+                      cachedName="DeductibleAmountAggregateC35"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column35]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[DeductibleAmountAggregateC35]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PreviousReportLevelCodeC36]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="PreviousReportLevelCodeC36"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column36]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousReportLevelCodeC36]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC37]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="ReservedForFutureUseC37"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column37]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC37]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PreviousCorrectionSeqNumberC38]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="PreviousCorrectionSeqNumberC38"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column38]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousCorrectionSeqNumberC38]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PreviousCarrierCodeC39]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="PreviousCarrierCodeC39"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column39]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousCarrierCodeC39]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PreviousPolicyNumberIdentifierC40]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="18"
+                      cachedName="PreviousPolicyNumberIdentifierC40"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column40]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousPolicyNumberIdentifierC40]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PreviousPolicyEffectiveDateC41]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="72"
+                      cachedName="PreviousPolicyEffectiveDateC41"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column41]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousPolicyEffectiveDateC41]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PreviousExposureStateCodeC42]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="24"
+                      cachedName="PreviousExposureStateCodeC42"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column42]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousExposureStateCodeC42]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PreviousSeperatedSegmentNumberC43]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="3"
+                      cachedName="PreviousSeperatedSegmentNumberC43"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column43]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousSeperatedSegmentNumberC43]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForInsurerUseC44]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="16"
+                      cachedName="ReservedForInsurerUseC44"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column44]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForInsurerUseC44]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReserveForDCOUseC45]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="6"
+                      cachedName="ReserveForDCOUseC45"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column45]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReserveForDCOUseC45]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[BEEPEditBypassCodeC46]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="BEEPEditBypassCodeC46"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column46]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[BEEPEditBypassCodeC46]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[UnitFormatSubmissionCodeC47]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="UnitFormatSubmissionCodeC47"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column47]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[UnitFormatSubmissionCodeC47]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="PolicyNumber"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[TermNumber]"
+                      cachedDataType="i4"
+                      cachedName="TermNumber"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[TermNumber]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReportMonth]"
+                      cachedDataType="i4"
+                      cachedName="ReportMonth"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportMonth]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]" />
+                    <inputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReportYear]"
+                      cachedDataType="i4"
+                      cachedName="ReportYear"
+                      externalMetadataColumnId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportYear]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[StatID]"
+                      dataType="i8"
+                      name="StatID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column4" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column5" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column6" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column7" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column8" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column9" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column11" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column12" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column13" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column14" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column15" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column16" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column17" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column18" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column19]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column19" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column20]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column20" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column21]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column21" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column22]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column22" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column23]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column23" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column24]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column24" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column25]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column25" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column26]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column26" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column27]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column27" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column28]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column28" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column29]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column29" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column30]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column30" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column31]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column31" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column32]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column32" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column33]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column33" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column34]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column34" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column35]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column35" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column36]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column36" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column37]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column37" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column38]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column38" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column39]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column39" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column40]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column40" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column41]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column41" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column42]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column42" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column43]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column43" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column44]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column44" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column45]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column45" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column46]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column46" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column47]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column47" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ExposureState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                      dataType="i8"
+                      name="PolicyID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="PolicyNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[TermNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TermNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportMonth]"
+                      dataType="i4"
+                      name="ReportMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportYear]"
+                      dataType="i4"
+                      name="ReportYear" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingMonth]"
+                      dataType="i4"
+                      name="ReportingMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingYear]"
+                      dataType="i4"
+                      name="ReportingYear" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Header Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Header Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Header Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Header Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Header Record\SRC - DimPolicy"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="SRC - DimPolicy"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With CTE_Audit as 
+(
+  Select  p.Policynumber, AuditClosureReason, TermNumber,
+	Row_number() over(partition by p.PolicyNumber, TermNumber order by p.JobCloseDate Desc) RowNumber
+   
+  From  DimPolicy p 	 
+	
+  Where p.TransactionType = 'Audit'
+	And p.PolicyStatus  = 'Completed'
+	And p.EffectiveDate &lt; DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)
+	and p.JobCloseDate &lt;  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0) 
+ ),
+
+ CTE_Deductible as 
+ (
+	Select Distinct PolicyID, c.DeductiblePerClaim, CoinsuranceDeductibleType
+	From FactWCPremiumTransaction f 
+	 inner join DimWCCoverage c on f.CoverageID = c.CoverageID
+	 Where CoinsuranceDeductibleType is NOT NULL 
+	 and CoinsuranceDeductibleType != 'NA'
+ ),
+ 
+CTE_Header as 
+(
+	Select 
+	 
+	 '1' RecordTypeCodeC1,
+	 Replicate(' ',13) ReservedForFutureUseC2,
+	 dbo.udf_MakeFixedWidthStringIN(CONVERT(VARCHAR(6),ISNULL(p.CancellationDate, p.ExpirationDate),12),0,6) PolicyExpirationDateC3,
+	 dbo.udf_MakeFixedWidthStringIN(Replace(IIF(BaseState = 'MI', PrimaryInsuredBureauID, ISNULL( InterStateRiskNumber, IntraStateRiskNumber)),'-',''),'',9) RiskIdNumberC4,
+	 ' ' ReservedForFutureUseC5,
+	 Replicate(' ',10) OriginalAdminNumberC6,
+	 ' ' ReservedForFutureUseC7,
+	 dbo.udf_MakeFixedWidthStringIN(IIF(e.State = 'MI','', IIF(p.EmployeeLeaseType NOT IN ('Non-Employee Leasing Policy','Temporary Help / Staffing Company'),'E','')),'',1) EmployeeLeaseTypeCodeC8,
+	 Replicate(' ',22) ReservedForFutureUseC9,
+	 ' ' ReplacementReportCodeC10,
+	 Replicate(0,7) BusinessSegIdentifierC11,
+	 Replicate(0,9) ThirdPartyFederalEmpIdentifierC12,
+	 ' ' CorrectionTypeCodeC13,
+	 Replicate(0,6) StateEffectiveDateC14,
+	 dbo.udf_MakeFixedWidthStringIN(Replace(p.PrimaryInsuredFEINID,'-',''),0,9) FEINC15,
+	 Replicate(0,6) SeperatedDateC16,
+	 Replicate(' ',2) ReservedForFutureUseC17,
+	 'N' ThreeYearFixedRatePolicyIndicatorC18,
+	 'N' MultiStatePolicyIndicatorC19,
+	 IIF(InterStateRiskNumber is NULL,'N','Y') InterStateRatedPolicyIndicatorC20,
+	 
+	 ISNULL(IIF(a.AuditClosureReason = 'Actual Exposure','N', IIF(e.State = 'MI','U','Y')),' ') EstimatedAuditCodeC21,
+	 'N' RetrospectiveRatedPolicyIndicatorC22,
+	 IIF(p.CancellationDate &lt; p.ExpirationDate, 'Y','N') CancelledMidTermIndicatorC23,
+	 'N' ManagedCareOrganizationIndicatorC24,
+	 'N' CertifiedHealthCareNetworkIndicatorC25,
+	 Replicate(' ',3) ReservedForFutureUseC26,
+	 '01' TypeOfCoverageIDCodeC27,
+	 '02' TypeOfPlanIDCodeC28,
+	 '01' TypeOfNonStandardIDCodeC29,
+	 Replicate(' ',2) ReservedForFutureUseC30,
+	 IIF(e.State = 'MI', '00',IIF(ISNULL(CoinsuranceDeductibleType,'NA') = 'NA','00','03'))  LossesSubjectToDeductibleCodeC31,
+	 IIF(e.State = 'MI', '00', Case ISNULL(CoinsuranceDeductibleType,'NA') 
+								When 'NA' Then '00'
+								When 'Deductible' Then '01'
+								When 'Coinsurance' Then '06'
+								When 'Coinsurance/Deductible' Then '07'
+							End) BasisOfDeductibleCalculationCodeC32,
+	IIF(e.State = 'MI', '00',IIF(CoinsuranceDeductibleType in ('Coinsurance','Coinsurance/Deductible'),'20','00')) DeductiblePercentageC33,
+	dbo.udf_MakeFixedWidthStringIN(IIF(e.State = 'MI', '00',IIF(CoinsuranceDeductibleType = 'Coinsurance', '21000', IIF(DeductiblePerClaim in ('N/A','NA','-2'),'00', ISNULL(DeductiblePerClaim,'00')))),'0',9) DeductibleAmountPerClaimC34,
+
+	 Replicate(0,9) DeductibleAmountAggregateC35,
+	 Replicate(0,2) PreviousReportLevelCodeC36,
+	 ' ' ReservedForFutureUseC37,
+	 ' ' PreviousCorrectionSeqNumberC38,
+	 Replicate(0,5) PreviousCarrierCodeC39,
+	 Replicate(' ',18) PreviousPolicyNumberIdentifierC40,
+	 Replicate(0,6) PreviousPolicyEffectiveDateC41,
+	 Replicate(0,2) PreviousExposureStateCodeC42,
+	 Replicate(' ',3) PreviousSeperatedSegmentNumberC43,
+	 Replicate(' ',16) ReservedForInsurerUseC44,
+	 Replicate(' ',6) ReserveForDCOUseC45,
+	 ' ' BEEPEditBypassCodeC46,
+	 'A' UnitFormatSubmissionCodeC47,
+	 p.PolicyID,
+	 p.PolicyNumber, 
+	 p.TermNumber,
+	 e.State ExposureState, 
+	 e.ReportMonth,
+	 e.ReportYear,
+	 Row_number() over(partition by p.PolicyNumber order by p.JobCloseDate Desc) RowNumber 
+
+ 	From DimPolicy p 
+	inner join FactWCPremiumTransaction f on p.PolicyID = f.PolicyID
+	inner join VW_WCStatEffectivePolicies e on e.PolicyNumber = p.PolicyNumber and e.TermNumber = p.TermNumber
+	Left join CTE_Deductible d on p.PolicyID = d.PolicyID 	
+	Left  join CTE_Audit a on p.PolicyNumber = a.PolicyNumber and p.TermNumber = a.TermNumber and a.RowNumber = 1
+
+Where  p.EffectiveDate &lt; DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)
+	and p.JobCloseDate &lt;  DATEADD(mm, DATEDIFF(mm, 0, dbo.udf_GetDate()), 0)
+	and p.TransactionType = 'Audit'
+	and p.PolicyStatus  = 'Completed'
+ 
+ )
+ 
+ Select * from CTE_Header
+ Where RowNumber = 1 
+ Order by PolicyNumber</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Header Record\SRC - DimPolicy.Connections[OleDbConnection]"
+                  connectionManagerID="{5D61FD35-9751-47D2-B783-21BBF451814D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EDW]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCodeC1]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]"
+                      name="RecordTypeCodeC1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC2]"
+                      length="13"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC2]"
+                      name="ReservedForFutureUseC2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyExpirationDateC3]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyExpirationDateC3]"
+                      length="250"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyExpirationDateC3]"
+                      name="PolicyExpirationDateC3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RiskIdNumberC4]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RiskIdNumberC4]"
+                      length="250"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RiskIdNumberC4]"
+                      name="RiskIdNumberC4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC5]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC5]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC5]"
+                      name="ReservedForFutureUseC5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[OriginalAdminNumberC6]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[OriginalAdminNumberC6]"
+                      length="10"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[OriginalAdminNumberC6]"
+                      name="OriginalAdminNumberC6"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC7]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC7]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC7]"
+                      name="ReservedForFutureUseC7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[EmployeeLeaseTypeCodeC8]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[EmployeeLeaseTypeCodeC8]"
+                      length="250"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[EmployeeLeaseTypeCodeC8]"
+                      name="EmployeeLeaseTypeCodeC8"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC9]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC9]"
+                      length="22"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC9]"
+                      name="ReservedForFutureUseC9"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReplacementReportCodeC10]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReplacementReportCodeC10]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReplacementReportCodeC10]"
+                      name="ReplacementReportCodeC10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[BusinessSegIdentifierC11]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[BusinessSegIdentifierC11]"
+                      length="84"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[BusinessSegIdentifierC11]"
+                      name="BusinessSegIdentifierC11"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ThirdPartyFederalEmpIdentifierC12]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ThirdPartyFederalEmpIdentifierC12]"
+                      length="108"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ThirdPartyFederalEmpIdentifierC12]"
+                      name="ThirdPartyFederalEmpIdentifierC12"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CorrectionTypeCodeC13]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[CorrectionTypeCodeC13]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CorrectionTypeCodeC13]"
+                      name="CorrectionTypeCodeC13"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[StateEffectiveDateC14]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[StateEffectiveDateC14]"
+                      length="72"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[StateEffectiveDateC14]"
+                      name="StateEffectiveDateC14"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[FEINC15]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[FEINC15]"
+                      length="250"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[FEINC15]"
+                      name="FEINC15"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[SeperatedDateC16]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[SeperatedDateC16]"
+                      length="72"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[SeperatedDateC16]"
+                      name="SeperatedDateC16"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC17]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC17]"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC17]"
+                      name="ReservedForFutureUseC17"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ThreeYearFixedRatePolicyIndicatorC18]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ThreeYearFixedRatePolicyIndicatorC18]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ThreeYearFixedRatePolicyIndicatorC18]"
+                      name="ThreeYearFixedRatePolicyIndicatorC18"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[MultiStatePolicyIndicatorC19]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[MultiStatePolicyIndicatorC19]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[MultiStatePolicyIndicatorC19]"
+                      name="MultiStatePolicyIndicatorC19"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[InterStateRatedPolicyIndicatorC20]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[InterStateRatedPolicyIndicatorC20]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[InterStateRatedPolicyIndicatorC20]"
+                      name="InterStateRatedPolicyIndicatorC20"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[EstimatedAuditCodeC21]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[EstimatedAuditCodeC21]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[EstimatedAuditCodeC21]"
+                      name="EstimatedAuditCodeC21"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RetrospectiveRatedPolicyIndicatorC22]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RetrospectiveRatedPolicyIndicatorC22]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RetrospectiveRatedPolicyIndicatorC22]"
+                      name="RetrospectiveRatedPolicyIndicatorC22"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CancelledMidTermIndicatorC23]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[CancelledMidTermIndicatorC23]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CancelledMidTermIndicatorC23]"
+                      name="CancelledMidTermIndicatorC23"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ManagedCareOrganizationIndicatorC24]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ManagedCareOrganizationIndicatorC24]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ManagedCareOrganizationIndicatorC24]"
+                      name="ManagedCareOrganizationIndicatorC24"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CertifiedHealthCareNetworkIndicatorC25]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[CertifiedHealthCareNetworkIndicatorC25]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[CertifiedHealthCareNetworkIndicatorC25]"
+                      name="CertifiedHealthCareNetworkIndicatorC25"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC26]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC26]"
+                      length="3"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC26]"
+                      name="ReservedForFutureUseC26"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TypeOfCoverageIDCodeC27]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TypeOfCoverageIDCodeC27]"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TypeOfCoverageIDCodeC27]"
+                      name="TypeOfCoverageIDCodeC27"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TypeOfPlanIDCodeC28]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TypeOfPlanIDCodeC28]"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TypeOfPlanIDCodeC28]"
+                      name="TypeOfPlanIDCodeC28"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TypeOfNonStandardIDCodeC29]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TypeOfNonStandardIDCodeC29]"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TypeOfNonStandardIDCodeC29]"
+                      name="TypeOfNonStandardIDCodeC29"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC30]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC30]"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC30]"
+                      name="ReservedForFutureUseC30"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[LossesSubjectToDeductibleCodeC31]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[LossesSubjectToDeductibleCodeC31]"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[LossesSubjectToDeductibleCodeC31]"
+                      name="LossesSubjectToDeductibleCodeC31"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[BasisOfDeductibleCalculationCodeC32]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[BasisOfDeductibleCalculationCodeC32]"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[BasisOfDeductibleCalculationCodeC32]"
+                      name="BasisOfDeductibleCalculationCodeC32"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[DeductiblePercentageC33]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[DeductiblePercentageC33]"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[DeductiblePercentageC33]"
+                      name="DeductiblePercentageC33"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[DeductibleAmountPerClaimC34]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[DeductibleAmountPerClaimC34]"
+                      length="250"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[DeductibleAmountPerClaimC34]"
+                      name="DeductibleAmountPerClaimC34"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[DeductibleAmountAggregateC35]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[DeductibleAmountAggregateC35]"
+                      length="108"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[DeductibleAmountAggregateC35]"
+                      name="DeductibleAmountAggregateC35"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousReportLevelCodeC36]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousReportLevelCodeC36]"
+                      length="24"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousReportLevelCodeC36]"
+                      name="PreviousReportLevelCodeC36"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC37]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC37]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC37]"
+                      name="ReservedForFutureUseC37"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousCorrectionSeqNumberC38]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousCorrectionSeqNumberC38]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousCorrectionSeqNumberC38]"
+                      name="PreviousCorrectionSeqNumberC38"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousCarrierCodeC39]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousCarrierCodeC39]"
+                      length="60"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousCarrierCodeC39]"
+                      name="PreviousCarrierCodeC39"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousPolicyNumberIdentifierC40]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousPolicyNumberIdentifierC40]"
+                      length="18"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousPolicyNumberIdentifierC40]"
+                      name="PreviousPolicyNumberIdentifierC40"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousPolicyEffectiveDateC41]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousPolicyEffectiveDateC41]"
+                      length="72"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousPolicyEffectiveDateC41]"
+                      name="PreviousPolicyEffectiveDateC41"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousExposureStateCodeC42]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousExposureStateCodeC42]"
+                      length="24"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousExposureStateCodeC42]"
+                      name="PreviousExposureStateCodeC42"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousSeperatedSegmentNumberC43]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousSeperatedSegmentNumberC43]"
+                      length="3"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PreviousSeperatedSegmentNumberC43]"
+                      name="PreviousSeperatedSegmentNumberC43"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForInsurerUseC44]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForInsurerUseC44]"
+                      length="16"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReservedForInsurerUseC44]"
+                      name="ReservedForInsurerUseC44"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReserveForDCOUseC45]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReserveForDCOUseC45]"
+                      length="6"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReserveForDCOUseC45]"
+                      name="ReserveForDCOUseC45"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[BEEPEditBypassCodeC46]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[BEEPEditBypassCodeC46]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[BEEPEditBypassCodeC46]"
+                      name="BEEPEditBypassCodeC46"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[UnitFormatSubmissionCodeC47]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[UnitFormatSubmissionCodeC47]"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[UnitFormatSubmissionCodeC47]"
+                      name="UnitFormatSubmissionCodeC47"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                      name="PolicyID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      length="50"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      name="PolicyNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureState]"
+                      length="50"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ExposureState]"
+                      name="ExposureState"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RowNumber]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[RowNumber]"
+                      name="RowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      name="TermNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportMonth]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportMonth]"
+                      name="ReportMonth"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportYear]"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].Columns[ReportYear]"
+                      name="ReportYear"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="RecordTypeCodeC1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      name="ReservedForFutureUseC2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyExpirationDateC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="PolicyExpirationDateC3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RiskIdNumberC4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="RiskIdNumberC4" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ReservedForFutureUseC5" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[OriginalAdminNumberC6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="OriginalAdminNumberC6" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ReservedForFutureUseC7" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[EmployeeLeaseTypeCodeC8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="EmployeeLeaseTypeCodeC8" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="22"
+                      name="ReservedForFutureUseC9" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReplacementReportCodeC10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ReplacementReportCodeC10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[BusinessSegIdentifierC11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="84"
+                      name="BusinessSegIdentifierC11" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ThirdPartyFederalEmpIdentifierC12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="108"
+                      name="ThirdPartyFederalEmpIdentifierC12" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[CorrectionTypeCodeC13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="CorrectionTypeCodeC13" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[StateEffectiveDateC14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="72"
+                      name="StateEffectiveDateC14" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[FEINC15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="FEINC15" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[SeperatedDateC16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="72"
+                      name="SeperatedDateC16" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ReservedForFutureUseC17" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ThreeYearFixedRatePolicyIndicatorC18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ThreeYearFixedRatePolicyIndicatorC18" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[MultiStatePolicyIndicatorC19]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="MultiStatePolicyIndicatorC19" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[InterStateRatedPolicyIndicatorC20]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="InterStateRatedPolicyIndicatorC20" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[EstimatedAuditCodeC21]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="EstimatedAuditCodeC21" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RetrospectiveRatedPolicyIndicatorC22]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="RetrospectiveRatedPolicyIndicatorC22" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[CancelledMidTermIndicatorC23]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="CancelledMidTermIndicatorC23" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ManagedCareOrganizationIndicatorC24]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ManagedCareOrganizationIndicatorC24" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[CertifiedHealthCareNetworkIndicatorC25]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="CertifiedHealthCareNetworkIndicatorC25" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC26]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="ReservedForFutureUseC26" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TypeOfCoverageIDCodeC27]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TypeOfCoverageIDCodeC27" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TypeOfPlanIDCodeC28]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TypeOfPlanIDCodeC28" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TypeOfNonStandardIDCodeC29]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TypeOfNonStandardIDCodeC29" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC30]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ReservedForFutureUseC30" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[LossesSubjectToDeductibleCodeC31]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="LossesSubjectToDeductibleCodeC31" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[BasisOfDeductibleCalculationCodeC32]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="BasisOfDeductibleCalculationCodeC32" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[DeductiblePercentageC33]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="DeductiblePercentageC33" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[DeductibleAmountPerClaimC34]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="DeductibleAmountPerClaimC34" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[DeductibleAmountAggregateC35]"
+                      codePage="1252"
+                      dataType="str"
+                      length="108"
+                      name="DeductibleAmountAggregateC35" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousReportLevelCodeC36]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="PreviousReportLevelCodeC36" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC37]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="ReservedForFutureUseC37" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousCorrectionSeqNumberC38]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="PreviousCorrectionSeqNumberC38" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousCarrierCodeC39]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="PreviousCarrierCodeC39" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousPolicyNumberIdentifierC40]"
+                      codePage="1252"
+                      dataType="str"
+                      length="18"
+                      name="PreviousPolicyNumberIdentifierC40" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousPolicyEffectiveDateC41]"
+                      codePage="1252"
+                      dataType="str"
+                      length="72"
+                      name="PreviousPolicyEffectiveDateC41" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousExposureStateCodeC42]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      name="PreviousExposureStateCodeC42" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PreviousSeperatedSegmentNumberC43]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      name="PreviousSeperatedSegmentNumberC43" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReservedForInsurerUseC44]"
+                      codePage="1252"
+                      dataType="str"
+                      length="16"
+                      name="ReservedForInsurerUseC44" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReserveForDCOUseC45]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      name="ReserveForDCOUseC45" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[BEEPEditBypassCodeC46]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="BEEPEditBypassCodeC46" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[UnitFormatSubmissionCodeC47]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="UnitFormatSubmissionCodeC47" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                      dataType="i4"
+                      name="PolicyID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="PolicyNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ExposureState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[RowNumber]"
+                      dataType="i8"
+                      name="RowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      dataType="i4"
+                      name="TermNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportMonth]"
+                      dataType="i4"
+                      name="ReportMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output].ExternalColumns[ReportYear]"
+                      dataType="i4"
+                      name="ReportYear" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RecordTypeCodeC1]"
+                      name="RecordTypeCodeC1" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="13"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC2]"
+                      name="ReservedForFutureUseC2" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyExpirationDateC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyExpirationDateC3]"
+                      name="PolicyExpirationDateC3" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RiskIdNumberC4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RiskIdNumberC4]"
+                      name="RiskIdNumberC4" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC5]"
+                      name="ReservedForFutureUseC5" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[OriginalAdminNumberC6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[OriginalAdminNumberC6]"
+                      name="OriginalAdminNumberC6" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC7]"
+                      name="ReservedForFutureUseC7" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[EmployeeLeaseTypeCodeC8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[EmployeeLeaseTypeCodeC8]"
+                      name="EmployeeLeaseTypeCodeC8" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="22"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC9]"
+                      name="ReservedForFutureUseC9" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReplacementReportCodeC10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReplacementReportCodeC10]"
+                      name="ReplacementReportCodeC10" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[BusinessSegIdentifierC11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="84"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[BusinessSegIdentifierC11]"
+                      name="BusinessSegIdentifierC11" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ThirdPartyFederalEmpIdentifierC12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="108"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ThirdPartyFederalEmpIdentifierC12]"
+                      name="ThirdPartyFederalEmpIdentifierC12" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[CorrectionTypeCodeC13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[CorrectionTypeCodeC13]"
+                      name="CorrectionTypeCodeC13" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[StateEffectiveDateC14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="72"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[StateEffectiveDateC14]"
+                      name="StateEffectiveDateC14" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[FEINC15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[FEINC15]"
+                      name="FEINC15" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[SeperatedDateC16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="72"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[SeperatedDateC16]"
+                      name="SeperatedDateC16" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC17]"
+                      name="ReservedForFutureUseC17" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ThreeYearFixedRatePolicyIndicatorC18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ThreeYearFixedRatePolicyIndicatorC18]"
+                      name="ThreeYearFixedRatePolicyIndicatorC18" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[MultiStatePolicyIndicatorC19]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[MultiStatePolicyIndicatorC19]"
+                      name="MultiStatePolicyIndicatorC19" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[InterStateRatedPolicyIndicatorC20]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[InterStateRatedPolicyIndicatorC20]"
+                      name="InterStateRatedPolicyIndicatorC20" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[EstimatedAuditCodeC21]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[EstimatedAuditCodeC21]"
+                      name="EstimatedAuditCodeC21" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RetrospectiveRatedPolicyIndicatorC22]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RetrospectiveRatedPolicyIndicatorC22]"
+                      name="RetrospectiveRatedPolicyIndicatorC22" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[CancelledMidTermIndicatorC23]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[CancelledMidTermIndicatorC23]"
+                      name="CancelledMidTermIndicatorC23" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ManagedCareOrganizationIndicatorC24]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ManagedCareOrganizationIndicatorC24]"
+                      name="ManagedCareOrganizationIndicatorC24" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[CertifiedHealthCareNetworkIndicatorC25]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[CertifiedHealthCareNetworkIndicatorC25]"
+                      name="CertifiedHealthCareNetworkIndicatorC25" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC26]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC26]"
+                      name="ReservedForFutureUseC26" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TypeOfCoverageIDCodeC27]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TypeOfCoverageIDCodeC27]"
+                      name="TypeOfCoverageIDCodeC27" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TypeOfPlanIDCodeC28]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TypeOfPlanIDCodeC28]"
+                      name="TypeOfPlanIDCodeC28" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TypeOfNonStandardIDCodeC29]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TypeOfNonStandardIDCodeC29]"
+                      name="TypeOfNonStandardIDCodeC29" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC30]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC30]"
+                      name="ReservedForFutureUseC30" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[LossesSubjectToDeductibleCodeC31]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[LossesSubjectToDeductibleCodeC31]"
+                      name="LossesSubjectToDeductibleCodeC31" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[BasisOfDeductibleCalculationCodeC32]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[BasisOfDeductibleCalculationCodeC32]"
+                      name="BasisOfDeductibleCalculationCodeC32" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[DeductiblePercentageC33]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[DeductiblePercentageC33]"
+                      name="DeductiblePercentageC33" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[DeductibleAmountPerClaimC34]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[DeductibleAmountPerClaimC34]"
+                      name="DeductibleAmountPerClaimC34" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[DeductibleAmountAggregateC35]"
+                      codePage="1252"
+                      dataType="str"
+                      length="108"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[DeductibleAmountAggregateC35]"
+                      name="DeductibleAmountAggregateC35" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousReportLevelCodeC36]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousReportLevelCodeC36]"
+                      name="PreviousReportLevelCodeC36" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC37]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC37]"
+                      name="ReservedForFutureUseC37" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousCorrectionSeqNumberC38]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousCorrectionSeqNumberC38]"
+                      name="PreviousCorrectionSeqNumberC38" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousCarrierCodeC39]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousCarrierCodeC39]"
+                      name="PreviousCarrierCodeC39" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousPolicyNumberIdentifierC40]"
+                      codePage="1252"
+                      dataType="str"
+                      length="18"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousPolicyNumberIdentifierC40]"
+                      name="PreviousPolicyNumberIdentifierC40" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousPolicyEffectiveDateC41]"
+                      codePage="1252"
+                      dataType="str"
+                      length="72"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousPolicyEffectiveDateC41]"
+                      name="PreviousPolicyEffectiveDateC41" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousExposureStateCodeC42]"
+                      codePage="1252"
+                      dataType="str"
+                      length="24"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousExposureStateCodeC42]"
+                      name="PreviousExposureStateCodeC42" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousSeperatedSegmentNumberC43]"
+                      codePage="1252"
+                      dataType="str"
+                      length="3"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PreviousSeperatedSegmentNumberC43]"
+                      name="PreviousSeperatedSegmentNumberC43" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForInsurerUseC44]"
+                      codePage="1252"
+                      dataType="str"
+                      length="16"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReservedForInsurerUseC44]"
+                      name="ReservedForInsurerUseC44" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReserveForDCOUseC45]"
+                      codePage="1252"
+                      dataType="str"
+                      length="6"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReserveForDCOUseC45]"
+                      name="ReserveForDCOUseC45" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[BEEPEditBypassCodeC46]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[BEEPEditBypassCodeC46]"
+                      name="BEEPEditBypassCodeC46" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[UnitFormatSubmissionCodeC47]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[UnitFormatSubmissionCodeC47]"
+                      name="UnitFormatSubmissionCodeC47" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                      dataType="i4"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                      name="PolicyID" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      name="PolicyNumber" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      dataType="i4"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      name="TermNumber" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ExposureState]"
+                      name="ExposureState" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportMonth]"
+                      dataType="i4"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportMonth]"
+                      name="ReportMonth" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportYear]"
+                      dataType="i4"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ReportYear]"
+                      name="ReportYear" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RowNumber]"
+                      dataType="i8"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[RowNumber]"
+                      name="RowNumber" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Header Record.Paths[OLE DB Source Output]"
+              endId="Package\Load Header Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Header Record\SRC - DimPolicy.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="175,42"
+          Id="Package\Load Header Record"
+          TopLeft="217.5,158.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Header Record">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="154,42"
+          Id="Package\Load Header Record\SRC - DimPolicy"
+          TopLeft="197.5,33.5" />
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Load Header Record\DEST - WCStatReportData"
+          TopLeft="175.5,172.5" />
+        <EdgeLayout
+          Id="Package\Load Header Record.Paths[OLE DB Source Output]"
+          TopLeft="275.75,75.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,97"
+              Start="0,0"
+              End="0,89.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,89.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Header Record\DEST - WCStatReportData">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Header Record\SRC - DimPolicy">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

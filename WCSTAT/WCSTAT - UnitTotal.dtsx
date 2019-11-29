@@ -1,0 +1,1578 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="4/11/2018 11:54:38 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="ACF-EWAQW01"
+  DTS:CreatorName="ACFS24\vikas.singh"
+  DTS:DTSID="{EDFE8220-F42F-4CAD-9F7B-B432F0E9B1B6}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCSTAT - UnitTotal"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="68"
+  DTS:VersionGUID="{C1A1864B-4343-4EA9-AA9B-6DA0BE7CEEA4}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportMonth"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportMonth].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{C7474B71-B013-4941-97F5-19EEE027D1B9}"
+      DTS:ObjectName="ReportMonth" />
+    <DTS:Configuration
+      DTS:ConfigurationString="ReportYear"
+      DTS:ConfigurationVariable="\Package.Variables[User::ReportYear].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{FE564C58-D056-4A64-B13A-CC6CA9F310A6}"
+      DTS:ObjectName="ReportYear" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{22AE8A9D-6BC0-47AF-B511-0500950EEDC1}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportMonth">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{271743F6-1E41-4B38-AB11-8C98F54BF7F2}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="ReportYear">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Load Unit Total Record"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{CC318F3B-CBB0-4E9A-AEC2-BBCA37BB59A9}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Load Unit Total Record"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\Load Unit Total Record\DEST - WCStatReportData"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="DEST - WCStatReportData"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[WCStatReportData]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Unit Total Record\DEST - WCStatReportData.Connections[OleDbConnection]"
+                  connectionManagerID="{92E7D99B-74F9-414C-93B4-3FBDA62D5F91}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WCSTAT]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="PolicyNumber"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[TermNumber]"
+                      cachedDataType="i4"
+                      cachedName="TermNumber"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[TermNumber]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[TermNumber]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReportNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="ReportNumber"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportNumber]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportNumber]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ExposureState]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="ExposureState"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ExposureState]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExposureState]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[RecordType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="250"
+                      cachedName="RecordType"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[RecordType]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[RecordType]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[RecordTypeCodeC1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="RecordTypeCodeC1"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ExposurePayrollTotalC2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="11"
+                      cachedName="ExposurePayrollTotalC2"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExposurePayrollTotalC2]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC3]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="ReservedForFutureUseC3"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC3]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[SubjectPremiumC4]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="SubjectPremiumC4"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column4]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[SubjectPremiumC4]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[StandardPremiumC5]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="11"
+                      cachedName="StandardPremiumC5"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column5]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[StandardPremiumC5]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ClaimCountC6]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="ClaimCountC6"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column6]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ClaimCountC6]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[IncurredIndemnityTotalC7]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="IncurredIndemnityTotalC7"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column7]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[IncurredIndemnityTotalC7]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[IncurredMedicalTotalC8]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="IncurredMedicalTotalC8"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column8]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[IncurredMedicalTotalC8]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[UnitReportsTotalC9]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="5"
+                      cachedName="UnitReportsTotalC9"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column9]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[UnitReportsTotalC9]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC10]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="9"
+                      cachedName="ReservedForFutureUseC10"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column10]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC10]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PaidIndemnityTotalC11]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="PaidIndemnityTotalC11"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column11]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaidIndemnityTotalC11]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PaidMedicalTotalC12]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="PaidMedicalTotalC12"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column12]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaidMedicalTotalC12]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ClaimantAttorneyFeesIncurredTotalC13]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="ClaimantAttorneyFeesIncurredTotalC13"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column13]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ClaimantAttorneyFeesIncurredTotalC13]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[EmployerAttorneyFeesIncurredTotalC14]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="EmployerAttorneyFeesIncurredTotalC14"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column14]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmployerAttorneyFeesIncurredTotalC14]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[PaidALAETotalC15]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="PaidALAETotalC15"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column15]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaidALAETotalC15]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[IncurredALAETotalC16]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="IncurredALAETotalC16"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column16]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[IncurredALAETotalC16]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReservedForFutureUseC17]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="68"
+                      cachedName="ReservedForFutureUseC17"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column17]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC17]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReportMonth]"
+                      cachedDataType="i4"
+                      cachedName="ReportMonth"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportMonth]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportMonth]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReportYear]"
+                      cachedDataType="i4"
+                      cachedName="ReportYear"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportYear]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportYear]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReportingMonth]"
+                      cachedDataType="i4"
+                      cachedName="ReportingMonth"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingMonth]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportingMonth]" />
+                    <inputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].Columns[ReportingYear]"
+                      cachedDataType="i4"
+                      cachedName="ReportingYear"
+                      externalMetadataColumnId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingYear]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportingYear]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ExposureState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[TermNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="TermNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportMonth]"
+                      dataType="i4"
+                      name="ReportMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportYear]"
+                      dataType="i4"
+                      name="ReportYear" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingMonth]"
+                      dataType="i4"
+                      name="ReportingMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportingYear]"
+                      dataType="i4"
+                      name="ReportingYear" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[RecordType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="RecordType" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[ReportNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="ReportNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[StatID]"
+                      dataType="i8"
+                      name="StatID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column4" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column5" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column6" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column7" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column8" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column9" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column11" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column12" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column13" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column14" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column15" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column16" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column17" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column18" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column19]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column19" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column20]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column20" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column21]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column21" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column22]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column22" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column23]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column23" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column24]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column24" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column25]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column25" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column26]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column26" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column27]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column27" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column28]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column28" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column29]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column29" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column30]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column30" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column31]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column31" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column32]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column32" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column33]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column33" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column34]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column34" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column35]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column35" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column36]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column36" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column37]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column37" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column38]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column38" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column39]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column39" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column40]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column40" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column41]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column41" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column42]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column42" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column43]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column43" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column44]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column44" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column45]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column45" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column46]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column46" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[Column47]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Column47" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                      dataType="i8"
+                      name="PolicyID" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="PolicyNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input].ExternalColumns[OriginalRecordId]"
+                      dataType="i8"
+                      name="OriginalRecordId" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\Load Unit Total Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Unit Total Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Unit Total Record\DEST - WCStatReportData.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\Load Unit Total Record\OLE DB Source"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE DB Source"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With CTE_Exposure as 
+(
+Select PolicyNumber, TermNumber, ExposureState, RecordType, ReportNumber, ReportMonth, ReportYear, ReportingMonth, ReportingYear,
+	Sum(ExposurePayrollTotal) ExposurePayrollTotal,
+	Sum(SubjectPremium)  SubjectPremium,
+	Sum(StandardPremium) StandardPremium
+From Stage_WCSTATUnitTotal
+Where ReportingMonth = Month(dbo.udf_GetDate())
+and ReportingYear = year(dbo.udf_GetDate())
+Group By PolicyNumber, TermNumber, ExposureState, RecordType, ReportNumber, ReportMonth, ReportYear, ReportingMonth, ReportingYear
+),
+
+CTE_Claim as 
+ (
+ 	Select 
+		PolicyNumber, TermNumber, ReportNumber, 
+		Count(1) ClaimCount,
+		Sum(Cast(Column12 as int)) IncurredIndemnityAmount,
+		Sum(Cast(Column13 as int)) IncurredMedicalAmount,
+		Sum(Cast(Column35 as int)) PaidIndemnityAmount,
+		Sum(Cast(Column36 as int)) PaidMedicalAmount,
+		Sum(Cast(Column37 as int)) ClaimantAttorneyFeesIncurredAmount,
+		Sum(Cast(Column38 as int)) EmployerAttorneyFeesIncurredAmount,
+		Sum(Cast(Column42 as int)) PaidALAEAmount,
+		Sum(Cast(Column43 as int))IncurredALAEAmount		
+		
+	From WCStatReportData 
+	Where Column1 = 5 
+	And ReportingMonth = Month(dbo.udf_GetDate())
+	And ReportingYear = Year(dbo.udf_GetDate())
+	and Column17 = 'R'
+	 
+	Group By PolicyNUmber, TermNumber, ReportNumber
+),
+
+CTE_TotalCount as 
+(
+	Select r.PolicyNumber, Cast(r.TermNumber as int) TermNumber,  Count(1) + 1 UnitReportsTotal, ReportNumber
+	,Case RecordType
+		When 'CorrectionHeader'		Then 'Correction'
+		When 'CorrectionOriginal'	Then 'Correction'
+		When 'SubsequentHeader'		Then 'Subsequent'
+		Else RecordType End As RecordType
+
+	From WCStatReportData  r 
+	Where ReportingMonth = Month(dbo.udf_GetDate())
+	 And ReportingYear = Year(dbo.udf_GetDate())  
+
+	Group by r.PolicyNumber, r.TermNumber, ReportNumber
+		,Case RecordType
+			When 'CorrectionHeader'		Then 'Correction'
+			When 'CorrectionOriginal'	Then 'Correction'
+			When 'SubsequentHeader'		Then 'Subsequent'
+		Else RecordType End 
+ 
+)
+
+Select  
+	'6' as RecordTypeCodeC1,
+	 Cast(Format(ISNULL(e.ExposurePayrollTotal,0),'00000000000')as varchar(11))  ExposurePayrollTotalC2,
+	 Replicate(' ',10) ReservedForFutureUseC3, 
+	 Cast(Format(ISNULL(SubjectPremium,0),'0000000000')as varchar(10)) SubjectPremiumC4,
+	 Cast(Format(ISNULL(StandardPremium,0),'00000000000')as varchar(11)) StandardPremiumC5,
+	 Cast(Format(ISNULL(ClaimCount,0), '00000')as varchar(5)) ClaimCountC6,
+	 Cast(Format(ISNULL(IncurredIndemnityAmount,0),'0000000000')as varchar(10))IncurredIndemnityTotalC7, 
+	 Cast(Format(ISNULL(IncurredMedicalAmount ,0),'0000000000')as varchar(10)) IncurredMedicalTotalC8,	
+	  Cast(Format(t.UnitReportsTotal, '00000')as varchar(5))UnitReportsTotalC9, 
+	  Replicate(' ',9) ReservedForFutureUseC10,
+	 Cast(Format(ISNULL(PaidIndemnityAmount,0),'0000000000')as varchar(10))  PaidIndemnityTotalC11,
+	 Cast(Format(ISNULL(PaidMedicalAmount, 0),'0000000000')as varchar(10)) PaidMedicalTotalC12, 
+	 Cast(Format(ISNULL(ClaimantAttorneyFeesIncurredAmount,0), '0000000000')as varchar(10))  ClaimantAttorneyFeesIncurredTotalC13, 
+	 Cast(Format(ISNULL(EmployerAttorneyFeesIncurredAmount ,0),'0000000000')as varchar(10)) EmployerAttorneyFeesIncurredTotalC14, 	 
+	 Cast(Format(ISNULL(PaidALAEAmount,0),    '0000000000') as varchar(10))PaidALAETotalC15, 
+	 Cast(Format(ISNULL(IncurredALAEAmount,0),'0000000000') as varchar(10))  IncurredALAETotalC16,
+	 Replicate(' ',68) ReservedForFutureUseC17,
+
+	 e.PolicyNumber,
+	 e.TermNumber,
+	 e.ReportNumber,
+	 e.ExposureState,
+	 e.RecordType,
+	 e.ReportMonth, 
+	 e.ReportYear,
+	 e.ReportingMonth, 
+	 e.ReportingYear
+ 
+
+ from CTE_Exposure e 
+	inner Join CTE_TotalCount t  on e.PolicyNUmber = t.PolicyNumber and e.TermNumber = t.TermNumber and e.ReportNumber = t.ReportNumber
+	left join CTE_Claim c on t.PolicyNumber = c.PolicyNumber and t.TermNumber = c.TermNumber and c.ReportNumber = t.ReportNumber
+
+--Where (ExposurePayrollTotal !=0 or SubjectPremium != 0 or StandardPremium != 0)</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping"></property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\Load Unit Total Record\OLE DB Source.Connections[OleDbConnection]"
+                  connectionManagerID="{92E7D99B-74F9-414C-93B4-3FBDA62D5F91}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[WCSTAT]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCodeC1]"
+                      length="1"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[RecordTypeCodeC1]"
+                      name="RecordTypeCodeC1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExposurePayrollTotalC2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ExposurePayrollTotalC2]"
+                      length="11"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExposurePayrollTotalC2]"
+                      name="ExposurePayrollTotalC2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC3]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC3]"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC3]"
+                      name="ReservedForFutureUseC3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[SubjectPremiumC4]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SubjectPremiumC4]"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[SubjectPremiumC4]"
+                      name="SubjectPremiumC4"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[StandardPremiumC5]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[StandardPremiumC5]"
+                      length="11"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[StandardPremiumC5]"
+                      name="StandardPremiumC5"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ClaimCountC6]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ClaimCountC6]"
+                      length="5"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ClaimCountC6]"
+                      name="ClaimCountC6"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[IncurredIndemnityTotalC7]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IncurredIndemnityTotalC7]"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[IncurredIndemnityTotalC7]"
+                      name="IncurredIndemnityTotalC7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[IncurredMedicalTotalC8]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IncurredMedicalTotalC8]"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[IncurredMedicalTotalC8]"
+                      name="IncurredMedicalTotalC8"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[UnitReportsTotalC9]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[UnitReportsTotalC9]"
+                      length="5"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[UnitReportsTotalC9]"
+                      name="UnitReportsTotalC9"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC10]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC10]"
+                      length="9"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC10]"
+                      name="ReservedForFutureUseC10"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaidIndemnityTotalC11]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PaidIndemnityTotalC11]"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaidIndemnityTotalC11]"
+                      name="PaidIndemnityTotalC11"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaidMedicalTotalC12]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PaidMedicalTotalC12]"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaidMedicalTotalC12]"
+                      name="PaidMedicalTotalC12"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ClaimantAttorneyFeesIncurredTotalC13]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ClaimantAttorneyFeesIncurredTotalC13]"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ClaimantAttorneyFeesIncurredTotalC13]"
+                      name="ClaimantAttorneyFeesIncurredTotalC13"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmployerAttorneyFeesIncurredTotalC14]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EmployerAttorneyFeesIncurredTotalC14]"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[EmployerAttorneyFeesIncurredTotalC14]"
+                      name="EmployerAttorneyFeesIncurredTotalC14"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaidALAETotalC15]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PaidALAETotalC15]"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PaidALAETotalC15]"
+                      name="PaidALAETotalC15"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[IncurredALAETotalC16]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IncurredALAETotalC16]"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[IncurredALAETotalC16]"
+                      name="IncurredALAETotalC16"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC17]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC17]"
+                      length="68"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReservedForFutureUseC17]"
+                      name="ReservedForFutureUseC17"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      length="250"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                      name="PolicyNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[TermNumber]"
+                      name="TermNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReportNumber]"
+                      length="250"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportNumber]"
+                      name="ReportNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ExposureState]"
+                      length="2"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ExposureState]"
+                      name="ExposureState"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportMonth]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReportMonth]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportMonth]"
+                      name="ReportMonth"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportYear]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReportYear]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportYear]"
+                      name="ReportYear"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportingMonth]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReportingMonth]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportingMonth]"
+                      name="ReportingMonth"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportingYear]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReportingYear]"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[ReportingYear]"
+                      name="ReportingYear"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[RecordType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RecordType]"
+                      length="250"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].Columns[RecordType]"
+                      name="RecordType"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="RecordTypeCodeC1" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ExposurePayrollTotalC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="11"
+                      name="ExposurePayrollTotalC2" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="ReservedForFutureUseC3" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[SubjectPremiumC4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="SubjectPremiumC4" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[StandardPremiumC5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="11"
+                      name="StandardPremiumC5" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ClaimCountC6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="ClaimCountC6" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IncurredIndemnityTotalC7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="IncurredIndemnityTotalC7" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IncurredMedicalTotalC8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="IncurredMedicalTotalC8" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[UnitReportsTotalC9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      name="UnitReportsTotalC9" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="9"
+                      name="ReservedForFutureUseC10" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PaidIndemnityTotalC11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="PaidIndemnityTotalC11" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PaidMedicalTotalC12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="PaidMedicalTotalC12" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ClaimantAttorneyFeesIncurredTotalC13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="ClaimantAttorneyFeesIncurredTotalC13" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[EmployerAttorneyFeesIncurredTotalC14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="EmployerAttorneyFeesIncurredTotalC14" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PaidALAETotalC15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="PaidALAETotalC15" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[IncurredALAETotalC16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="IncurredALAETotalC16" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReservedForFutureUseC17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="68"
+                      name="ReservedForFutureUseC17" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="PolicyNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[TermNumber]"
+                      dataType="i4"
+                      name="TermNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReportNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="ReportNumber" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="ExposureState" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReportMonth]"
+                      dataType="i4"
+                      name="ReportMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReportYear]"
+                      dataType="i4"
+                      name="ReportYear" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReportingMonth]"
+                      dataType="i4"
+                      name="ReportingMonth" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[ReportingYear]"
+                      dataType="i4"
+                      name="ReportingYear" />
+                    <externalMetadataColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output].ExternalColumns[RecordType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      name="RecordType" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RecordTypeCodeC1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RecordTypeCodeC1]"
+                      name="RecordTypeCodeC1" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ExposurePayrollTotalC2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="11"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ExposurePayrollTotalC2]"
+                      name="ExposurePayrollTotalC2" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC3]"
+                      name="ReservedForFutureUseC3" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SubjectPremiumC4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[SubjectPremiumC4]"
+                      name="SubjectPremiumC4" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[StandardPremiumC5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="11"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[StandardPremiumC5]"
+                      name="StandardPremiumC5" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ClaimCountC6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ClaimCountC6]"
+                      name="ClaimCountC6" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IncurredIndemnityTotalC7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IncurredIndemnityTotalC7]"
+                      name="IncurredIndemnityTotalC7" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IncurredMedicalTotalC8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IncurredMedicalTotalC8]"
+                      name="IncurredMedicalTotalC8" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[UnitReportsTotalC9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="5"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[UnitReportsTotalC9]"
+                      name="UnitReportsTotalC9" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="9"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC10]"
+                      name="ReservedForFutureUseC10" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PaidIndemnityTotalC11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PaidIndemnityTotalC11]"
+                      name="PaidIndemnityTotalC11" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PaidMedicalTotalC12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PaidMedicalTotalC12]"
+                      name="PaidMedicalTotalC12" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ClaimantAttorneyFeesIncurredTotalC13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ClaimantAttorneyFeesIncurredTotalC13]"
+                      name="ClaimantAttorneyFeesIncurredTotalC13" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EmployerAttorneyFeesIncurredTotalC14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[EmployerAttorneyFeesIncurredTotalC14]"
+                      name="EmployerAttorneyFeesIncurredTotalC14" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PaidALAETotalC15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PaidALAETotalC15]"
+                      name="PaidALAETotalC15" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IncurredALAETotalC16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[IncurredALAETotalC16]"
+                      name="IncurredALAETotalC16" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="68"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReservedForFutureUseC17]"
+                      name="ReservedForFutureUseC17" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                      name="PolicyNumber" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      dataType="i4"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[TermNumber]"
+                      name="TermNumber" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReportNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReportNumber]"
+                      name="ReportNumber" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ExposureState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ExposureState]"
+                      name="ExposureState" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReportMonth]"
+                      dataType="i4"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReportMonth]"
+                      name="ReportMonth" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReportYear]"
+                      dataType="i4"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReportYear]"
+                      name="ReportYear" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReportingMonth]"
+                      dataType="i4"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReportingMonth]"
+                      name="ReportingMonth" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReportingYear]"
+                      dataType="i4"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ReportingYear]"
+                      name="ReportingYear" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RecordType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="250"
+                      lineageId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Error Output].Columns[RecordType]"
+                      name="RecordType" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\Load Unit Total Record.Paths[OLE DB Source Output]"
+              endId="Package\Load Unit Total Record\DEST - WCStatReportData.Inputs[OLE DB Destination Input]"
+              name="OLE DB Source Output"
+              startId="Package\Load Unit Total Record\OLE DB Source.Outputs[OLE DB Source Output]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="187,42"
+          Id="Package\Load Unit Total Record"
+          TopLeft="357.5,115.5" />
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <TaskHost
+    design-time-name="Package\Load Unit Total Record">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="203,42"
+          Id="Package\Load Unit Total Record\DEST - WCStatReportData"
+          TopLeft="178.5,280.5" />
+        <NodeLayout
+          Size="150,42"
+          Id="Package\Load Unit Total Record\OLE DB Source"
+          TopLeft="209.5,30.5" />
+        <EdgeLayout
+          Id="Package\Load Unit Total Record.Paths[OLE DB Source Output]"
+          TopLeft="282.25,72.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,208"
+              Start="0,0"
+              End="0,200.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,200.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Unit Total Record\DEST - WCStatReportData">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Load Unit Total Record\OLE DB Source">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

@@ -1,0 +1,1659 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/26/2016 5:51:15 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\vikas.singh"
+  DTS:DTSID="{6F837793-7DB1-4B2D-A1C9-E53AC9A5CF61}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCPOLS_Load_ExpRatingMod"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="212"
+  DTS:VersionGUID="{431D614E-7E05-45D6-A653-E2824CCD30B9}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{45D462EC-022D-4671-BD97-EBD7276B2BE2}"
+      DTS:ObjectName="BatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="StartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::StartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{4EF6E09C-CDA8-4207-BAD3-4401739F5756}"
+      DTS:ObjectName="StartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="EndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::EndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{B32579EA-624E-4011-9999-96BB52217C0A}"
+      DTS:ObjectName="EndDate" />
+  </DTS:Configurations>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="EnterpriseDataWarehouse"
+      DTS:CreationName="Microsoft.LogProviderSQLServer"
+      DTS:Description="Writes log entries for events to a SQL Server database"
+      DTS:DTSID="{B5018399-0361-4906-AAC2-B18AF93D51F0}"
+      DTS:ObjectName="SSIS log provider for SQL Server">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E9679DB1-FA65-4681-BD70-15D68D3393D7}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{25004341-B9B8-4382-93A9-615BEDC560B4}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="EndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">3/6/2017 7:10:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C166395A-C6DE-45E3-B756-D9B531327188}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">12/1/2016 12:18:00 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">2,7,OnError,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{B5018399-0361-4906-AAC2-B18AF93D51F0}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{7778FD9B-F3EC-4532-ADBA-E27D9045D50F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{00194D07-3242-49C5-8FCC-F53CA2BB21E9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\Process Failed.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{73B688AE-96E4-4C0D-946A-825078DB60C1}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{5AAF2960-7C77-471C-ABA8-ED8A7328181F}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="&#xA;Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{52A0D089-4ECC-4A1D-A780-3384420596E3}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{CC1CC83D-8555-4D40-835A-606CB0973CB9}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load WCPOLS_ExpRatingMod"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup StateCode"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select Left(StateCode,2) State_Code, StateAbbr from  lkp.lkp_state</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (Select Left(StateCode,2) State_Code, StateAbbr from  lkp.lkp_state) [refTable]
+where [refTable].[StateAbbr] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="State_Code" dataType="DT_STR" length="2" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="StateAbbr" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[Policy_State]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Inputs[Lookup Input].Columns[Policy_State]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="Policy_State"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[Policy_State]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">StateAbbr</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="FailComponent"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Outputs[Lookup Match Output].Columns[State_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Outputs[Lookup Match Output].Columns[State_Code]"
+                          name="State_Code"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">State_Code</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE_DEST WCPOLS_ExpRatingMod"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[WCPOLS_ExpRatingMod]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 1000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">1000</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[PolicyID]"
+                          cachedDataType="i4"
+                          cachedName="PolicyID"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyID]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[State_Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="State_Code"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[State_Code]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Outputs[Lookup Match Output].Columns[State_Code]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="PolicyNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[EndorsementNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="EndorsementNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Number]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[BureauVersionIdentifier]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="BureauVersionIdentifier"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Bureau_Version_Identifier]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[CarrierVersionIdentifier]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="11"
+                          cachedName="CarrierVersionIdentifier"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Version_Identifier]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[CarrierVersionIdentifier]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[NameOfInsured]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="34"
+                          cachedName="NameOfInsured"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Insured]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[EndorsementEffectiveDate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="EndorsementEffectiveDate"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[RecordTypeCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="RecordTypeCode"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[RecordTypeCode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[InsertDate]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="InsertDate"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[InsertDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[ExperienceModificationEffectiveDate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="ExperienceModificationEffectiveDate"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Modification_Effective_Date]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[ExperienceModificationEffectiveDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[ExperienceModFactor]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="4"
+                          cachedName="ExperienceModFactor"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Experience_Modification_Factor]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[ExperienceModFactor]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[Policy_State]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="Policy_State"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[Policy_State]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].Columns[ExperienceModStatusCode]"
+                          cachedDataType="i4"
+                          cachedName="ExperienceModStatusCode"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Experience_Modification_Status_Code]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[ExperienceModStatusCode]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="Policy_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Policy_State" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[State_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="State_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="Endorsement_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Bureau_Version_Identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Bureau_Version_Identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Version_Identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="11"
+                          name="Carrier_Version_Identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Insured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="Name_Of_Insured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          dataType="dbTimeStamp"
+                          name="Insert_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="dbTimeStamp"
+                          name="Update_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Endorsement_Effective_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Record_Type_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[ExpRatingMod_ID]"
+                          dataType="i8"
+                          name="ExpRatingMod_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Modification_Effective_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Modification_Effective_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Experience_Modification_Factor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="Experience_Modification_Factor" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input].ExternalColumns[Experience_Modification_Status_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Experience_Modification_Status_Code" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE_SRC WCPolicyEndorsement"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With 
+ 
+CTE_ExpMod as 
+(
+	Select CoverageId, ExperienceRating, 
+	Case When ExperienceModStatus =  'Final' Then 1
+		 When ExperienceModStatus in ('Preliminary', 'Contingent') Then 2 
+		 Else 3 End as ExperienceModStatusCode   	  
+	From DimWCCoverage c 
+	Where ClassCode in ('9887', '9898')
+),
+
+CTE_MinSplitDate
+as 
+(
+	Select p.PolicyId, p.PolicyNumber, Right(Convert( varchar(8), Min(c.SplitDate), 112),6) MinSplitDate
+	From DimWCCoverage c 
+	Inner Join FactWCPremiumTransaction f on c.CoverageId = f.CoverageID
+	Inner Join DimPolicy p on f.PolicyId = p.PolicyID
+	Group by p.PolicyId, p.PolicyNumber
+ 
+),
+ 
+CTE_ExpModEffDate
+as 
+(
+	Select 
+	T.CoverageID, 
+	Case When T.AnniversaryDate = T.PolicyEffectiveDate Then '000000'
+		 Else
+			Case When Right(AnniversaryDate,4) &gt; Right(CoverageEffectiveDate,4) Then '000000'
+				 When Right(AnniversaryDate,4) = Right(CoverageEffectiveDate,4) Then Right(CoverageEffectiveDate,6)
+				 When Right(AnniversaryDate,4) &lt; Right(CoverageEffectiveDate,4) Then Right(AnniversaryDate,6)
+				 Else '000000' END
+	END as AnniversaryRatingDate,
+
+	Case When SplitDate is NULL Then '000000'
+		 When SplitDate &gt; AnniversaryDate Then IIF( Right(AnniversaryDate,4) = Right(CoverageEffectiveDate,4), Right(MinSplitDate,6), Right(SplitDate,6))
+		 When SplitDate &lt; AnniversaryDate Then Right(MinSplitDate,6)
+		 When SplitDate = AnniversaryDate Then IIF( CoverageEffectiveDate  = AnniversaryDate, Right(MinSplitDate,6), '000000')
+
+	Else '000000' 
+	END as ExperienceModificationEffectiveDate
+
+	From 
+	(
+		Select  p.PolicyNumber, 
+				p.PolicyId,
+				c.CoverageId, 
+				Convert(varchar(8), c.EffectiveDate, 112) CoverageEffectiveDate,
+				Convert(varchar(8), c.AnniversaryDate, 112) AnniversaryDate,
+				Convert(varchar(8), c.SplitDate, 112) SplitDate,
+				Convert(varchar(8), p.EffectiveDate, 112) PolicyEffectiveDate
+		From DimWCCoverage c 
+			Inner Join FactWCPremiumTransaction f on c.CoverageId = f.CoverageID
+			Inner Join DimPolicy p on f.PolicyId = p.PolicyID
+	)T Left join CTE_MinSplitDate m on T.PolicyId = m.PolicyId
+),
+
+CTE_IN_MinMaxEffDate as
+
+(
+	Select Distinct  Min(C.EffectiveDate) MinEffectiveDate, Max(C.EffectiveDate) MaxEffectiveDate, p.PolicyId 
+	from FactWCPremiumTransaction f   
+	inner join dimpolicy     p on f.PolicyID = p.PolicyID
+	inner join DimWCCoverage c on f.CoverageID = c.CoverageID
+	inner join DimLOB        l on f.LobId = l.LobId
+	--05 OCT - VS - Added join on DimState to use IsNCCI column. This column is replacing all the NCCI States e.g. IN, VA, CT, IL etc.
+	Left join DimState ds on p.BaseState = ds.StateAbbr
+ 
+	Where l.LobCode = 'WC7Line' 
+	And p.TransactionType in ('Submission', 'Policy Change', 'Renewal','Rewrite') and PolicyStatus = 'Bound'
+	And NOT (c.EffectiveDate = c.ExpirationDate and WrittenPremium = 0 )
+	--And p.BaseState = 'IN'
+	 and ds.IsNCCI = 1
+	Group By p.PolicyId
+),
+
+
+CTE1 as
+
+(
+	Select Distinct  C.EffectiveDate, C.ExpirationDate, p.PolicyId,  
+	Cast(p.BaseState as varchar(2)) as Policy_State, 
+	Left(p.PolicyNumber + Replicate(' ',18),18) as PolicyNumber,
+	'10' as RecordTypeCode,PolicyTransactionEffectiveDate,
+	Left(ISNULL(p.PrimaryInsuredName,Replicate(' ',34)),34) NameOfInsured
+	from FactWCPremiumTransaction f   
+	inner join dimpolicy     p on f.PolicyID = p.PolicyID
+	inner join DimWCCoverage c on f.CoverageID = c.CoverageID
+	inner join DimLOB        l on f.LobId = l.LobId
+		--05 OCT - VS - Added join on DimState to use IsNCCI column. This column is replacing all the NCCI States e.g. IN, VA, CT, IL etc.
+	Left join DimState ds on p.BaseState = ds.StateAbbr
+
+	Where l.LobCode = 'WC7Line' 
+	And (
+			(p.TransactionType in ('Submission', 'Policy Change','Rewrite') And (cast(P.JobUpdateTime as date) &gt; ? and cast(P.JobUpdateTime as date) &lt;= ?)	) OR
+			(p.TransactionType ='Renewal' and p.eventname='SendNonRenewalDocuments' and p.BaseState='MI'And (cast(P.JobUpdateTime as date) &gt;DATEADD(day, -1, convert(date,?)) and cast(P.JobUpdateTime as date) &lt;=DATEADD(day, -1, convert(date,?)))) OR
+			(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname is null) OR
+			(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname='SendNonRenewalDocuments'  and ds.IsNCCI = 1)
+		)
+	and PolicyStatus = 'Bound'
+	 and ds.IsNCCI = 1
+	And NOT (c.EffectiveDate = c.ExpirationDate and WrittenPremium = 0 )
+		
+
+) ,
+ 
+
+CTE2 as
+
+(  Select 
+   EffectiveDate , ExpirationDate, 
+   PolicyId, PolicyNumber,
+   ExperienceModificationEffectiveDate, 
+   AnniversaryRatingDate ,
+    Sum(IsNull(ExperienceRating,0)) ExperienceModFactor,
+	Min(IsNull(ExperienceModStatusCode,3)) ExperienceModStatusCode
+ 
+from 
+	(
+	Select distinct  C.EffectiveDate , C.ExpirationDate, p.PolicyId,  
+		Left(p.PolicyNumber + Replicate(' ',18),18) as PolicyNumber, 
+		cem.ExperienceModStatusCode,
+		cem.ExperienceRating,
+		emd.ExperienceModificationEffectiveDate, 
+		emd.AnniversaryRatingDate , 
+		p.BaseState,
+		TotalPremium, 
+		PrimaryInsuredBureauID
+	from FactWCPremiumTransaction f   
+	Inner Join dimpolicy		  p on f.PolicyID	 = p.PolicyID
+	Inner Join DimWCCoverage	  c on f.CoverageID  = c.CoverageID
+	Inner Join DimLOB			  l on f.LobId		 = l.LobId
+	Left Join CTE_ExpModEffDate emd on c.CoverageID  = emd.CoverageID
+	Left Join CTE_ExpMod		cem on c.CoverageId  = cem.CoverageId 
+	                              and ((p.TransactionType in ('Policy Change',' Renewal','Rewrite') and f.Charges = 1 ) or p.TransactionType ='Submission')
+	Where l.LobCode = 'WC7Line'
+	And c.CoverageName in ('WC7JurisdictionCov', 'WC7BenefitsDedCov')  
+	And p.TransactionType in ('Submission','Policy Change','Renewal','Rewrite') and PolicyStatus = 'Bound'
+	And NOT (c.EffectiveDate = c.ExpirationDate and f.WrittenPremium = 0 )
+	
+	) as c
+
+	Group by c.EffectiveDate, c.ExpirationDate, BaseState, PolicyId, PolicyNumber,   ExperienceModificationEffectiveDate, AnniversaryRatingDate
+
+)
+
+Select Distinct 
+		C1.PolicyID, 		 
+		C1.Policy_State, 
+		C1.PolicyNumber, 
+		C1.RecordTypeCode,
+		'WC890406' EndorsementNumber,
+		IIF(Len(FormNumber) &gt; 11, Right(FormNumber,1),' ') BureauVersionIdentifier, 
+		Replicate (' ',11) CarrierVersionIdentifier,
+		IsNULL(C2.ExperienceModificationEffectiveDate,'000000') ExperienceModificationEffectiveDate,
+		Cast(Format(IIF(isnull(C2.ExperienceModFactor,0) = 0,1, C2.ExperienceModFactor)*1000,'0000')as varchar(4)) ExperienceModFactor,
+		IsNull(C2.ExperienceModStatusCode,3) ExperienceModStatusCode, 
+		 ISNULL(Right(Convert(varchar(10), f.EndorsementEffectiveDate ,112),6),'000000') EndorsementEffectiveDate,
+		 NameOfInsured,
+		 GetDate() as InsertDate
+
+from CTE1 C1 
+		Left join CTE2 C2 on c1.PolicyID = c2.PolicyId  
+			And c1.EffectiveDate = c2.EffectiveDate 
+			And c1.ExpirationDate = c2.ExpirationDate 
+			--And c1.ExpirationDate = c2.ExpirationDate 
+		Inner Join CTE_IN_MinMaxEffDate C3 on C1.PolicyID = C3.PolicyID and C1.EffectiveDate = C3.MaxEffectiveDate
+		Inner JOin WCPolicyEndorsement w on c1.PolicyID = w.PolicyID
+		Inner Join FactPolicyForm f on c1.PolicyID = f.PolicyID
+		Inner Join DimForm d on f.FormID = d.FormID
+		
+Where  1 =1 
+		--AND C1.Policy_State = 'IN' -----05 OCT - VS - Removed this filter as have put IsNCCI in CTE1 query itself
+		AND w.PatternCode = 'WC7ExperienceRatingModFactEndorsementCond' 
+		AND FormNumber Like 'WC 89 04 06%'
+		And IsEndorsement = 1  
+ 
+Order by PolicyNumber</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{C166395A-C6DE-45E3-B756-D9B531327188};"Parameter1:Input",{25004341-B9B8-4382-93A9-615BEDC560B4};"Parameter2:Input",{C166395A-C6DE-45E3-B756-D9B531327188};"Parameter3:Input",{25004341-B9B8-4382-93A9-615BEDC560B4};"Parameter4:Input",{C166395A-C6DE-45E3-B756-D9B531327188};"Parameter5:Input",{25004341-B9B8-4382-93A9-615BEDC560B4};"Parameter6:Input",{C166395A-C6DE-45E3-B756-D9B531327188};"Parameter7:Input",{25004341-B9B8-4382-93A9-615BEDC560B4};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          name="PolicyID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[Policy_State]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[Policy_State]"
+                          name="Policy_State"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[RecordTypeCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCode]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[RecordTypeCode]"
+                          name="RecordTypeCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementNumber]"
+                          length="8"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementNumber]"
+                          name="EndorsementNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[BureauVersionIdentifier]"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]"
+                          name="BureauVersionIdentifier"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[CarrierVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[CarrierVersionIdentifier]"
+                          length="11"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[CarrierVersionIdentifier]"
+                          name="CarrierVersionIdentifier"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[ExperienceModificationEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[ExperienceModificationEffectiveDate]"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[ExperienceModificationEffectiveDate]"
+                          name="ExperienceModificationEffectiveDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[ExperienceModFactor]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[ExperienceModFactor]"
+                          length="4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[ExperienceModFactor]"
+                          name="ExperienceModFactor"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[ExperienceModStatusCode]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[ExperienceModStatusCode]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[ExperienceModStatusCode]"
+                          name="ExperienceModStatusCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementEffectiveDate]"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]"
+                          name="EndorsementEffectiveDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[NameOfInsured]"
+                          length="34"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]"
+                          name="NameOfInsured"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[InsertDate]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[InsertDate]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[InsertDate]"
+                          name="InsertDate"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Policy_State" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RecordTypeCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="EndorsementNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="BureauVersionIdentifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[CarrierVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="11"
+                          name="CarrierVersionIdentifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[ExperienceModificationEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="ExperienceModificationEffectiveDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[ExperienceModFactor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          name="ExperienceModFactor" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[ExperienceModStatusCode]"
+                          dataType="i4"
+                          name="ExperienceModStatusCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="EndorsementEffectiveDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="NameOfInsured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[InsertDate]"
+                          dataType="dbTimeStamp"
+                          name="InsertDate" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          name="PolicyID" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[Policy_State]"
+                          name="Policy_State" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          name="PolicyNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[RecordTypeCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[RecordTypeCode]"
+                          name="RecordTypeCode" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementNumber]"
+                          name="EndorsementNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[BureauVersionIdentifier]"
+                          name="BureauVersionIdentifier" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[CarrierVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="11"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[CarrierVersionIdentifier]"
+                          name="CarrierVersionIdentifier" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ExperienceModificationEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ExperienceModificationEffectiveDate]"
+                          name="ExperienceModificationEffectiveDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ExperienceModFactor]"
+                          codePage="1252"
+                          dataType="str"
+                          length="4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ExperienceModFactor]"
+                          name="ExperienceModFactor" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ExperienceModStatusCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ExperienceModStatusCode]"
+                          name="ExperienceModStatusCode" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementEffectiveDate]"
+                          name="EndorsementEffectiveDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[NameOfInsured]"
+                          name="NameOfInsured" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[InsertDate]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[InsertDate]"
+                          name="InsertDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod.Paths[Lookup Match Output]"
+                  endId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod.Inputs[OLE DB Destination Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Sequence Container\Load WCPOLS_ExpRatingMod.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C7220CD3-2D1C-4C07-90ED-E4D6B7118E61}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{DD85C0F8-4F12-436C-88DB-62411917C5BD}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{0889D7CE-2EA6-4B66-949A-620AA97C4439}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{03FF5413-163C-4E8A-ADA3-F29AC5693928}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{8267940F-205A-4A96-A416-143650E2BF4B}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{18241DAD-D4D7-4E73-A8DB-116C9C3824F0}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{D87FA647-1927-482D-89AC-0428870778ED}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Process Completed"
+          TopLeft="251,407" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Process Failed"
+          TopLeft="557,413" />
+        <NodeLayout
+          Size="219,42"
+          Id="Package\Sequence Container\Load WCPOLS_ExpRatingMod"
+          TopLeft="28,25" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="272,123"
+          Size="272,166"
+          Id="Package\Sequence Container"
+          TopLeft="332,170.5" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="373,90" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="464.75,132">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.5"
+              Start="0,0"
+              End="0,31">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="424,336.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-89,70.5"
+              Start="0,0"
+              End="-89,63">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.4473684210526" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.4473684210526"
+                    Point2="0,28.4473684210526"
+                    Point3="-4,28.4473684210526" />
+                  <mssgle:LineSegment
+                    End="-85,28.4473684210526" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-85,28.4473684210526"
+                    Point2="-89,28.4473684210526"
+                    Point3="-89,32.4473684210526" />
+                  <mssgle:LineSegment
+                    End="-89,63" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="512,336.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="117.5,76.5"
+              Start="0,0"
+              End="117.5,69">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.8684210526316" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.8684210526316"
+                    Point2="0,30.8684210526316"
+                    Point3="4,30.8684210526316" />
+                  <mssgle:LineSegment
+                    End="113.5,30.8684210526316" />
+                  <mssgle:CubicBezierSegment
+                    Point1="113.5,30.8684210526316"
+                    Point2="117.5,30.8684210526316"
+                    Point3="117.5,34.8684210526316" />
+                  <mssgle:LineSegment
+                    End="117.5,69" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="43.50865234375,35.8684210526316,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="532,174" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Sequence Container\Load WCPOLS_ExpRatingMod">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="246,42"
+          Id="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod"
+          TopLeft="111.5,217.5" />
+        <NodeLayout
+          Size="231,42"
+          Id="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement"
+          TopLeft="114.5,23.5" />
+        <NodeLayout
+          Size="231,42"
+          Id="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode"
+          TopLeft="111.5,114.5" />
+        <EdgeLayout
+          Id="Package\Sequence Container\Load WCPOLS_ExpRatingMod.Paths[OLE DB Source Output]"
+          TopLeft="228.5,65.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,49"
+              Start="0,0"
+              End="0,41.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,41.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\Load WCPOLS_ExpRatingMod.Paths[Lookup Match Output]"
+          TopLeft="230.75,156.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,61"
+              Start="0,0"
+              End="0,53.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,53.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,20.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_DEST WCPOLS_ExpRatingMod">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load WCPOLS_ExpRatingMod\OLE_SRC WCPolicyEndorsement">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load WCPOLS_ExpRatingMod\Lookup StateCode">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

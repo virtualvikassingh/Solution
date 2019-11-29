@@ -1,0 +1,2642 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CheckpointFileName="C:\checkpointDimension.xml"
+  DTS:CheckpointUsage="1"
+  DTS:CreationDate="10/7/2013 3:07:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DMZWKSTN1"
+  DTS:CreatorName="WRGDMZ\mohit.garg"
+  DTS:DTSID="{78F3A235-5C57-4420-9787-9066872699A2}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="EDW_PC_Load_DimForm"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="1241"
+  DTS:VersionGUID="{203164CE-BDDB-464F-87E6-8C385D20E25C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{586B813E-84FB-40BA-A77E-ED420416894A}"
+      DTS:ObjectName="configBatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="IncrementDays"
+      DTS:ConfigurationVariable="\Package.Variables[User::IncrementDays].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{D2315D85-FA2A-44DE-B981-646D0AD841D1}"
+      DTS:ObjectName="configIncrementDays" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E12A5B26-45B1-488B-B770-111EF6ECDA83}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">2</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1E88B268-BC63-4F0B-A5F8-2CA3D14BD2E1}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="IncrementDays">
+      <DTS:VariableValue
+        DTS:DataType="3">-700</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{31B6681B-4153-4462-97C9-6D93D8167D0B}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A88BC54F-22BF-476D-BA9A-145406E15EFE}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C1CD46CC-1093-4441-9D83-10EE65685282}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UnChangeCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{98B66063-D105-409C-ABA6-F7D4BDB6B141}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdateCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0">
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnExecStatusChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT -DimRateBook"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{36C57050-6B18-4A47-9D88-F3AF7B93F87A}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:FailPackageOnFailure="True"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT -DimRateBook"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT -DimRateBook\CMD - Update DimForm"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="CMD - Update DimForm"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"> update DimRateBook 
+set
+   [DateUpdated]			 =getdate()
+  ,[dec1]					 =?
+  ,[IsActive]				 =?
+  ,[BatchID]				 =?
+  ,[BeanVersion]			 =?
+  ,[GWRowNumber]			 =?
+  ,[GWRateBookID]			 =?
+  ,[GWRateTableID]			 =?
+  ,[ReferredGWRateTableID]	 =?
+  ,[BookName]				 =?
+  ,[BookCode]				 =?
+  ,[State]					 =?
+  ,[BookEffectiveDate]		 =?
+  ,[TableName]				 =?
+  ,[TableCode]				 =?
+  ,[BookStatus]				 =?
+
+where PublicID = ?
+And LegacySourceSystem = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT -DimRateBook\CMD - Update DimForm.Connections[OleDbConnection]"
+                  connectionManagerID="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[IsActive]"
+                      cachedDataType="i4"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[IsActive]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[GWRateBookID]"
+                      cachedDataType="i8"
+                      cachedName="GWRateBookID"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRateBookID]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[GWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="GWRowNumber"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[GWRateTableID]"
+                      cachedDataType="i8"
+                      cachedName="GWRateTableID"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRateTableID]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[ReferredGWRateTableID]"
+                      cachedDataType="i8"
+                      cachedName="ReferredGWRateTableID"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[ReferredGWRateTableID]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[BookName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="BookName"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookName]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[BookCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="BookCode"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookCode]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[State]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="State"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[State]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[BookEffectiveDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="BookEffectiveDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookEffectiveDate]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[TableName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="TableName"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[TableName]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[TableCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="TableCode"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[TableCode]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[BookStatus]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="BookStatus"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookStatus]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[dec1]"
+                      cachedDataType="numeric"
+                      cachedName="dec1"
+                      cachedPrecision="15"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[dec1]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[LegacySourceSystem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LegacySourceSystem"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_16]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="PublicID"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      dataType="numeric"
+                      name="Param_0"
+                      precision="15"
+                      scale="7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="bool"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="i4"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      dataType="i8"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      dataType="i8"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      dataType="i8"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      dataType="i8"
+                      name="Param_7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_8">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_9">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_10">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      dataType="dbTimeStamp2"
+                      name="Param_11"
+                      scale="7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_12">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_13">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_14">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="Param_15">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input].ExternalColumns[Param_16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_16">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT -DimRateBook\CMD - Update DimForm.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT -DimRateBook\CMD - Update DimForm.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\CMD - Update DimForm.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\CMD - Update DimForm.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\CMD - Update DimForm.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT -DimRateBook\CNT - Insert  Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Insert  Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::InsertCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT -DimRateBook\CNT - Insert  Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT -DimRateBook\CNT - Insert  Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT -DimRateBook\CNT - Insert  Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT -DimRateBook\CNT - Source Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Source Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::SourceCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT -DimRateBook\CNT - Source Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT -DimRateBook\CNT - Source Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT -DimRateBook\CNT - Source Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT -DimRateBook\CNT - Unchange Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Unchange Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UnChangeCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT -DimRateBook\CNT - Unchange Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT -DimRateBook\CNT - Unchange Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT -DimRateBook\CNT - Unchange Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT -DimRateBook\CNT - Update Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Update Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UpdateCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT -DimRateBook\CNT - Update Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT -DimRateBook\CNT - Update Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT -DimRateBook\CNT - Update Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT -DimRateBook\CSPL - Check Beanversion"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="CSPL - Check Beanversion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Inputs[Conditional Split Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="BeanVersion"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Inputs[Conditional Split Input].Columns[EDWBeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="EDWBeanVersion"
+                      lineageId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup Match Output].Columns[EDWBeanVersion]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Outputs[SameBeanversion]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SameBeanversion"
+                  synchronousInputId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BeanVersion]} == #{Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup Match Output].Columns[EDWBeanVersion]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">BeanVersion == EDWBeanVersion</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DRV - BatchID &amp; Legacy"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      name="BatchID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[User::BatchID]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[User::BatchID]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT -DimRateBook\LKP - DimRateBook"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - DimRateBook"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select PublicID, BeanVersion from DimRateBook</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select PublicID, BeanVersion from DimRateBook) [refTable]
+where [refTable].[PublicID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PublicID" dataType="DT_STR" length="200" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="BeanVersion" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[PublicID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT -DimRateBook\LKP - DimRateBook.Connections[OleDbConnection]"
+                  connectionManagerID="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT -DimRateBook\LKP - DimRateBook.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\LKP - DimRateBook.Inputs[Lookup Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="PublicID"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[PublicID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PublicID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT -DimRateBook\LKP - DimRateBook.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup Match Output].Columns[EDWBeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="30"
+                      lineageId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup Match Output].Columns[EDWBeanVersion]"
+                      name="EDWBeanVersion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">BeanVersion</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT -DimRateBook\LKP - DimRateBook.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT -DimRateBook\LKP - DimRateBook.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE_DEST - Load DimRateBook"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimRateBook]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">ROWS_PER_BATCH = 10000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">10000</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Connections[OleDbConnection]"
+                  connectionManagerID="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      lineageId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="200"
+                      cachedName="PublicID"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[IsActive]"
+                      cachedDataType="i4"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[IsActive]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[LegacySourceSystem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LegacySourceSystem"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[GWRateBookID]"
+                      cachedDataType="i8"
+                      cachedName="GWRateBookID"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[GWRateBookID]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRateBookID]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[GWRateTableID]"
+                      cachedDataType="i8"
+                      cachedName="GWRateTableID"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[GWRateTableID]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRateTableID]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[ReferredGWRateTableID]"
+                      cachedDataType="i8"
+                      cachedName="ReferredGWRateTableID"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[ReferredGWRateTableID]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[ReferredGWRateTableID]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[BookName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="BookName"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BookName]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookName]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[BookCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="BookCode"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BookCode]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookCode]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[State]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="State"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[State]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[BookEffectiveDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="BookEffectiveDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BookEffectiveDate]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookEffectiveDate]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[TableName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="TableName"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[TableName]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[TableName]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[TableCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="TableCode"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[TableCode]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[TableCode]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[BookStatus]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="BookStatus"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BookStatus]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookStatus]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[dec1]"
+                      cachedDataType="numeric"
+                      cachedName="dec1"
+                      cachedPrecision="15"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[dec1]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[dec1]" />
+                    <inputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].Columns[GWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="GWRowNumber"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="200"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      dataType="bool"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      dataType="i4"
+                      name="BatchID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[DateUpdated]"
+                      dataType="dbTimeStamp"
+                      name="DateUpdated" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LegacySourceSystem" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[RateBookID]"
+                      dataType="i4"
+                      name="RateBookID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[GWRateBookID]"
+                      dataType="i8"
+                      name="GWRateBookID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[GWRateTableID]"
+                      dataType="i8"
+                      name="GWRateTableID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[ReferredGWRateTableID]"
+                      dataType="i8"
+                      name="ReferredGWRateTableID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BookName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="BookName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BookCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="BookCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BookEffectiveDate]"
+                      dataType="dbTimeStamp2"
+                      name="BookEffectiveDate"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[TableName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="TableName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[TableCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="TableCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[BookStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BookStatus" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input].ExternalColumns[dec1]"
+                      dataType="numeric"
+                      name="dec1"
+                      precision="15"
+                      scale="7" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE_SRC - Pc_RateBook"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">;with RateDetail as (
+select 
+rb.ID as GWRateBookID
+,rt.ID as GWRateTableID
+,rto.ForeignEntityID as ReferredGWRateTableID
+,fac.ID as GWFactorID
+,rb.PublicID   rbPublicID
+,rt.PublicID   rtPublicID
+,fac.PublicID  facPublicID
+,rb.Retired as rbRetired
+,rt.Retired as rtRetired
+,fac.Retired as facRetired
+,rb.BeanVersion as rbBeanVersion
+,rt.BeanVersion as rtBeanVersion
+,fac.BeanVersion as facBeanVersion
+,rb.BookName
+,rb.BookCode
+,tj.TYPECODE as State
+,rb.EffectiveDate as BookEffectiveDate
+,rtd.TableName
+,rtd.TableCode
+,ts.TYPECODE as BookStatus
+,fac.dec1
+,rb.UpdateTime rbUpdateTime
+,rt.UpdateTime rtUpdateTime
+,rtd.UpdateTime rtdUpdateTime
+,fac.UpdateTime facUpdateTime
+,1 as rk
+from pc_ratebook rb
+left join pctl_jurisdiction tj on tj.ID = rb.BookJurisdiction
+left join pctl_ratebookstatus ts on ts.ID = rb.Status
+join pc_ratetable rt on rt.RateBook = rb.ID
+join pc_ratetabledefinition rtd on rt.Definition = rtd.ID
+left join pc_rtownership rto on rto.OwnerID = rt.ID
+left join pc_defratefactors fac on fac.RateTable = rt.ID
+where rb.Retired = 0  
+and (rtd.TableName like 'Premium Discount%Amount%' or rtd.TableName like 'Premium Discount%Pct%')
+
+union all
+
+select * from (
+select 
+rb.ID as GWRateBookID
+,rt.ID as GWRateTableID
+,rto.ForeignEntityID as ReferredGWRateTableID
+,fac.ID as GWFactorID
+,rb.PublicID   rbPublicID
+,rt.PublicID   rtPublicID
+,fac.PublicID  facPublicID
+,rb.Retired as rbRetired
+,rt.Retired as rtRetired
+,fac.Retired as facRetired
+,rb.BeanVersion as rbBeanVersion
+,rt.BeanVersion as rtBeanVersion
+,fac.BeanVersion as facBeanVersion
+,rb.BookName
+,rb.BookCode
+,tj.TYPECODE as State
+,rb.EffectiveDate as BookEffectiveDate
+,rtd.TableName
+,rtd.TableCode
+,ts.TYPECODE as BookStatus
+,fac.int1 as dec1
+,rb.UpdateTime rbUpdateTime
+,rt.UpdateTime rtUpdateTime
+,rtd.UpdateTime rtdUpdateTime
+,fac.UpdateTime facUpdateTime
+,row_number() over (partition by rt.ID order by fac.int1 desc) rk
+from pc_ratebook rb
+left join pctl_jurisdiction tj on tj.ID = rb.BookJurisdiction
+left join pctl_ratebookstatus ts on ts.ID = rb.Status
+join pc_ratetable rt on rt.RateBook = rb.ID
+join pc_ratetabledefinition rtd on rt.Definition = rtd.ID
+left join pc_rtownership rto on rto.OwnerID = rt.ID
+left join pc_defratefactors fac on fac.RateTable = rt.ID
+where rb.Retired = 0  
+and rtd.TableName like 'Premium Discount%Percent%'
+) qry
+where rk = 1
+)
+
+select 
+rd.rbPublicID+'~'+rd.rtPublicID+'~'+isnull(coalesce(rd.facPublicID,ref.facPublicID),'') as PublicID
+,case when rd.rbRetired &lt;&gt; 0 then 0
+      when rd.rtRetired &lt;&gt; 0 then 0
+	  when coalesce(rd.facRetired,ref.facRetired)&lt;&gt; 0 then 0
+	  else 1
+  end as IsActive
+, Cast(concat(rd.rbBeanVersion,rd.rtBeanVersion,coalesce(rd.facBeanVersion,ref.facBeanVersion)) As Varchar(30)) As BeanVersion
+,rd.GWRateTableID as GWRowNumber
+,rd.GWRateBookID
+,rd.GWRateTableID
+,rd.ReferredGWRateTableID
+,rd.BookName
+,rd.BookCode
+,rd.State
+,rd.BookEffectiveDate
+,rd.TableName
+,rd.TableCode
+,rd.BookStatus
+,coalesce(rd.dec1,ref.dec1) as dec1,
+'WC' as LegacySourceSystem
+from RateDetail rd
+left join RateDetail ref on ref.GWRateTableID = rd.ReferredGWRateTableID
+where
+(
+	rd.rbUpdateTime &gt;= dateadd(d,?,getdate())
+	OR rd.rtUpdateTime &gt;= dateadd(d,?,getdate())
+	OR rd.rtdUpdateTime &gt;= dateadd(d,?,getdate())
+	OR coalesce(rd.facUpdateTime,ref.facUpdateTime) &gt;= dateadd(d,?,getdate())
+)</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{1E88B268-BC63-4F0B-A5F8-2CA3D14BD2E1};"Parameter1:Input",{1E88B268-BC63-4F0B-A5F8-2CA3D14BD2E1};"Parameter2:Input",{1E88B268-BC63-4F0B-A5F8-2CA3D14BD2E1};"Parameter3:Input",{1E88B268-BC63-4F0B-A5F8-2CA3D14BD2E1};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Connections[OleDbConnection]"
+                  connectionManagerID="{70687BDC-7B33-47E9-9302-7945B152A0B2}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[GWStaging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      length="200"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      name="PublicID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      length="30"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      name="BeanVersion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      name="IsActive"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRateBookID]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[GWRateBookID]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRateBookID]"
+                      name="GWRateBookID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRateTableID]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[GWRateTableID]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRateTableID]"
+                      name="GWRateTableID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[ReferredGWRateTableID]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[ReferredGWRateTableID]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[ReferredGWRateTableID]"
+                      name="ReferredGWRateTableID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[BookName]"
+                      length="255"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookName]"
+                      name="BookName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[BookCode]"
+                      length="64"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookCode]"
+                      name="BookCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      length="50"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[State]"
+                      name="State"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookEffectiveDate]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[BookEffectiveDate]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookEffectiveDate]"
+                      name="BookEffectiveDate"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[TableName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                      length="255"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[TableName]"
+                      name="TableName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[TableCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[TableCode]"
+                      length="255"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[TableCode]"
+                      name="TableCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[BookStatus]"
+                      length="50"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[BookStatus]"
+                      name="BookStatus"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[dec1]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[dec1]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[dec1]"
+                      name="dec1"
+                      precision="15"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      name="GWRowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                      length="2"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                      name="LegacySourceSystem"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="194"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      dataType="i4"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[GWRateBookID]"
+                      dataType="i8"
+                      name="GWRateBookID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[GWRateTableID]"
+                      dataType="i8"
+                      name="GWRateTableID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[ReferredGWRateTableID]"
+                      dataType="i8"
+                      name="ReferredGWRateTableID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[BookName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="BookName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[BookCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="BookCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[BookEffectiveDate]"
+                      dataType="dbTimeStamp2"
+                      name="BookEffectiveDate"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[TableName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="TableName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[TableCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="TableCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[BookStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="BookStatus" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[dec1]"
+                      dataType="numeric"
+                      name="dec1"
+                      precision="17"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="LegacySourceSystem" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="194"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      name="PublicID" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      name="BeanVersion" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      name="IsActive" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      name="GWRowNumber" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[GWRateBookID]"
+                      dataType="i8"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[GWRateBookID]"
+                      name="GWRateBookID" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[GWRateTableID]"
+                      dataType="i8"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[GWRateTableID]"
+                      name="GWRateTableID" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[ReferredGWRateTableID]"
+                      dataType="i8"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[ReferredGWRateTableID]"
+                      name="ReferredGWRateTableID" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[BookName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[BookName]"
+                      name="BookName" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[BookCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[BookCode]"
+                      name="BookCode" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[State]"
+                      name="State" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[BookEffectiveDate]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[BookEffectiveDate]"
+                      name="BookEffectiveDate"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[TableName]"
+                      name="TableName" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[TableCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[TableCode]"
+                      name="TableCode" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[BookStatus]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[BookStatus]"
+                      name="BookStatus" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[dec1]"
+                      dataType="numeric"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[dec1]"
+                      name="dec1"
+                      precision="17"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                      name="LegacySourceSystem" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT -DimRateBook.Paths[Conditional Split Default Output]"
+              endId="Package\DFT -DimRateBook\CNT - Update Count.Inputs[Row Count Input 1]"
+              name="Conditional Split Default Output"
+              startId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Outputs[Conditional Split Default Output]" />
+            <path
+              refId="Package\DFT -DimRateBook.Paths[Derived Column Output]"
+              endId="Package\DFT -DimRateBook\LKP - DimRateBook.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT -DimRateBook.Paths[Lookup Match Output]"
+              endId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT -DimRateBook.Paths[Lookup No Match Output]"
+              endId="Package\DFT -DimRateBook\CNT - Insert  Count.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\DFT -DimRateBook\LKP - DimRateBook.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\DFT -DimRateBook.Paths[OLE DB Source Output]"
+              endId="Package\DFT -DimRateBook\CNT - Source Count.Inputs[Row Count Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT -DimRateBook.Paths[Row Count Output 1]"
+              endId="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT -DimRateBook\CNT - Source Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT -DimRateBook.Paths[Row Count Output 11]"
+              endId="Package\DFT -DimRateBook\CMD - Update DimForm.Inputs[OLE DB Command Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT -DimRateBook\CNT - Update Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT -DimRateBook.Paths[Row Count Output 12]"
+              endId="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT -DimRateBook\CNT - Insert  Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT -DimRateBook.Paths[SameBeanversion]"
+              endId="Package\DFT -DimRateBook\CNT - Unchange Count.Inputs[Row Count Input 1]"
+              name="SameBeanversion"
+              startId="Package\DFT -DimRateBook\CSPL - Check Beanversion.Outputs[SameBeanversion]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{023C0F7B-7475-4D3A-8248-B5E6F393CF19}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="200" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{28DC8D31-F4B2-4839-8630-C254F1EF03F3}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{77C2A927-34DA-4EE1-A749-5BE69E53D913}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{249D08E5-38F9-4A87-8462-B3E8CAD0FE64}"
+      DTS:From="Package\DFT -DimRateBook"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SQL - Conclude Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{B8C4D5E3-2A89-405E-ACEE-1EF1C7B26F9D}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\DFT -DimRateBook" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{C25326FA-ED53-410C-BB42-41B8E89377D6}"
+      DTS:From="Package\DFT -DimRateBook"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SQL - Conclude Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{8BF261EB-361D-45FA-BD22-5C631E7D4E59}"
+      DTS:EventID="461945756"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{71E4AE10-1476-4485-B3B7-B9292F5C2AD5}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{9B02CC40-04E4-463B-B100-731F5FCEF6E2}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="175,42"
+          Id="Package\DFT -DimRateBook"
+          TopLeft="484,171" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\SQL - Conclude Process Completed"
+          TopLeft="381,287" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\SQL - Conclude Process Failed"
+          TopLeft="593,287" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="482,78" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="543.666666666667,213">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-73.1666666666666,74"
+              Start="0,0"
+              End="-73.1666666666666,66.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.0022650056625" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.0022650056625"
+                    Point2="0,30.0022650056625"
+                    Point3="-4,30.0022650056625" />
+                  <mssgle:LineSegment
+                    End="-69.1666666666666,30.0022650056625" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-69.1666666666666,30.0022650056625"
+                    Point2="-73.1666666666666,30.0022650056625"
+                    Point3="-73.1666666666666,34.0022650056625" />
+                  <mssgle:LineSegment
+                    End="-73.1666666666666,66.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="571.5,120">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51"
+              Start="0,0"
+              End="0,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="599.333333333333,213">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="83.1666666666666,74"
+              Start="0,0"
+              End="83.1666666666666,66.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.0022650056625" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.0022650056625"
+                    Point2="0,30.0022650056625"
+                    Point3="4,30.0022650056625" />
+                  <mssgle:LineSegment
+                    End="79.1666666666666,30.0022650056625" />
+                  <mssgle:CubicBezierSegment
+                    Point1="79.1666666666666,30.0022650056625"
+                    Point2="83.1666666666666,30.0022650056625"
+                    Point3="83.1666666666666,34.0022650056625" />
+                  <mssgle:LineSegment
+                    End="83.1666666666666,66.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="26.3419856770833,35.0022650056625,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="231,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="319,101" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\DFT -DimRateBook">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="210,42"
+          Id="Package\DFT -DimRateBook\CNT - Source Count"
+          TopLeft="529,91.6666666666667" />
+        <NodeLayout
+          Size="207,42"
+          Id="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook"
+          TopLeft="529,8.5" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\DFT -DimRateBook\CNT - Insert  Count"
+          TopLeft="274,263" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\DFT -DimRateBook\CSPL - Check Beanversion"
+          TopLeft="529,341.166666666667" />
+        <NodeLayout
+          Size="241,42"
+          Id="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook"
+          TopLeft="261.5,339.5" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\DFT -DimRateBook\DRV - BatchID &amp; Legacy"
+          TopLeft="529,174.833333333333" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\DFT -DimRateBook\CNT - Update Count"
+          TopLeft="529,424.333333333333" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\DFT -DimRateBook\LKP - DimRateBook"
+          TopLeft="548,261" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\DFT -DimRateBook\CNT - Unchange Count"
+          TopLeft="788,344" />
+        <NodeLayout
+          Size="210,42"
+          Id="Package\DFT -DimRateBook\CMD - Update DimForm"
+          TopLeft="529,507.5" />
+        <EdgeLayout
+          Id="Package\DFT -DimRateBook.Paths[SameBeanversion]"
+          TopLeft="739,363.583333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="49,0"
+              Start="0,0"
+              End="41.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="41.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-18.77759765625,5,79.0551953125,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT -DimRateBook.Paths[Row Count Output 12]"
+          TopLeft="380.5,305">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.5"
+              Start="0,0"
+              End="0,27">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT -DimRateBook.Paths[Row Count Output 11]"
+          TopLeft="634,466.333333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.166666666667"
+              Start="0,0"
+              End="0,33.666666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.666666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT -DimRateBook.Paths[Row Count Output 1]"
+          TopLeft="634,133.666666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.1666666666663"
+              Start="0,0"
+              End="0,33.6666666666663">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.6666666666663" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT -DimRateBook.Paths[OLE DB Source Output]"
+          TopLeft="633.25,50.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.1666666666667"
+              Start="0,0"
+              End="0,33.6666666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.6666666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT -DimRateBook.Paths[Lookup No Match Output]"
+          TopLeft="548,283">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-64,0"
+              Start="0,0"
+              End="-56.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="-56.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-84.05638671875,5,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT -DimRateBook.Paths[Lookup Match Output]"
+          TopLeft="635.25,303">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.166666666667"
+              Start="0,0"
+              End="0,30.666666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,30.666666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,9.52864583333351,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT -DimRateBook.Paths[Derived Column Output]"
+          TopLeft="635.25,216.833333333333">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.166666666667"
+              Start="0,0"
+              End="0,36.666666666667">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.666666666667" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT -DimRateBook.Paths[Conditional Split Default Output]"
+          TopLeft="634,383.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.1666666666659"
+              Start="0,0"
+              End="0,33.6666666666659">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.6666666666659" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-70.61390625,11.0042317708329,141.2278125,11.658203125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT -DimRateBook\OLE_SRC - Pc_RateBook">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT -DimRateBook\OLE_DEST - Load DimRateBook">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT -DimRateBook\LKP - DimRateBook">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

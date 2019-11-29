@@ -1,0 +1,2876 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CheckpointFileName="C:\checkpointDimension.xml"
+  DTS:CheckpointUsage="1"
+  DTS:CreationDate="10/7/2013 3:07:05 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="DMZWKSTN1"
+  DTS:CreatorName="MMI\T159072"
+  DTS:DTSID="{4A6BED13-CE52-4DB0-B68C-D649D202CDC1}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="EDW_CC_Load_DimClaimant"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="1198"
+  DTS:VersionGUID="{56D65770-D665-4702-97F2-5DC46B5C34CD}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{26E3F48C-1C88-4B64-AAB5-7C1C5A63028A}"
+      DTS:ObjectName="configBatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="IncrementDays"
+      DTS:ConfigurationVariable="\Package.Variables[User::IncrementDays].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{2AE2594A-39E9-48A3-92D9-ADE5EC53F15B}"
+      DTS:ObjectName="configIncrementDays" />
+  </DTS:Configurations>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="EnterpriseDataWarehouse"
+      DTS:CreationName="Microsoft.LogProviderSQLServer"
+      DTS:Description="Writes log entries for events to a SQL Server database"
+      DTS:DTSID="{0DE63988-DEC8-4701-8981-5A2C491FB2A8}"
+      DTS:ObjectName="SSIS log provider for SQL Server">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{723D5FDB-3E55-4FD8-A2C5-E0B394C739EA}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0D5D9A39-4901-45B5-9B3F-AD793FA88DB6}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="IncrementDays">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D42C7FCA-BB43-4659-B690-46D8CA6D5689}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{82C3B450-F348-41B3-9236-38AFB84DE12C}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{A9D35F9F-73B2-44F1-90AB-AB82DACC68A0}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UnChangeCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7A7ED9E1-2D0A-401A-A0CF-903604D8F8EC}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdateCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">3,7,OnError,19,OnExecStatusChanged,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnExecStatusChanged"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{0DE63988-DEC8-4701-8981-5A2C491FB2A8}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - DimClaimant"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{304d9045-0785-4909-aef4-3161bea7c182}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - DimClaimant"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="CMD - Update Existing Claimant"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Update DimClaimant
+Set DateUpdated = GetDate(),
+AddressLine1 = ?, 
+AddressLine2 = ?, 
+BatchId = ?, 
+BeanVersion = ?, 
+City  = ?, 
+DateofBirth = ?, 
+AddressTypeDescription = ?, 
+FirstName = ?, 
+Gender = ?, 
+GWRowNumber = ?, 
+IsActive = ?, 
+LastName = ?, 
+LicenseNumber = ?, 
+LicenseState = ?, 
+FullName = ?, 
+Occupation = ?, 
+PostalCode = ?, 
+State = ?, 
+WorkPhone = ?
+
+Where PublicID = ?
+And LegacySourceSystem = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Connections[OleDbConnection]"
+                  connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[AddressLine1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="AddressLine1"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[AddressLine1]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[AddressLine2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="AddressLine2"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[AddressLine2]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[City]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[DateOfBirth]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="DateOfBirth"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[DateOfBirth]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[Description]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="512"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Description]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[FirstName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="45"
+                      cachedName="FirstName"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[FirstName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[gender]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="gender"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[gender]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[GWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="GWRowNumber"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[IsActive]"
+                      cachedDataType="i4"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[IsActive]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[LastName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="45"
+                      cachedName="LastName"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LastName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[LicenseNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="LicenseNumber"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LicenseNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[licenseSate]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="licenseSate"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[licenseSate]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[Name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Name"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Name]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[Occupation]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="80"
+                      cachedName="Occupation"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Occupation]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[PostalCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="PostalCode"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_16]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[PostalCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[StateName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="StateName"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_17]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[StateName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[WorkPhone]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="WorkPhone"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_18]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[WorkPhone]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="PublicID"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_19]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].Columns[LegacySourceSystem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LegacySourceSystem"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_20]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="i4"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      dataType="dbTimeStamp"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1000"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Param_8">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      dataType="i8"
+                      name="Param_9">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      dataType="bool"
+                      name="Param_10">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_11">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="Param_12">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">1073741889</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_13">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_14">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_15">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="Param_16">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_17">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_18">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_19]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="Param_19">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input].ExternalColumns[Param_20]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Param_20">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimClaimant\CNT - Insert"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Insert">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::InsertCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimClaimant\CNT - Insert.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimClaimant\CNT - Insert.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimClaimant\CNT - Insert.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimClaimant\CNT - Source"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Source">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::SourceCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimClaimant\CNT - Source.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimClaimant\CNT - Source.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimClaimant\CNT - Source.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimClaimant\CNT - Unchanged"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Unchanged">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UnChangeCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimClaimant\CNT - Unchanged.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimClaimant\CNT - Unchanged.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimClaimant\CNT - Unchanged.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimClaimant\CNT - Update"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Update">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UpdateCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimClaimant\CNT - Update.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimClaimant\CNT - Update.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimClaimant\CNT - Update.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="CSPL - Chekc Bean Version"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Inputs[Conditional Split Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Inputs[Conditional Split Input].Columns[EDW_BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="EDW_BeanVersion"
+                      lineageId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Outputs[SameBeanVersion]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SameBeanVersion"
+                  synchronousInputId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">(#{Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[BeanVersion]} == #{Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]})</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">(BeanVersion == EDW_BeanVersion)</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Outputs[DifferentBeanVersion]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="DifferentBeanVersion"
+                  synchronousInputId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DRV - Get BatchID &amp; Legacy"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      name="BatchID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[User::BatchID]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[User::BatchID]</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimClaimant\LKP - DimClaimant"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - DimClaimant"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select PublicID  ,BeanVersion  from DimClaimant</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select PublicID  ,BeanVersion  from DimClaimant) [refTable]
+where [refTable].[PublicID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PublicID" dataType="DT_STR" length="64" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="BeanVersion" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[PublicID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimClaimant\LKP - DimClaimant.Connections[OleDbConnection]"
+                  connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimClaimant\LKP - DimClaimant.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\LKP - DimClaimant.Inputs[Lookup Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="PublicID"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[PublicID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PublicID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - DimClaimant\LKP - DimClaimant.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="30"
+                      lineageId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]"
+                      name="EDW_BeanVersion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">BeanVersion</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - DimClaimant\LKP - DimClaimant.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - DimClaimant\LKP - DimClaimant.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE_DEST - Load DimClaimant"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimClaimant]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">10000</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Connections[OleDbConnection]"
+                  connectionManagerID="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[FirstName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="45"
+                      cachedName="FirstName"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[FirstName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[LastName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="45"
+                      cachedName="LastName"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LastName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[Occupation]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="80"
+                      cachedName="Occupation"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[Occupation]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Occupation]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[AddressLine1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="AddressLine1"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[AddressLine1]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[AddressLine1]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[AddressLine2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="AddressLine2"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[AddressLine2]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[AddressLine2]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[City]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[PostalCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="15"
+                      cachedName="PostalCode"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[PostalCode]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[PostalCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[WorkPhone]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="WorkPhone"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[WorkPhone]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[WorkPhone]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="PublicID"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[GWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="GWRowNumber"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[IsActive]"
+                      cachedDataType="i4"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[IsActive]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      lineageId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[StateName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="StateName"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[StateName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[LegacySourceSystem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LegacySourceSystem"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[gender]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="gender"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[Gender]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[gender]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[DateOfBirth]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="DateOfBirth"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[DateOfBirth]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[DateOfBirth]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[LicenseNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="LicenseNumber"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[LicenseNumber]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LicenseNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[licenseSate]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="licenseSate"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[LicenseState]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[licenseSate]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[Name]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="Name"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Name]" />
+                    <inputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].Columns[Description]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="512"
+                      cachedName="Description"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[AddressTypeDescription]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Description]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[ClaimantID]"
+                      dataType="i4"
+                      name="ClaimantID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LastName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[Occupation]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Occupation" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[AddressLine1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="AddressLine1" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[AddressLine2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="AddressLine2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[AddressTypeDescription]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1000"
+                      name="AddressTypeDescription" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[PostalCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="PostalCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[UpdateUserID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="UpdateUserID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[WorkPhone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="WorkPhone" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      dataType="i4"
+                      name="BatchID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      dataType="bool"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="LegacySourceSystem" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[DateUpdated]"
+                      dataType="dbTimeStamp"
+                      name="DateUpdated" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[DataEffectiveDate]"
+                      dataType="dbTimeStamp"
+                      name="DataEffectiveDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[DataExpirationDate]"
+                      dataType="dbTimeStamp"
+                      name="DataExpirationDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[Gender]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Gender" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[DateOfBirth]"
+                      dataType="dbTimeStamp"
+                      name="DateOfBirth" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[LicenseNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="LicenseNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[LicenseState]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LicenseState" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input].ExternalColumns[FullName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="FullName" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE_SRC - Get Source Data"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT co.FirstName
+     , co.LastName
+       , coalesce(co.NameDenorm, isnull(co.FirstNameDenorm,'') + ' ' + isnull(co.LastNameDenorm,'')) as Name
+       , co.Occupation
+       , ad.AddressLine1
+       , ad.AddressLine2
+       , cast(ad.City as varchar(50)) City
+       , Cast(ad.PostalCode as Varchar(15)) PostalCode
+       , Cast(st.Name as Varchar(50)) as  StateName
+       , co.WorkPhone
+       , co.PublicID
+       , at.Description
+       , cast(gt.NAME as varchar(10)) as gender
+       , cast(co.DateOfBirth as datetime) as DateOfBirth
+       , co.LicenseNumber
+       , cast(lst.NAME as varchar(50))  as licenseSate
+       , cast(concat(cc.BeanVersion, co.BeanVersion, ad.BeanVersion) as varchar(20)) as BeanVersion
+       , co.Id as GWRowNumber
+       , case when co.Retired != 0 then 0 else 1 end as IsActive
+,'WC' as LegacySourceSystem
+
+     
+FROM  cc_claimcontact cc
+	LEFT JOIN cc_contact		co	ON cc.contactID = co.ID and co.Retired = 0
+	LEFT JOIN cc_address		ad  ON co.PrimaryAddressID = ad.ID and ad.Retired= 0
+	LEFT JOIN cctl_addresstype	at  ON ad.AddressType = at.ID 
+	LEFT JOIN cctl_state		st  ON ad.state = st.ID 
+	LEFT JOIN cctl_gendertype	gt  ON co.Gender = gt.ID
+	LEFT JOIN cctl_state		lst ON co.LicenseState =  lst.id
+
+WHERE 
+       ClaimantFlag = 1
+       AND 
+       (  cc.UpdateTime &gt;= dateadd(d,?,cast(getdate() as date))
+          OR
+          co.UpdateTime &gt;= dateadd(d,?,cast(getdate() as date))
+          OR
+          ad.UpdateTime &gt;= dateadd(d,?,cast(getdate() as date))
+       )</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{0D5D9A39-4901-45B5-9B3F-AD793FA88DB6};"Parameter1:Input",{0D5D9A39-4901-45B5-9B3F-AD793FA88DB6};"Parameter2:Input",{0D5D9A39-4901-45B5-9B3F-AD793FA88DB6};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Connections[OleDbConnection]"
+                  connectionManagerID="{253715E8-A206-42D4-8880-6BF3C9D74C5D}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[GWStaging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[FirstName]"
+                      length="45"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[FirstName]"
+                      name="FirstName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[LastName]"
+                      length="45"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LastName]"
+                      name="LastName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Occupation]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[Occupation]"
+                      length="80"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Occupation]"
+                      name="Occupation"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[AddressLine1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[AddressLine1]"
+                      length="60"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[AddressLine1]"
+                      name="AddressLine1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[AddressLine2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[AddressLine2]"
+                      length="60"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[AddressLine2]"
+                      name="AddressLine2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      length="50"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[PostalCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[PostalCode]"
+                      length="15"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[PostalCode]"
+                      name="PostalCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[StateName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[StateName]"
+                      length="50"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[StateName]"
+                      name="StateName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[WorkPhone]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[WorkPhone]"
+                      length="30"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[WorkPhone]"
+                      name="WorkPhone"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      length="20"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      name="PublicID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      length="20"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      name="BeanVersion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      name="GWRowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      name="IsActive"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Name]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                      length="255"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Name]"
+                      name="Name"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Description]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[Description]"
+                      length="512"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[Description]"
+                      name="Description"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[DateOfBirth]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[DateOfBirth]"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[DateOfBirth]"
+                      name="DateOfBirth"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LicenseNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[LicenseNumber]"
+                      length="20"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LicenseNumber]"
+                      name="LicenseNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[gender]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[gender]"
+                      length="10"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[gender]"
+                      name="gender"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[licenseSate]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[licenseSate]"
+                      length="50"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[licenseSate]"
+                      name="licenseSate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                      length="2"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                      name="LegacySourceSystem"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="45"
+                      name="FirstName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="45"
+                      name="LastName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[Occupation]"
+                      codePage="1252"
+                      dataType="str"
+                      length="80"
+                      name="Occupation" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[AddressLine1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="AddressLine1" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[AddressLine2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="AddressLine2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[PostalCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      name="PostalCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[StateName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="StateName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[WorkPhone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="WorkPhone" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      dataType="i4"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[Name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Name" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[Description]"
+                      codePage="1252"
+                      dataType="str"
+                      length="512"
+                      name="Description" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[DateOfBirth]"
+                      dataType="dbTimeStamp"
+                      name="DateOfBirth" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[LicenseNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="LicenseNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[gender]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="gender" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[licenseSate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="licenseSate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="LegacySourceSystem" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[FirstName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="45"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[FirstName]"
+                      name="FirstName" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[LastName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="45"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[LastName]"
+                      name="LastName" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[Name]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[Name]"
+                      name="Name" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[Occupation]"
+                      codePage="1252"
+                      dataType="str"
+                      length="80"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[Occupation]"
+                      name="Occupation" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[AddressLine1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[AddressLine1]"
+                      name="AddressLine1" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[AddressLine2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[AddressLine2]"
+                      name="AddressLine2" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[PostalCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="15"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[PostalCode]"
+                      name="PostalCode" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[StateName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[StateName]"
+                      name="StateName" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[WorkPhone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[WorkPhone]"
+                      name="WorkPhone" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      name="PublicID" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[Description]"
+                      codePage="1252"
+                      dataType="str"
+                      length="512"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[Description]"
+                      name="Description" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[gender]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[gender]"
+                      name="gender" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[DateOfBirth]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[DateOfBirth]"
+                      name="DateOfBirth" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[LicenseNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[LicenseNumber]"
+                      name="LicenseNumber" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[licenseSate]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[licenseSate]"
+                      name="licenseSate" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      name="BeanVersion" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      name="GWRowNumber" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      name="IsActive" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                      name="LegacySourceSystem" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - DimClaimant.Paths[Derived Column Output]"
+              endId="Package\DFT - DimClaimant\LKP - DimClaimant.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - DimClaimant.Paths[Lookup Match Output]"
+              endId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - DimClaimant.Paths[Lookup No Match Output]"
+              endId="Package\DFT - DimClaimant\CNT - Insert.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\DFT - DimClaimant\LKP - DimClaimant.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\DFT - DimClaimant.Paths[OLE DB Source Output]"
+              endId="Package\DFT - DimClaimant\CNT - Source.Inputs[Row Count Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - DimClaimant\OLE_SRC - Get Source Data.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT - DimClaimant.Paths[Row Count Output 1]"
+              endId="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy.Inputs[Derived Column Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - DimClaimant\CNT - Source.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - DimClaimant.Paths[Row Count Output 11]"
+              endId="Package\DFT - DimClaimant\CMD - Update Existing Claimant.Inputs[OLE DB Command Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - DimClaimant\CNT - Update.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - DimClaimant.Paths[Row Count Output 12]"
+              endId="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - DimClaimant\CNT - Insert.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - DimClaimant.Paths[SameBeanVersion]"
+              endId="Package\DFT - DimClaimant\CNT - Unchanged.Inputs[Row Count Input 1]"
+              name="SameBeanVersion"
+              startId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Outputs[SameBeanVersion]" />
+            <path
+              refId="Package\DFT - DimClaimant.Paths[Type 1]"
+              endId="Package\DFT - DimClaimant\CNT - Update.Inputs[Row Count Input 1]"
+              name="Type 1"
+              startId="Package\DFT - DimClaimant\CSPL - Chekc Bean Version.Outputs[DifferentBeanVersion]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{e4ec08f3-403a-4d0c-aeb0-759e22515cc0}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="200" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{0e2da5d1-77ab-4194-bf86-f95326d4ccbc}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2fc3c557-540c-4958-a28c-2e1ab96a7f66}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{069D84A8-46E1-4B5C-8176-4450804E4F04}"
+      DTS:From="Package\DFT - DimClaimant"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SQL - Conclude Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{BE1BB27C-7F60-4746-9B88-A85D9024C98E}"
+      DTS:From="Package\DFT - DimClaimant"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL - Conclude Process Failed"
+      DTS:Value="1" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{4741981B-BB4C-4B3B-9E36-58FEFA486C38}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\DFT - DimClaimant" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{754B0877-03E3-43DD-9E21-35A41D8E6180}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{C0DAEFCF-50A2-40F2-ACE3-E9F3CAC370EB}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{dde85974-12ee-4fef-b854-922aa1d1a33e}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{DC382420-1EE2-49E1-9C74-A2B1B497FB65}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="246,42"
+          Id="Package\DFT - DimClaimant"
+          TopLeft="254,127" />
+        <NodeLayout
+          Size="246,42"
+          Id="Package\SQL - Conclude Process Completed"
+          TopLeft="106,222" />
+        <NodeLayout
+          Size="246,42"
+          Id="Package\SQL - Conclude Process Failed"
+          TopLeft="411,222" />
+        <NodeLayout
+          Size="246,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="254,39" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="337.333333333333,169">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-108.333333333333,53"
+              Start="0,0"
+              End="-108.333333333333,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.40549273021" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.40549273021"
+                    Point2="0,21.40549273021"
+                    Point3="-4,21.40549273021" />
+                  <mssgle:LineSegment
+                    End="-104.333333333333,21.40549273021" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-104.333333333333,21.40549273021"
+                    Point2="-108.333333333333,21.40549273021"
+                    Point3="-108.333333333333,25.40549273021" />
+                  <mssgle:LineSegment
+                    End="-108.333333333333,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="416.666666666667,169">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="117.333333333333,53"
+              Start="0,0"
+              End="117.333333333333,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,17.40549273021" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,17.40549273021"
+                    Point2="0,21.40549273021"
+                    Point3="4,21.40549273021" />
+                  <mssgle:LineSegment
+                    End="113.333333333333,21.40549273021" />
+                  <mssgle:CubicBezierSegment
+                    Point1="113.333333333333,21.40549273021"
+                    Point2="117.333333333333,21.40549273021"
+                    Point3="117.333333333333,25.40549273021" />
+                  <mssgle:LineSegment
+                    End="117.333333333333,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="43.4253190104165,26.40549273021,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="377,81">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46"
+              Start="0,0"
+              End="0,38.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,38.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="231,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="382,217" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\DFT - DimClaimant">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="228,42"
+          Id="Package\DFT - DimClaimant\OLE_SRC - Get Source Data"
+          TopLeft="67.9375,0.5" />
+        <NodeLayout
+          Size="228,42"
+          Id="Package\DFT - DimClaimant\CNT - Unchanged"
+          TopLeft="340.7,343.5" />
+        <NodeLayout
+          Size="228,42"
+          Id="Package\DFT - DimClaimant\CSPL - Chekc Bean Version"
+          TopLeft="341.7,258" />
+        <NodeLayout
+          Size="228,42"
+          Id="Package\DFT - DimClaimant\CNT - Source"
+          TopLeft="67.9375,86.5" />
+        <NodeLayout
+          Size="221,42"
+          Id="Package\DFT - DimClaimant\CNT - Insert"
+          TopLeft="64.9375,346.5" />
+        <NodeLayout
+          Size="228,42"
+          Id="Package\DFT - DimClaimant\CNT - Update"
+          TopLeft="612.75,258" />
+        <NodeLayout
+          Size="228,42"
+          Id="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant"
+          TopLeft="63.9375,432.5" />
+        <NodeLayout
+          Size="228,42"
+          Id="Package\DFT - DimClaimant\DRV - Get BatchID &amp; Legacy"
+          TopLeft="67.9375,172.5" />
+        <NodeLayout
+          Size="228,42"
+          Id="Package\DFT - DimClaimant\CMD - Update Existing Claimant"
+          TopLeft="612.75,344.5" />
+        <NodeLayout
+          Size="228,42"
+          Id="Package\DFT - DimClaimant\LKP - DimClaimant"
+          TopLeft="67.9375,258" />
+        <EdgeLayout
+          Id="Package\DFT - DimClaimant.Paths[Type 1]"
+          TopLeft="569.7,279">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="43.05,0"
+              Start="0,0"
+              End="35.55,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="35.55,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-29.06193359375,5,93.6738671875,9.7978515625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimClaimant.Paths[SameBeanVersion]"
+          TopLeft="455.2,300">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.5"
+              Start="0,0"
+              End="0,36">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-40.02259765625,13.22314453125,80.0451953125,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimClaimant.Paths[Row Count Output 12]"
+          TopLeft="176.6875,388.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimClaimant.Paths[Row Count Output 11]"
+          TopLeft="726.75,300">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44.5"
+              Start="0,0"
+              End="0,37">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,37" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimClaimant.Paths[Row Count Output 1]"
+          TopLeft="181.9375,128.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimClaimant.Paths[OLE DB Source Output]"
+          TopLeft="181.9375,42.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimClaimant.Paths[Lookup No Match Output]"
+          TopLeft="178.6875,300">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,46.5"
+              Start="0,0"
+              End="0,39">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,13.6953125,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimClaimant.Paths[Lookup Match Output]"
+          TopLeft="295.9375,279">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="45.7625,0"
+              Start="0,0"
+              End="38.2625,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="38.2625,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-29.06013671875,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimClaimant.Paths[Derived Column Output]"
+          TopLeft="181.9375,214.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.5"
+              Start="0,0"
+              End="0,36">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimClaimant\OLE_SRC - Get Source Data">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimClaimant\OLE_DEST - Load DimClaimant">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimClaimant\LKP - DimClaimant">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

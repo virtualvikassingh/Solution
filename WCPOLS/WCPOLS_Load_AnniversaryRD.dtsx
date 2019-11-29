@@ -1,0 +1,1675 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/26/2016 5:51:15 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\vikas.singh"
+  DTS:DTSID="{B2B7D070-3103-4F64-9F3F-B640642E14A5}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCPOLS_Load_AnniversaryRD"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="203"
+  DTS:VersionGUID="{0711F91A-0FA0-46EF-8F19-F45BD462862B}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{D637E6BF-65D1-414E-9CE4-7A547C0E0136}"
+      DTS:ObjectName="BatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="StartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::StartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{736101F3-80E1-4896-A5EC-4493FD3B6734}"
+      DTS:ObjectName="StartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="EndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::EndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{CED697EA-EC26-44E4-814B-B1DE7D0C3651}"
+      DTS:ObjectName="EndDate" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{33CB1F89-F37F-4111-9E91-61372BE1DB9A}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{738BC6FD-B988-4D78-9EC8-83D07A5B0055}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="EndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">12/23/2016 7:08:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{707CA5CE-4B8F-4A58-BE50-C9852BD7E1F2}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">12/14/2016 12:18:00 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{12198e4f-ec1c-4e80-a54c-1bb305d5fc99}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{4386df6c-145b-4105-8a47-ce0f2426183f}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\Process Failed.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{351c6b4c-a4f8-480a-8d0e-f481236121ff}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{1f4e83c2-18c4-49bc-84c2-599edae69af8}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="&#xA;Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{A6154941-8B3E-44BE-8C6F-09D51FC99426}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\AnniversaryRD Load"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{4d30484f-0926-4b8a-820b-20aebf76f3db}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="AnniversaryRD Load"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="Anniversary Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[WCPOLS_AnniversaryRD]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">10000</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].Columns[Insert date]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="Insert date"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[Insert date]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].Columns[RecordType]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="RecordType"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[RecordType]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].Columns[StateCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="StateCode"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[State_Code]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[StateCode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].Columns[PolicyId]"
+                          cachedDataType="i4"
+                          cachedName="PolicyId"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[PolicyId]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].Columns[AnniversaryRD]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="AnniversaryRD"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Anniversary_Rating_Date]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[AnniversaryRD]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].Columns[NameOfInsured]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="34"
+                          cachedName="NameOfInsured"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Insured]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[NameOfInsured]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].Columns[EndorsementED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="EndorsementED"
+                          cachedSortKeyPosition="3"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[EndorsementED]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].Columns[EndorsementNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="EndorsementNumber"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Number]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[EndorsementNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].Columns[BureauVersionIdentifier]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="BureauVersionIdentifier"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bureau_Version_Identifier]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[BureauVersionIdentifier]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="PolicyNumber"
+                          cachedSortKeyPosition="2"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[PolicyNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].Columns[PolicyState]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="PolicyState"
+                          cachedSortKeyPosition="1"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[PolicyState]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="Policy_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Record_Type_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          dataType="dbTimeStamp"
+                          name="Insert_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="dbTimeStamp"
+                          name="Update_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[State_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="State_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Policy_State" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[AnniversaryRD_ID]"
+                          dataType="i8"
+                          name="AnniversaryRD_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="Endorsement_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Bureau_Version_Identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Bureau_Version_Identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Version_Identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="11"
+                          name="Carrier_Version_Identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Anniversary_Rating_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Anniversary_Rating_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Insured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="Name_Of_Insured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Endorsement_Effective_Date" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\AnniversaryRD Load\Insert date"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Insert date"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\AnniversaryRD Load\Insert date.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\AnniversaryRD Load\Insert date.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Sequence Container\AnniversaryRD Load\Insert date.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Insert date.Outputs[Derived Column Output].Columns[Insert date]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Insert date.Outputs[Derived Column Output].Columns[Insert date]"
+                          name="Insert date"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[GETDATE]()</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">GETDATE()</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\AnniversaryRD Load\Insert date.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Sequence Container\AnniversaryRD Load\Insert date.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Insert date.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Insert date.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Insert date.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Insert date.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE SRC - FactPolicyForm"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With CTE_FactWC as
+	(
+		Select distinct PolicyID, c.AnniversaryDate
+		From  FactWCPremiumTransaction f join DimWCCoverage c on c.CoverageID = f.CoverageID 
+		Where AnniversaryDate is NOT NULL
+	)
+
+Select distinct 
+ dp.PolicyId
+,Left(dp.PolicyNumber,18) PolicyNumber
+,Left(dp.BaseState ,2) as PolicyState
+,'99' as StateCode
+,'09' as RecordType
+,'WC000402' AS EndorsementNumber
+,' ' as BureauVersionIdentifier
+,Isnull(Right(Convert(varchar(8), cf.AnniversaryDate, 112),6),'000000') AnniversaryRD
+,cast(dp.PrimaryInsuredName as varchar(34)) as NameOfInsured
+,Isnull(Right(Convert(varchar(8), pf.EndorsementEffectiveDate, 112),6),'000000') EndorsementED
+
+From FactPolicyForm pf 
+	Inner join CTE_FactWC cf on pf.policyid = cf.Policyid
+	Inner join DimPolicy dp  on pf.PolicyID = dp.PolicyID 
+	Inner join DimForm df   on pf.FormID = df.FormID
+	Inner join WCPolicyEndorsement pe on pe.PolicyID = dp.PolicyID
+	--05 OCT - VS - Added join on DimState to use IsNCCI column. This column is replacing all the NCCI States e.g. IN, VA, CT, IL etc.
+	Left join DimState ds on dp.BaseState = ds.StateAbbr
+
+Where dp.PolicyStatus = 'Bound'
+--moving renewal deatils to next day file
+And (
+		(dp.TransactionType in ('Submission', 'Policy Change','Rewrite') And (cast(dP.JobUpdateTime as date) &gt; ? and cast(dp.JobUpdateTime as date) &lt;= ?)) OR
+		(dp.TransactionType ='Renewal' and dp.eventname='SendNonRenewalDocuments' and dp.BaseState='MI' And (cast(dP.JobUpdateTime as date) &gt;DATEADD(day, -1, convert(date,?)) and cast(dp.JobUpdateTime as date) &lt;=DATEADD(day, -1, convert(date,?)))) OR
+		(cast(dp.JobUpdateTime as date) &gt;? and cast(dp.JobUpdateTime as date) &lt;=? and dp.transactiontype='Renewal' and dp.eventname is null) OR
+		(cast(dp.JobUpdateTime as date) &gt;? and cast(dp.JobUpdateTime as date) &lt;=? and dp.transactiontype='Renewal' and dp.eventname='SendNonRenewalDocuments' and ds.IsNCCI = 1 /*p.BaseState = 'IN'*/)
+	)
+And FormNumber like 'WC 00 04 02%'
+And pe.PatternCode = 'WC7ExperienceRatingModFactEndorsementCond'
+
+
+Order by PolicyNumber</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{707CA5CE-4B8F-4A58-BE50-C9852BD7E1F2};"Parameter1:Input",{738BC6FD-B988-4D78-9EC8-83D07A5B0055};"Parameter2:Input",{707CA5CE-4B8F-4A58-BE50-C9852BD7E1F2};"Parameter3:Input",{738BC6FD-B988-4D78-9EC8-83D07A5B0055};"Parameter4:Input",{707CA5CE-4B8F-4A58-BE50-C9852BD7E1F2};"Parameter5:Input",{738BC6FD-B988-4D78-9EC8-83D07A5B0055};"Parameter6:Input",{707CA5CE-4B8F-4A58-BE50-C9852BD7E1F2};"Parameter7:Input",{738BC6FD-B988-4D78-9EC8-83D07A5B0055};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          length="18"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          length="2"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          name="PolicyState"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[StateCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[StateCode]"
+                          length="2"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[StateCode]"
+                          name="StateCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[RecordType]"
+                          length="2"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[RecordType]"
+                          name="RecordType"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[AnniversaryRD]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[AnniversaryRD]"
+                          length="6"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[AnniversaryRD]"
+                          name="AnniversaryRD"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[NameOfInsured]"
+                          length="34"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[NameOfInsured]"
+                          name="NameOfInsured"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EndorsementED]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[EndorsementED]"
+                          length="6"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EndorsementED]"
+                          name="EndorsementED"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyId]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyId]"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyId]"
+                          name="PolicyId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[EndorsementNumber]"
+                          length="8"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EndorsementNumber]"
+                          name="EndorsementNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[BureauVersionIdentifier]"
+                          length="1"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]"
+                          name="BureauVersionIdentifier"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="PolicyState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[StateCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="StateCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RecordType" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[AnniversaryRD]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="AnniversaryRD" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="NameOfInsured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[EndorsementED]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="EndorsementED" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[PolicyId]"
+                          dataType="i4"
+                          name="PolicyId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="EndorsementNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].ExternalColumns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="BureauVersionIdentifier" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyId]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyId]"
+                          name="PolicyId" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          name="PolicyNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          name="PolicyState" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[EndorsementNumber]"
+                          name="EndorsementNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[BureauVersionIdentifier]"
+                          name="BureauVersionIdentifier" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[StateCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[StateCode]"
+                          name="StateCode" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[RecordType]"
+                          name="RecordType" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[AnniversaryRD]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[AnniversaryRD]"
+                          name="AnniversaryRD" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[NameOfInsured]"
+                          name="NameOfInsured" />
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[EndorsementED]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Error Output].Columns[EndorsementED]"
+                          name="EndorsementED" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\AnniversaryRD Load\Sort"
+                  componentClassID="Microsoft.Sort"
+                  contactInfo="Sort;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;1"
+                  description="Sorts input data in ascending or descending order when it cannot be sorted at its source. For example, sort sales data by 'customer id' before it is written to a flat file and delivered to another department. Note: We do not recommend this transformation for large data flows."
+                  name="Sort"
+                  version="1">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the Sort transformation removes rows with duplicate sort values."
+                      name="EliminateDuplicates">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the maximum number of threads to use for sorting."
+                      expressionType="Notify"
+                      name="MaximumThreads">-1</property>
+                  </properties>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input]"
+                      name="Sort Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input].Columns[Insert date]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="Insert date"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Insert date.Outputs[Derived Column Output].Columns[Insert date]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="PolicyNumber"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyNumber]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">2</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input].Columns[PolicyState]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="PolicyState"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyState]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">1</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input].Columns[StateCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="StateCode"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[StateCode]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input].Columns[RecordType]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="RecordType"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[RecordType]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input].Columns[AnniversaryRD]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="AnniversaryRD"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[AnniversaryRD]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input].Columns[NameOfInsured]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="34"
+                          cachedName="NameOfInsured"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[NameOfInsured]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input].Columns[EndorsementED]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="EndorsementED"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EndorsementED]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">3</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input].Columns[PolicyId]"
+                          cachedDataType="i4"
+                          cachedName="PolicyId"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyId]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input].Columns[EndorsementNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="EndorsementNumber"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EndorsementNumber]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input].Columns[BureauVersionIdentifier]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="BureauVersionIdentifier"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]">
+                          <properties>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the comparison options for character data."
+                              name="NewComparisonFlags">0</property>
+                            <property
+                              dataType="System.Int32"
+                              description="Specifies the sort order of the column."
+                              name="NewSortKeyPosition">0</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output]"
+                      isSorted="true"
+                      name="Sort Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[Insert date]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[Insert date]"
+                          name="Insert date">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Sequence Container\AnniversaryRD Load\Insert date.Outputs[Derived Column Output].Columns[Insert date]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          sortKeyPosition="2">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyNumber]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[PolicyState]"
+                          name="PolicyState"
+                          sortKeyPosition="1">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyState]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[StateCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[StateCode]"
+                          name="StateCode">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[StateCode]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[RecordType]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[RecordType]"
+                          name="RecordType">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[RecordType]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[AnniversaryRD]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[AnniversaryRD]"
+                          name="AnniversaryRD">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[AnniversaryRD]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[NameOfInsured]"
+                          name="NameOfInsured">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[NameOfInsured]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[EndorsementED]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[EndorsementED]"
+                          name="EndorsementED"
+                          sortKeyPosition="3">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EndorsementED]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[PolicyId]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[PolicyId]"
+                          name="PolicyId">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[PolicyId]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[EndorsementNumber]"
+                          name="EndorsementNumber">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[EndorsementNumber]}</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output].Columns[BureauVersionIdentifier]"
+                          name="BureauVersionIdentifier">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.Int32"
+                              description="Specifies the lineage identifier of the input column that is associated with this output column."
+                              name="SortColumnId">#{Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]}</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\AnniversaryRD Load.Paths[Derived Column Output]"
+                  endId="Package\Sequence Container\AnniversaryRD Load\Sort.Inputs[Sort Input]"
+                  name="Derived Column Output"
+                  startId="Package\Sequence Container\AnniversaryRD Load\Insert date.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Sequence Container\AnniversaryRD Load.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\AnniversaryRD Load\Insert date.Inputs[Derived Column Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm.Outputs[OLE DB Source Output]" />
+                <path
+                  refId="Package\Sequence Container\AnniversaryRD Load.Paths[Sort Output]"
+                  endId="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination.Inputs[OLE DB Destination Input]"
+                  name="Sort Output"
+                  startId="Package\Sequence Container\AnniversaryRD Load\Sort.Outputs[Sort Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{8a3f900b-12db-45e1-b08d-8d151d2fa24d}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{C661E6E6-2D51-4AEC-BE03-C0A0F8355C65}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{FD2BEB97-D379-4738-B57C-5311050705BE}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{D1E31C42-37AF-41CC-AD87-1931FA094ECA}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{7AA849B0-3311-465B-8794-F999AD150C64}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{13411D2F-37D5-46ED-B47B-B508CA752810}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{988504C2-4A99-4611-B150-594E8EED36D6}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Process Completed"
+          TopLeft="214,321" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Process Failed"
+          TopLeft="508,325" />
+        <NodeLayout
+          Size="174,42"
+          Id="Package\Sequence Container\AnniversaryRD Load"
+          TopLeft="27,13" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="225,110"
+          Size="225,153"
+          Id="Package\Sequence Container"
+          TopLeft="317,133" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="341,56" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="429.5,98">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,35"
+              Start="0,0"
+              End="0,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="393.333333333333,286">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-95.3333333333333,35"
+              Start="0,0"
+              End="-95.3333333333333,27.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,10.1482789055605" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,10.1482789055605"
+                    Point2="0,14.1482789055605"
+                    Point3="-4,14.1482789055605" />
+                  <mssgle:LineSegment
+                    End="-91.3333333333333,14.1482789055605" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-91.3333333333333,14.1482789055605"
+                    Point2="-95.3333333333333,14.1482789055605"
+                    Point3="-95.3333333333333,18.1482789055605" />
+                  <mssgle:LineSegment
+                    End="-95.3333333333333,27.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="465.666666666667,286">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="114.833333333333,39"
+              Start="0,0"
+              End="114.833333333333,31.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,11.7652250661959" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,11.7652250661959"
+                    Point2="0,15.7652250661959"
+                    Point3="4,15.7652250661959" />
+                  <mssgle:LineSegment
+                    End="110.833333333333,15.7652250661959" />
+                  <mssgle:CubicBezierSegment
+                    Point1="110.833333333333,15.7652250661959"
+                    Point2="114.833333333333,15.7652250661959"
+                    Point3="114.833333333333,19.7652250661959" />
+                  <mssgle:LineSegment
+                    End="114.833333333333,31.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="42.1753190104167,20.7652250661959,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="532,174" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Sequence Container\AnniversaryRD Load">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml">
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Sequence Container\AnniversaryRD Load\Sort"
+          TopLeft="273.966666666667,184" />
+        <NodeLayout
+          Size="201,42"
+          Id="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm"
+          TopLeft="265.966666666667,3" />
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Sequence Container\AnniversaryRD Load\Insert date"
+          TopLeft="273.966666666667,89" />
+        <NodeLayout
+          Size="190,42"
+          Id="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination"
+          TopLeft="276.966666666667,277" />
+        <EdgeLayout
+          Id="Package\Sequence Container\AnniversaryRD Load.Paths[Sort Output]"
+          TopLeft="370.466666666667,226">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,51"
+              Start="0,0"
+              End="0,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\AnniversaryRD Load.Paths[OLE DB Source Output]"
+          TopLeft="367.716666666667,45">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,44"
+              Start="0,0"
+              End="0,36.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\AnniversaryRD Load.Paths[Derived Column Output]"
+          TopLeft="368.966666666667,131">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,53"
+              Start="0,0"
+              End="0,45.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,45.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\AnniversaryRD Load\OLE SRC - FactPolicyForm">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\AnniversaryRD Load\Anniversary Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

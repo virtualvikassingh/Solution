@@ -1,0 +1,3312 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="8/3/2015 4:02:18 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="MMVDIGWCV9006"
+  DTS:CreatorName="MMI\T162369"
+  DTS:DTSID="{3601E4AD-EFE8-413B-97AC-A33804CCD92E}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="EDW_PC_Load_DimProducer"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="123"
+  DTS:VersionGUID="{46036DDD-CBFD-4E8D-B837-27E2A1B592BC}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{F6F023C6-45C0-4324-8994-64E1685167A5}"
+      DTS:ObjectName="configBatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="IncrementDays"
+      DTS:ConfigurationVariable="\Package.Variables[User::IncrementDays].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{B97C4CDD-1B1D-4B5F-A7C0-70B11B63158B}"
+      DTS:ObjectName="configIncrementDays" />
+  </DTS:Configurations>
+  <DTS:PackageParameters>
+    <DTS:PackageParameter
+      DTS:CreationName=""
+      DTS:DataType="8"
+      DTS:DTSID="{30D3A55D-D2EF-44F5-AC02-8F690B595E3A}"
+      DTS:ObjectName="EDWDatabase">
+      <DTS:Property
+        DTS:DataType="8"
+        DTS:Name="ParameterValue">EDW</DTS:Property>
+    </DTS:PackageParameter>
+  </DTS:PackageParameters>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{8A652A24-079E-4BE0-B110-EB7D6B69072F}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="AgencySourceCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{839E9F04-FF86-4E21-A90A-021129F1BBEE}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{001CD7BC-8F8D-48A6-89B6-6DCBFB2B9ED3}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="GWSourceCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{5B4CB5B0-1D70-46B3-B30F-2AC4BC632ECC}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="-700"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="IncrementDays">
+      <DTS:VariableValue
+        DTS:DataType="3">-700</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{655CC6D4-C25C-4769-ACD5-25B1CDF4D37F}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{9C684754-6728-48FC-9662-C1D158F93660}"
+      DTS:EvaluateAsExpression="True"
+      DTS:Expression="@[User::GWSourceCount]+ @[User::AgencySourceCount]"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{AB661053-2328-4C72-9BB5-6A81C9C05FF3}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UnChangeCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{F791FA18-9C19-40FC-AB73-67C6D71805D4}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdateCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - DimProducer"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{3C3A15D2-E2EC-4618-ACE5-7A5879A6D2A8}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - DimProducer"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - DimProducer\CMD - Update DimProducer"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="CMD - Update DimProducer"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Update DimProducer 
+Set 
+County=?,
+BeanVersion = ?,
+IsActive = ?,
+BranchName = ?,
+BranchCode = ?,
+Status = ?,
+DateUpdated=getdate(),
+ProducerCode = ?,
+ProducerName = ?,
+AppointmentDate = ?,
+TerminationDate = ?,
+Phone        = ?
+,AddressLine1 = ?
+,AddressLine2 = ?
+,AddressLine3 = ?
+,City         = ?
+,State        = ?
+,PostalCode   = ?
+,Country = ?
+,AddressType = ?
+,BatchID=?
+,GWRowNumber=?
+where PublicID = ? 
+And LegacySourceSystem=?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimProducer\CMD - Update DimProducer.Connections[OleDbConnection]"
+                  connectionManagerID="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[IsActive]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[IsActive]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[Branch]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="Branch"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Branch]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[BranchCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="BranchCode"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[BranchCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[StatusDescription]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="512"
+                      cachedName="StatusDescription"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[StatusDescription]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[nCounty]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="nCounty"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nCounty]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[nProducerCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="nProducerCode"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nProducerCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[ProducerName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ProducerName"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[ProducerName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[AppointmentDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="AppointmentDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AppointmentDate]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[TerminationDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="TerminationDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[TerminationDate]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[Phone]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="Phone"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Phone]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[AddressLine1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="AddressLine1"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine1]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[AddressLine2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="AddressLine2"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine2]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[AddressLine3]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="AddressLine3"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine3]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[City]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[nState]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="nState"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nState]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[PostalCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="PostalCode"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_16]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PostalCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[Country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="Country"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_17]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Country]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[AddressType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="AddressType"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_18]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressType]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[LegacySourceSystem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LegacySourceSystem"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_22]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_21]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[GWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="GWRowNumber"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_20]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_19]"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="bool"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="Param_7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      dataType="dbTimeStamp"
+                      name="Param_8">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      dataType="dbTimeStamp"
+                      name="Param_9">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_10">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_11">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_12">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_13">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_14">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="Param_15">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="Param_16">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Param_17">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_18]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Param_18">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_19]"
+                      dataType="i2"
+                      name="Param_19">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_20]"
+                      dataType="i8"
+                      name="Param_20">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_21]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_21">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input].ExternalColumns[Param_22]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_22">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimProducer\CMD - Update DimProducer.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimProducer\CMD - Update DimProducer.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\CMD - Update DimProducer.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\CMD - Update DimProducer.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\CMD - Update DimProducer.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimProducer\CNT - GW Source Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - GW Source Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::GWSourceCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimProducer\CNT - GW Source Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimProducer\CNT - GW Source Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimProducer\CNT - GW Source Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimProducer\CNT - Insert  Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Insert  Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::InsertCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimProducer\CNT - Insert  Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimProducer\CNT - Insert  Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimProducer\CNT - Insert  Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimProducer\CNT - Unchanged"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Unchanged">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UnChangeCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimProducer\CNT - Unchanged.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimProducer\CNT - Unchanged.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimProducer\CNT - Unchanged.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimProducer\CNT - Update Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Update Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UpdateCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimProducer\CNT - Update Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimProducer\CNT - Update Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimProducer\CNT - Update Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimProducer\CSPL - Check Column Update"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="CSPL - Check Column Update"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - DimProducer\CSPL - Check Column Update.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CSPL - Check Column Update.Inputs[Conditional Split Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\CSPL - Check Column Update.Inputs[Conditional Split Input].Columns[EDW_BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="EDW_BeanVersion"
+                      lineageId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimProducer\CSPL - Check Column Update.Outputs[SameBeanVersion]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SameBeanVersion"
+                  synchronousInputId="Package\DFT - DimProducer\CSPL - Check Column Update.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[BeanVersion]} == #{Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">BeanVersion == EDW_BeanVersion</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimProducer\CSPL - Check Column Update.Outputs[Different BeanVersion]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Different BeanVersion"
+                  synchronousInputId="Package\DFT - DimProducer\CSPL - Check Column Update.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimProducer\CSPL - Check Column Update.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT - DimProducer\CSPL - Check Column Update.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\CSPL - Check Column Update.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\CSPL - Check Column Update.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\CSPL - Check Column Update.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\CSPL - Check Column Update.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimProducer\DC - PublicID"
+              componentClassID="Microsoft.DataConvert"
+              contactInfo="Data Conversion;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Data Conversion"
+              name="DC - PublicID"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - DimProducer\DC - PublicID.Inputs[Data Conversion Input]"
+                  name="Data Conversion Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\DC - PublicID.Inputs[Data Conversion Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimProducer\DC - PublicID.Outputs[Data Conversion Output]"
+                  exclusionGroup="1"
+                  name="Data Conversion Output"
+                  synchronousInputId="Package\DFT - DimProducer\DC - PublicID.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DC - PublicID.Outputs[Data Conversion Output].Columns[Copy of PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\DFT - DimProducer\DC - PublicID.Outputs[Data Conversion Output].Columns[Copy of PublicID]"
+                      name="Copy of PublicID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.Int32"
+                          description="Specifies the input column used as the source of data for the conversion."
+                          name="SourceInputColumnLineageID">#{Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PublicID]}</property>
+                        <property
+                          dataType="System.Boolean"
+                          description="Indicates whether the column uses the faster, locale-neutral parsing routines."
+                          name="FastParse">false</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimProducer\DC - PublicID.Outputs[Data Conversion Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Data Conversion Error Output"
+                  synchronousInputId="Package\DFT - DimProducer\DC - PublicID.Inputs[Data Conversion Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DC - PublicID.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\DC - PublicID.Outputs[Data Conversion Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DC - PublicID.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\DC - PublicID.Outputs[Data Conversion Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DRV - BatchID &amp; Legacy"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input].Columns[State]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="State"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[State]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input].Columns[ProducerCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ProducerCode"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[ProducerCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input].Columns[Branch]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="Branch"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Branch]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input].Columns[BranchCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="BranchCode"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[BranchCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input].Columns[County]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="County"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[County]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      name="BatchID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[User::BatchID]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[User::BatchID]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nState]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="2"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nState]"
+                      name="nState"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,2,1252)#{Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[State]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,2,1252)State</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nPublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nPublicID]"
+                      name="nPublicID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,50,1252)#{Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PublicID]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,50,1252)PublicID</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nProducerCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="50"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nProducerCode]"
+                      name="nProducerCode"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,50,1252)#{Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[ProducerCode]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,50,1252)ProducerCode</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nBranchCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="10"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nBranchCode]"
+                      name="nBranchCode"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,10,1252)#{Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[BranchCode]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,10,1252)BranchCode</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nBranchName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="30"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nBranchName]"
+                      name="nBranchName"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,30,1252)#{Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Branch]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,30,1252)Branch</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nCounty]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nCounty]"
+                      name="nCounty"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,100,1252)#{Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[County]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,100,1252)County</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[Date Added]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[Date Added]"
+                      name="Date Added"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">[GETDATE]()</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">GETDATE()</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimProducer\LKP - DimProducer"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - DimProducer"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select PublicID, BeanVersion from DimProducer</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select PublicID, BeanVersion from DimProducer) [refTable]
+where [refTable].[PublicID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PublicID" dataType="DT_STR" length="100" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="BeanVersion" dataType="DT_STR" length="30" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - DimProducer\374:invalid};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimProducer\LKP - DimProducer.Connections[OleDbConnection]"
+                  connectionManagerID="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimProducer\LKP - DimProducer.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\LKP - DimProducer.Inputs[Lookup Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PublicID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PublicID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - DimProducer\LKP - DimProducer.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="30"
+                      lineageId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup Match Output].Columns[EDW_BeanVersion]"
+                      name="EDW_BeanVersion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">BeanVersion</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - DimProducer\LKP - DimProducer.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - DimProducer\LKP - DimProducer.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE_DEST - Load DimProducer"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimProducer]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">2147483647</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Connections[OleDbConnection]"
+                  connectionManagerID="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[ProducerName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="255"
+                      cachedName="ProducerName"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[ProducerName]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[ProducerName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[Phone]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="Phone"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[Phone]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Phone]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[AddressLine1]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="AddressLine1"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[AddressLine1]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine1]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[AddressLine2]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="AddressLine2"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[AddressLine2]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine2]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[City]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="City"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[City]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[PostalCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="PostalCode"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[PostalCode]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PostalCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[Country]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="Country"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Country]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[GWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="GWRowNumber"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[AddressType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="AddressType"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[AddressType]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressType]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[IsActive]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[IsActive]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[TerminationDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="TerminationDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[TerminationDate]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[TerminationDate]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[AppointmentDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="AppointmentDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[AppointmentDate]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AppointmentDate]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[AddressLine3]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="60"
+                      cachedName="AddressLine3"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[AddressLine3]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine3]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[LegacySourceSystem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LegacySourceSystem"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[StatusName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="256"
+                      cachedName="StatusName"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[Status]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[StatusName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[nBranchCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="10"
+                      cachedName="nBranchCode"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[BranchCode]"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nBranchCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[nBranchName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="30"
+                      cachedName="nBranchName"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[BranchName]"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nBranchName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[nState]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="nState"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nState]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[nProducerCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="nProducerCode"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[ProducerCode]"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nProducerCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[Copy of PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="Copy of PublicID"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      lineageId="Package\DFT - DimProducer\DC - PublicID.Outputs[Data Conversion Output].Columns[Copy of PublicID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[nCounty]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="nCounty"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[County]"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nCounty]" />
+                    <inputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].Columns[Date Added]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="Date Added"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      lineageId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[Date Added]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[ProducerID]"
+                      dataType="i4"
+                      name="ProducerID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[DateUpdated]"
+                      dataType="dbTimeStamp"
+                      name="DateUpdated" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LegacySourceSystem" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      dataType="bool"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      dataType="i2"
+                      name="BatchID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[ProducerCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="ProducerCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[ProducerName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="ProducerName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[Status]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Status" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[AppointmentDate]"
+                      dataType="dbTimeStamp"
+                      name="AppointmentDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[TerminationDate]"
+                      dataType="dbTimeStamp"
+                      name="TerminationDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[Phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Phone" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[AddressLine1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="AddressLine1" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[AddressLine2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="AddressLine2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[AddressLine3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="AddressLine3" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[PostalCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="PostalCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[County]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="County" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[Country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[BranchName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="BranchName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[BranchCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="10"
+                      name="BranchCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input].ExternalColumns[AddressType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="AddressType" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE_SRC - pc_producercode"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT      pc.ID,
+	pc.Code AS ProducerCode,
+	pc.Description AS ProducerName,
+	ps.Name AS StatusName,
+	ps.DESCRIPTION as StatusDescription,
+	pa.Phone,
+	pa.AddressLine1,
+	pa.AddressLine2,
+	pa.AddressLine3,
+	pa.City,
+	st.TYPECODE as State,
+	pa.PostalCode,
+	pa.County,
+	adty.NAME as AddressType,
+	co.Name AS Country,
+	pc.AppointmentDate,
+	pc.TerminationDate,
+	pc.ID as GWRowNumber,
+	Case pc.Retired When '0' Then '1' else '0' End as IsActive,
+	cast(concat(pc.Beanversion,pa.Beanversion,grp.BeanVersion) as varchar(20)) as BeanVersion,
+	pc.PublicID,
+	grp.Name as Branch,
+	grp.BranchCode,
+'WC' as LegacySourceSystem
+
+FROM
+	dbo.pc_producercode pc WITH(NOLOCK)
+	LEFT OUTER JOIN dbo.pctl_producerstatus ps WITH(NOLOCK) ON pc.ProducerStatus = ps.ID
+	LEFT OUTER JOIN dbo.pc_address pa WITH(NOLOCK) ON pc.AddressID = pa.ID
+	LEFT OUTER JOIN dbo.pctl_country co WITH(NOLOCK) ON pa.Country = co.ID
+	LEFT OUTER JOIN dbo.pctl_State st WITH(NOLOCK) ON pa.State= st.ID
+	LEFT OUTER JOIN dbo.pc_group grp WITH(NOLOCK) ON pc.BranchID = grp.id
+	LEFT OUTER JOIN dbo.pctl_addresstype adty WITH(NOLOCK) ON pa.AddressType = adty.ID
+WHERE (
+	pc.UpdateTime &gt;= dateadd(d,?,getdate())
+	OR 
+	pa.UpdateTime &gt;= dateadd(d,?,getdate())
+	OR 
+	grp.UpdateTime &gt;= dateadd(d,?,getdate())
+	)</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{5B4CB5B0-1D70-46B3-B30F-2AC4BC632ECC};"Parameter1:Input",{5B4CB5B0-1D70-46B3-B30F-2AC4BC632ECC};"Parameter2:Input",{5B4CB5B0-1D70-46B3-B30F-2AC4BC632ECC};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Connections[OleDbConnection]"
+                  connectionManagerID="{70687BDC-7B33-47E9-9302-7945B152A0B2}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[GWStaging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[ProducerCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[ProducerCode]"
+                      length="255"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[ProducerCode]"
+                      name="ProducerCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[ProducerName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[ProducerName]"
+                      length="255"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[ProducerName]"
+                      name="ProducerName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[StatusDescription]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[StatusDescription]"
+                      length="512"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[StatusDescription]"
+                      name="StatusDescription"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Phone]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[Phone]"
+                      length="30"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Phone]"
+                      name="Phone"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine1]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[AddressLine1]"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine1]"
+                      name="AddressLine1"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine2]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[AddressLine2]"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine2]"
+                      name="AddressLine2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine3]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[AddressLine3]"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressLine3]"
+                      name="AddressLine3"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[City]"
+                      name="City"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      length="50"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[State]"
+                      name="State"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PostalCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[PostalCode]"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PostalCode]"
+                      name="PostalCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[County]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[County]"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[County]"
+                      name="County"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Country]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      length="256"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Country]"
+                      name="Country"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AppointmentDate]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[AppointmentDate]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AppointmentDate]"
+                      name="AppointmentDate"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[TerminationDate]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[TerminationDate]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[TerminationDate]"
+                      name="TerminationDate"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      length="64"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      name="PublicID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      length="20"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      name="BeanVersion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      length="1"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      name="IsActive"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      name="GWRowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Branch]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[Branch]"
+                      length="100"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[Branch]"
+                      name="Branch"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[BranchCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[BranchCode]"
+                      length="255"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[BranchCode]"
+                      name="BranchCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[ID]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[ID]"
+                      name="ID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[StatusName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[StatusName]"
+                      length="256"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[StatusName]"
+                      name="StatusName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[AddressType]"
+                      length="256"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[AddressType]"
+                      name="AddressType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                      length="2"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                      name="LegacySourceSystem"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[ProducerCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="ProducerCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[ProducerName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="ProducerName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[StatusDescription]"
+                      codePage="1252"
+                      dataType="str"
+                      length="512"
+                      name="StatusDescription" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[Phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="Phone" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[AddressLine1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="AddressLine1" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[AddressLine2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="AddressLine2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[AddressLine3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="AddressLine3" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="City" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="State" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[PostalCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="PostalCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[County]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      name="County" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[Country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="Country" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[AppointmentDate]"
+                      dataType="dbTimeStamp2"
+                      name="AppointmentDate"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[TerminationDate]"
+                      dataType="dbTimeStamp2"
+                      name="TerminationDate"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[Branch]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Branch" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[BranchCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      name="BranchCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[ID]"
+                      dataType="i8"
+                      name="ID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[StatusName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="StatusName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[AddressType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      name="AddressType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="LegacySourceSystem" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[ProducerCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[ProducerCode]"
+                      name="ProducerCode" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[ProducerName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[ProducerName]"
+                      name="ProducerName" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[StatusDescription]"
+                      codePage="1252"
+                      dataType="str"
+                      length="512"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[StatusDescription]"
+                      name="StatusDescription" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[Phone]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[Phone]"
+                      name="Phone" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[AddressLine1]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[AddressLine1]"
+                      name="AddressLine1" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[AddressLine2]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[AddressLine2]"
+                      name="AddressLine2" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[AddressLine3]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[AddressLine3]"
+                      name="AddressLine3" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[City]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[City]"
+                      name="City" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[State]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[State]"
+                      name="State" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[PostalCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[PostalCode]"
+                      name="PostalCode" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[County]"
+                      codePage="1252"
+                      dataType="str"
+                      length="60"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[County]"
+                      name="County" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[Country]"
+                      name="Country" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[AppointmentDate]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[AppointmentDate]"
+                      name="AppointmentDate"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[TerminationDate]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[TerminationDate]"
+                      name="TerminationDate"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      name="PublicID" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      name="BeanVersion" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      name="IsActive" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      name="GWRowNumber" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[Branch]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[Branch]"
+                      name="Branch" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[BranchCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="255"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[BranchCode]"
+                      name="BranchCode" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      dataType="i8"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[ID]"
+                      name="ID" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                      name="LegacySourceSystem" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[StatusName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[StatusName]"
+                      name="StatusName" />
+                    <outputColumn
+                      refId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[AddressType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="256"
+                      lineageId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Error Output].Columns[AddressType]"
+                      name="AddressType" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - DimProducer.Paths[Data Conversion Output]"
+              endId="Package\DFT - DimProducer\CNT - GW Source Count.Inputs[Row Count Input 1]"
+              name="Data Conversion Output"
+              startId="Package\DFT - DimProducer\DC - PublicID.Outputs[Data Conversion Output]" />
+            <path
+              refId="Package\DFT - DimProducer.Paths[Derived Column Output]"
+              endId="Package\DFT - DimProducer\LKP - DimProducer.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - DimProducer.Paths[Lookup Match Output]"
+              endId="Package\DFT - DimProducer\CSPL - Check Column Update.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - DimProducer.Paths[Lookup No Match Output]"
+              endId="Package\DFT - DimProducer\CNT - Insert  Count.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\DFT - DimProducer\LKP - DimProducer.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\DFT - DimProducer.Paths[OLE DB Source Output]"
+              endId="Package\DFT - DimProducer\DC - PublicID.Inputs[Data Conversion Input]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - DimProducer\OLE_SRC - pc_producercode.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT - DimProducer.Paths[Row Count Output 1]"
+              endId="Package\DFT - DimProducer\CMD - Update DimProducer.Inputs[OLE DB Command Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - DimProducer\CNT - Update Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - DimProducer.Paths[Row Count Output 11]"
+              endId="Package\DFT - DimProducer\OLE_DEST - Load DimProducer.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - DimProducer\CNT - Insert  Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - DimProducer.Paths[Row Count Output 12]"
+              endId="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - DimProducer\CNT - GW Source Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - DimProducer.Paths[SameBeanVersion]"
+              endId="Package\DFT - DimProducer\CNT - Unchanged.Inputs[Row Count Input 1]"
+              name="SameBeanVersion"
+              startId="Package\DFT - DimProducer\CSPL - Check Column Update.Outputs[SameBeanVersion]" />
+            <path
+              refId="Package\DFT - DimProducer.Paths[Type 1]"
+              endId="Package\DFT - DimProducer\CNT - Update Count.Inputs[Row Count Input 1]"
+              name="Type 1"
+              startId="Package\DFT - DimProducer\CSPL - Check Column Update.Outputs[Different BeanVersion]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{60AFC0F3-B5B7-4D2A-BD17-35384FD2963E}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="200" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{E9E83515-4834-446C-9804-6AD005112255}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{A14D5C57-D905-4F9E-9132-709AB89AA89C}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{4F5B6A89-8A8A-4633-8AAB-8D7383E52359}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\DFT - DimProducer" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{217CD9C4-6241-4D5C-BF6D-181EBBA94825}"
+      DTS:From="Package\DFT - DimProducer"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\SQL - Conclude Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{578A37FF-584D-4324-A2E4-D934AE4BD3FD}"
+      DTS:From="Package\DFT - DimProducer"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SQL - Conclude Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{64E8CAED-3740-4207-B0CA-F0A0706F9F4D}"
+      DTS:EventID="637224204"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{35A45110-260E-466B-87D6-97BE1253AF74}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{7502CC18-AC7D-4CCC-B55B-ABB1DD6F5AFE}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{9387D1FB-F77C-4D2E-8130-0C2928FEFD61}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="179,42"
+          Id="Package\DFT - DimProducer"
+          TopLeft="239.5,192" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\SQL - Conclude Process Completed"
+          TopLeft="136,309" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\SQL - Conclude Process Failed"
+          TopLeft="348,309" />
+        <NodeLayout
+          Size="179,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="239.5,100" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="329,142">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,50"
+              Start="0,0"
+              End="0,42.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,42.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="300.5,234">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-75,75"
+              Start="0,0"
+              End="-75,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.3986710963455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.3986710963455"
+                    Point2="0,30.3986710963455"
+                    Point3="-4,30.3986710963455" />
+                  <mssgle:LineSegment
+                    End="-71,30.3986710963455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-71,30.3986710963455"
+                    Point2="-75,30.3986710963455"
+                    Point3="-75,34.3986710963455" />
+                  <mssgle:LineSegment
+                    End="-75,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="357.5,234">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="80,75"
+              Start="0,0"
+              End="80,67.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.3986710963455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.3986710963455"
+                    Point2="0,30.3986710963455"
+                    Point3="4,30.3986710963455" />
+                  <mssgle:LineSegment
+                    End="76,30.3986710963455" />
+                  <mssgle:CubicBezierSegment
+                    Point1="76,30.3986710963455"
+                    Point2="80,30.3986710963455"
+                    Point3="80,34.3986710963455" />
+                  <mssgle:LineSegment
+                    End="80,67.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="24.75865234375,35.3986710963455,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="231,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="477,141" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\DFT - DimProducer">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - DimProducer\DC - PublicID"
+          TopLeft="244,208.805555555556" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - DimProducer\CNT - GW Source Count"
+          TopLeft="244,294.444444444445" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - DimProducer\CSPL - Check Column Update"
+          TopLeft="560.567460317457,473" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - DimProducer\OLE_DEST - Load DimProducer"
+          TopLeft="244,637" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - DimProducer\OLE_SRC - pc_producercode"
+          TopLeft="244,123.166666666667" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - DimProducer\CNT - Update Count"
+          TopLeft="555.888888888885,558.833333333334" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - DimProducer\CNT - Unchanged"
+          TopLeft="563.888888888886,377.666666666667" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - DimProducer\LKP - DimProducer"
+          TopLeft="244,465.722222222222" />
+        <NodeLayout
+          Size="209,42"
+          Id="Package\DFT - DimProducer\CMD - Update DimProducer"
+          TopLeft="570.888888888885,625.166666666667" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - DimProducer\DRV - BatchID &amp; Legacy"
+          TopLeft="244,380.083333333334" />
+        <NodeLayout
+          Size="227,42"
+          Id="Package\DFT - DimProducer\CNT - Insert  Count"
+          TopLeft="244,551.361111111111" />
+        <EdgeLayout
+          Id="Package\DFT - DimProducer.Paths[OLE DB Source Output]"
+          TopLeft="357.5,165.166666666667">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.6388888888888"
+              Start="0,0"
+              End="0,36.1388888888888">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.1388888888888" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimProducer.Paths[Lookup No Match Output]"
+          TopLeft="357.5,507.722222222222">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.6388888888888"
+              Start="0,0"
+              End="0,36.1388888888888">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.1388888888888" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,12.2647569444444,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimProducer.Paths[Lookup Match Output]"
+          TopLeft="471,490.361111111111">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="89.5674603174569,0"
+              Start="0,0"
+              End="82.0674603174569,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="82.0674603174569,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-7.15765656002155,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimProducer.Paths[Derived Column Output]"
+          TopLeft="357.5,422.083333333334">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.6388888888889"
+              Start="0,0"
+              End="0,36.1388888888889">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.1388888888889" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimProducer.Paths[Data Conversion Output]"
+          TopLeft="357.5,250.805555555556">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.6388888888889"
+              Start="0,0"
+              End="0,36.1388888888889">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.1388888888889" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimProducer.Paths[Type 1]"
+          TopLeft="671.728174603171,515">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.8333333333339"
+              Start="0,0"
+              End="0,36.3333333333339">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.3333333333339" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.40193359375,13.2677408854169,96.8038671875,9.7978515625"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimProducer.Paths[SameBeanVersion]"
+          TopLeft="675.728174603172,473">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,-53.333333333333"
+              Start="0,0"
+              End="0,-45.833333333333">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,-45.833333333333" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-40.02259765625,-27.6935221354165,80.0451953125,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimProducer.Paths[Row Count Output 12]"
+          TopLeft="357.5,336.444444444445">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.6388888888889"
+              Start="0,0"
+              End="0,36.1388888888889">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.1388888888889" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimProducer.Paths[Row Count Output 11]"
+          TopLeft="357.5,593.361111111111">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,43.6388888888888"
+              Start="0,0"
+              End="0,36.1388888888888">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,36.1388888888888" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimProducer.Paths[Row Count Output 1]"
+          TopLeft="672.388888888885,600.833333333334">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,24.3333333333329"
+              Start="0,0"
+              End="0,16.8333333333329">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.8333333333329" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimProducer\OLE_DEST - Load DimProducer">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimProducer\OLE_SRC - pc_producercode">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimProducer\LKP - DimProducer">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

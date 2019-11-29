@@ -1,0 +1,1477 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/26/2016 5:51:15 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\vikas.singh"
+  DTS:DTSID="{D8ED7236-D5A0-4271-BBDC-6AA3FEE51E0D}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCPOLS_Load_OuterContinentalShelfLandsAct"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="230"
+  DTS:VersionGUID="{83F58948-3A64-49DD-8E51-641458146C2C}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{DC40D8D0-2E1C-471E-AD85-2561E47006F4}"
+      DTS:ObjectName="BatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="StartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::StartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{213717F1-16D2-40B8-9B9B-0E269F0E9085}"
+      DTS:ObjectName="StartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="EndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::EndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{1C1BD9A5-C092-4C42-BFE4-0B66C2303E51}"
+      DTS:ObjectName="EndDate" />
+  </DTS:Configurations>
+  <DTS:LogProviders>
+    <DTS:LogProvider
+      DTS:ConfigString="EnterpriseDataWarehouse"
+      DTS:CreationName="Microsoft.LogProviderSQLServer"
+      DTS:Description="Writes log entries for events to a SQL Server database"
+      DTS:DTSID="{8C42E047-72E8-4F66-A08E-93B95B883F21}"
+      DTS:ObjectName="SSIS log provider for SQL Server">
+      <DTS:ObjectData>
+        <InnerObject />
+      </DTS:ObjectData>
+    </DTS:LogProvider>
+  </DTS:LogProviders>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E8F03AD0-DDEC-4113-87BD-D13307F07EC6}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{DEAE547F-C1EF-452C-89F4-74FD038A59E6}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="EndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">3/6/2017 7:10:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{0676A739-9807-4C09-85F5-93A69D4B92AB}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">12/1/2016 12:18:00 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:LoggingOptions
+    DTS:FilterKind="0">
+    <DTS:Property
+      DTS:DataType="8"
+      DTS:Name="EventFilter">2,7,OnError,12,OnTaskFailed</DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnError"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:Property
+      DTS:EventName="OnTaskFailed"
+      DTS:Name="ColumnFilter">
+      <DTS:Property
+        DTS:Name="Computer">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="Operator">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceName">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="SourceID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="ExecutionID">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="MessageText">-1</DTS:Property>
+      <DTS:Property
+        DTS:Name="DataBytes">-1</DTS:Property>
+    </DTS:Property>
+    <DTS:SelectedLogProviders>
+      <DTS:SelectedLogProvider
+        DTS:InstanceID="{8C42E047-72E8-4F66-A08E-93B95B883F21}" />
+    </DTS:SelectedLogProviders>
+  </DTS:LoggingOptions>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{81F31E73-72C8-4389-93EB-B8DC66C24CE4}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{BAC4804D-916F-40FD-A6A5-DF72A223705A}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\Process Failed.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{0871E2E2-A305-4D64-969A-2D591D2CA3BB}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{F009C168-340B-4CBF-ACF1-8A22F1C7F769}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="&#xA;Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Sequence Container"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{78A3E4DC-96EF-46EA-82B8-4126DE641643}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Sequence Container">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{2082186F-F149-4209-BE84-ADA0D51C5031}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load WCPOLS_OuterContinentalShelfLandsAct"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:LoggingOptions
+            DTS:FilterKind="0" />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup StateCode"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select distinct Left(StateCode,2) State_Code, StateAbbr from lkp.lkp_state</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (Select distinct Left(StateCode,2) State_Code, StateAbbr from lkp.lkp_state) [refTable]
+where [refTable].[StateAbbr] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="State_Code" dataType="DT_STR" length="2" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="StateAbbr" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyState]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Inputs[Lookup Input].Columns[PolicyState]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="PolicyState"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyState]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">StateAbbr</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="FailComponent"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Outputs[Lookup Match Output].Columns[State_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Outputs[Lookup Match Output].Columns[State_Code]"
+                          name="State_Code"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">State_Code</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="OLE_DEST WCPOLS"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[WCPOLS_OuterContinentalShelfLandsAct]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 1000</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">1000</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[PolicyId]"
+                          cachedDataType="i4"
+                          cachedName="PolicyId"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyId]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[State_Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="State_Code"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[State_Code]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Outputs[Lookup Match Output].Columns[State_Code]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="PolicyNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[PolicyState]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="PolicyState"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyState]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[EndorsementNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="8"
+                          cachedName="EndorsementNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Number]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[BureauVersionIdentifier]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="BureauVersionIdentifier"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Bureau_Version_Identifier]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[CarrierVersionIdentifier]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="11"
+                          cachedName="CarrierVersionIdentifier"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Version_Identifier]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[CarrierVersionIdentifier]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[NameOfInsured]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="34"
+                          cachedName="NameOfInsured"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Insured]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[EndorsementEffectiveDate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="EndorsementEffectiveDate"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[RecordTypeCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="RecordTypeCode"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[RecordTypeCode]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[InsertDate]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="InsertDate"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[InsertDate]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[EndorsementSequenceNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="EndorsementSequenceNumber"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[EndorsementSequenceNumber]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementSequenceNumber]" />
+                        <inputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].Columns[WorkDescription]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="120"
+                          cachedName="WorkDescription"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Work_Description]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[WorkDescription]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="Policy_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Policy_State" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[State_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="State_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="Endorsement_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Bureau_Version_Identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Bureau_Version_Identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Carrier_Version_Identifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="11"
+                          name="Carrier_Version_Identifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Insured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="Name_Of_Insured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          dataType="dbTimeStamp"
+                          name="Insert_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="dbTimeStamp"
+                          name="Update_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Endorsement_Effective_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Endorsement_Effective_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Record_Type_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[EndorsementSequenceNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="EndorsementSequenceNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[Work_Description]"
+                          codePage="1252"
+                          dataType="str"
+                          length="120"
+                          name="Work_Description" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input].ExternalColumns[OuterContinentalShelfLandsAct_ID]"
+                          dataType="i8"
+                          name="OuterContinentalShelfLandsAct_ID" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="OLE_SRC WCPolicyEndorsement"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset"></property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select 
+	p.PolicyId
+	,Left(ISNULL(p.PolicyNumber,Replicate(' ',18)),18) PolicyNumber
+	,Left(ISNULL(p.BaseState,Replicate(' ',2)),2) PolicyState
+	,GetDate() InsertDate
+	,'20' RecordTypeCode
+	,'WC000109' EndorsementNumber
+	,IIF(Len(f.FormNumber) &gt; 11, Right(f.FormNumber,1),' ') BureauVersionIdentifier
+	,Replicate (' ',11) CarrierVersionIdentifier
+	,cast(pe.EndorsementValue2 as varchar(120)) as WorkDescription
+	,right('00'+cast(isnull(pe.ScheduleNumber,'01') as varchar(2)),2) as EndorsementSequenceNumber
+	,Left(ISNULL(p.PrimaryInsuredName,Replicate(' ',34)),34) NameOfInsured
+	,ISNULL(Right(Convert(varchar(10),pf.EndorsementEffectiveDate ,112),6),'000000') EndorsementEffectiveDate
+From WCPolicyEndorsement pe
+	Inner Join DimPolicy p on pe.PolicyID = p.PolicyID
+	Inner join FactPolicyForm pf on p.PolicyID = pf.PolicyID
+	Inner Join DimForm f on pf.FormID = f.FormID
+		--05 OCT - VS - Added join on DimState to use IsNCCI column. This column is replacing all the NCCI States e.g. IN, VA, CT, IL etc.
+	Left join DimState ds on p.BaseState = ds.StateAbbr
+Where (
+		(p.TransactionType in ('Submission' ,'Policy Change','Rewrite') and (cast(p.JobUpdateTime as date) &gt; ? and cast(p.JobUpdateTime as date) &lt;= ?)) OR
+		(p.TransactionType ='Renewal' and p.eventname='SendNonRenewalDocuments' and p.BaseState='MI'and (cast(p.JobUpdateTime as date) &gt;DATEADD(day, -1, convert(date,?)) and cast(p.JobUpdateTime as date) &lt;=DATEADD(day, -1, convert(date,?)))) OR
+		(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname is null) OR
+		(cast(p.JobUpdateTime as date) &gt;? and cast(p.JobUpdateTime as date) &lt;=? and p.transactiontype='Renewal' and p.eventname='SendNonRenewalDocuments' and ds.IsNCCI = 1 /*p.BaseState = 'IN'*/)
+	)
+	and PolicyStatus = 'Bound'
+	and pe.PatternCode = 'WC7OuterContinentalShelfLandsActCoverageEndorsement_Ext'
+	and f.FormNumber like 'WC 00 01 09%'</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{0676A739-9807-4C09-85F5-93A69D4B92AB};"Parameter1:Input",{DEAE547F-C1EF-452C-89F4-74FD038A59E6};"Parameter2:Input",{0676A739-9807-4C09-85F5-93A69D4B92AB};"Parameter3:Input",{DEAE547F-C1EF-452C-89F4-74FD038A59E6};"Parameter4:Input",{0676A739-9807-4C09-85F5-93A69D4B92AB};"Parameter5:Input",{DEAE547F-C1EF-452C-89F4-74FD038A59E6};"Parameter6:Input",{0676A739-9807-4C09-85F5-93A69D4B92AB};"Parameter7:Input",{DEAE547F-C1EF-452C-89F4-74FD038A59E6};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyId]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyId]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyId]"
+                          name="PolicyId"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[PolicyState]"
+                          name="PolicyState"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementNumber]"
+                          length="8"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementNumber]"
+                          name="EndorsementNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[BureauVersionIdentifier]"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[BureauVersionIdentifier]"
+                          name="BureauVersionIdentifier"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[NameOfInsured]"
+                          length="34"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[NameOfInsured]"
+                          name="NameOfInsured"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[CarrierVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[CarrierVersionIdentifier]"
+                          length="11"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[CarrierVersionIdentifier]"
+                          name="CarrierVersionIdentifier"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementEffectiveDate]"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementEffectiveDate]"
+                          name="EndorsementEffectiveDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[InsertDate]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[InsertDate]"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[InsertDate]"
+                          name="InsertDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[RecordTypeCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCode]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[RecordTypeCode]"
+                          name="RecordTypeCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementSequenceNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementSequenceNumber]"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[EndorsementSequenceNumber]"
+                          name="EndorsementSequenceNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[WorkDescription]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[WorkDescription]"
+                          length="120"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].Columns[WorkDescription]"
+                          name="WorkDescription"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyId]"
+                          dataType="i4"
+                          name="PolicyId" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="PolicyState" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          name="EndorsementNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="BureauVersionIdentifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          name="NameOfInsured" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[CarrierVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="11"
+                          name="CarrierVersionIdentifier" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="EndorsementEffectiveDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[InsertDate]"
+                          dataType="dbTimeStamp"
+                          name="InsertDate" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[RecordTypeCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RecordTypeCode" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[EndorsementSequenceNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="EndorsementSequenceNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output].ExternalColumns[WorkDescription]"
+                          codePage="1252"
+                          dataType="str"
+                          length="120"
+                          name="WorkDescription" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyId]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyId]"
+                          name="PolicyId" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          name="PolicyNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[PolicyState]"
+                          name="PolicyState" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="8"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementNumber]"
+                          name="EndorsementNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[BureauVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[BureauVersionIdentifier]"
+                          name="BureauVersionIdentifier" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[NameOfInsured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="34"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[NameOfInsured]"
+                          name="NameOfInsured" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[WorkDescription]"
+                          codePage="1252"
+                          dataType="str"
+                          length="120"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[WorkDescription]"
+                          name="WorkDescription" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementSequenceNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementSequenceNumber]"
+                          name="EndorsementSequenceNumber" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[CarrierVersionIdentifier]"
+                          codePage="1252"
+                          dataType="str"
+                          length="11"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[CarrierVersionIdentifier]"
+                          name="CarrierVersionIdentifier" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementEffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[EndorsementEffectiveDate]"
+                          name="EndorsementEffectiveDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[InsertDate]"
+                          dataType="dbTimeStamp"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[InsertDate]"
+                          name="InsertDate" />
+                        <outputColumn
+                          refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[RecordTypeCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Error Output].Columns[RecordTypeCode]"
+                          name="RecordTypeCode" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct.Paths[Lookup Match Output]"
+                  endId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS.Inputs[OLE DB Destination Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct.Paths[OLE DB Source Output]"
+                  endId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{235562D3-7A31-4498-B968-A341F080EFE9}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{2782ABF5-57ED-4FCA-A474-5434FBBD17E0}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Sequence Container" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{C51410AD-7E09-4A71-A70B-50CF731BF954}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{3BE5302A-2328-445E-8927-512E0F33865A}"
+      DTS:From="Package\Sequence Container"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{6D0567CA-A78C-42C6-AD60-9AA345669757}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{8531E85B-3128-4E4F-9CE0-6BED12B69EE1}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{5195B0E3-B9BA-488C-AC98-666E3E71DF56}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Process Completed"
+          TopLeft="251,407" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Process Failed"
+          TopLeft="557,413" />
+        <NodeLayout
+          Size="314,42"
+          Id="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct"
+          TopLeft="33,25" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="352,123"
+          Size="352,166"
+          Id="Package\Sequence Container"
+          TopLeft="332,170.5" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="424,88" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="510.25,130">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,40.5"
+              Start="0,0"
+              End="0,33">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="433.666666666667,336.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-98.6666666666666,70.5"
+              Start="0,0"
+              End="-98.6666666666666,63">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,24.4236615994712" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,24.4236615994712"
+                    Point2="0,28.4236615994712"
+                    Point3="-4,28.4236615994712" />
+                  <mssgle:LineSegment
+                    End="-94.6666666666666,28.4236615994712" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-94.6666666666666,28.4236615994712"
+                    Point2="-98.6666666666666,28.4236615994712"
+                    Point3="-98.6666666666666,32.4236615994712" />
+                  <mssgle:LineSegment
+                    End="-98.6666666666666,63" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="531.333333333333,336.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="98.1666666666667,76.5"
+              Start="0,0"
+              End="98.1666666666667,69">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,26.8426966292135" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,26.8426966292135"
+                    Point2="0,30.8426966292135"
+                    Point3="4,30.8426966292135" />
+                  <mssgle:LineSegment
+                    End="94.1666666666667,30.8426966292135" />
+                  <mssgle:CubicBezierSegment
+                    Point1="94.1666666666667,30.8426966292135"
+                    Point2="98.1666666666667,30.8426966292135"
+                    Point3="98.1666666666667,34.8426966292135" />
+                  <mssgle:LineSegment
+                    End="98.1666666666667,69" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="33.8419856770834,35.8426966292135,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="532,174" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="231,42"
+          Id="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS"
+          TopLeft="111.5,207.5" />
+        <NodeLayout
+          Size="231,42"
+          Id="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement"
+          TopLeft="111.5,17.5" />
+        <NodeLayout
+          Size="231,42"
+          Id="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode"
+          TopLeft="111.5,106.5" />
+        <EdgeLayout
+          Id="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct.Paths[OLE DB Source Output]"
+          TopLeft="227,59.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,47"
+              Start="0,0"
+              End="0,39.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,39.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct.Paths[Lookup Match Output]"
+          TopLeft="227,148.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,59"
+              Start="0,0"
+              End="0,51.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,51.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,19.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_DEST WCPOLS">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\OLE_SRC WCPolicyEndorsement">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Sequence Container\Load WCPOLS_OuterContinentalShelfLandsAct\Lookup StateCode">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

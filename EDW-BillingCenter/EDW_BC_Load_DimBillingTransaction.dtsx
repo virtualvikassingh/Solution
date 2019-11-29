@@ -1,0 +1,3121 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="10/22/2015 3:09:14 PM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="MM643VAMUDW7"
+  DTS:CreatorName="MMI\t159079"
+  DTS:DTSID="{80F68EB8-EFB0-4144-ABC0-0C5938868B02}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="EDW_BC_Load_DimBillingTransaction"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="76"
+  DTS:VersionGUID="{367EF6AE-FF90-4CEB-B4A0-7F1E2D85EAEC}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{AF50F6BD-46D4-40AA-938E-82CE0C20EF2C}"
+      DTS:ObjectName="ConfigBatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="IncrementDays"
+      DTS:ConfigurationVariable="\Package.Variables[User::IncrementDays].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{C99EB279-254B-4363-8A39-2D79B886FDD7}"
+      DTS:ObjectName="configIncrementDays" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{6A03D93F-E93D-409B-A3B5-4B5FEE51D0C4}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{FAB12F57-4C4A-4BF0-A915-3FE20654A691}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="IncrementDays">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{3B0DF90B-EA74-4317-BE82-8F308A8F5FA6}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="InsertCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{D10FE2C4-5493-4312-9F4A-8197DA3DDBF1}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="SourceCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{1309EA58-8D60-4B7A-9E45-29918B57A9DC}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UnChangeCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{E79B465B-AB22-4559-A8C0-4A68EF74F32D}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="UpdateCount">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\DFT - DimBillingTransaction"
+      DTS:CreationName="Microsoft.Pipeline"
+      DTS:Description="Data Flow Task"
+      DTS:DTSID="{fee069e9-87e5-4dec-9b2c-115fc554c399}"
+      DTS:ExecutableType="Microsoft.Pipeline"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="DFT - DimBillingTransaction"
+      DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) 2007 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <pipeline
+          version="1">
+          <components>
+            <component
+              refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction"
+              componentClassID="Microsoft.OLEDBCommand"
+              contactInfo="OLE DB Command;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;2"
+              description="Runs an SQL statement for each row in a data flow. For example, call a 'new employee setup' stored procedure for each row in the 'new employees' table. Note: running an SQL statement for each row of a large data flow may take a long time."
+              name="CMD - Update DimBillingTransaction"
+              usesDispositions="true"
+              version="2">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">
+UPDATE DimBillingTransaction
+SET
+DateUpdated	= getdate()
+,BeanVersion				   = ?
+,IsActive					   = ?
+,TransactionDate			   = ?
+,TransactionAmount			   = ?
+,LedgersideName				   = ?
+,TransactionTypeCode		   = ?
+,TransactionType			   = ?
+,TransactionNumber			   = ?
+,TAccountName				   = ?
+,TAccountSubType			   = ?
+,TAccountPatternType		   = ?
+,TransactionTransferReason	   = ?
+,TransactionReversalReason	   = ?
+,LedgerIndicator			   = ?
+,TransactionReversalIndicator  = ?
+,TAccountOwner				   = ?
+,ChargeCode                    = ?
+,ChargeContext                 = ?
+,TransactionEffectiveDate      = ?
+,BatchID					   = ?
+,GWRowNumber				   = ?
+,TransactionDescription		   = ? 
+,WriteOffReason				   = ?
+,ChargeCategory = ?
+
+WHERE PublicID = ?
+And LegacySourceSystem = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Connections[OleDbConnection]"
+                  connectionManagerID="{DE34D863-C211-4981-929A-131709C0B169}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input]"
+                  errorOrTruncationOperation="Command Execution"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Command Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[IsActive]"
+                      cachedDataType="i4"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[IsActive]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TransactionDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="TransactionDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionDate]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TransactionAmount]"
+                      cachedDataType="numeric"
+                      cachedName="TransactionAmount"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionAmount]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[LedgersideName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="LedgersideName"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LedgersideName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TransactionTypeCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="TransactionTypeCode"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTypeCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TransactionTYPE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TransactionTYPE"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTYPE]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TransactionNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TransactionNumber"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TAccountName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="512"
+                      cachedName="TAccountName"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TAccountSubType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TAccountSubType"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountSubType]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TAccountPatternType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TAccountPatternType"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountPatternType]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TransactionTransferReason]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TransactionTransferReason"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTransferReason]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TransactionReversalReason]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TransactionReversalReason"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionReversalReason]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[LedgerIndicator]"
+                      cachedDataType="i4"
+                      cachedName="LedgerIndicator"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LedgerIndicator]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TransactionReversalIndicator]"
+                      cachedDataType="i4"
+                      cachedName="TransactionReversalIndicator"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionReversalIndicator]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TAccountOwner]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="TAccountOwner"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountOwner]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[ChargeCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ChargeCode"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_16]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[ChargeContext]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ChargeContext"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_17]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeContext]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TransactionEffectiveDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="TransactionEffectiveDate"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_18]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionEffectiveDate]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_19]"
+                      lineageId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[GWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="GWRowNumber"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_20]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[TransactionDescription]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1333"
+                      cachedName="TransactionDescription"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_21]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionDescription]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[WriteOffReason]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="WriteOffReason"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_22]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[WriteOffReason]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[ChargeCategory]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ChargeCategory"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_23]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeCategory]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_24]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].Columns[LegacySourceSystem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LegacySourceSystem"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_25]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_0]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="Param_0">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">1073741889</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_1]"
+                      dataType="bool"
+                      name="Param_1">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_2]"
+                      dataType="dbTimeStamp"
+                      name="Param_2">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_3]"
+                      dataType="cy"
+                      name="Param_3">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_4]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_4">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_5]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_5">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">1073741889</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_6]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_6">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_7]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_7">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_8]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_8">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_9]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_9">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_10]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_10">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_11]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_11">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_12]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="Param_12">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_13]"
+                      dataType="bool"
+                      name="Param_13">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_14]"
+                      dataType="bool"
+                      name="Param_14">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_15]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_15">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_16]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_16">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_17]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_17">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_18]"
+                      dataType="dbTimeStamp"
+                      name="Param_18">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_19]"
+                      dataType="i8"
+                      name="Param_19">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_20]"
+                      dataType="i8"
+                      name="Param_20">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">81</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_21]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1333"
+                      name="Param_21">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_22]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_22">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_23]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="Param_23">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_24]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="Param_24">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input].ExternalColumns[Param_25]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="Param_25">
+                      <properties>
+                        <property
+                          dataType="System.Int32"
+                          description="Parameter information.  Matches OLE DB's DBPARAMFLAGSENUM values."
+                          name="DBParamInfoFlags">65</property>
+                      </properties>
+                    </externalMetadataColumn>
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Outputs[OLE DB Command Output]"
+                  exclusionGroup="1"
+                  name="OLE DB Command Output"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Outputs[OLE DB Command Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Command Error Output"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Outputs[OLE DB Command Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Outputs[OLE DB Command Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimBillingTransaction\CNT - Insert  Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Insert  Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::InsertCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimBillingTransaction\CNT - Insert  Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\CNT - Insert  Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\CNT - Insert  Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimBillingTransaction\CNT - Source Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Source Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::SourceCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimBillingTransaction\CNT - Source Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\CNT - Source Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\CNT - Source Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimBillingTransaction\CNT - Unchange Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Unchange Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UnChangeCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimBillingTransaction\CNT - Unchange Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\CNT - Unchange Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\CNT - Unchange Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimBillingTransaction\CNT - Update Count"
+              componentClassID="Microsoft.RowCount"
+              contactInfo="Row Count;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Counts rows as they pass through a data flow. For example, use the number of rows processed to determine whether or not to perform cleanup operations, or update text in an e-mail message to communicate processing status."
+              name="CNT - Update Count">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable to hold the row count."
+                  name="VariableName">User::UpdateCount</property>
+              </properties>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimBillingTransaction\CNT - Update Count.Inputs[Row Count Input 1]"
+                  hasSideEffects="true"
+                  name="Row Count Input 1">
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\CNT - Update Count.Outputs[Row Count Output 1]"
+                  name="Row Count Output 1"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\CNT - Update Count.Inputs[Row Count Input 1]">
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion"
+              componentClassID="Microsoft.ConditionalSplit"
+              contactInfo="Conditional Split;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Routes data rows to different outputs depending on the content of the data. Use conditions (SSIS expressions) to specify which rows are routed. For example, separate records that need to be cleaned from those that are ready to be loaded or route only a subset of records."
+              name="CSPL - Check BeanVersion"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Inputs[Conditional Split Input]"
+                  description="Input to the Conditional Split Transformation"
+                  name="Conditional Split Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Inputs[Conditional Split Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Inputs[Conditional Split Input].Columns[EDWBeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="EDWBeanVersion"
+                      lineageId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup Match Output].Columns[EDWBeanVersion]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Outputs[SameBeanVersion]"
+                  description="Output 1 of the Conditional Split Transformation"
+                  errorOrTruncationOperation="Computation"
+                  errorRowDisposition="FailComponent"
+                  exclusionGroup="1"
+                  name="SameBeanVersion"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Inputs[Conditional Split Input]"
+                  truncationRowDisposition="FailComponent">
+                  <properties>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the expression. This expression version uses lineage identifiers instead of column names."
+                      name="Expression">#{Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[BeanVersion]} == #{Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup Match Output].Columns[EDWBeanVersion]}</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the friendly version of the expression. This expression version uses column names."
+                      expressionType="Notify"
+                      name="FriendlyExpression">BeanVersion == EDWBeanVersion</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the position of the condition in the list of conditions that the transformation evaluates. The evaluation order is from the lowest to the highest value."
+                      name="EvaluationOrder">0</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Outputs[Conditional Split Default Output]"
+                  description="Default Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  name="Conditional Split Default Output"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Inputs[Conditional Split Input]">
+                  <properties>
+                    <property
+                      dataType="System.Boolean"
+                      name="IsDefaultOut">true</property>
+                  </properties>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Outputs[Conditional Split Error Output]"
+                  description="Error Output of the Conditional Split Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Conditional Split Error Output"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Inputs[Conditional Split Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Outputs[Conditional Split Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Outputs[Conditional Split Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy"
+              componentClassID="Microsoft.DerivedColumn"
+              contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+              description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+              name="DRV - BatchID &amp; Legacy"
+              usesDispositions="true">
+              <inputs>
+                <input
+                  refId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]"
+                  description="Input to the Derived Column Transformation"
+                  name="Derived Column Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input].Columns[TAccountName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="512"
+                      cachedName="TAccountName"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountName]" />
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output]"
+                  description="Default Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  name="Derived Column Output"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      lineageId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]"
+                      name="BatchID"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">@[User::BatchID]</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">@[User::BatchID]</property>
+                      </properties>
+                    </outputColumn>
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nTAccountName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Computation"
+                      errorRowDisposition="FailComponent"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nTAccountName]"
+                      name="nTAccountName"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Expression"
+                          name="Expression">(DT_STR,100,1252)#{Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountName]}</property>
+                        <property
+                          containsID="true"
+                          dataType="System.String"
+                          description="Derived Column Friendly Expression"
+                          expressionType="Notify"
+                          name="FriendlyExpression">(DT_STR,100,1252)TAccountName</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output]"
+                  description="Error Output of the Derived Column Transformation"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Derived Column Error Output"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction"
+              componentClassID="Microsoft.Lookup"
+              contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+              description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+              name="LKP - DimBillingTransaction"
+              usesDispositions="true"
+              version="6">
+              <properties>
+                <property
+                  dataType="System.String"
+                  description="Specifies the SQL statement that generates the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">Select PublicID ,BeanVersion from DimBillingTransaction</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                  expressionType="Notify"
+                  name="SqlCommandParam"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (Select PublicID ,BeanVersion from DimBillingTransaction) [refTable]
+where [refTable].[PublicID] = ?</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the type of connection used to access the reference dataset."
+                  name="ConnectionType"
+                  typeConverter="LookupConnectionType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the cache type of the lookup table."
+                  name="CacheType"
+                  typeConverter="CacheType">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                  name="NoMatchBehavior"
+                  typeConverter="LookupNoMatchBehavior">1</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                  name="NoMatchCachePercentage">0</property>
+                <property
+                  dataType="System.Int32"
+                  description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                  name="MaxMemoryUsage">25</property>
+                <property
+                  dataType="System.Int64"
+                  description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                  name="MaxMemoryUsage64">25</property>
+                <property
+                  dataType="System.String"
+                  description="Indicates whether to reference metadata in an XML format."
+                  name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="PublicID" dataType="DT_STR" length="64" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="BeanVersion" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                <property
+                  containsID="true"
+                  dataType="System.String"
+                  description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                  name="ParameterMap">#{Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[PublicID]};</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                  name="TreatDuplicateKeysAsError">false</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Connections[OleDbConnection]"
+                  connectionManagerID="{DE34D863-C211-4981-929A-131709C0B169}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="Connection manager used to access lookup data."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Inputs[Lookup Input]"
+                  name="Lookup Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Inputs[Lookup Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[PublicID]">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table that a column joins."
+                          name="JoinToReferenceColumn">PublicID</property>
+                        <property
+                          dataType="System.Null"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn" />
+                      </properties>
+                    </inputColumn>
+                  </inputColumns>
+                  <externalMetadataColumns />
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup Match Output]"
+                  errorOrTruncationOperation="Lookup"
+                  exclusionGroup="1"
+                  name="Lookup Match Output"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup Match Output].Columns[EDWBeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Copy Column"
+                      length="20"
+                      lineageId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup Match Output].Columns[EDWBeanVersion]"
+                      name="EDWBeanVersion"
+                      truncationRowDisposition="FailComponent">
+                      <properties>
+                        <property
+                          dataType="System.String"
+                          description="Specifies the column in the reference table from which a column is copied."
+                          name="CopyFromReferenceColumn">BeanVersion</property>
+                      </properties>
+                    </outputColumn>
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup No Match Output]"
+                  description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                  exclusionGroup="1"
+                  name="Lookup No Match Output"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Inputs[Lookup Input]">
+                  <externalMetadataColumns />
+                </output>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="Lookup Error Output"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Inputs[Lookup Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction"
+              componentClassID="Microsoft.OLEDBDestination"
+              contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+              description="OLE DB Destination"
+              name="OLE_DEST - Load DimBillingTransaction"
+              usesDispositions="true"
+              version="4">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset">[dbo].[DimBillingTransaction]</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">3</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepIdentity">false</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                  name="FastLoadKeepNulls">false</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                  name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS,ROWS_PER_BATCH = 10000</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                  name="FastLoadMaxInsertCommitSize">10000</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Connections[OleDbConnection]"
+                  connectionManagerID="{DE34D863-C211-4981-929A-131709C0B169}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <inputs>
+                <input
+                  refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input]"
+                  errorOrTruncationOperation="Insert"
+                  errorRowDisposition="FailComponent"
+                  hasSideEffects="true"
+                  name="OLE DB Destination Input">
+                  <inputColumns>
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[PublicID]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="64"
+                      cachedName="PublicID"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[PublicID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TransactionDate]"
+                      cachedDataType="dbTimeStamp2"
+                      cachedName="TransactionDate"
+                      cachedScale="7"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionDate]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionDate]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TransactionAmount]"
+                      cachedDataType="numeric"
+                      cachedName="TransactionAmount"
+                      cachedPrecision="18"
+                      cachedScale="2"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionAmount]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionAmount]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[LedgersideName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="LedgersideName"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[LedgersideName]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LedgersideName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TransactionTypeCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="TransactionTypeCode"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionTypeCode]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTypeCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TransactionTYPE]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TransactionTYPE"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionType]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTYPE]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TransactionNumber]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TransactionNumber"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionNumber]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TAccountSubType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TAccountSubType"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TAccountSubType]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountSubType]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TAccountPatternType]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TAccountPatternType"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TAccountPatternType]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountPatternType]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TransactionTransferReason]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TransactionTransferReason"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionTransferReason]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTransferReason]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TransactionReversalReason]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="TransactionReversalReason"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionReversalReason]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionReversalReason]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[LedgerIndicator]"
+                      cachedDataType="i4"
+                      cachedName="LedgerIndicator"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[LedgerIndicator]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LedgerIndicator]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TransactionReversalIndicator]"
+                      cachedDataType="i4"
+                      cachedName="TransactionReversalIndicator"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionReversalIndicator]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionReversalIndicator]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TAccountOwner]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="25"
+                      cachedName="TAccountOwner"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TAccountOwner]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountOwner]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[BeanVersion]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="20"
+                      cachedName="BeanVersion"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[BeanVersion]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[BatchID]"
+                      cachedDataType="i4"
+                      cachedName="BatchID"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      lineageId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[BatchID]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[LegacySourceSystem]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="2"
+                      cachedName="LegacySourceSystem"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[IsActive]"
+                      cachedDataType="i4"
+                      cachedName="IsActive"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[IsActive]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[GWRowNumber]"
+                      cachedDataType="i8"
+                      cachedName="GWRowNumber"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[GWRowNumber]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[ChargeCode]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ChargeCode"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[ChargeCode]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeCode]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[ChargeContext]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ChargeContext"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[ChargeContext]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeContext]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TransactionEffectiveDate]"
+                      cachedDataType="dbTimeStamp"
+                      cachedName="TransactionEffectiveDate"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionEffectiveDate]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionEffectiveDate]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[nTAccountName]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="100"
+                      cachedName="nTAccountName"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TAccountName]"
+                      lineageId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output].Columns[nTAccountName]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[TransactionDescription]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="1333"
+                      cachedName="TransactionDescription"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionDescription]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionDescription]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[WriteOffReason]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="WriteOffReason"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[WriteOffReason]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[WriteOffReason]" />
+                    <inputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].Columns[ChargeCategory]"
+                      cachedCodepage="1252"
+                      cachedDataType="str"
+                      cachedLength="50"
+                      cachedName="ChargeCategory"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[ChargeCategory]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeCategory]" />
+                  </inputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[BillingTransactionID]"
+                      dataType="i4"
+                      name="BillingTransactionID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="LegacySourceSystem" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[BatchID]"
+                      dataType="i8"
+                      name="BatchID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[DateAdded]"
+                      dataType="dbTimeStamp"
+                      name="DateAdded" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[DateUpdated]"
+                      dataType="dbTimeStamp"
+                      name="DateUpdated" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="64"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[IsActive]"
+                      dataType="bool"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="30"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionDate]"
+                      dataType="dbTimeStamp"
+                      name="TransactionDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionAmount]"
+                      dataType="cy"
+                      name="TransactionAmount" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[LedgersideName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LedgersideName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionTypeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TransactionTypeCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TransactionType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TransactionNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TAccountName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TAccountName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TAccountSubType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TAccountSubType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TAccountPatternType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TAccountPatternType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionTransferReason]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TransactionTransferReason" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionReversalReason]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TransactionReversalReason" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[LedgerIndicator]"
+                      dataType="bool"
+                      name="LedgerIndicator" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionReversalIndicator]"
+                      dataType="bool"
+                      name="TransactionReversalIndicator" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TAccountOwner]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="TAccountOwner" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[ChargeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ChargeCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[ChargeContext]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ChargeContext" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionEffectiveDate]"
+                      dataType="dbTimeStamp"
+                      name="TransactionEffectiveDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[DataEffectiveDate]"
+                      dataType="dbTimeStamp"
+                      name="DataEffectiveDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[DataExpirationDate]"
+                      dataType="dbTimeStamp"
+                      name="DataExpirationDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[TransactionDescription]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1333"
+                      name="TransactionDescription" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[WriteOffReason]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="WriteOffReason" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input].ExternalColumns[ChargeCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ChargeCategory" />
+                  </externalMetadataColumns>
+                </input>
+              </inputs>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Outputs[OLE DB Destination Error Output]"
+                  exclusionGroup="1"
+                  isErrorOut="true"
+                  name="OLE DB Destination Error Output"
+                  synchronousInputId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input]">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+            <component
+              refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire"
+              componentClassID="Microsoft.OLEDBSource"
+              contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+              description="OLE DB Source"
+              name="OLE_SRC - GuideWire"
+              usesDispositions="true"
+              version="7">
+              <properties>
+                <property
+                  dataType="System.Int32"
+                  description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                  name="CommandTimeout">0</property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the name of the database object used to open a rowset."
+                  name="OpenRowset"></property>
+                <property
+                  dataType="System.String"
+                  description="Specifies the variable that contains the name of the database object used to open a rowset."
+                  name="OpenRowsetVariable"></property>
+                <property
+                  dataType="System.String"
+                  description="The SQL command to be executed."
+                  name="SqlCommand"
+                  UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">WITH ChargeInstanceContext as
+(
+SELECT 
+trans.ID TxnID,
+tlbi.typeCode as Context,
+chrgp.ChargeCode,
+chrgp.ChargeName,
+cp.Name as ChargeCategory,
+CASE WHEN bi.ModificationDate is NOT NULL THEN bi.ModificationDate
+	 ELSE CASE WHEN c.TAccountOwner = 'PolicyPeriod' then polper.PolicyPerEffDate ELSE chrg.ChargeDate
+		  END
+END as TransactionEffectiveDate
+FROM bc_chargeinstancecontext cix
+  INNER JOIN bc_transaction trans ON trans.ID = cix.TransactionID
+  INNER JOIN bctl_transaction transtyp ON transtyp.ID = trans.Subtype
+  INNER JOIN bc_charge chrg ON chrg.ID = cix.ChargeID
+  INNER JOIN bc_policyperiod polper ON polper.HiddenTAccountContainerID = chrg.TAccountContainerID
+  INNER JOIN bc_chargepattern chrgp on chrgP.ID = chrg.ChargePatternID
+  inner join bc_TAcctOwnerPattern c on chrgp.TAccountOwnerPatternID = c.ID
+  inner join bc_billinginstruction bi on bi.ID = chrg.BillingInstructionID
+  inner join bctl_billinginstruction tlbi on tlbi.ID = bi.subtype
+  inner join bctl_chargecategory cp on chrgp.Category=cp.ID
+WHERE transtyp.TypeCode = 'InitialChargeTxn'
+)
+ 
+SELECT trx.TransactionDate
+     , li.PublicID
+	 , trx.Amount                         AS TransactionAmount
+	 , CAST(lds.NAME     AS VARCHAR(50))  AS LedgersideName
+	 , btrx.TYPECODE				      AS TransactionTypeCode
+	 , CAST(btrx.NAME    AS VARCHAR(100)) AS TransactionTYPE
+	 , CAST(trx.TransactionNumber AS VARCHAR(100)) AS TransactionNumber
+	 , RTRIM(tacptr.TAccountName +' ' +  isnull (suffix.NAME, '')) TAccountName
+	 , CAST(btac.NAME    AS VARCHAR(100)) AS TAccountSubType
+	 , CAST(taptype.NAME AS VARCHAR(100)) AS TAccountPatternType
+	 , CAST(trfrsn.Name  AS VARCHAR(100)) AS TransactionTransferReason
+	 , CAST(rvrsn.NAME   AS VARCHAR(100)) AS TransactionReversalReason
+	 , CASE WHEN tacpow.TAccountOwner = 'Account' THEN 1 ELSE 0 END AS LedgerIndicator
+	 , CASE WHEN txnReversal.ID IS NULL           THEN 0 ELSE 1 END AS TransactionReversalIndicator
+	 , CAST(tacpow.TAccountOwner AS VARCHAR(25))   AS TAccountOwner
+	 , CAST(CONCAT(li.BeanVersion,trx.BeanVersion,tac.BeanVersion,tacptr.BeanVersion,tacpow.BeanVersion) AS VARCHAR(20))  AS BeanVersion
+	 , CASE trx.Retired WHEN 0 THEN 1 ELSE 0 END   AS IsActive
+	 ,cast(cix.ChargeCode as varchar(50)) as ChargeCode
+	 ,cast(cix.Context as varchar(50)) as ChargeContext
+	 ,cast(cix.ChargeCategory as varchar(50)) as ChargeCategory
+	 ,cast(COALESCE(cix.TransactionEffectiveDate,trx.TransactionDate) as datetime) as TransactionEffectiveDate
+	 ,li.ID            AS GWRowNumber
+	 ,ht.description TransactionDescription
+	 ,tlwo.TYPECODE as WriteOffReason,
+'WC' as LegacySourceSystem
+FROM bc_lineitem li
+JOIN bc_transaction            trx         ON li.TransactionID				= trx.ID
+JOIN bctl_transaction          btrx        ON trx.Subtype					= btrx.ID
+JOIN bc_taccount               tac         ON li.TAccountID					= tac.ID
+JOIN bc_TAccountPattern        tacptr      ON tac.TAccountPatternID         = tacptr.ID
+JOIN bc_TAcctOwnerPattern      tacpow      ON tacptr.TAccountOwnerPatternID = tacpow.ID
+JOIN bctl_taccount             btac        ON tac.Subtype				    = btac.ID
+LEFT JOIN bctl_ledgerside      lds         ON li.Type					    = lds.ID
+LEFT JOIN bc_account           acc         ON tac.TAccountContainerID		= acc.HiddenTAccountContainerID
+LEFT JOIN bc_plan              billpl      ON billpl.ID					    = acc.BillingPlanID
+LEFT JOIN bc_revtrans          txnReversal ON trx.ID						= txnReversal.OwnerID
+LEFT JOIN bc_transfertxcontext txnTrnsfr   ON COALESCE(txnReversal.ForeignEntityID, trx.ID) = txnTrnsfr.TransactionID
+LEFT JOIN bc_fundstransfer     fundsTrnsfr ON txnTrnsfr.FundsTransferID     = fundsTrnsfr.ID
+LEFT JOIN bctl_transferreason  trfrsn      ON fundsTrnsfr.Reason			= trfrsn.ID
+LEFT JOIN bctl_reversalreason  rvrsn       ON trx.ReversalReason		    = rvrsn.ID
+LEFT JOIN bctl_taccounttype    taptype     ON tacptr.TAccountType			= taptype.ID
+LEFT JOIN ChargeInstanceContext cix					ON cix.TxnID					= trx.ID
+LEFT JOIN bctl_taccountpatternsuffix  suffix  ON tacptr.Suffix				=Suffix.ID 
+LEFT JOIN bc_history ht                    ON ht.TransactionID    = trx.ID AND ht.AccountID = acc.ID
+left join bc_chargeinstancecontext cic on cic.TransactionID = trx.ID
+left join bc_writeoff wo on wo.ID = cic.WriteoffID
+left join bctl_writeoffreason tlwo on tlwo.ID = wo.Reason
+WHERE li.UpdateTime &gt;= DATEADD(D,?,CAST(GETDATE() AS DATE)) 
+  OR trx.UpdateTime &gt;= DATEADD(D,?,CAST(GETDATE() AS DATE))</property>
+                <property
+                  dataType="System.String"
+                  description="The variable that contains the SQL command to be executed."
+                  name="SqlCommandVariable"></property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the column code page to use when code page information is unavailable from the data source."
+                  name="DefaultCodePage">1252</property>
+                <property
+                  dataType="System.Boolean"
+                  description="Forces the use of the DefaultCodePage property value when describing character data."
+                  name="AlwaysUseDefaultCodePage">false</property>
+                <property
+                  dataType="System.Int32"
+                  description="Specifies the mode used to access the database."
+                  name="AccessMode"
+                  typeConverter="AccessMode">2</property>
+                <property
+                  dataType="System.String"
+                  description="The mappings between the parameters in the SQL command and variables."
+                  name="ParameterMapping">"Parameter0:Input",{FAB12F57-4C4A-4BF0-A915-3FE20654A691};"Parameter1:Input",{FAB12F57-4C4A-4BF0-A915-3FE20654A691};</property>
+              </properties>
+              <connections>
+                <connection
+                  refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Connections[OleDbConnection]"
+                  connectionManagerID="{D926FBFB-0D55-4114-B0F3-B6C6845B7436}:external"
+                  connectionManagerRefId="Project.ConnectionManagers[GWStaging]"
+                  description="The OLE DB runtime connection used to access the database."
+                  name="OleDbConnection" />
+              </connections>
+              <outputs>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output]"
+                  name="OLE DB Source Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      length="64"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[PublicID]"
+                      name="PublicID"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionDate]"
+                      dataType="dbTimeStamp2"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionDate]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionDate]"
+                      name="TransactionDate"
+                      scale="7"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionAmount]"
+                      dataType="numeric"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionAmount]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionAmount]"
+                      name="TransactionAmount"
+                      precision="18"
+                      scale="2"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LedgersideName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[LedgersideName]"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LedgersideName]"
+                      name="LedgersideName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTypeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionTypeCode]"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTypeCode]"
+                      name="TransactionTypeCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTYPE]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionTYPE]"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTYPE]"
+                      name="TransactionTYPE"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionNumber]"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionNumber]"
+                      name="TransactionNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountName]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TAccountName]"
+                      length="512"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountName]"
+                      name="TAccountName"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountSubType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TAccountSubType]"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountSubType]"
+                      name="TAccountSubType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountPatternType]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TAccountPatternType]"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountPatternType]"
+                      name="TAccountPatternType"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTransferReason]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionTransferReason]"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionTransferReason]"
+                      name="TransactionTransferReason"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionReversalReason]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionReversalReason]"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionReversalReason]"
+                      name="TransactionReversalReason"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LedgerIndicator]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[LedgerIndicator]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LedgerIndicator]"
+                      name="LedgerIndicator"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionReversalIndicator]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionReversalIndicator]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionReversalIndicator]"
+                      name="TransactionReversalIndicator"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountOwner]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TAccountOwner]"
+                      length="25"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TAccountOwner]"
+                      name="TAccountOwner"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      length="20"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[BeanVersion]"
+                      name="BeanVersion"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      dataType="i4"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[IsActive]"
+                      name="IsActive"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[GWRowNumber]"
+                      name="GWRowNumber"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[ChargeCode]"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeCode]"
+                      name="ChargeCode"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeContext]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[ChargeContext]"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeContext]"
+                      name="ChargeContext"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionEffectiveDate]"
+                      dataType="dbTimeStamp"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionEffectiveDate]"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionEffectiveDate]"
+                      name="TransactionEffectiveDate"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionDescription]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionDescription]"
+                      length="1333"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[TransactionDescription]"
+                      name="TransactionDescription"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[WriteOffReason]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[WriteOffReason]"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[WriteOffReason]"
+                      name="WriteOffReason"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                      length="2"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[LegacySourceSystem]"
+                      name="LegacySourceSystem"
+                      truncationRowDisposition="FailComponent" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      errorOrTruncationOperation="Conversion"
+                      errorRowDisposition="FailComponent"
+                      externalMetadataColumnId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[ChargeCategory]"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].Columns[ChargeCategory]"
+                      name="ChargeCategory"
+                      truncationRowDisposition="FailComponent" />
+                  </outputColumns>
+                  <externalMetadataColumns
+                    isUsed="True">
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="PublicID" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionDate]"
+                      dataType="dbTimeStamp2"
+                      name="TransactionDate"
+                      scale="7" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionAmount]"
+                      dataType="numeric"
+                      name="TransactionAmount"
+                      precision="18"
+                      scale="2" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[LedgersideName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="LedgersideName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionTypeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="TransactionTypeCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionTYPE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TransactionTYPE" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TransactionNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TAccountName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="512"
+                      name="TAccountName" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TAccountSubType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TAccountSubType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TAccountPatternType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TAccountPatternType" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionTransferReason]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TransactionTransferReason" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionReversalReason]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      name="TransactionReversalReason" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[LedgerIndicator]"
+                      dataType="i4"
+                      name="LedgerIndicator" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionReversalIndicator]"
+                      dataType="i4"
+                      name="TransactionReversalIndicator" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TAccountOwner]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      name="TAccountOwner" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      name="BeanVersion" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[IsActive]"
+                      dataType="i4"
+                      name="IsActive" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[GWRowNumber]"
+                      dataType="i8"
+                      name="GWRowNumber" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[ChargeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ChargeCode" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[ChargeContext]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ChargeContext" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionEffectiveDate]"
+                      dataType="dbTimeStamp"
+                      name="TransactionEffectiveDate" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[TransactionDescription]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1333"
+                      name="TransactionDescription" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[WriteOffReason]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="WriteOffReason" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      name="LegacySourceSystem" />
+                    <externalMetadataColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output].ExternalColumns[ChargeCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      name="ChargeCategory" />
+                  </externalMetadataColumns>
+                </output>
+                <output
+                  refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output]"
+                  isErrorOut="true"
+                  name="OLE DB Source Error Output">
+                  <outputColumns>
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionDate]"
+                      dataType="dbTimeStamp2"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionDate]"
+                      name="TransactionDate"
+                      scale="7" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                      name="ErrorCode"
+                      specialFlags="1" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionAmount]"
+                      dataType="numeric"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionAmount]"
+                      name="TransactionAmount"
+                      precision="18"
+                      scale="2" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[LedgersideName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[LedgersideName]"
+                      name="LedgersideName" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionTypeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionTypeCode]"
+                      name="TransactionTypeCode" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionTYPE]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionTYPE]"
+                      name="TransactionTYPE" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionNumber]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionNumber]"
+                      name="TransactionNumber" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TAccountName]"
+                      codePage="1252"
+                      dataType="str"
+                      length="512"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TAccountName]"
+                      name="TAccountName" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TAccountSubType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TAccountSubType]"
+                      name="TAccountSubType" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TAccountPatternType]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TAccountPatternType]"
+                      name="TAccountPatternType" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionTransferReason]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionTransferReason]"
+                      name="TransactionTransferReason" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionReversalReason]"
+                      codePage="1252"
+                      dataType="str"
+                      length="100"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionReversalReason]"
+                      name="TransactionReversalReason" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[LedgerIndicator]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[LedgerIndicator]"
+                      name="LedgerIndicator" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionReversalIndicator]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionReversalIndicator]"
+                      name="TransactionReversalIndicator" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TAccountOwner]"
+                      codePage="1252"
+                      dataType="str"
+                      length="25"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TAccountOwner]"
+                      name="TAccountOwner" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[BeanVersion]"
+                      name="BeanVersion" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[IsActive]"
+                      name="IsActive" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[ChargeCode]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[ChargeCode]"
+                      name="ChargeCode" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[ChargeContext]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[ChargeContext]"
+                      name="ChargeContext" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[ChargeCategory]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[ChargeCategory]"
+                      name="ChargeCategory" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionEffectiveDate]"
+                      dataType="dbTimeStamp"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionEffectiveDate]"
+                      name="TransactionEffectiveDate" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      dataType="i8"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[GWRowNumber]"
+                      name="GWRowNumber" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionDescription]"
+                      codePage="1252"
+                      dataType="str"
+                      length="1333"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[TransactionDescription]"
+                      name="TransactionDescription" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[WriteOffReason]"
+                      codePage="1252"
+                      dataType="str"
+                      length="50"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[WriteOffReason]"
+                      name="WriteOffReason" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                      codePage="1252"
+                      dataType="str"
+                      length="2"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[LegacySourceSystem]"
+                      name="LegacySourceSystem" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      dataType="i4"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                      name="ErrorColumn"
+                      specialFlags="2" />
+                    <outputColumn
+                      refId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      codePage="1252"
+                      dataType="str"
+                      length="20"
+                      lineageId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Error Output].Columns[PublicID]"
+                      name="PublicID" />
+                  </outputColumns>
+                  <externalMetadataColumns />
+                </output>
+              </outputs>
+            </component>
+          </components>
+          <paths>
+            <path
+              refId="Package\DFT - DimBillingTransaction.Paths[Conditional Split Default Output]"
+              endId="Package\DFT - DimBillingTransaction\CNT - Update Count.Inputs[Row Count Input 1]"
+              name="Conditional Split Default Output"
+              startId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Outputs[Conditional Split Default Output]" />
+            <path
+              refId="Package\DFT - DimBillingTransaction.Paths[Derived Column Output]"
+              endId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Inputs[Lookup Input]"
+              name="Derived Column Output"
+              startId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Outputs[Derived Column Output]" />
+            <path
+              refId="Package\DFT - DimBillingTransaction.Paths[Lookup Match Output]"
+              endId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Inputs[Conditional Split Input]"
+              name="Lookup Match Output"
+              startId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup Match Output]" />
+            <path
+              refId="Package\DFT - DimBillingTransaction.Paths[Lookup No Match Output]"
+              endId="Package\DFT - DimBillingTransaction\CNT - Insert  Count.Inputs[Row Count Input 1]"
+              name="Lookup No Match Output"
+              startId="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction.Outputs[Lookup No Match Output]" />
+            <path
+              refId="Package\DFT - DimBillingTransaction.Paths[OLE DB Source Output]"
+              endId="Package\DFT - DimBillingTransaction\CNT - Source Count.Inputs[Row Count Input 1]"
+              name="OLE DB Source Output"
+              startId="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire.Outputs[OLE DB Source Output]" />
+            <path
+              refId="Package\DFT - DimBillingTransaction.Paths[Row Count Output 1]"
+              endId="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy.Inputs[Derived Column Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - DimBillingTransaction\CNT - Source Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - DimBillingTransaction.Paths[Row Count Output 11]"
+              endId="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction.Inputs[OLE DB Destination Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - DimBillingTransaction\CNT - Insert  Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - DimBillingTransaction.Paths[Row Count Output 12]"
+              endId="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction.Inputs[OLE DB Command Input]"
+              name="Row Count Output 1"
+              startId="Package\DFT - DimBillingTransaction\CNT - Update Count.Outputs[Row Count Output 1]" />
+            <path
+              refId="Package\DFT - DimBillingTransaction.Paths[SameBeanVersion]"
+              endId="Package\DFT - DimBillingTransaction\CNT - Unchange Count.Inputs[Row Count Input 1]"
+              name="SameBeanVersion"
+              startId="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion.Outputs[SameBeanVersion]" />
+          </paths>
+        </pipeline>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{2cf72587-eda9-412c-aaaf-2289e8e240fc}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DE34D863-C211-4981-929A-131709C0B169}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="200" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL - Conclude Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{b14321ba-2f86-4b35-b3fb-26aa8ed68939}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL - Conclude Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DE34D863-C211-4981-929A-131709C0B169}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate()&#xA;  , SourceCount = ?&#xA;  , InsertCount = ?&#xA;  , UpdateCount = ?&#xA;  , UnChangeCount = ?&#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::SourceCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::InsertCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="2"
+            SQLTask:DtsVariableName="User::UpdateCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="3"
+            SQLTask:DtsVariableName="User::UnChangeCount"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="4"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="5"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{69544a39-6ee5-4abb-8c1d-40beacf86907}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{DE34D863-C211-4981-929A-131709C0B169}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{A73A3057-3A03-466E-915C-30F1D43A1AF0}"
+      DTS:From="Package\DFT - DimBillingTransaction"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\SQL - Conclude Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{F9B56893-EC50-48DD-80BE-17AFC644F4AA}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\DFT - DimBillingTransaction" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{E969D755-F487-4A21-B9A2-815A3576374C}"
+      DTS:From="Package\DFT - DimBillingTransaction"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\SQL - Conclude Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{6C6A77EA-7055-4412-A4BD-F4A0B53B82BB}"
+      DTS:EventID="732139420"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{8339C891-DD3B-4E29-8320-C86B906D3455}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{76d0755b-1c0c-4f66-a1be-13bac4593f14}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{DE34D863-C211-4981-929A-131709C0B169}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="243,42"
+          Id="Package\DFT - DimBillingTransaction"
+          TopLeft="257.61428577754,145.24705842028" />
+        <NodeLayout
+          Size="243,42"
+          Id="Package\SQL - Conclude Process Completed"
+          TopLeft="93.714287582709,244.458826635288" />
+        <NodeLayout
+          Size="243,42"
+          Id="Package\SQL - Conclude Process Failed"
+          TopLeft="406.7142924192,246.211766902303" />
+        <NodeLayout
+          Size="243,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="257.61428577754,47.7647058566136" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="339.947619110873,187.24705842028">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-124.733331528164,57.211768215008"
+              Start="0,0"
+              End="-124.733331528164,49.711768215008">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.1092506117857" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.1092506117857"
+                    Point2="0,23.1092506117857"
+                    Point3="-4,23.1092506117857" />
+                  <mssgle:LineSegment
+                    End="-120.733331528164,23.1092506117857" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-120.733331528164,23.1092506117857"
+                    Point2="-124.733331528164,23.1092506117857"
+                    Point3="-124.733331528164,27.1092506117857" />
+                  <mssgle:LineSegment
+                    End="-124.733331528164,49.711768215008" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="379.11428577754,89.7647058566136">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,55.4823525636664"
+              Start="0,0"
+              End="0,47.9823525636664">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,47.9823525636664" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="418.280952444206,187.24705842028">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="109.933339974994,58.964708482023"
+              Start="0,0"
+              End="109.933339974994,51.464708482023">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,19.817306614979" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,19.817306614979"
+                    Point2="0,23.817306614979"
+                    Point3="4,23.817306614979" />
+                  <mssgle:LineSegment
+                    End="105.933339974994,23.817306614979" />
+                  <mssgle:CubicBezierSegment
+                    Point1="105.933339974994,23.817306614979"
+                    Point2="109.933339974994,23.817306614979"
+                    Point3="109.933339974994,27.817306614979" />
+                  <mssgle:LineSegment
+                    End="109.933339974994,51.464708482023" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="39.725322331247,28.817306614979,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="152,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="312,113.6" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\DFT - DimBillingTransaction">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="32" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="267,42"
+          Id="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction"
+          TopLeft="335.779592398374,222.990196435922" />
+        <NodeLayout
+          Size="267,42"
+          Id="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire"
+          TopLeft="335.779592398374,6.5" />
+        <NodeLayout
+          Size="267,42"
+          Id="Package\DFT - DimBillingTransaction\CNT - Update Count"
+          TopLeft="930.779592398374,222.990196435922" />
+        <NodeLayout
+          Size="267,42"
+          Id="Package\DFT - DimBillingTransaction\CNT - Insert  Count"
+          TopLeft="336,296.088235723106" />
+        <NodeLayout
+          Size="267,42"
+          Id="Package\DFT - DimBillingTransaction\DRV - BatchID &amp; Legacy"
+          TopLeft="335.779592398374,152.696078574369" />
+        <NodeLayout
+          Size="267,42"
+          Id="Package\DFT - DimBillingTransaction\CNT - Source Count"
+          TopLeft="335.779592398374,79.5980392871843" />
+        <NodeLayout
+          Size="267,42"
+          Id="Package\DFT - DimBillingTransaction\CNT - Unchange Count"
+          TopLeft="624.228577345245,296.088235723106" />
+        <NodeLayout
+          Size="269,42"
+          Id="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction"
+          TopLeft="334.271427627486,372.892157148737" />
+        <NodeLayout
+          Size="267,42"
+          Id="Package\DFT - DimBillingTransaction\CMD - Update DimBillingTransaction"
+          TopLeft="930.779592398374,296.088235723106" />
+        <NodeLayout
+          Size="267,42"
+          Id="Package\DFT - DimBillingTransaction\CSPL - Check BeanVersion"
+          TopLeft="626.779592398374,222.990196435922" />
+        <EdgeLayout
+          Id="Package\DFT - DimBillingTransaction.Paths[SameBeanVersion]"
+          TopLeft="759.004084871809,264.990196435922">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.098039287184"
+              Start="0,0"
+              End="0,23.598039287184">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.598039287184" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-40.02259765625,7.022164174842,80.0451953125,9.5537109375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimBillingTransaction.Paths[Row Count Output 12]"
+          TopLeft="1064.27959239837,264.990196435922">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.098039287184"
+              Start="0,0"
+              End="0,23.598039287184">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.598039287184" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimBillingTransaction.Paths[Row Count Output 11]"
+          TopLeft="469.135713813743,338.088235723106">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,34.803921425631"
+              Start="0,0"
+              End="0,27.303921425631">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,27.303921425631" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimBillingTransaction.Paths[Row Count Output 1]"
+          TopLeft="469.279592398374,121.598039287184">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.0980392871843"
+              Start="0,0"
+              End="0,23.5980392871843">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5980392871843" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimBillingTransaction.Paths[OLE DB Source Output]"
+          TopLeft="469.279592398374,48.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.0980392871843"
+              Start="0,0"
+              End="0,23.5980392871843">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5980392871843" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimBillingTransaction.Paths[Lookup No Match Output]"
+          TopLeft="469.389796199187,264.990196435922">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.098039287184"
+              Start="0,0"
+              End="0,23.598039287184">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.598039287184" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.80638671875,5.994332143592,111.6127734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimBillingTransaction.Paths[Lookup Match Output]"
+          TopLeft="602.779592398374,243.990196435922">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="24,0"
+              Start="0,0"
+              End="16.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="16.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-39.94138671875,5,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimBillingTransaction.Paths[Derived Column Output]"
+          TopLeft="469.279592398374,194.696078574369">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,28.294117861553"
+              Start="0,0"
+              End="0,20.794117861553">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,20.794117861553" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\DFT - DimBillingTransaction.Paths[Conditional Split Default Output]"
+          TopLeft="893.779592398374,243.990196435922">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="37,0"
+              Start="0,0"
+              End="29.5,0">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="29.5,0" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-55.86390625,5,141.2278125,11.658203125"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimBillingTransaction\LKP - DimBillingTransaction">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimBillingTransaction\OLE_SRC - GuideWire">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\DFT - DimBillingTransaction\OLE_DEST - Load DimBillingTransaction">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>

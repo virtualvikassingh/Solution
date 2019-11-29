@@ -1,0 +1,2534 @@
+﻿<?xml version="1.0"?>
+<DTS:Executable xmlns:DTS="www.microsoft.com/SqlServer/Dts"
+  DTS:refId="Package"
+  DTS:CreationDate="9/26/2016 5:51:15 AM"
+  DTS:CreationName="Microsoft.Package"
+  DTS:CreatorComputerName="STRW071024"
+  DTS:CreatorName="MSO\peng.wang"
+  DTS:DTSID="{78DBC851-DEE2-4947-97EA-C390CAA1C7B0}"
+  DTS:EnableConfig="True"
+  DTS:ExecutableType="Microsoft.Package"
+  DTS:LastModifiedProductVersion="13.0.2165.0"
+  DTS:LocaleID="1033"
+  DTS:ObjectName="WCPOLS_Load_CancelReinstate"
+  DTS:PackageType="5"
+  DTS:ProtectionLevel="0"
+  DTS:VersionBuild="254"
+  DTS:VersionGUID="{08C94B0B-E044-4B8E-83E8-DCBE861ED0B5}">
+  <DTS:Property
+    DTS:Name="PackageFormatVersion">8</DTS:Property>
+  <DTS:Configurations>
+    <DTS:Configuration
+      DTS:ConfigurationString="BatchID"
+      DTS:ConfigurationVariable="\Package.Variables[User::BatchID].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{23CF1F6A-7F6E-4D6F-9106-11D27CF4A7AF}"
+      DTS:ObjectName="BatchID" />
+    <DTS:Configuration
+      DTS:ConfigurationString="StartDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::StartDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{6F267556-2411-40DC-A9F5-F26865435C63}"
+      DTS:ObjectName="StartDate" />
+    <DTS:Configuration
+      DTS:ConfigurationString="EndDate"
+      DTS:ConfigurationVariable="\Package.Variables[User::EndDate].Properties[Value]"
+      DTS:CreationName=""
+      DTS:DTSID="{AFE1E6BA-BBCD-4BE6-A0F6-064F038DA6B3}"
+      DTS:ObjectName="EndDate" />
+  </DTS:Configurations>
+  <DTS:Variables>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{7913DED9-1307-4206-8F51-C86A8AF4DA12}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="BatchID">
+      <DTS:VariableValue
+        DTS:DataType="3">0</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{C33A3772-A381-48F4-96FD-B6844EA509D7}"
+      DTS:IncludeInDebugDump="6789"
+      DTS:Namespace="User"
+      DTS:ObjectName="EndDate">
+      <DTS:VariableValue
+        DTS:DataType="7">5/18/2017 7:12:00 AM</DTS:VariableValue>
+    </DTS:Variable>
+    <DTS:Variable
+      DTS:CreationName=""
+      DTS:DTSID="{40FD3FA0-7078-427F-AEFB-B5BE77133537}"
+      DTS:IncludeInDebugDump="2345"
+      DTS:Namespace="User"
+      DTS:ObjectName="StartDate">
+      <DTS:VariableValue
+        DTS:DataType="7">5/14/2017 12:17:00 PM</DTS:VariableValue>
+    </DTS:Variable>
+  </DTS:Variables>
+  <DTS:Executables>
+    <DTS:Executable
+      DTS:refId="Package\Body"
+      DTS:CreationName="STOCK:SEQUENCE"
+      DTS:Description="Sequence Container"
+      DTS:DTSID="{0999E277-60B5-4C97-BD4F-68C28FBD88F9}"
+      DTS:ExecutableType="STOCK:SEQUENCE"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Body">
+      <DTS:Variables />
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package\Body\Load CancelReinstate"
+          DTS:CreationName="Microsoft.Pipeline"
+          DTS:Description="Data Flow Task"
+          DTS:DTSID="{F25127B8-9D31-4C30-A8CB-9A548D5FEAE0}"
+          DTS:ExecutableType="Microsoft.Pipeline"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="Load CancelReinstate"
+          DTS:TaskContact="Performs high-performance data extraction, transformation and loading;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <pipeline
+              version="1">
+              <components>
+                <component
+                  refId="Package\Body\Load CancelReinstate\CR Destination"
+                  componentClassID="Microsoft.OLEDBDestination"
+                  contactInfo="OLE DB Destination;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;4"
+                  description="OLE DB Destination"
+                  name="CR Destination"
+                  usesDispositions="true"
+                  version="4">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[WCPOLS_CancelReinstate]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">3</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the values supplied for identity columns will be copied to the destination. If false, values for identity columns will be auto-generated at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepIdentity">false</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Indicates whether the columns containing null will have null inserted in the destination. If false, columns containing null will have their default values inserted at the destination. Applies only if fast load is turned on."
+                      name="FastLoadKeepNulls">false</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies options to be used with fast load.  Applies only if fast load is turned on."
+                      name="FastLoadOptions">TABLOCK,CHECK_CONSTRAINTS</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies when commits are issued during data insertion.  A value of 0 specifies that one commit will be issued at the end of data insertion.  Applies only if fast load is turned on."
+                      name="FastLoadMaxInsertCommitSize">2147483647</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Body\Load CancelReinstate\CR Destination.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input]"
+                      errorOrTruncationOperation="Insert"
+                      errorRowDisposition="FailComponent"
+                      hasSideEffects="true"
+                      name="OLE DB Destination Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[Insert date]"
+                          cachedDataType="dbTimeStamp"
+                          cachedName="Insert date"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          lineageId="Package\Body\Load CancelReinstate\Insert date.Outputs[Derived Column Output].Columns[Insert date]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[Policy Number]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="18"
+                          cachedName="Policy Number"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Policy Number]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[RTC]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="RTC"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RTC]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[PolicyID]"
+                          cachedDataType="i4"
+                          cachedName="PolicyID"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[PolicyID]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[StateCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="StateCode"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[State_Code]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[StateCode]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[RC_IDCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="RC_IDCode"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cancel/Reinstate_ID_Code]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RC_IDCode]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[Cancellation Type Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="Cancellation Type Code"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cancel_Type_Code]"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Cancellation Type Code]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="Code"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Reason_Cancel_Code]"
+                          lineageId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output].Columns[Code]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[AddressLine1]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="90"
+                          cachedName="AddressLine1"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Address_Of_Insured]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[AddressLine1]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[CancelProcessDate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="CancelProcessDate"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cancel_Mailed_To_Inusred_Date]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CancelProcessDate]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[RR_Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="RR_Code"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Reason_Reinstate_Code]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RR_Code]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[Corr_Cancel_Date]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="Corr_Cancel_Date"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Corr_Cancellation_Date]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[Corr_Cancel_Date]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[CR_EffectiveDate]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="6"
+                          cachedName="CR_EffectiveDate"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[C/R_Effective_Date]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CR_EffectiveDate]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[RT_Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="RT_Code"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Reinstate_Type_Code]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RT_Code]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[Name of Inusred]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="90"
+                          cachedName="Name of Inusred"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Insured]"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Name of Inusred]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[Policy State]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="Policy State"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Policy State]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].Columns[C/R Trans Sequence]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="C/R Trans Sequence"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[C/R_Trans_Seq_Number]"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[C/R Trans Sequence]" />
+                      </inputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Policy_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="18"
+                          name="Policy_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Record_Type_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Record_Type_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Insert_Date]"
+                          dataType="dbTimeStamp"
+                          name="Insert_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Update_Date]"
+                          dataType="dbTimeStamp"
+                          name="Update_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Policy_State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Policy_State" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[CR_ID]"
+                          dataType="i8"
+                          name="CR_ID" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[State_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="State_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cancel/Reinstate_ID_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Cancel/Reinstate_ID_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cancel_Type_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Cancel_Type_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Reason_Cancel_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Reason_Cancel_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Name_Of_Insured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="90"
+                          name="Name_Of_Insured" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Address_Of_Insured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="90"
+                          name="Address_Of_Insured" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Nature_Of_Insured]"
+                          codePage="1252"
+                          dataType="str"
+                          length="20"
+                          name="Nature_Of_Insured" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Cancel_Mailed_To_Inusred_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Cancel_Mailed_To_Inusred_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[C/R_Trans_Seq_Number]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="C/R_Trans_Seq_Number" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Reason_Reinstate_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="Reason_Reinstate_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Corr_Cancellation_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Corr_Cancellation_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[C/R_Effective_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="C/R_Effective_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input].ExternalColumns[Reinstate_Type_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="Reinstate_Type_Code" />
+                      </externalMetadataColumns>
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\CR Destination.Outputs[OLE DB Destination Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="OLE DB Destination Error Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\CR Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\CR Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\CR Destination.Outputs[OLE DB Destination Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Body\Load CancelReinstate\Data input"
+                  componentClassID="Microsoft.OLEDBSource"
+                  contactInfo="OLE DB Source;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;7"
+                  description="OLE DB Source"
+                  name="Data input"
+                  usesDispositions="true"
+                  version="7">
+                  <properties>
+                    <property
+                      dataType="System.Int32"
+                      description="The number of seconds before a command times out.  A value of 0 indicates an infinite time-out."
+                      name="CommandTimeout">0</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the name of the database object used to open a rowset."
+                      name="OpenRowset">[dbo].[DimPolicy]</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the variable that contains the name of the database object used to open a rowset."
+                      name="OpenRowsetVariable"></property>
+                    <property
+                      dataType="System.String"
+                      description="The SQL command to be executed."
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">With QualifiedPol as 
+(
+	Select PolicyID, PolicyNumber, TransactionType, PolicyTransactionEffectiveDate, CreateTime 
+	From DimPolicy  
+	Where TransactionType in ('Reinstatement') 
+		And PolicyStatus='Bound'
+		And (cast(JobUpdateTime as date) &gt; ? And cast(JobUpdateTime as date) &lt;= ?)
+
+	UNION	--Get 'Cancelling','Bound' Cancellation based on JobCreateTime, will only report once
+
+	Select PolicyID, PolicyNumber, TransactionType, PolicyTransactionEffectiveDate ,CreateTime 
+	From DimPolicy  
+	Where TransactionType in ('Cancellation') 
+		And PolicyStatus in ('Canceling','Bound','Rescinded')
+	  And cast(JobCreateTime as date) &gt; ? And cast(JobCreateTime as date) &lt;= ?
+
+	UNION	--Get 'Rescinded' Cancellation base on JobUpdateTime, consider it as reinstatement in WCPOLS
+	
+	Select PolicyID, PolicyNumber, 'Reinstatement' as TransactionType, PolicyTransactionEffectiveDate, CreateTime 
+	From DimPolicy  
+	Where TransactionType in ('Cancellation') 
+		And PolicyStatus in ('Rescinded') 
+	  And cast(JobUpdateTime as date) &gt; ? And cast(JobUpdateTime as date) &lt;= ?
+
+	  UNION 
+
+	Select pp.PolicyID, pp.PolicyNumber ,'NonRenewal' as TransactionType, cp.PolicyTransactionEffectiveDate, cp.EventUpdateTime CreateTime 
+	From DimPolicy cp inner join DimPolicy pp on cp.PreviousPolicyNumber  = pp.PolicyNumber
+	Where cp.EventName = 'SendNonRenewalDocuments'
+	and cp.TransactionType = 'Renewal'
+	And pp.MostRecentModel = 1 	  
+	And (cast(cp.EventUpdateTime as date) &gt; ? And cast(cp.EventUpdateTime as date) &lt;= ?)
+
+	Union 
+
+	--creating dummy rienstatement for renewed policies for which alert is sent before 25 days
+	Select PolicyID, PolicyNumber, 'Dummy Reinstatement' as TransactionType, PolicyTransactionEffectiveDate ,CreateTime 
+	From DimPolicy  
+	Where TransactionType in ('Renewal') 
+	and BaseState ='MI'
+	And PolicyStatus in ('Bound') and eventname='SendNonRenewalDocuments'
+	And cast(JobCloseDate as date) &gt; ? And cast(JobCloseDate as date) &lt;= ?
+)
+
+
+,PreviousCancellationDate as 
+(
+	Select * From
+	(
+		Select qp.PolicyID, CancellationDate, Row_Number() over (partition by qp.PolicyID order by dp.PolicyTransactionEffectiveDate desc, dp.CreateTime desc) as rk
+		From QualifiedPol qp Left join DimPolicy dp 
+				on dp.PolicyNumber = qp.PolicyNumber 
+				And dp.TransactionType = 'Cancellation' 
+				And dp.PolicyStatus='Bound' 
+				And dp.PolicyTransactionEffectiveDate &lt;= qp.PolicyTransactionEffectiveDate 
+				And dp.CreateTime &lt; qp.CreateTime
+		Where qp.TransactionType = 'Reinstatement'
+	) qry
+Where rk=1
+)
+--Expiration Date for the case if both policynumber and previouspolicynumber are same
+,PrevoiusExpirationDate1 as(
+select Policynumber,effectivedate,expirationdate from (
+Select Policynumber,effectivedate,expirationdate,jobupdatetime,dense_rank() over (partition by policynumber order by jobupdatetime desc) rank2  from (
+select policynumber ,effectivedate,expirationdate,jobupdatetime ,dense_rank() over (partition by policynumber order by effectivedate desc) rank1  from(
+select distinct policynumber,effectivedate,expirationdate,JobUpdateTime from dimpolicy where policynumber is not null
+) m ) n where n.rank1=2 
+)  v where v.rank2=1
+) 
+
+--Expiration date for the case if policynumber&lt;&gt; prevoiuspolicynumber
+,PrevoiusExpirationDate2 as(
+Select Policynumber,effectivedate,expirationdate from (
+select policynumber ,effectivedate,expirationdate,JobUpdateTime, dense_rank() over (partition by policynumber order by JobUpdateTime desc) rank  from(
+select distinct policynumber,effectivedate,expirationdate,JobUpdateTime 
+from dimpolicy where policynumber in (select previouspolicynumber from dimpolicy where policynumber&lt;&gt;PreviousPolicyNumber) 
+) m where policynumber is not null) n where n.rank=1 
+) 
+
+
+Select  
+ dp.BaseState as State, 
+ dp.PolicyNumber,
+ dp.PolicyID
+,'99' as StateCode
+,'08' as RTC
+,Case qp.TransactionType 
+	When 'Cancellation' then '1'
+	When 'Reinstatement' then '2'
+	When 'NonRenewal' then '3'
+	When 'Dummy Reinstatement' then '2'
+	Else '0' end as RC_IDCode --CancelReinstateIDCode
+
+,Case When qp.TransactionType ='Reinstatement' And qp.PolicyTransactionEffectiveDate = dp.EffectiveDate then '1' 
+      When qp.TransactionType ='Reinstatement' And qp.PolicyTransactionEffectiveDate != dp.EffectiveDate then '2'
+	  When qp.TransactionType ='Dummy Reinstatement' then '3'
+ else '0' end as RT_Code -- ReinstateTypeCode
+
+,Left(isnull(PrimaryInsuredName,'') + Replicate(' ',90),90) AS PrimaryInsuredName
+ 
+,Left(Rtrim(ISNULL(AddressLine1,'') + ' ' + ISNULL(AddressLine2,'')) + ', ' + ISNULL(City,'') + ', ' + ISNULL(dp.State,'') + ', ' + ISNULL(PostalCode,'') + Replicate(' ',90),90) AddressLine1
+
+,right('000000'+ isnull(Replace(convert(date, IIF(qp.TransactionType ='NonRenewal', qp.CreateTime, IIF(qp.TransactionType ='Cancellation', dp.JobCreateTime, dp.JobCloseDate)),2),'-',''),''),6) as CancelProcessDate
+
+,format(Rank() over (partition by dp.PolicyNumber  order by  qp.PolicyTransactionEffectiveDate, qp.CreateTime),'00') as Trans_Sequence
+
+,Case When DP.STATE = 'MI' and qp.TransactionType &lt;&gt;'Dummy Reinstatement' then '00'
+     -- When DP.STATE = 'IN' And qp.TransactionType = 'Reinstatement' Then '01' 
+	  When ds.IsNCCI = 1  And qp.TransactionType = 'Reinstatement' Then '01' 
+	  when qp.TransactionType ='Dummy Reinstatement' then '01'
+	  Else '00' end as RR_Code	--Reason Reinstate Code
+
+,Case When qp.TransactionType='Reinstatement' And dp.TransactionType = 'Reinstatement' then right('000000'+isnull(Replace(convert(date,re.CancellationDate,2),'-',''),''),6) 
+      When qp.TransactionType='Reinstatement' And dp.TransactionType = 'Cancellation'  then right('000000'+isnull(Replace(convert(date,dp.PolicyTransactionEffectiveDate,2),'-',''),''),6) 
+	  when qp.TransactionType ='Dummy Reinstatement' then right('000000'+isnull(Replace(convert(date,coalesce(prev1.ExpirationDate,prev2.ExpirationDate),2),'-',''),''),6)
+	  Else Replicate('0',6) end as Corr_Cancel_Date 
+
+,Case qp.TransactionType 
+	When 'Cancellation' then right('000000'+isnull(Replace(convert(date,dp.CancellationDate,2),'-',''),''),6) 
+	When 'Reinstatement' then right('000000'+isnull(Replace(convert(date,dp.PolicyTransactionEffectiveDate,2),'-',''),''),6) 
+	When 'NonRenewal' then right('000000'+isnull(Replace(convert(date,dp.ExpirationDate,2),'-',''),''),6)
+	when 'Dummy Reinstatement' then right('000000'+isnull(Replace(convert(date,coalesce(prev1.ExpirationDate,prev2.ExpirationDate),2),'-',''),''),6)
+	Else Replicate('0',6) end as CR_EffectiveDate
+
+,IIF(qp.TransactionType ='Cancellation', upper(ltrim(rtrim(dp.CancelReasonName))),'') as CancelReasonName
+
+,IIF(qp.TransactionType ='Cancellation', dp.[RefundMethod],'0') as RefundMethod
+
+,Case When dp.CancellationSource ='insured' then 1
+      When dp.CancellationSource ='carrier' then 2
+	  Else 3 end as SourceCode
+,IIF(qp.TransactionType = 'NonRenewal',iif(dp.basestate='MI', '03','05') ,'00') CancelationCode
+
+From QualifiedPol qp
+join DimPolicy dp on qp.PolicyID = dp.PolicyID
+Left join PreviousCancellationDate re on re.PolicyID = qp.PolicyID
+Left Join PrevoiusExpirationDate1 prev1 On prev1.PolicyNumber=qp.PolicyNumber 
+Left Join PrevoiusExpirationDate2 prev2 On prev2.PolicyNumber=dp.PreviousPolicyNumber
+--05 OCT - VS - Added join on DimState to use IsNCCI column. This column is replacing all the NCCI States e.g. IN, VA, CT, IL etc.
+Left join DimState ds on dp.BaseState = ds.StateAbbr
+order by dp.policynumber</property>
+                    <property
+                      dataType="System.String"
+                      description="The variable that contains the SQL command to be executed."
+                      name="SqlCommandVariable"></property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Forces the use of the DefaultCodePage property value when describing character data."
+                      name="AlwaysUseDefaultCodePage">false</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the mode used to access the database."
+                      name="AccessMode"
+                      typeConverter="AccessMode">2</property>
+                    <property
+                      dataType="System.String"
+                      description="The mappings between the parameters in the SQL command and variables."
+                      name="ParameterMapping">"Parameter0:Input",{40FD3FA0-7078-427F-AEFB-B5BE77133537};"Parameter1:Input",{C33A3772-A381-48F4-96FD-B6844EA509D7};"Parameter2:Input",{40FD3FA0-7078-427F-AEFB-B5BE77133537};"Parameter3:Input",{C33A3772-A381-48F4-96FD-B6844EA509D7};"Parameter4:Input",{40FD3FA0-7078-427F-AEFB-B5BE77133537};"Parameter5:Input",{C33A3772-A381-48F4-96FD-B6844EA509D7};"Parameter6:Input",{40FD3FA0-7078-427F-AEFB-B5BE77133537};"Parameter7:Input",{C33A3772-A381-48F4-96FD-B6844EA509D7};"Parameter8:Input",{40FD3FA0-7078-427F-AEFB-B5BE77133537};"Parameter9:Input",{C33A3772-A381-48F4-96FD-B6844EA509D7};</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Body\Load CancelReinstate\Data input.Connections[OleDbConnection]"
+                      connectionManagerID="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[EnterpriseDataWarehouse]"
+                      description="The OLE DB runtime connection used to access the database."
+                      name="OleDbConnection" />
+                  </connections>
+                  <outputs>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output]"
+                      name="OLE DB Source Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          length="50"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[PolicyNumber]"
+                          name="PolicyNumber"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[StateCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[StateCode]"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[StateCode]"
+                          name="StateCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RTC]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[RTC]"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RTC]"
+                          name="RTC"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RC_IDCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[RC_IDCode]"
+                          length="1"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RC_IDCode]"
+                          name="RC_IDCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RT_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[RT_Code]"
+                          length="1"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RT_Code]"
+                          name="RT_Code"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[PrimaryInsuredName]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[PrimaryInsuredName]"
+                          length="255"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[PrimaryInsuredName]"
+                          name="PrimaryInsuredName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[AddressLine1]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[AddressLine1]"
+                          length="90"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[AddressLine1]"
+                          name="AddressLine1"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CancelProcessDate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[CancelProcessDate]"
+                          length="6"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CancelProcessDate]"
+                          name="CancelProcessDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[Trans_Sequence]"
+                          dataType="wstr"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[Trans_Sequence]"
+                          length="4000"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[Trans_Sequence]"
+                          name="Trans_Sequence"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RR_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[RR_Code]"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RR_Code]"
+                          name="RR_Code"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[Corr_Cancel_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[Corr_Cancel_Date]"
+                          length="6"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[Corr_Cancel_Date]"
+                          name="Corr_Cancel_Date"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CR_EffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[CR_EffectiveDate]"
+                          length="6"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CR_EffectiveDate]"
+                          name="CR_EffectiveDate"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CancelReasonName]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[CancelReasonName]"
+                          length="100"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CancelReasonName]"
+                          name="CancelReasonName"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RefundMethod]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[RefundMethod]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RefundMethod]"
+                          name="RefundMethod"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[SourceCode]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[SourceCode]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[SourceCode]"
+                          name="SourceCode"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[State]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[State]"
+                          name="State"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          dataType="i4"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[PolicyID]"
+                          name="PolicyID"
+                          truncationRowDisposition="FailComponent" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CancelationCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Conversion"
+                          errorRowDisposition="FailComponent"
+                          externalMetadataColumnId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[CancelationCode]"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CancelationCode]"
+                          name="CancelationCode"
+                          truncationRowDisposition="FailComponent" />
+                      </outputColumns>
+                      <externalMetadataColumns
+                        isUsed="True">
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          name="PolicyNumber" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[StateCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="StateCode" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[RTC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RTC" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[RC_IDCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="RC_IDCode" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[RT_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          name="RT_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[PrimaryInsuredName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="90"
+                          name="PrimaryInsuredName" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[AddressLine1]"
+                          codePage="1252"
+                          dataType="str"
+                          length="90"
+                          name="AddressLine1" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[CancelProcessDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="CancelProcessDate" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[Trans_Sequence]"
+                          dataType="wstr"
+                          length="4000"
+                          name="Trans_Sequence" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[RR_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="RR_Code" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[Corr_Cancel_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="Corr_Cancel_Date" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[CR_EffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          name="CR_EffectiveDate" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[CancelReasonName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          name="CancelReasonName" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[RefundMethod]"
+                          dataType="i4"
+                          name="RefundMethod" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[SourceCode]"
+                          dataType="i4"
+                          name="SourceCode" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="State" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[PolicyID]"
+                          dataType="i4"
+                          name="PolicyID" />
+                        <externalMetadataColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].ExternalColumns[CancelationCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          name="CancelationCode" />
+                      </externalMetadataColumns>
+                    </output>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output]"
+                      isErrorOut="true"
+                      name="OLE DB Source Error Output">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[State]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[State]"
+                          name="State" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[PolicyID]"
+                          name="PolicyID" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          codePage="1252"
+                          dataType="str"
+                          length="50"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[PolicyNumber]"
+                          name="PolicyNumber" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[StateCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[StateCode]"
+                          name="StateCode" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[RTC]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[RTC]"
+                          name="RTC" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[RC_IDCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[RC_IDCode]"
+                          name="RC_IDCode" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[RT_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="1"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[RT_Code]"
+                          name="RT_Code" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[PrimaryInsuredName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="90"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[PrimaryInsuredName]"
+                          name="PrimaryInsuredName" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[AddressLine1]"
+                          codePage="1252"
+                          dataType="str"
+                          length="90"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[AddressLine1]"
+                          name="AddressLine1" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[CancelProcessDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[CancelProcessDate]"
+                          name="CancelProcessDate" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[Trans_Sequence]"
+                          dataType="wstr"
+                          length="4000"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[Trans_Sequence]"
+                          name="Trans_Sequence" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[RR_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[RR_Code]"
+                          name="RR_Code" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[Corr_Cancel_Date]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[Corr_Cancel_Date]"
+                          name="Corr_Cancel_Date" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[CR_EffectiveDate]"
+                          codePage="1252"
+                          dataType="str"
+                          length="6"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[CR_EffectiveDate]"
+                          name="CR_EffectiveDate" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[CancelReasonName]"
+                          codePage="1252"
+                          dataType="str"
+                          length="100"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[CancelReasonName]"
+                          name="CancelReasonName" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[CancelationCode]"
+                          codePage="1252"
+                          dataType="str"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[CancelationCode]"
+                          name="CancelationCode" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[RefundMethod]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[RefundMethod]"
+                          name="RefundMethod" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[SourceCode]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Error Output].Columns[SourceCode]"
+                          name="SourceCode" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Body\Load CancelReinstate\Derived Column"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Derived Column"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Body\Load CancelReinstate\Derived Column.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Derived Column.Inputs[Derived Column Input].Columns[State]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="State"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[State]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Derived Column.Inputs[Derived Column Input].Columns[Code_Derived]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="Code"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output].Columns[Code]"
+                          name="Code_Derived"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(#{Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[State]} == "MI" ? #{Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output].Columns[MI_Code]} : #{Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output].Columns[Code]})</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(State == "MI" ? MI_Code : Code_Derived)</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Derived Column.Inputs[Derived Column Input].Columns[MI_Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="MI_Code"
+                          lineageId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output].Columns[MI_Code]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Derived Column.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Derived Column.Inputs[Derived Column Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Derived Column.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Derived Column.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Derived Column.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Body\Load CancelReinstate\Format"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Format"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input].Columns[PolicyNumber]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="50"
+                          cachedName="PolicyNumber"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[PolicyNumber]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input].Columns[PrimaryInsuredName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="255"
+                          cachedName="PrimaryInsuredName"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[PrimaryInsuredName]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input].Columns[State]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="State"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[State]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input].Columns[Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="Code"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output].Columns[Code]"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">#{Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RC_IDCode]} == "3" ? #{Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CancelationCode]} : [REPLACENULL](#{Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output].Columns[Code]},"00")</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">RC_IDCode == "3" ? CancelationCode : REPLACENULL(Code_Derived,"00")</property>
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input].Columns[RefundMethod]"
+                          cachedDataType="i4"
+                          cachedName="RefundMethod"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RefundMethod]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input].Columns[Trans_Sequence]"
+                          cachedDataType="wstr"
+                          cachedLength="4000"
+                          cachedName="Trans_Sequence"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[Trans_Sequence]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input].Columns[RC_IDCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="RC_IDCode"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RC_IDCode]" />
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input].Columns[CancelationCode]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="CancelationCode"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CancelationCode]" />
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Cancellation Type Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="1"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Cancellation Type Code]"
+                          name="Cancellation Type Code"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,1,1252)#{Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[RefundMethod]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,1,1252)RefundMethod</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Policy Number]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="18"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Policy Number]"
+                          name="Policy Number"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,18,1252)#{Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[PolicyNumber]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,18,1252)PolicyNumber</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Name of Inusred]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="90"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Name of Inusred]"
+                          name="Name of Inusred"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,90,1252)#{Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[PrimaryInsuredName]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,90,1252)PrimaryInsuredName</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Policy State]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Policy State]"
+                          name="Policy State"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,2,1252)#{Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[State]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,2,1252)State</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[C/R Trans Sequence]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[C/R Trans Sequence]"
+                          name="C/R Trans Sequence"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">(DT_STR,2,1252)#{Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[Trans_Sequence]}</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">(DT_STR,2,1252)Trans_Sequence</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Body\Load CancelReinstate\Insert date"
+                  componentClassID="Microsoft.DerivedColumn"
+                  contactInfo="Derived Column;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;0"
+                  description="Creates new column values by applying expressions to transformation input columns. Create new columns or overwrite existing ones. For example, concatenate the values from the 'first name' and 'last name' column to make a 'full name' column."
+                  name="Insert date"
+                  usesDispositions="true">
+                  <inputs>
+                    <input
+                      refId="Package\Body\Load CancelReinstate\Insert date.Inputs[Derived Column Input]"
+                      description="Input to the Derived Column Transformation"
+                      name="Derived Column Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Insert date.Inputs[Derived Column Input].Columns[Cancellation Type Code]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="1"
+                          cachedName="Cancellation Type Code"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Cancellation Type Code]"
+                          truncationRowDisposition="FailComponent"
+                          usageType="readWrite">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[REPLACENULL](#{Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output].Columns[Cancellation Type Code]},"0")</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">REPLACENULL([Cancellation Type Code],"0")</property>
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Insert date.Outputs[Derived Column Output]"
+                      description="Default Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      name="Derived Column Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Insert date.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Insert date.Outputs[Derived Column Output].Columns[Insert date]"
+                          dataType="dbTimeStamp"
+                          errorOrTruncationOperation="Computation"
+                          errorRowDisposition="FailComponent"
+                          lineageId="Package\Body\Load CancelReinstate\Insert date.Outputs[Derived Column Output].Columns[Insert date]"
+                          name="Insert date"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Expression"
+                              name="Expression">[GETDATE]()</property>
+                            <property
+                              containsID="true"
+                              dataType="System.String"
+                              description="Derived Column Friendly Expression"
+                              expressionType="Notify"
+                              name="FriendlyExpression">GETDATE()</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Insert date.Outputs[Derived Column Error Output]"
+                      description="Error Output of the Derived Column Transformation"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Derived Column Error Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Insert date.Inputs[Derived Column Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Insert date.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Insert date.Outputs[Derived Column Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Insert date.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Insert date.Outputs[Derived Column Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Body\Load CancelReinstate\Lookup CancelReson"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup CancelReson"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">SELECT 
+      [Method]
+      ,upper(ltrim(rtrim([Reason]))) as [Resaon]
+      ,[Code]
+      ,1 as source,
+	  MI_Code 
+  FROM  [lkp].[lkp_cancel] where [In]='1'
+union all
+
+SELECT 
+      [Method]
+      ,upper(ltrim(rtrim([Reason]))) as [Reason]
+      ,[Code]
+      ,2 as source
+	  ,MI_Code 
+  FROM  [lkp].[lkp_cancel] where [Ca]='1'</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (SELECT 
+      [Method]
+      ,upper(ltrim(rtrim([Reason]))) as [Resaon]
+      ,[Code]
+      ,1 as source,
+	  MI_Code 
+  FROM  [lkp].[lkp_cancel] where [In]='1'
+union all
+
+SELECT 
+      [Method]
+      ,upper(ltrim(rtrim([Reason]))) as [Reason]
+      ,[Code]
+      ,2 as source
+	  ,MI_Code 
+  FROM  [lkp].[lkp_cancel] where [Ca]='1') [refTable]
+where [refTable].[Resaon] = ? and [refTable].[source] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="Method" dataType="DT_STR" length="20" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Resaon" dataType="DT_STR" length="80" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="Code" dataType="DT_STR" length="2" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="source" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="MI_Code" dataType="DT_STR" length="2" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CancelReasonName]};#{Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[SourceCode]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Body\Load CancelReinstate\Lookup CancelReson.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Body\Load CancelReinstate\Lookup CancelReson.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Lookup CancelReson.Inputs[Lookup Input].Columns[SourceCode]"
+                          cachedDataType="i4"
+                          cachedName="SourceCode"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[SourceCode]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">source</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Lookup CancelReson.Inputs[Lookup Input].Columns[CancelReasonName]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="100"
+                          cachedName="CancelReasonName"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[CancelReasonName]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">Resaon</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Lookup CancelReson.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output].Columns[Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output].Columns[Code]"
+                          name="Code"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">Code</property>
+                          </properties>
+                        </outputColumn>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output].Columns[MI_Code]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="2"
+                          lineageId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output].Columns[MI_Code]"
+                          name="MI_Code"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">MI_Code</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Lookup CancelReson.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Lookup CancelReson.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+                <component
+                  refId="Package\Body\Load CancelReinstate\Lookup STATE"
+                  componentClassID="Microsoft.Lookup"
+                  contactInfo="Lookup;Microsoft Corporation; Microsoft SQL Server; (C) Microsoft Corporation; All Rights Reserved; http://www.microsoft.com/sql/support;6"
+                  description="Joins additional columns to the data flow by looking up values in a table. For example, join to the 'employee id' column the employees table to get 'hire date' and 'employee name'. We recommend this transformation when the lookup table can fit into memory."
+                  name="Lookup STATE"
+                  usesDispositions="true"
+                  version="6">
+                  <properties>
+                    <property
+                      dataType="System.String"
+                      description="Specifies the SQL statement that generates the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommand"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from  lkp.lkp_state  WHERE STATECODE !='01'</property>
+                    <property
+                      dataType="System.String"
+                      description="Specifies a SQL statement that uses parameters to generate the lookup table."
+                      expressionType="Notify"
+                      name="SqlCommandParam"
+                      UITypeEditor="Microsoft.DataTransformationServices.Controls.ModalMultilineStringEditor, Microsoft.DataTransformationServices.Controls, Version=13.0.0.0, Culture=neutral, PublicKeyToken=89845dcd8080cc91">select * from (select * from  lkp.lkp_state  WHERE STATECODE !='01') [refTable]
+where [refTable].[StateAbbr] = ?</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the type of connection used to access the reference dataset."
+                      name="ConnectionType"
+                      typeConverter="LookupConnectionType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the cache type of the lookup table."
+                      name="CacheType"
+                      typeConverter="CacheType">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies how the Lookup transformation handles rows without matching entries in the reference data set."
+                      name="NoMatchBehavior"
+                      typeConverter="LookupNoMatchBehavior">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the percentage of the cache that is allocated for rows with no matching entries in the reference dataset."
+                      name="NoMatchCachePercentage">0</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Maximum Memory Usage for Reference Cache on a 32 bit platform."
+                      name="MaxMemoryUsage">25</property>
+                    <property
+                      dataType="System.Int64"
+                      description="Maximum Memory Usage for Reference Cache on a 64 bit platform."
+                      name="MaxMemoryUsage64">25</property>
+                    <property
+                      dataType="System.String"
+                      description="Indicates whether to reference metadata in an XML format."
+                      name="ReferenceMetadataXml">&lt;referenceMetadata&gt;&lt;referenceColumns&gt;&lt;referenceColumn name="id" dataType="DT_I4" length="0" precision="0" scale="0" codePage="0"/&gt;&lt;referenceColumn name="Statecode" dataType="DT_STR" length="5" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="StateAbbr" dataType="DT_STR" length="10" precision="0" scale="0" codePage="1252"/&gt;&lt;referenceColumn name="State" dataType="DT_STR" length="50" precision="0" scale="0" codePage="1252"/&gt;&lt;/referenceColumns&gt;&lt;/referenceMetadata&gt;</property>
+                    <property
+                      containsID="true"
+                      dataType="System.String"
+                      description="Specifies the list of lineage identifiers that map to the parameters that the SQL statement in the SQLCommand property uses. Entries in the list are separated by semicolons."
+                      name="ParameterMap">#{Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[State]};</property>
+                    <property
+                      dataType="System.Int32"
+                      description="Specifies the column code page to use when code page information is unavailable from the data source."
+                      name="DefaultCodePage">1252</property>
+                    <property
+                      dataType="System.Boolean"
+                      description="Determines whether duplicate keys in the reference data should be treated as errors when full cache mode is used."
+                      name="TreatDuplicateKeysAsError">false</property>
+                  </properties>
+                  <connections>
+                    <connection
+                      refId="Package\Body\Load CancelReinstate\Lookup STATE.Connections[OleDbConnection]"
+                      connectionManagerID="{29D53690-84E1-4071-9FE2-C819ADEDBDE9}:external"
+                      connectionManagerRefId="Project.ConnectionManagers[WCPOLSStaging]"
+                      description="Connection manager used to access lookup data."
+                      name="OleDbConnection" />
+                  </connections>
+                  <inputs>
+                    <input
+                      refId="Package\Body\Load CancelReinstate\Lookup STATE.Inputs[Lookup Input]"
+                      name="Lookup Input">
+                      <inputColumns>
+                        <inputColumn
+                          refId="Package\Body\Load CancelReinstate\Lookup STATE.Inputs[Lookup Input].Columns[State]"
+                          cachedCodepage="1252"
+                          cachedDataType="str"
+                          cachedLength="2"
+                          cachedName="State"
+                          lineageId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output].Columns[State]">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table that a column joins."
+                              name="JoinToReferenceColumn">StateAbbr</property>
+                            <property
+                              dataType="System.Null"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn" />
+                          </properties>
+                        </inputColumn>
+                      </inputColumns>
+                      <externalMetadataColumns />
+                    </input>
+                  </inputs>
+                  <outputs>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Lookup STATE.Outputs[Lookup Match Output]"
+                      errorOrTruncationOperation="Lookup"
+                      errorRowDisposition="IgnoreFailure"
+                      exclusionGroup="1"
+                      name="Lookup Match Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Lookup STATE.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Lookup STATE.Outputs[Lookup Match Output].Columns[PolicyStateCode]"
+                          codePage="1252"
+                          dataType="str"
+                          errorOrTruncationOperation="Copy Column"
+                          length="5"
+                          lineageId="Package\Body\Load CancelReinstate\Lookup STATE.Outputs[Lookup Match Output].Columns[PolicyStateCode]"
+                          name="PolicyStateCode"
+                          truncationRowDisposition="FailComponent">
+                          <properties>
+                            <property
+                              dataType="System.String"
+                              description="Specifies the column in the reference table from which a column is copied."
+                              name="CopyFromReferenceColumn">Statecode</property>
+                          </properties>
+                        </outputColumn>
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Lookup STATE.Outputs[Lookup No Match Output]"
+                      description="The Lookup output that handles rows with no matching entries in the reference dataset. Use this output when the NoMatchBehavior property is set to &quot;Send rows with no matching entries to the no match output.&quot;"
+                      exclusionGroup="1"
+                      name="Lookup No Match Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Lookup STATE.Inputs[Lookup Input]">
+                      <externalMetadataColumns />
+                    </output>
+                    <output
+                      refId="Package\Body\Load CancelReinstate\Lookup STATE.Outputs[Lookup Error Output]"
+                      exclusionGroup="1"
+                      isErrorOut="true"
+                      name="Lookup Error Output"
+                      synchronousInputId="Package\Body\Load CancelReinstate\Lookup STATE.Inputs[Lookup Input]">
+                      <outputColumns>
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Lookup STATE.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Lookup STATE.Outputs[Lookup Error Output].Columns[ErrorCode]"
+                          name="ErrorCode"
+                          specialFlags="1" />
+                        <outputColumn
+                          refId="Package\Body\Load CancelReinstate\Lookup STATE.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          dataType="i4"
+                          lineageId="Package\Body\Load CancelReinstate\Lookup STATE.Outputs[Lookup Error Output].Columns[ErrorColumn]"
+                          name="ErrorColumn"
+                          specialFlags="2" />
+                      </outputColumns>
+                      <externalMetadataColumns />
+                    </output>
+                  </outputs>
+                </component>
+              </components>
+              <paths>
+                <path
+                  refId="Package\Body\Load CancelReinstate.Paths[Derived Column Output]"
+                  endId="Package\Body\Load CancelReinstate\Insert date.Inputs[Derived Column Input]"
+                  name="Derived Column Output"
+                  startId="Package\Body\Load CancelReinstate\Format.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Body\Load CancelReinstate.Paths[Derived Column Output1]"
+                  endId="Package\Body\Load CancelReinstate\CR Destination.Inputs[OLE DB Destination Input]"
+                  name="Derived Column Output"
+                  startId="Package\Body\Load CancelReinstate\Insert date.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Body\Load CancelReinstate.Paths[Derived Column Output2]"
+                  endId="Package\Body\Load CancelReinstate\Format.Inputs[Derived Column Input]"
+                  name="Derived Column Output"
+                  startId="Package\Body\Load CancelReinstate\Derived Column.Outputs[Derived Column Output]" />
+                <path
+                  refId="Package\Body\Load CancelReinstate.Paths[Lookup Match Output]"
+                  endId="Package\Body\Load CancelReinstate\Lookup STATE.Inputs[Lookup Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Body\Load CancelReinstate\Lookup CancelReson.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Body\Load CancelReinstate.Paths[Lookup Match Output1]"
+                  endId="Package\Body\Load CancelReinstate\Derived Column.Inputs[Derived Column Input]"
+                  name="Lookup Match Output"
+                  startId="Package\Body\Load CancelReinstate\Lookup STATE.Outputs[Lookup Match Output]" />
+                <path
+                  refId="Package\Body\Load CancelReinstate.Paths[OLE DB Source Output]"
+                  endId="Package\Body\Load CancelReinstate\Lookup CancelReson.Inputs[Lookup Input]"
+                  name="OLE DB Source Output"
+                  startId="Package\Body\Load CancelReinstate\Data input.Outputs[OLE DB Source Output]" />
+              </paths>
+            </pipeline>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Process Completed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C08EB9F5-B453-4A29-8A1B-E9446383AE55}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Completed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Update dmproc.Audit&#xA;Set Status = 'Completed'&#xA;  , CompletedInd = 1&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\Process Failed"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{424ACEE0-5EA0-44CE-89E9-005D89E09F1F}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="Process Failed"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2016; © 2015 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="1">
+      <DTS:Variables />
+      <DTS:EventHandlers>
+        <DTS:EventHandler
+          DTS:refId="Package\Process Failed.EventHandlers[OnError]"
+          DTS:CreationName="OnError"
+          DTS:DTSID="{B64BDF1C-DB90-42B7-B470-9243B98EAFC9}"
+          DTS:EventID="0"
+          DTS:EventName="OnError"
+          DTS:LocaleID="-1">
+          <DTS:Variables>
+            <DTS:Variable
+              DTS:CreationName=""
+              DTS:Description="The propagate property of the event"
+              DTS:DTSID="{86322B6C-0815-4FF3-9BEC-20C9239F623B}"
+              DTS:IncludeInDebugDump="6789"
+              DTS:Namespace="System"
+              DTS:ObjectName="Propagate">
+              <DTS:VariableValue
+                DTS:DataType="11">-1</DTS:VariableValue>
+            </DTS:Variable>
+          </DTS:Variables>
+          <DTS:Executables />
+        </DTS:EventHandler>
+      </DTS:EventHandlers>
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="&#xA;Update dmproc.Audit&#xA;Set Status = 'Failed'&#xA;  , CompletedInd = 0&#xA;  , ConcludeDtm = Getdate() &#xA;Where ControlID = (Select ControlID From dmproc.AuditReference Where ETLPackage = ?)&#xA;and BatchID = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+    <DTS:Executable
+      DTS:refId="Package\SQL- Initiate Process"
+      DTS:CreationName="Microsoft.ExecuteSQLTask"
+      DTS:Description="Execute SQL Task"
+      DTS:DTSID="{C35B17C3-534D-4A40-8BB8-E0EB493D6ADD}"
+      DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+      DTS:LocaleID="-1"
+      DTS:ObjectName="SQL- Initiate Process"
+      DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1"
+      DTS:ThreadHint="0">
+      <DTS:Variables />
+      <DTS:LoggingOptions
+        DTS:FilterKind="0" />
+      <DTS:ObjectData>
+        <SQLTask:SqlTaskData
+          SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+          SQLTask:SqlStatementSource="Insert into dmproc.Audit  (ControlID,BatchID,Status,InitiateDtm)&#xA;Select ControlID,?,'Started',Getdate()&#xA;From dmproc.AuditReference&#xA;Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="0"
+            SQLTask:DtsVariableName="User::BatchID"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="3"
+            SQLTask:ParameterSize="-1" />
+          <SQLTask:ParameterBinding
+            SQLTask:ParameterName="1"
+            SQLTask:DtsVariableName="System::PackageName"
+            SQLTask:ParameterDirection="Input"
+            SQLTask:DataType="129"
+            SQLTask:ParameterSize="-1" />
+        </SQLTask:SqlTaskData>
+      </DTS:ObjectData>
+    </DTS:Executable>
+  </DTS:Executables>
+  <DTS:PrecedenceConstraints>
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint]"
+      DTS:CreationName=""
+      DTS:DTSID="{5A510541-6A35-495B-B258-A76CFA3ACD66}"
+      DTS:From="Package\SQL- Initiate Process"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint"
+      DTS:To="Package\Body" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 1]"
+      DTS:CreationName=""
+      DTS:DTSID="{C316502D-F157-4F00-9CEF-905AAF9FDD61}"
+      DTS:From="Package\Body"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 1"
+      DTS:To="Package\Process Completed" />
+    <DTS:PrecedenceConstraint
+      DTS:refId="Package.PrecedenceConstraints[Constraint 2]"
+      DTS:CreationName=""
+      DTS:DTSID="{99738F87-29F1-4EA5-A24E-5963355D44DC}"
+      DTS:From="Package\Body"
+      DTS:LogicalAnd="True"
+      DTS:ObjectName="Constraint 2"
+      DTS:To="Package\Process Failed"
+      DTS:Value="1" />
+  </DTS:PrecedenceConstraints>
+  <DTS:EventHandlers>
+    <DTS:EventHandler
+      DTS:refId="Package.EventHandlers[OnError]"
+      DTS:CreationName="OnError"
+      DTS:DTSID="{1A011BB0-A007-404F-BA38-8E86FD5992E1}"
+      DTS:EventID="0"
+      DTS:EventName="OnError"
+      DTS:LocaleID="-1">
+      <DTS:Variables>
+        <DTS:Variable
+          DTS:CreationName=""
+          DTS:Description="The propagate property of the event"
+          DTS:DTSID="{2799DF91-57C6-4667-82E2-123F30D5D400}"
+          DTS:IncludeInDebugDump="6789"
+          DTS:Namespace="System"
+          DTS:ObjectName="Propagate">
+          <DTS:VariableValue
+            DTS:DataType="11">-1</DTS:VariableValue>
+        </DTS:Variable>
+      </DTS:Variables>
+      <DTS:Executables>
+        <DTS:Executable
+          DTS:refId="Package.EventHandlers[OnError]\SQL - Error Log"
+          DTS:CreationName="Microsoft.ExecuteSQLTask"
+          DTS:Description="Execute SQL Task"
+          DTS:DTSID="{B4E45FFE-4D4D-4438-BA69-52361F002D32}"
+          DTS:ExecutableType="Microsoft.ExecuteSQLTask"
+          DTS:LocaleID="-1"
+          DTS:ObjectName="SQL - Error Log"
+          DTS:TaskContact="Execute SQL Task; Microsoft Corporation; SQL Server 2014; © 2014 Microsoft Corporation; All Rights Reserved;http://www.microsoft.com/sql/support/default.asp;1">
+          <DTS:Variables />
+          <DTS:ObjectData>
+            <SQLTask:SqlTaskData
+              SQLTask:Connection="{7B8006BA-BC13-4127-A2D4-9FDD84393EC6}"
+              SQLTask:SqlStatementSource="&#xA;Insert into [dmproc].[ErrorLog] (ControlID,BatchID,error_type_cd,error_number,error_message)&#xA;Select ControlID &#xA;     , ?&#xA;     , 'E'&#xA;     , ?&#xA;     , ?&#xA;From dmproc.AuditReference Where ETLPackage = ?" xmlns:SQLTask="www.microsoft.com/sqlserver/dts/tasks/sqltask">
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="0"
+                SQLTask:DtsVariableName="User::BatchID"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="1"
+                SQLTask:DtsVariableName="System::ErrorCode"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="3"
+                SQLTask:ParameterSize="-1" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="2"
+                SQLTask:DtsVariableName="System::ErrorDescription"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+              <SQLTask:ParameterBinding
+                SQLTask:ParameterName="3"
+                SQLTask:DtsVariableName="System::PackageName"
+                SQLTask:ParameterDirection="Input"
+                SQLTask:DataType="129"
+                SQLTask:ParameterSize="2000" />
+            </SQLTask:SqlTaskData>
+          </DTS:ObjectData>
+        </DTS:Executable>
+      </DTS:Executables>
+    </DTS:EventHandler>
+  </DTS:EventHandlers>
+  <DTS:DesignTimeProperties><![CDATA[<?xml version="1.0"?>
+<!--This CDATA section contains the layout information of the package. The section includes information such as (x,y) coordinates, width, and height.-->
+<!--If you manually edit this section and make a mistake, you can delete it. -->
+<!--The package will still be able to load normally but the previous layout information will be lost and the designer will automatically re-arrange the elements on the design surface.-->
+<Objects
+  Version="sql12">
+  <!--Each node below will contain properties that do not affect runtime behavior.-->
+  <Package
+    design-time-name="Package">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="8" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="180,42"
+          Id="Package\Body\Load CancelReinstate"
+          TopLeft="18,23.5" />
+        <ContainerLayout
+          HeaderHeight="43"
+          IsExpanded="True"
+          PanelSize="222,121"
+          Size="222,164"
+          Id="Package\Body"
+          TopLeft="223,140" />
+        <NodeLayout
+          Size="168,42"
+          Id="Package\Process Completed"
+          TopLeft="142,359" />
+        <NodeLayout
+          Size="145,42"
+          Id="Package\Process Failed"
+          TopLeft="407,355" />
+        <NodeLayout
+          Size="177,42"
+          Id="Package\SQL- Initiate Process"
+          TopLeft="240,44" />
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint]"
+          TopLeft="331.25,86">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,54"
+              Start="0,0"
+              End="0,46.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,46.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 1]"
+          TopLeft="298.333333333333,304">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="-72.3333333333333,55"
+              Start="0,0"
+              End="-72.3333333333333,47.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,18.2361359570662" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,18.2361359570662"
+                    Point2="0,22.2361359570662"
+                    Point3="-4,22.2361359570662" />
+                  <mssgle:LineSegment
+                    End="-68.3333333333333,22.2361359570662" />
+                  <mssgle:CubicBezierSegment
+                    Point1="-68.3333333333333,22.2361359570662"
+                    Point2="-72.3333333333333,22.2361359570662"
+                    Point3="-72.3333333333333,26.2361359570662" />
+                  <mssgle:LineSegment
+                    End="-72.3333333333333,47.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package.PrecedenceConstraints[Constraint 2]"
+          TopLeft="369.666666666667,304">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="109.833333333333,51"
+              Start="0,0"
+              End="109.833333333333,43.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.6189624329159" />
+                  <mssgle:CubicBezierSegment
+                    Point1="0,16.6189624329159"
+                    Point2="0,20.6189624329159"
+                    Point3="4,20.6189624329159" />
+                  <mssgle:LineSegment
+                    End="105.833333333333,20.6189624329159" />
+                  <mssgle:CubicBezierSegment
+                    Point1="105.833333333333,20.6189624329159"
+                    Point2="109.833333333333,20.6189624329159"
+                    Point3="109.833333333333,24.6189624329159" />
+                  <mssgle:LineSegment
+                    End="109.833333333333,43.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="39.6753190104167,25.6189624329159,30.4826953125,9.7490234375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </Package>
+  <DtsEventHandler
+    design-time-name="Package.EventHandlers[OnError]">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="4" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph">
+        <NodeLayout
+          Size="176,42"
+          Id="Package.EventHandlers[OnError]\SQL - Error Log"
+          TopLeft="437,102" />
+      </GraphLayout>
+    </LayoutInfo>
+  </DtsEventHandler>
+  <TaskHost
+    design-time-name="Package\Body\Load CancelReinstate">
+    <LayoutInfo>
+      <GraphLayout
+        Capacity="16" xmlns="clr-namespace:Microsoft.SqlServer.IntegrationServices.Designer.Model.Serialization;assembly=Microsoft.SqlServer.IntegrationServices.Graph" xmlns:mssgle="clr-namespace:Microsoft.SqlServer.Graph.LayoutEngine;assembly=Microsoft.SqlServer.Graph" xmlns:assembly="http://schemas.microsoft.com/winfx/2006/xaml" xmlns:mssgm="clr-namespace:Microsoft.SqlServer.Graph.Model;assembly=Microsoft.SqlServer.Graph">
+        <NodeLayout
+          Size="176,43"
+          Id="Package\Body\Load CancelReinstate\Insert date"
+          TopLeft="362.750000093132,425.583331919213" />
+        <NodeLayout
+          Size="176,43"
+          Id="Package\Body\Load CancelReinstate\Lookup STATE"
+          TopLeft="365.750000093132,185.5" />
+        <NodeLayout
+          Size="176,43"
+          Id="Package\Body\Load CancelReinstate\Lookup CancelReson"
+          TopLeft="360.750000093132,111.5" />
+        <NodeLayout
+          Size="176,43"
+          Id="Package\Body\Load CancelReinstate\Derived Column"
+          TopLeft="362.750000093132,267.083336103459" />
+        <NodeLayout
+          Size="176,43"
+          Id="Package\Body\Load CancelReinstate\Data input"
+          TopLeft="362.750000093132,31.5" />
+        <NodeLayout
+          Size="176,43"
+          Id="Package\Body\Load CancelReinstate\CR Destination"
+          TopLeft="362.750000093132,492.5" />
+        <NodeLayout
+          Size="176,43"
+          Id="Package\Body\Load CancelReinstate\Format"
+          TopLeft="361.750000093132,341.416665523748" />
+        <EdgeLayout
+          Id="Package\Body\Load CancelReinstate.Paths[Lookup Match Output]"
+          TopLeft="451.250000093132,154.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31"
+              Start="0,0"
+              End="0,23.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,5.9453125,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Body\Load CancelReinstate.Paths[Derived Column Output2]"
+          TopLeft="450.250000093132,310.083336103459">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,31.333329420289"
+              Start="0,0"
+              End="0,23.833329420289">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,23.833329420289" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Body\Load CancelReinstate.Paths[Derived Column Output1]"
+          TopLeft="450.750000093132,468.583331919213">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,23.916668080787"
+              Start="0,0"
+              End="0,16.416668080787">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,16.416668080787" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Body\Load CancelReinstate.Paths[Derived Column Output]"
+          TopLeft="450.250000093132,384.416665523748">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,41.166666395465"
+              Start="0,0"
+              End="0,33.666666395465">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,33.666666395465" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Body\Load CancelReinstate.Paths[OLE DB Source Output]"
+          TopLeft="449.750000093132,74.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,37"
+              Start="0,0"
+              End="0,29.5">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,29.5" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <EdgeLabelCollection />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+        <EdgeLayout
+          Id="Package\Body\Load CancelReinstate.Paths[Lookup Match Output1]"
+          TopLeft="452.250000093132,228.5">
+          <EdgeLayout.Curve>
+            <mssgle:Curve
+              StartConnector="{assembly:Null}"
+              EndConnector="0,38.583336103459"
+              Start="0,0"
+              End="0,31.083336103459">
+              <mssgle:Curve.Segments>
+                <mssgle:SegmentCollection
+                  Capacity="5">
+                  <mssgle:LineSegment
+                    End="0,31.083336103459" />
+                </mssgle:SegmentCollection>
+              </mssgle:Curve.Segments>
+            </mssgle:Curve>
+          </EdgeLayout.Curve>
+          <EdgeLayout.Labels>
+            <mssgm:EdgeLabel
+              BoundingBox="-48.19138671875,9.73698055172949,96.3827734375,11.609375"
+              RelativePosition="Any" />
+          </EdgeLayout.Labels>
+        </EdgeLayout>
+      </GraphLayout>
+    </LayoutInfo>
+  </TaskHost>
+  <PipelineComponentMetadata
+    design-time-name="Package\Body\Load CancelReinstate\Lookup STATE">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:boolean">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:int">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Body\Load CancelReinstate\Lookup CancelReson">
+    <Properties>
+      <Property>
+        <Name>OverwriteParamsSQLProp</Name>
+        <Value
+          type="q2:string">false</Value>
+      </Property>
+      <Property>
+        <Name>UsedTableName</Name>
+        <Value
+          type="q3:string"></Value>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q4:string">0</Value>
+      </Property>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Body\Load CancelReinstate\Data input">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+  <PipelineComponentMetadata
+    design-time-name="Package\Body\Load CancelReinstate\CR Destination">
+    <Properties>
+      <Property>
+        <Name>DataSourceViewID</Name>
+      </Property>
+      <Property>
+        <Name>TableInfoObjectType</Name>
+        <Value
+          type="q2:string">Table</Value>
+      </Property>
+    </Properties>
+  </PipelineComponentMetadata>
+</Objects>]]></DTS:DesignTimeProperties>
+</DTS:Executable>
